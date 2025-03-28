@@ -1,3 +1,3 @@
-export * from './Home'
-export * from './Game'
-export * from './Resource'
+export { default as Home } from './Home'
+export { default as Game } from './Game'
+export { default as Resource } from './Resource'
