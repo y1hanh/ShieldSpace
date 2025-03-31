@@ -4,6 +4,8 @@ import GamePage from "./page/GamePage";
 import AnalyticsPage from "./page/AnalyticsPage";
 import ResourcePage from "./page/ResourcePage";
 import CommunityPage from "./page/CommunityPage";
+import Register from "./page/Register";
+import Login from "./page/Login";
 import App from "./App";
 
 export const router = createBrowserRouter([
@@ -30,17 +32,26 @@ export const router = createBrowserRouter([
       {
         path: "community",
         Component: CommunityPage,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
+      {
+        path: "login",
+        Component: Login,
       }
     ]
   },
 ]);
 
-type routesArry = {
+type routesArray = {
   path: string;
   name: string;
+  children?: routesArray[];
 }
 
-export const routes: routesArry[] = [
+export const routes: routesArray[] = [
   {
     path: "/",
     name: "Dashboard",
@@ -60,5 +71,19 @@ export const routes: routesArry[] = [
   {
     path: "/community",
     name: "Community",
+  },
+  {
+    path: "#",
+    name: "Account",
+    children: [
+      {
+        path: "/login",
+        name: "Login",
+      },
+      {
+        path: "/register",
+        name: "Register",
+      }
+    ]
   }
 ]
