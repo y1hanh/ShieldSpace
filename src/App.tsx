@@ -3,6 +3,7 @@ import './App.css'
 import { Navbar } from './nav/Navbar'
 import { Home, Game, Resource } from './components/pages'
 
+
 function App() {
 
   return (
