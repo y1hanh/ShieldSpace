@@ -152,66 +152,90 @@ export default function Nav() {
             </Button>
           ))}
           
-          <Button
-            onClick={handleAccountMenu}
-            startIcon={<AccountCircle />}
-            sx={{ color: '#FF9966' }}
-          >
-            Account
-          </Button>
-          <Menu
-            anchorEl={accountAnchor}
-            open={Boolean(accountAnchor)}
-            onClose={handleAccountClose}
-            PaperProps={{
-              sx: {
-                mt: 1,
-                minWidth: 150,
-                borderRadius: '1rem',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-              }
-            }}
-          >
-            {isLoggedIn ? (
-              <MenuItem 
-                onClick={handleLogoutClick}
-                sx={{
-                  '&:hover': {
-                    backgroundColor: '#f5f5f5'
+          {isLoggedIn ? (
+            <>
+              <IconButton
+                onClick={handleAccountMenu}
+                sx={{ color: '#FF9966' }}
+              >
+                <AccountCircle sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Menu
+                anchorEl={accountAnchor}
+                open={Boolean(accountAnchor)}
+                onClose={handleAccountClose}
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    minWidth: 150,
+                    borderRadius: '1rem',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
                   }
                 }}
               >
-                <ListItemText 
-                  primary="Logout" 
-                  primaryTypographyProps={{ 
-                    sx: { 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: 1,
-                      color: '#FF9966'
-                    } 
-                  }}
-                />
-                <LogoutIcon sx={{ ml: 1, color: '#FF9966' }} />
-              </MenuItem>
-            ) : (
-              accountRoutes.map((route) => (
                 <MenuItem 
-                  key={route.path} 
-                  onClick={handleAccountClose}
-                  component={NavLink}
-                  to={route.path}
+                  onClick={handleLogoutClick}
                   sx={{
                     '&:hover': {
                       backgroundColor: '#f5f5f5'
                     }
                   }}
                 >
-                  <ListItemText primary={route.name} />
+                  <ListItemText 
+                    primary="Logout" 
+                    primaryTypographyProps={{ 
+                      sx: { 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: 1,
+                        color: '#FF9966'
+                      } 
+                    }}
+                  />
+                  <LogoutIcon sx={{ ml: 1, color: '#FF9966' }} />
                 </MenuItem>
-              ))
-            )}
-          </Menu>
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Button
+                onClick={handleAccountMenu}
+                startIcon={<AccountCircle />}
+                sx={{ color: '#FF9966' }}
+              >
+                Account
+              </Button>
+              <Menu
+                anchorEl={accountAnchor}
+                open={Boolean(accountAnchor)}
+                onClose={handleAccountClose}
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    minWidth: 150,
+                    borderRadius: '1rem',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                  }
+                }}
+              >
+                {accountRoutes.map((route) => (
+                  <MenuItem 
+                    key={route.path} 
+                    onClick={handleAccountClose}
+                    component={NavLink}
+                    to={route.path}
+                    sx={{
+                      '&:hover': {
+                        backgroundColor: '#f5f5f5'
+                      }
+                    }}
+                  >
+                    <ListItemText primary={route.name} />
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          )}
         </Box>
       )}
 
