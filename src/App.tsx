@@ -1,21 +1,19 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Nav from "./component/nav";
 import { Outlet } from "react-router";
-import WebTitle from "./component/webTitle";
 
 function App() {
   console.log("App component rendered");
   const unUsed = "";
   return (
     <div className="App">
-      <Box sx={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent:"space-between", alignItems: 'center',padding: '1rem'}}>
-        <WebTitle />
+      <Box sx={{position: "fixed", top: 0, left: 0, width: "100vw", zIndex: 1000, bgcolor: "#FFFFFF"}}>
         <Nav />
       </Box>
 
-      <div className="main-content">
+      <Box sx={{bgcolor: "#F0F6FA", width: "100vw", height: "100vh", marginTop: "5rem"}}>
         <Outlet />
-      </div>
+      </Box>
     </div>
   );
 }
