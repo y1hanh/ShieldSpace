@@ -35,6 +35,7 @@ export default function Nav() {
                   style={({ isActive }) => ({
                     textDecoration: "none",
                     padding: "0.5rem",
+                    fontWeight: isActive ? "bold" : "",
                     color: isActive ? "white" : "black",
                     backgroundColor: isActive ? "#66CCFF" : "transparent",
                     display: "block",
