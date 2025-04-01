@@ -1,13 +1,13 @@
-import { Box, TextField, Button, Typography, Link as MuiLink } from "@mui/material";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { useAuth } from "../context/AuthContext";
+import { Box, TextField, Button, Typography, Link as MuiLink } from '@mui/material';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
   const [form, setForm] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -25,36 +25,38 @@ export default function Register() {
 
     // Validate passwords match
     if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match!");
+      setError('Passwords do not match!');
       return;
     }
 
     // Validate password length
     if (form.password.length < 6) {
-      setError("Password must be at least 6 characters long!");
+      setError('Password must be at least 6 characters long!');
       return;
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
-      setError("Please enter a valid email address!");
+      setError('Please enter a valid email address!');
       return;
     }
 
     // Get existing users from localStorage
     const existingUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-    
+
     // Check if email already exists
-    if (existingUsers.some((user: { email: string; password: string }) => user.email === form.email)) {
-      setError("This email is already registered!");
+    if (
+      existingUsers.some((user: { email: string; password: string }) => user.email === form.email)
+    ) {
+      setError('This email is already registered!');
       return;
     }
 
     // Add new user to localStorage
     existingUsers.push({
       email: form.email,
-      password: form.password
+      password: form.password,
     });
     localStorage.setItem('registeredUsers', JSON.stringify(existingUsers));
 
@@ -66,11 +68,11 @@ export default function Register() {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#f7f7f7",
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f7f7f7',
         padding: 2,
       }}
     >
@@ -78,12 +80,12 @@ export default function Register() {
         component="form"
         onSubmit={handleSubmit}
         sx={{
-          width: "100%",
+          width: '100%',
           maxWidth: 400,
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: 2,
-          backgroundColor: "white",
+          backgroundColor: 'white',
           borderRadius: 2,
           boxShadow: 3,
           padding: 4,
@@ -106,7 +108,7 @@ export default function Register() {
           value={form.email}
           onChange={handleChange}
           required
-          error={!!error && error.includes("email")}
+          error={!!error && error.includes('email')}
         />
         <TextField
           label="Password"
@@ -115,7 +117,7 @@ export default function Register() {
           value={form.password}
           onChange={handleChange}
           required
-          error={!!error && error.includes("password")}
+          error={!!error && error.includes('password')}
         />
         <TextField
           label="Confirm Password"
@@ -124,14 +126,14 @@ export default function Register() {
           value={form.confirmPassword}
           onChange={handleChange}
           required
-          error={!!error && error.includes("Passwords do not match")}
+          error={!!error && error.includes('Passwords do not match')}
         />
-        <Button type="submit" variant="contained" sx={{ backgroundColor: "#66CCFF" }}>
+        <Button type="submit" variant="contained" sx={{ backgroundColor: '#66CCFF' }}>
           Register
         </Button>
         <Typography variant="body2" textAlign="center">
-          Already have an account?{" "}
-          <MuiLink onClick={() => navigate("/login")} sx={{ cursor: "pointer", color: "#FF9966" }}>
+          Already have an account?{' '}
+          <MuiLink onClick={() => navigate('/login')} sx={{ cursor: 'pointer', color: '#FF9966' }}>
             Login here
           </MuiLink>
         </Typography>
