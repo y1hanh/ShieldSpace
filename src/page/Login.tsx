@@ -1,6 +1,6 @@
 import { Box, TextField, Button, Typography, Link as MuiLink } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
