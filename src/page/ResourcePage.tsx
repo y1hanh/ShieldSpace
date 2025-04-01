@@ -7,25 +7,25 @@ export default function ResourcePage() {
       number: '1.',
       title: 'Identify Trusted Adults',
       description: 'List 3 adults you can talk to about online issues',
-      bgColor: '#eaf6ff', 
+      bgColor: '#eaf6ff',
     },
     {
       number: '2.',
       title: 'Document Evidence',
       description: 'Learn how to take screenshots and save harmful messages',
-      bgColor: '#fff4ee', 
+      bgColor: '#fff4ee',
     },
     {
       number: '3.',
       title: 'Create Response Scripts',
       description: 'Prepare responses or know when not to engage',
-      bgColor: '#fdf4f7', 
+      bgColor: '#fdf4f7',
     },
     {
       number: '4.',
       title: 'Know Emergency Resources',
       description: 'Save helpline numbers on your phone for quick access',
-      bgColor: '#fef9f4', 
+      bgColor: '#fef9f4',
     },
   ];
   return (
@@ -108,7 +108,6 @@ export default function ResourcePage() {
           <Box
             key={index}
             sx={{
-              
               backgroundColor: '#fff',
               borderRadius: '1rem',
               padding: '1.2rem 0rem',
@@ -137,7 +136,7 @@ export default function ResourcePage() {
             </Box>
 
             {/* Title & Description */}
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559'}}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
               {item.title}
             </Typography>
             <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
@@ -190,7 +189,7 @@ export default function ResourcePage() {
         </Typography>
         <Box
           component="img"
-          src="../public/support-flow.png" 
+          src="../public/support-flow.png"
           alt="Support flow chart"
           sx={{
             maxWidth: '100%',
@@ -199,161 +198,161 @@ export default function ResourcePage() {
         />
       </Box>
       <Box
-      sx={{
-        backgroundColor: '#fff',
-        padding: '2rem',
-        marginTop: '3rem',
-        width: '90%',
-        borderRadius: '16px',
-        borderTop: '5px solid #FF9966',
-      }}
-    >
-      {/* Section Title */}
-      <Typography variant="h6" sx={{ fontWeight: 700, color: '#3A4559', mb: 1 }}>
-        Emergency Support
-      </Typography>
-      <Typography variant="body2" sx={{ color: '#7A7A9D', mb: 3 }}>
-        If you're in immediate distress or need urgent support, these services are available 24/7.
-      </Typography>
-
-      {/* Support Cards */}
-      <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexWrap: { xs: 'wrap', md: 'nowrap' },
-          gap: '1rem',
+          backgroundColor: '#fff',
+          padding: '2rem',
+          marginTop: '3rem',
+          width: '90%',
+          borderRadius: '16px',
+          borderTop: '5px solid #FF9966',
         }}
       >
-        {/* Card 1: Kids Helpline */}
+        {/* Section Title */}
+        <Typography variant="h6" sx={{ fontWeight: 700, color: '#3A4559', mb: 1 }}>
+          Emergency Support
+        </Typography>
+        <Typography variant="body2" sx={{ color: '#7A7A9D', mb: 3 }}>
+          If you're in immediate distress or need urgent support, these services are available 24/7.
+        </Typography>
+
+        {/* Support Cards */}
         <Box
           sx={{
-            flex: 1,
-            backgroundColor: '#fff',
-            borderRadius: '0 0 1rem 1rem',
-            borderTop: '6px solid #FF9966',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-            padding: '1.5rem',
-            textAlign: 'center',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: { xs: 'wrap', md: 'nowrap' },
+            gap: '1rem',
           }}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
-            Kids Helpline
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
-            Free, private counseling service for young people aged 5–25.
-          </Typography>
-          <Typography variant="h6" sx={{ color: '#f89b5e', mt: 2 }}>
-            1800 55 1800
-          </Typography>
-        </Box>
-
-        {/* Card 2: Lifeline */}
-        <Box
-          sx={{
-            flex: 1,
-            backgroundColor: '#fff',
-            borderRadius: '0 0 1rem 1rem',
-            borderTop: '6px solid #FF9966',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-            padding: '1.5rem',
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
-            Lifeline
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
-            Crisis support and suicide prevention services.
-          </Typography>
-          <Typography variant="h6" sx={{ color: '#f89b5e', mt: 2 }}>
-            13 11 14
-          </Typography>
-        </Box>
-
-        {/* Card 3: eSafety Commissioner */}
-        <Box
-          sx={{
-            flex: 1,
-            backgroundColor: '#fff',
-            borderRadius: '0 0 1rem 1rem',
-            borderTop: '6px solid #FF9966',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-            padding: '1.5rem',
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
-            eSafety Commissioner
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
-            Report serious cyberbullying affecting Australian children.
-          </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: '#f89b5e',
-              color: '#fff',
-              borderRadius: '30px',
-              paddingX: '1.5rem',
-              paddingY: '0.5rem',
-              fontSize: '0.875rem',
-              marginTop: '1.2rem',
-              '&:hover': {
-                backgroundColor: '#f57c00',
-              },
-            }}
-          >
-            Online Reporting Form
-          </Button>
-        </Box>
-      </Box>
-    </Box> 
-    <Box
-      sx={{
-        backgroundColor: '#fff',
-        borderTop: '6px solid #80d0ff',
-        borderRadius: '16px',
-        padding: '2rem',
-        width: '90%',
-        marginTop: '3rem',
-      }}
-    >
-      <Typography variant="h6" sx={{ fontWeight: 700, color: '#3A4559', mb: 2 }}>
-        Create Your Personal Safety Plan
-      </Typography>
-
-      {/* Step Cards */}
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: {
-            xs: '1fr',
-            sm: '1fr 1fr',
-          },
-          gap: '1rem',
-        }}
-      >
-        {steps.map((step, index) => (
+          {/* Card 1: Kids Helpline */}
           <Box
-            key={index}
             sx={{
-              backgroundColor: step.bgColor,
-              padding: '1.25rem',
-              borderRadius: '12px',
-              border: '1px solid #E4E2E2',
+              flex: 1,
+              backgroundColor: '#fff',
+              borderRadius: '0 0 1rem 1rem',
+              borderTop: '6px solid #FF9966',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+              padding: '1.5rem',
+              textAlign: 'center',
             }}
           >
             <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
-              {step.number} {step.title}
+              Kids Helpline
             </Typography>
-            <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 0.5 }}>
-              {step.description}
+            <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
+              Free, private counseling service for young people aged 5–25.
+            </Typography>
+            <Typography variant="h6" sx={{ color: '#f89b5e', mt: 2 }}>
+              1800 55 1800
             </Typography>
           </Box>
-        ))}
+
+          {/* Card 2: Lifeline */}
+          <Box
+            sx={{
+              flex: 1,
+              backgroundColor: '#fff',
+              borderRadius: '0 0 1rem 1rem',
+              borderTop: '6px solid #FF9966',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+              padding: '1.5rem',
+              textAlign: 'center',
+            }}
+          >
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
+              Lifeline
+            </Typography>
+            <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
+              Crisis support and suicide prevention services.
+            </Typography>
+            <Typography variant="h6" sx={{ color: '#f89b5e', mt: 2 }}>
+              13 11 14
+            </Typography>
+          </Box>
+
+          {/* Card 3: eSafety Commissioner */}
+          <Box
+            sx={{
+              flex: 1,
+              backgroundColor: '#fff',
+              borderRadius: '0 0 1rem 1rem',
+              borderTop: '6px solid #FF9966',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+              padding: '1.5rem',
+              textAlign: 'center',
+            }}
+          >
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
+              eSafety Commissioner
+            </Typography>
+            <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
+              Report serious cyberbullying affecting Australian children.
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#f89b5e',
+                color: '#fff',
+                borderRadius: '30px',
+                paddingX: '1.5rem',
+                paddingY: '0.5rem',
+                fontSize: '0.875rem',
+                marginTop: '1.2rem',
+                '&:hover': {
+                  backgroundColor: '#f57c00',
+                },
+              }}
+            >
+              Online Reporting Form
+            </Button>
+          </Box>
+        </Box>
       </Box>
-    </Box>   
+      <Box
+        sx={{
+          backgroundColor: '#fff',
+          borderTop: '6px solid #80d0ff',
+          borderRadius: '16px',
+          padding: '2rem',
+          width: '90%',
+          marginTop: '3rem',
+        }}
+      >
+        <Typography variant="h6" sx={{ fontWeight: 700, color: '#3A4559', mb: 2 }}>
+          Create Your Personal Safety Plan
+        </Typography>
+
+        {/* Step Cards */}
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: '1fr 1fr',
+            },
+            gap: '1rem',
+          }}
+        >
+          {steps.map((step, index) => (
+            <Box
+              key={index}
+              sx={{
+                backgroundColor: step.bgColor,
+                padding: '1.25rem',
+                borderRadius: '12px',
+                border: '1px solid #E4E2E2',
+              }}
+            >
+              <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
+                {step.number} {step.title}
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 0.5 }}>
+                {step.description}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      </Box>
     </Box>
   );
 }
