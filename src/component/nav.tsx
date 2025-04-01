@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
-import { Box, Button, Typography, IconButton, Drawer, List, ListItem, useMediaQuery, Menu, MenuItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import { Box, Button, Typography, IconButton, Drawer, List, ListItem, useMediaQuery, Menu, MenuItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, ClickAwayListener } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -47,11 +47,11 @@ export default function Nav() {
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', cursor: "pointer" }} onClick={() => navigate('/')}>
         <Box sx={{ backgroundColor: '#FF9966', width: '1.5rem', height: '1.5rem', borderRadius: '50%', marginRight: '0.5rem' }} />
-        <Typography sx={{ color: '#FF9966', fontWeight: 600 }} variant="h5">
-          No More Bullying!
-        </Typography>
+          <Typography sx={{ color: '#FF9966', fontWeight: 600 }} variant="h5">
+            No More Bullying!
+          </Typography>
       </Box>
 
       {isMobile ? (
