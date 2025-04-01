@@ -68,6 +68,7 @@ export default function Nav() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0.5rem',
+        borderBottom: '3px solid #66CCFF',
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -81,7 +82,7 @@ export default function Nav() {
           }}
         />
         <Typography sx={{ color: '#FF9966', fontWeight: 600 }} variant="h5">
-          No More Bullying!
+          ShieldSpace
         </Typography>
       </Box>
 
