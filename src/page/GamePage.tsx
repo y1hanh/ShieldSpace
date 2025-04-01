@@ -18,27 +18,18 @@ export default function GamePage() {
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
-          textAlign: 'left',
-          width: '85%',
+          textAlign: 'center',
+          margin: 'auto',
           marginTop: '2rem',
-          gap: '1rem',
+          padding: '2rem',
+          backgroundColor: 'white',
+          borderRadius: '1rem',
+          width: '80%',
         }}
       >
-        <Typography
-          sx={{ color: '#3A4559', fontWeight: 600, marginBottom: '-0.5rem' }}
-          variant="h5"
-        >
+        <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
           Fun Games with Purpose
         </Typography>
-        <Box
-          sx={{
-            height: '3px',
-            width: '60px',
-            backgroundColor: '#f7954d',
-            borderRadius: '2px',
-            marginBottom: '0.5rem',
-          }}
-        />
         <Typography sx={{ color: '#7A7A9D' }} variant="body1">
           Play these games to build resilience, practice managing difficult situations, and have fun
           along the way!

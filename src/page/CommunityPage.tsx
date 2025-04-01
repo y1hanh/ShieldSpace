@@ -28,7 +28,7 @@ export default function CommunityPage() {
           width: '80%',
         }}
       >
-        <Typography sx={{ color: '#7A7A9D', fontWeight: 600 }} variant="h5">
+        <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
           Support Community
         </Typography>
         <Typography sx={{ color: '#7A7A9D' }} variant="body1">
