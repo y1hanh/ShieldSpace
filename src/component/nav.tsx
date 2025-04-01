@@ -1,6 +1,22 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
-import { Box, Button, Typography, IconButton, Drawer, List, ListItem, useMediaQuery, Menu, MenuItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, ClickAwayListener } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  useMediaQuery,
+  Menu,
+  MenuItem,
+  ListItemText,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -35,23 +51,42 @@ export default function Nav() {
   const handleLogoutConfirm = () => {
     logout();
     setLogoutDialogOpen(false);
-    navigate('/');
+    navigate("/");
   };
 
   const handleLogoutCancel = () => {
     setLogoutDialogOpen(false);
   };
 
-  const mainRoutes = routes.filter(route => route.path !== "#");
-  const accountRoutes = routes.find(route => route.path === "#")?.children || [];
+  const mainRoutes = routes.filter((route) => route.path !== "#");
+  const accountRoutes =
+    routes.find((route) => route.path === "#")?.children || [];
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', cursor: "pointer" }} onClick={() => navigate('/')}>
-        <Box sx={{ backgroundColor: '#FF9966', width: '1.5rem', height: '1.5rem', borderRadius: '50%', marginRight: '0.5rem' }} />
-          <Typography sx={{ color: '#FF9966', fontWeight: 600 }} variant="h5">
-            No More Bullying!
-          </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "0.5rem",
+      }}
+    >
+      <Box
+        sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+        onClick={() => navigate("/")}
+      >
+        <Box
+          sx={{
+            backgroundColor: "#FF9966",
+            width: "1.5rem",
+            height: "1.5rem",
+            borderRadius: "50%",
+            marginRight: "0.5rem",
+          }}
+        />
+        <Typography sx={{ color: "#FF9966", fontWeight: 600 }} variant="h5">
+          No More Bullying!
+        </Typography>
       </Box>
 
       {isMobile ? (
@@ -59,7 +94,11 @@ export default function Nav() {
           <IconButton onClick={toggleDrawer(true)} edge="end">
             <MenuIcon />
           </IconButton>
-          <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+          <Drawer
+            anchor="right"
+            open={drawerOpen}
+            onClose={toggleDrawer(false)}
+          >
             <List>
               {mainRoutes.map((route) => (
                 <ListItem key={route.path} onClick={toggleDrawer(false)}>
@@ -81,13 +120,24 @@ export default function Nav() {
                 </ListItem>
               ))}
               <ListItem>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#FF9966' }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", color: "#FF9966" }}
+                >
                   Account
                 </Typography>
               </ListItem>
               {isLoggedIn ? (
                 <ListItem onClick={handleLogoutClick}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#FF9966', cursor: 'pointer' }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      color: "#FF9966",
+                      cursor: "pointer",
+                    }}
+                  >
                     <LogoutIcon />
                     <Typography>Logout</Typography>
                   </Box>
@@ -117,7 +167,7 @@ export default function Nav() {
           </Drawer>
         </>
       ) : (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           {mainRoutes.map((route) => (
             <Button key={route.path}>
               <NavLink
@@ -135,48 +185,41 @@ export default function Nav() {
               </NavLink>
             </Button>
           ))}
-          
+
           {isLoggedIn ? (
             <>
-              <IconButton
-                onClick={handleAccountMenu}
-                sx={{ color: '#FF9966' }}
-              >
+              <IconButton onClick={handleAccountMenu} sx={{ color: "#FF9966" }}>
                 <AccountCircle sx={{ fontSize: 32 }} />
               </IconButton>
               <Menu
                 anchorEl={accountAnchor}
                 open={Boolean(accountAnchor)}
                 onClose={handleAccountClose}
-                PaperProps={{
-                  sx: {
-                    mt: 1,
-                    minWidth: 150,
-                    borderRadius: '1rem',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-                  }
+                sx={{
+                  mt: 1,
+                  minWidth: 150,
+                  borderRadius: "1rem",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <MenuItem 
+                <MenuItem
                   onClick={handleLogoutClick}
                   sx={{
-                    '&:hover': {
-                      backgroundColor: '#f5f5f5'
-                    }
+                    "&:hover": {
+                      backgroundColor: "#f5f5f5",
+                    },
                   }}
                 >
-                  <ListItemText 
-                    primary="Logout" 
-                    primaryTypographyProps={{ 
-                      sx: { 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: 1,
-                        color: '#FF9966'
-                      } 
+                  <ListItemText
+                    primary="Logout"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      color: "#FF9966",
                     }}
                   />
-                  <LogoutIcon sx={{ ml: 1, color: '#FF9966' }} />
+                  <LogoutIcon sx={{ ml: 1, color: "#FF9966" }} />
                 </MenuItem>
               </Menu>
             </>
@@ -185,7 +228,7 @@ export default function Nav() {
               <Button
                 onClick={handleAccountMenu}
                 startIcon={<AccountCircle />}
-                sx={{ color: '#FF9966' }}
+                sx={{ color: "#FF9966" }}
               >
                 Account
               </Button>
@@ -193,25 +236,23 @@ export default function Nav() {
                 anchorEl={accountAnchor}
                 open={Boolean(accountAnchor)}
                 onClose={handleAccountClose}
-                PaperProps={{
-                  sx: {
-                    mt: 1,
-                    minWidth: 150,
-                    borderRadius: '1rem',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-                  }
+                sx={{
+                  mt: 1,
+                  minWidth: 150,
+                  borderRadius: "1rem",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 {accountRoutes.map((route) => (
-                  <MenuItem 
-                    key={route.path} 
+                  <MenuItem
+                    key={route.path}
                     onClick={handleAccountClose}
                     component={NavLink}
                     to={route.path}
                     sx={{
-                      '&:hover': {
-                        backgroundColor: '#f5f5f5'
-                      }
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                      },
                     }}
                   >
                     <ListItemText primary={route.name} />
@@ -226,11 +267,9 @@ export default function Nav() {
       <Dialog
         open={logoutDialogOpen}
         onClose={handleLogoutCancel}
-        PaperProps={{
-          sx: {
-            borderRadius: '1rem',
-            padding: '1rem'
-          }
+        sx={{
+          borderRadius: "1rem",
+          padding: "1rem",
         }}
       >
         <DialogTitle>Confirm Logout</DialogTitle>
@@ -238,17 +277,17 @@ export default function Nav() {
           <Typography>Are you sure you want to logout?</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleLogoutCancel} sx={{ color: '#666' }}>
+          <Button onClick={handleLogoutCancel} sx={{ color: "#666" }}>
             Cancel
           </Button>
-          <Button 
-            onClick={handleLogoutConfirm} 
-            variant="contained" 
-            sx={{ 
-              backgroundColor: '#FF9966',
-              '&:hover': {
-                backgroundColor: '#ff8855'
-              }
+          <Button
+            onClick={handleLogoutConfirm}
+            variant="contained"
+            sx={{
+              backgroundColor: "#FF9966",
+              "&:hover": {
+                backgroundColor: "#ff8855",
+              },
             }}
           >
             Logout
