@@ -69,8 +69,8 @@ export default function Register() {
       }
 
       const data = await res.json();
-      login(data.email);
-      navigate('/');
+
+      navigate('/login');
     } catch (err) {
       console.error(err);
       setError('Something went wrong. Please try again.');

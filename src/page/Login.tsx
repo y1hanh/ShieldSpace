@@ -9,6 +9,7 @@ export default function Login() {
     password: '',
   });
   const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null); // 🔐 Show token
 
   const navigate = useNavigate();
   const { isLoggedIn, login } = useAuth();
@@ -48,19 +49,18 @@ export default function Login() {
       });
 
       const data = await res.json();
+      console.log('Login response:', data);
 
       if (!res.ok) {
         setError(data.message || 'Invalid email or password');
         return;
       }
 
-      // 🔐 Optional: store token if returned (adjust based on your backend)
-      // localStorage.setItem('token', data.token);
+      login(data.access_token);
+      setToken(data.access_token);
 
-      // Log in the user (adjust depending on what your AuthContext stores)
-      login(data.email); // Or login(data.user) or login(data.token), etc.
-
-      navigate('/');
+      // You can navigate after showing the token if needed:
+      // navigate('/');
     } catch (err) {
       console.error(err);
       setError('Something went wrong. Please try again.');
@@ -131,6 +131,32 @@ export default function Login() {
             Register here
           </MuiLink>
         </Typography>
+
+        {token && (
+          <Box
+            sx={{
+              backgroundColor: '#e3f2fd',
+              borderRadius: '8px',
+              padding: '1rem',
+              mt: 2,
+              wordBreak: 'break-all',
+              fontSize: '0.875rem',
+            }}
+          >
+            <Typography fontWeight={600} color="#3A4559">
+              🔐 Your access token (valid for 10 hours):
+            </Typography>
+            <Typography
+              sx={{
+                mt: 1,
+                fontFamily: 'monospace',
+                color: '#1e88e5',
+              }}
+            >
+              {token}
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );

@@ -2,33 +2,42 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface AuthContextType {
   isLoggedIn: boolean;
-  login: (email: string) => void;
+  token: string | null;
+  login: (token: string) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-    return localStorage.getItem('isLoggedIn') === 'true';
+  const [token, setToken] = useState<string | null>(() => {
+    return localStorage.getItem('token');
   });
 
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', isLoggedIn.toString());
-  }, [isLoggedIn]);
+  const isLoggedIn = !!token;
 
-  const login = (email: string) => {
-    setIsLoggedIn(true);
-    localStorage.setItem('userEmail', email);
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
+  }, [token]);
+
+  const login = (token: string) => {
+    setToken(token);
   };
 
   const logout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('userEmail');
+    setToken(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('userEmail'); // optional if you're storing email
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isLoggedIn, token, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 
