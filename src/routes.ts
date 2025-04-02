@@ -4,8 +4,8 @@ import GamePage from './page/GamePage';
 import AnalyticsPage from './page/AnalyticsPage';
 import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
-import Register from './page/RegisterPage';
-import Login from './page/LoginPage';
+import Register from './page/Register';
+import Login from './page/Login';
 import App from './App';
 
 export const router = createBrowserRouter([

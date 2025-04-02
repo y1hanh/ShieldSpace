@@ -68,12 +68,10 @@ export default function Nav() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0.5rem',
+        borderBottom: '3px solid #66CCFF',
       }}
     >
-      <Box
-        sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-        onClick={() => navigate('/')}
-      >
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box
           sx={{
             backgroundColor: '#FF9966',
@@ -187,11 +185,13 @@ export default function Nav() {
                 anchorEl={accountAnchor}
                 open={Boolean(accountAnchor)}
                 onClose={handleAccountClose}
-                sx={{
-                  mt: 1,
-                  minWidth: 150,
-                  borderRadius: '1rem',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    minWidth: 150,
+                    borderRadius: '1rem',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  },
                 }}
               >
                 <MenuItem
@@ -204,11 +204,13 @@ export default function Nav() {
                 >
                   <ListItemText
                     primary="Logout"
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 1,
-                      color: '#FF9966',
+                    primaryTypographyProps={{
+                      sx: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        color: '#FF9966',
+                      },
                     }}
                   />
                   <LogoutIcon sx={{ ml: 1, color: '#FF9966' }} />
@@ -228,11 +230,13 @@ export default function Nav() {
                 anchorEl={accountAnchor}
                 open={Boolean(accountAnchor)}
                 onClose={handleAccountClose}
-                sx={{
-                  mt: 1,
-                  minWidth: 150,
-                  borderRadius: '1rem',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    minWidth: 150,
+                    borderRadius: '1rem',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  },
                 }}
               >
                 {accountRoutes.map(route => (
@@ -259,9 +263,11 @@ export default function Nav() {
       <Dialog
         open={logoutDialogOpen}
         onClose={handleLogoutCancel}
-        sx={{
-          borderRadius: '1rem',
-          padding: '1rem',
+        PaperProps={{
+          sx: {
+            borderRadius: '1rem',
+            padding: '1rem',
+          },
         }}
       >
         <DialogTitle>Confirm Logout</DialogTitle>

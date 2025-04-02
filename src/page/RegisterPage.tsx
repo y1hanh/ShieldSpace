@@ -1,13 +1,17 @@
-import { Box, TextField, Button, Typography, Link as MuiLink } from '@mui/material';
+import { Box, TextField, Button, Typography, Link as MuiLink, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import bcrypt from 'bcryptjs';
 import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
   const [form, setForm] = useState({
     email: '',
+    name: '',
     password: '',
     confirmPassword: '',
+    gender: '',
+    birthDate: '',
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -19,50 +23,58 @@ export default function Register() {
     setError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    // Validate passwords match
     if (form.password !== form.confirmPassword) {
       setError('Passwords do not match!');
       return;
     }
 
-    // Validate password length
     if (form.password.length < 6) {
       setError('Password must be at least 6 characters long!');
       return;
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       setError('Please enter a valid email address!');
       return;
     }
 
-    // Get existing users from localStorage
-    const existingUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    try {
+      const hashedPassword = await bcrypt.hash(form.password, 10);
 
-    // Check if email already exists
-    if (
-      existingUsers.some((user: { email: string; password: string }) => user.email === form.email)
-    ) {
-      setError('This email is already registered!');
-      return;
+      const payload = {
+        email: form.email,
+        password: hashedPassword,
+        name: form.name || undefined,
+        gender: form.gender || undefined,
+        birthDate: form.birthDate ? new Date(form.birthDate).toISOString() : undefined,
+      };
+
+      const res = await fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.message || 'Registration failed');
+        return;
+      }
+
+      const data = await res.json();
+
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
     }
-
-    // Add new user to localStorage
-    existingUsers.push({
-      email: form.email,
-      password: form.password,
-    });
-    localStorage.setItem('registeredUsers', JSON.stringify(existingUsers));
-
-    // Auto login after successful registration
-    login(form.email);
-    navigate('/');
   };
 
   return (
@@ -108,8 +120,8 @@ export default function Register() {
           value={form.email}
           onChange={handleChange}
           required
-          error={!!error && error.includes('email')}
         />
+        <TextField label="Name" type="text" name="name" value={form.name} onChange={handleChange} />
         <TextField
           label="Password"
           type="password"
@@ -117,7 +129,6 @@ export default function Register() {
           value={form.password}
           onChange={handleChange}
           required
-          error={!!error && error.includes('password')}
         />
         <TextField
           label="Confirm Password"
@@ -126,11 +137,26 @@ export default function Register() {
           value={form.confirmPassword}
           onChange={handleChange}
           required
-          error={!!error && error.includes('Passwords do not match')}
         />
+        <TextField label="Gender" name="gender" select value={form.gender} onChange={handleChange}>
+          <MenuItem value="">Prefer not to say</MenuItem>
+          <MenuItem value="Male">Male</MenuItem>
+          <MenuItem value="Female">Female</MenuItem>
+          <MenuItem value="Other">Other</MenuItem>
+        </TextField>
+        <TextField
+          label="Birth Date"
+          name="birthDate"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          value={form.birthDate}
+          onChange={handleChange}
+        />
+
         <Button type="submit" variant="contained" sx={{ backgroundColor: '#66CCFF' }}>
           Register
         </Button>
+
         <Typography variant="body2" textAlign="center">
           Already have an account?{' '}
           <MuiLink onClick={() => navigate('/login')} sx={{ cursor: 'pointer', color: '#FF9966' }}>

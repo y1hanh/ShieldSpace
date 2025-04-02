@@ -9,11 +9,12 @@ export default function Login() {
     password: '',
   });
   const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null); // 🔐 Show token
 
   const navigate = useNavigate();
   const { isLoggedIn, login } = useAuth();
 
-  // Redirect to home if already logged in
+  // Redirect if already logged in
   useEffect(() => {
     if (isLoggedIn) {
       navigate('/');
@@ -25,31 +26,44 @@ export default function Login() {
     setError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       setError('Please enter a valid email address!');
       return;
     }
 
-    // Get registered users from localStorage
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    try {
+      const res = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
+      });
 
-    // Check if user exists and password matches
-    const user = registeredUsers.find(
-      (u: { email: string; password: string }) =>
-        u.email === form.email && u.password === form.password
-    );
+      const data = await res.json();
+      console.log('Login response:', data);
 
-    if (user) {
-      login(form.email);
-      navigate('/');
-    } else {
-      setError('Invalid email or password!');
+      if (!res.ok) {
+        setError(data.message || 'Invalid email or password');
+        return;
+      }
+
+      login(data.access_token);
+      setToken(data.access_token);
+
+      // You can navigate after showing the token if needed:
+      // navigate('/');
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
     }
   };
 
@@ -96,7 +110,6 @@ export default function Login() {
           value={form.email}
           onChange={handleChange}
           required
-          error={!!error && error.includes('email')}
         />
         <TextField
           label="Password"
@@ -105,13 +118,12 @@ export default function Login() {
           value={form.password}
           onChange={handleChange}
           required
-          error={!!error && error.includes('password')}
         />
         <Button type="submit" variant="contained" sx={{ backgroundColor: '#66CCFF' }}>
           Log in
         </Button>
         <Typography variant="body2" textAlign="center">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <MuiLink
             onClick={() => navigate('/register')}
             sx={{ cursor: 'pointer', color: '#FF9966' }}
@@ -119,6 +131,32 @@ export default function Login() {
             Register here
           </MuiLink>
         </Typography>
+
+        {token && (
+          <Box
+            sx={{
+              backgroundColor: '#e3f2fd',
+              borderRadius: '8px',
+              padding: '1rem',
+              mt: 2,
+              wordBreak: 'break-all',
+              fontSize: '0.875rem',
+            }}
+          >
+            <Typography fontWeight={600} color="#3A4559">
+              🔐 Your access token (valid for 10 hours):
+            </Typography>
+            <Typography
+              sx={{
+                mt: 1,
+                fontFamily: 'monospace',
+                color: '#1e88e5',
+              }}
+            >
+              {token}
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );
