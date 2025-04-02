@@ -2,41 +2,24 @@ import { Box, Typography, Button } from '@mui/material';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PublicIcon from '@mui/icons-material/Public';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import PageLayoutBox from '../component/PageLayoutBox';
 
 export default function CommunityPage() {
   console.log('CommunityPage component rendered');
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'column',
-      }}
+    <PageLayoutBox
+      header={
+        <>
+          <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
+            Support Community
+          </Typography>
+          <Typography sx={{ color: '#7A7A9D' }} variant="body1">
+            connect with peers who understand what you're going through and share experiences in a
+            safe, moderated environment.
+          </Typography>
+        </>
+      }
     >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          textAlign: 'center',
-          margin: 'auto',
-          marginTop: '2rem',
-          padding: '2rem',
-          backgroundColor: 'white',
-          borderRadius: '1rem',
-          width: '80%',
-        }}
-      >
-        <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
-          Support Community
-        </Typography>
-        <Typography sx={{ color: '#7A7A9D' }} variant="body1">
-          conntect with peers who understand what you're going through and share experiences in a
-          safe, moderated environment.
-        </Typography>
-      </Box>
-
       <Box
         sx={{
           display: 'flex',
@@ -197,6 +180,6 @@ export default function CommunityPage() {
           </Button>
         </Box>
       </Box>
-    </Box>
+    </PageLayoutBox>
   );
 }

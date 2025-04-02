@@ -1,7 +1,9 @@
 import { Box, Typography, Button } from '@mui/material';
+import PageLayoutBox from '../component/PageLayoutBox';
 
 export default function ResourcePage() {
   console.log('ResourcePage component rendered');
+
   const steps = [
     {
       number: '1.',
@@ -28,36 +30,22 @@ export default function ResourcePage() {
       bgColor: '#fef9f4',
     },
   ];
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'column',
-      }}
+    <PageLayoutBox
+      header={
+        <>
+          <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
+            Resource Library
+          </Typography>
+          <Typography sx={{ color: '#7A7A9D' }} variant="body1">
+            Access tools, guides, and support resources to help you navigate cyberbullying.
+          </Typography>
+        </>
+      }
     >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          textAlign: 'center',
-          margin: 'auto',
-          marginTop: '2rem',
-          padding: '2rem',
-          backgroundColor: 'white',
-          borderRadius: '1rem',
-          width: '80%',
-        }}
-      >
-        <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
-          Resource Library
-        </Typography>
-        <Typography sx={{ color: '#7A7A9D' }} variant="body1">
-          Access tools, guides, and suport resources to help you navigate cyberbullying.
-        </Typography>
-      </Box>
+      {/* Keep the rest of the layout untouched */}
+      {/* Resource Cards */}
       <Box
         sx={{
           display: 'flex',
@@ -110,7 +98,6 @@ export default function ResourcePage() {
               textAlign: 'center',
             }}
           >
-            {/* Icon in Circle */}
             <Box
               sx={{
                 width: '70px',
@@ -126,21 +113,13 @@ export default function ResourcePage() {
             >
               {item.icon}
             </Box>
-
-            {/* Title & Description */}
             <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#3A4559' }}>
               {item.title}
             </Typography>
             <Typography variant="body2" sx={{ color: '#7A7A9D', mt: 1 }}>
               {item.description}
             </Typography>
-
-            {/* Button */}
-            <Box
-              sx={{
-                marginTop: '1.5rem',
-              }}
-            >
+            <Box sx={{ marginTop: '1.5rem' }}>
               <Box
                 sx={{
                   backgroundColor: '#f8bbd0',
@@ -161,6 +140,8 @@ export default function ResourcePage() {
           </Box>
         ))}
       </Box>
+
+      {/* Support Flow Section */}
       <Box
         sx={{
           width: '85%',
@@ -172,7 +153,6 @@ export default function ResourcePage() {
           borderTop: '5px solid #66CCFF',
         }}
       >
-        {/* Title */}
         <Typography variant="h6" sx={{ color: '#3A4559', fontWeight: 600 }}>
           What Support Do You Need?
         </Typography>
@@ -183,12 +163,11 @@ export default function ResourcePage() {
           component="img"
           src="../public/support-flow.png"
           alt="Support flow chart"
-          sx={{
-            maxWidth: '100%',
-            marginTop: '1rem',
-          }}
+          sx={{ maxWidth: '100%', marginTop: '1rem' }}
         />
       </Box>
+
+      {/* Emergency Support Section */}
       <Box
         sx={{
           backgroundColor: '#fff',
@@ -199,15 +178,12 @@ export default function ResourcePage() {
           borderTop: '5px solid #FF9966',
         }}
       >
-        {/* Section Title */}
         <Typography variant="h6" sx={{ fontWeight: 700, color: '#3A4559', mb: 1 }}>
           Emergency Support
         </Typography>
         <Typography variant="body2" sx={{ color: '#7A7A9D', mb: 3 }}>
           If you're in immediate distress or need urgent support, these services are available 24/7.
         </Typography>
-
-        {/* Support Cards */}
         <Box
           sx={{
             display: 'flex',
@@ -216,7 +192,7 @@ export default function ResourcePage() {
             gap: '1rem',
           }}
         >
-          {/* Card 1: Kids Helpline */}
+          {/* Card 1 */}
           <Box
             sx={{
               flex: 1,
@@ -239,7 +215,7 @@ export default function ResourcePage() {
             </Typography>
           </Box>
 
-          {/* Card 2: Lifeline */}
+          {/* Card 2 */}
           <Box
             sx={{
               flex: 1,
@@ -262,7 +238,7 @@ export default function ResourcePage() {
             </Typography>
           </Box>
 
-          {/* Card 3: eSafety Commissioner */}
+          {/* Card 3 */}
           <Box
             sx={{
               flex: 1,
@@ -300,6 +276,8 @@ export default function ResourcePage() {
           </Box>
         </Box>
       </Box>
+
+      {/* Safety Plan Steps */}
       <Box
         sx={{
           backgroundColor: '#fff',
@@ -313,8 +291,6 @@ export default function ResourcePage() {
         <Typography variant="h6" sx={{ fontWeight: 700, color: '#3A4559', mb: 2 }}>
           Create Your Personal Safety Plan
         </Typography>
-
-        {/* Step Cards */}
         <Box
           sx={{
             display: 'grid',
@@ -345,6 +321,6 @@ export default function ResourcePage() {
           ))}
         </Box>
       </Box>
-    </Box>
+    </PageLayoutBox>
   );
 }

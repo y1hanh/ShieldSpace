@@ -1,41 +1,24 @@
 import { Box, Typography, Button, Chip } from '@mui/material';
 import ShieldIcon from '@mui/icons-material/Security';
+import PageLayoutBox from '../component/PageLayoutBox';
 
 export default function GamePage() {
   console.log('GamePage component rendered');
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'column',
-      }}
+    <PageLayoutBox
+      header={
+        <>
+          <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
+            Fun Games with Purpose
+          </Typography>
+          <Typography sx={{ color: '#7A7A9D' }} variant="body1">
+            Play these games to build resilience, practice managing difficult situations, and have
+            fun along the way!
+          </Typography>
+        </>
+      }
     >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          textAlign: 'center',
-          margin: 'auto',
-          marginTop: '2rem',
-          padding: '2rem',
-          backgroundColor: 'white',
-          borderRadius: '1rem',
-          width: '80%',
-        }}
-      >
-        <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
-          Fun Games with Purpose
-        </Typography>
-        <Typography sx={{ color: '#7A7A9D' }} variant="body1">
-          Play these games to build resilience, practice managing difficult situations, and have fun
-          along the way!
-        </Typography>
-      </Box>
-
       {/* Game Card */}
       <Box
         sx={{
@@ -114,6 +97,6 @@ export default function GamePage() {
           </Button>
         </Box>
       </Box>
-    </Box>
+    </PageLayoutBox>
   );
 }
