@@ -20,7 +20,7 @@ function App() {
         <Nav />
       </Box>
 
-      <Box sx={{ bgcolor: '#F0F6FA', width: '100vw', height: '100vh', marginTop: '5rem' }}>
+      <Box sx={{ bgcolor: '#F0F6FA', width: '100%', height: '100%', marginTop: '5rem' }}>
         <Outlet />
       </Box>
     </div>
