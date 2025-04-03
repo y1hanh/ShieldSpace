@@ -2,7 +2,7 @@ import { Box, Typography, Button } from '@mui/material';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PublicIcon from '@mui/icons-material/Public';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import PageLayoutBox from '../component/PageLayoutBox';
+import PageLayoutBox from '../component/PageLayOutBox';
 
 export default function CommunityPage() {
   console.log('CommunityPage component rendered');

@@ -1,18 +1,23 @@
 import { Box, Typography, Button, Chip } from '@mui/material';
 import ShieldIcon from '@mui/icons-material/Security';
-import PageLayoutBox from '../component/PageLayoutBox';
+import PageLayoutBox from '../component/PageLayOutBox';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import DiamondIcon from '@mui/icons-material/Diamond';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarRateIcon from '@mui/icons-material/StarRate';
+import { useState } from 'react';
+import DigitalDefender from '../component/DigitDefender';
 
 export default function GamePage() {
-  console.log('GamePage component rendered');
+  const [gameStarted, setGameStarted] = useState(false);
 
   const totalGames = 10;
   const gamesCompleted = 7;
 
   const progress = Math.round((gamesCompleted / totalGames) * 100);
+  if (gameStarted) {
+    return <DigitalDefender />;
+  }
 
   return (
     <PageLayoutBox
@@ -87,6 +92,7 @@ export default function GamePage() {
         {/* Play Button */}
         <Box sx={{ marginLeft: '2rem' }}>
           <Button
+            onClick={() => setGameStarted(true)}
             variant="contained"
             sx={{
               borderRadius: '35%',
