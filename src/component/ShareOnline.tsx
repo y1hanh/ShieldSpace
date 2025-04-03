@@ -1,15 +1,26 @@
 import { useState } from 'react';
-import { Box, Typography, Button, LinearProgress, Grid, Paper } from '@mui/material';
+import { Box, Typography, Button, LinearProgress} from '@mui/material';
 import GameLayOutBox from './GameLayOutBox';
 import AvatarSelect from './AvatarSelect';
 import PostBully from './PostBully';
+
+interface Avatar {
+  emoji: string;
+  label: string;
+}
+
+interface ShareOnlineProps {
+  playerName: string;
+  avatar: Avatar;
+}
+
 const options = [
   { emoji: '🧍‍♀️', label: 'A Selfie' },
   { emoji: '🍕', label: 'A Photo of Food' },
   { emoji: '🐾', label: 'A Picture of your pet' },
 ];
 
-export default function ShareSomethingOnline({ playerName, avatar }) {
+export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
   const [selected, setSelected] = useState('A Photo of Food');
   const [gameStarted, setGameStarted] = useState(false);
   const [backButton, setBackButton] = useState(false);
@@ -74,29 +85,36 @@ export default function ShareSomethingOnline({ playerName, avatar }) {
           will you share?
         </Typography>
 
-        {/* Options Grid */}
-        <Grid container spacing={2} justifyContent="center" mb={4}>
-          {options.map(({ emoji, label }) => (
-            <Grid item xs={12} sm={4} key={label}>
-              <Paper
-                onClick={() => setSelected(label)}
-                elevation={selected === label ? 4 : 1}
-                sx={{
-                  textAlign: 'center',
-                  padding: '1.5rem',
-                  borderRadius: '1rem',
-                  border: selected === label ? '2px solid #90caf9' : '1px solid #ddd',
-                  backgroundColor: selected === label ? '#e3f2fd' : '#fff',
-                  cursor: 'pointer',
-                  transition: '0.2s ease',
-                }}
-              >
-                <Typography fontSize="2.5rem">{emoji}</Typography>
-                <Typography fontWeight={600}>{label}</Typography>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
+        <Box
+  sx={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 3,
+    mb: 4,
+  }}
+>
+  {options.map(({ emoji, label }) => (
+    <Box
+      key={label}
+      onClick={() => setSelected(label)}
+      sx={{
+        width: { xs: '100%', sm: '30%' },
+        textAlign: 'center',
+        padding: '1.5rem',
+        borderRadius: '1rem',
+        border: selected === label ? '2px solid #90caf9' : '1px solid #ddd',
+        backgroundColor: selected === label ? '#e3f2fd' : '#fff',
+        cursor: 'pointer',
+        transition: '0.2s ease',
+        boxShadow: selected === label ? 4 : 1,
+      }}
+    >
+      <Typography fontSize="2.5rem">{emoji}</Typography>
+      <Typography fontWeight={600}>{label}</Typography>
+    </Box>
+  ))}
+</Box>
 
         {/* Buttons */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

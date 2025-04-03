@@ -12,7 +12,17 @@ import GameLayOutBox from './GameLayOutBox';
 import { useState } from 'react';
 import EndGame from './EndGame';
 
-export default function ChapterReflection() {
+interface Avatar {
+  emoji: string;
+  label: string;
+}
+
+interface EndReflectionProps {
+  playerName: string;
+  avatar: Avatar;
+}
+
+export default function EndReflection({ playerName, avatar }: EndReflectionProps) {
   const [gameStarted, setGameStarted] = useState(false);
 
   if (gameStarted) {
@@ -117,7 +127,7 @@ export default function ChapterReflection() {
                 <ListItemText primary="• Block users who are bullying you." />
               </ListItem>
               <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="• Tell a trusted adult — you don’t need to deal with bullies by yourself." />
+                <ListItemText primary="• Tell a trusted adult — you don't need to deal with bullies by yourself." />
               </ListItem>
               <ListItem sx={{ py: 0 }}>
                 <ListItemText primary="• Support your friends if they're being bullied — be there for them." />

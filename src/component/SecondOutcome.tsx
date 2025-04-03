@@ -13,7 +13,17 @@ import FirstOutcome from './FirstOutcome';
 import { useState } from 'react';
 import EndReflection from './EndReflection';
 
-export default function SecondOutcome({ playerName, avatar }) {
+interface Avatar {
+  emoji: string;
+  label: string;
+}
+
+interface SecondOutcomeProps {
+  playerName: string;
+  avatar: Avatar;
+}
+
+export default function SecondOutcome({ playerName, avatar }: SecondOutcomeProps) {
   const [backButton, setBackButton] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
 
@@ -47,7 +57,7 @@ export default function SecondOutcome({ playerName, avatar }) {
             sx={{
               height: 25,
               borderRadius: 1,
-              backgroundColor: '#e0e0e0', // track color
+              backgroundColor: '#e0e0e0', 
               '& .MuiLinearProgress-bar': {
                 background: 'linear-gradient(to right, #62B5E5, #469fd8)',
               },
@@ -115,7 +125,7 @@ export default function SecondOutcome({ playerName, avatar }) {
             }}
           >
             <Typography>
-              Hey, I saw that mean comment. Are you okay? I’m here if you want to talk. 💙
+              Hey, I saw that mean comment. Are you okay? I'm here if you want to talk. 💙
             </Typography>
             <Box
               sx={{

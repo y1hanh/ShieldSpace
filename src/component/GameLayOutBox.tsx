@@ -1,10 +1,16 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-const GameLayOutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
+type GameLayOutBoxProps = {
+  children: React.ReactNode;
+  outerSx?: object;
+  innerSx?: object;
+};
+
+const GameLayOutBox = ({ children, outerSx = {}, innerSx = {} }: GameLayOutBoxProps) => {
   return (
     <Box sx={{ padding: '2rem', ...outerSx }}>
-      {/* Header Box */}
+      {/* Default Header Box */}
       <Box
         sx={{
           backgroundColor: '#fff',
@@ -17,7 +23,7 @@ const GameLayOutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
         }}
       >
         <Typography variant="h5" fontWeight={600} mb={2}>
-          {header || 'Digital Defender: Choose Your Path'}
+          Digital Defender: Choose Your Path
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Play this game to build resilience, practice managing difficult situations, and learn how
@@ -25,7 +31,7 @@ const GameLayOutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
         </Typography>
       </Box>
 
-      {/* Children content */}
+      {/* Main content */}
       {children}
     </Box>
   );
