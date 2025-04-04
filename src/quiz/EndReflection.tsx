@@ -8,7 +8,7 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import GameLayOutBox from './GameLayOutBox';
+import GameLayOutBox from '../component/GameLayOutBox';
 import { useState } from 'react';
 import EndGame from './EndGame';
 

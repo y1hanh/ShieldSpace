@@ -6,7 +6,7 @@ import DiamondIcon from '@mui/icons-material/Diamond';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import { useState } from 'react';
-import DigitalDefender from '../component/DigitDefender';
+import DigitalDefender from '../quiz/DigitDefender';
 
 export default function GamePage() {
   const [gameStarted, setGameStarted] = useState(false);

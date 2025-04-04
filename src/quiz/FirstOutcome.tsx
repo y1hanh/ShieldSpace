@@ -8,30 +8,20 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import GameLayOutBox from './GameLayOutBox';
-import FirstOutcome from './FirstOutcome';
+import GameLayOutBox from '../component/GameLayOutBox';
+import PostBully from './PostBully';
+import SecondOutcome from './SecondOutcome';
 import { useState } from 'react';
-import EndReflection from './EndReflection';
 
-interface Avatar {
-  emoji: string;
-  label: string;
-}
-
-interface SecondOutcomeProps {
-  playerName: string;
-  avatar: Avatar;
-}
-
-export default function SecondOutcome({ playerName, avatar }: SecondOutcomeProps) {
+export default function FirstOutcome({ playerName, avatar }) {
   const [backButton, setBackButton] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
 
   if (backButton) {
-    return <FirstOutcome playerName={playerName} avatar={avatar} />;
+    return <PostBully playerName={playerName} avatar={avatar} />;
   }
   if (gameStarted) {
-    return <EndReflection playerName={playerName} avatar={avatar} />;
+    return <SecondOutcome playerName={playerName} avatar={avatar} />;
   }
 
   return (
@@ -53,11 +43,11 @@ export default function SecondOutcome({ playerName, avatar }: SecondOutcomeProps
         <Box sx={{ position: 'relative', mb: 3 }}>
           <LinearProgress
             variant="determinate"
-            value={90}
+            value={70}
             sx={{
               height: 25,
               borderRadius: 1,
-              backgroundColor: '#e0e0e0', 
+              backgroundColor: '#e0e0e0',
               '& .MuiLinearProgress-bar': {
                 background: 'linear-gradient(to right, #62B5E5, #469fd8)',
               },
@@ -73,7 +63,7 @@ export default function SecondOutcome({ playerName, avatar }: SecondOutcomeProps
               padding: '0.25rem',
             }}
           >
-            90%
+            70%
           </Typography>
         </Box>
 
@@ -90,56 +80,22 @@ export default function SecondOutcome({ playerName, avatar }: SecondOutcomeProps
             borderLeft: '5px solid #90caf9',
             backgroundColor: '#f9f9f9',
             mb: 4,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: 3,
-            flexWrap: 'wrap',
           }}
         >
-          <Box>
-            <Typography variant="subtitle1" fontWeight={600} gutterBottom>
-              You chose to message your friend
-            </Typography>
-            <List dense>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="✅ Your friend feels supported." />
-              </ListItem>
-              <ListItem sx={{ py: 0 }}>
-                <ListItemText primary="✅ They thank you for checking in." />
-              </ListItem>
-            </List>
-          </Box>
-
-          {/* Message bubble */}
-          <Box
-            sx={{
-              backgroundColor: '#e3f2fd',
-              borderRadius: '12px',
-              padding: '1rem 1.5rem',
-              fontStyle: 'italic',
-              border: '1px solid #90caf9',
-              position: 'relative',
-              maxWidth: '300px',
-              fontSize: '0.9rem',
-            }}
-          >
-            <Typography>
-              Hey, I saw that mean comment. Are you okay? I'm here if you want to talk. 💙
-            </Typography>
-            <Box
-              sx={{
-                position: 'absolute',
-                bottom: '-10px',
-                left: '20px',
-                width: 0,
-                height: 0,
-                borderLeft: '10px solid transparent',
-                borderRight: '10px solid transparent',
-                borderTop: '10px solid #e3f2fd',
-              }}
-            />
-          </Box>
+          <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+            You chose to report the bullies
+          </Typography>
+          <List dense>
+            <ListItem sx={{ py: 0 }}>
+              <ListItemText primary="✅ The comments get removed." />
+            </ListItem>
+            <ListItem sx={{ py: 0 }}>
+              <ListItemText primary="🔷 The users are warned/banned." />
+            </ListItem>
+            <ListItem sx={{ py: 0 }}>
+              <ListItemText primary="🔷 You feel safer." />
+            </ListItem>
+          </List>
         </Paper>
 
         {/* Navigation Buttons */}

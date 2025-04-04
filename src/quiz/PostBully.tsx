@@ -1,14 +1,13 @@
 import { Box, Typography, Button, LinearProgress, Paper, List, ListItem } from '@mui/material';
-import GameLayOutBox from './GameLayOutBox';
+import GameLayOutBox from '../component/GameLayOutBox';
 import { useState } from 'react';
 import ShareOnline from './ShareOnline';
 import FirstOutcome from './FirstOutcome';
 
-export default function PostBullyScene({ playerName, avatar }) {
+export default function PostBully({ playerName, avatar }) {
   const [selected, setSelected] = useState('Report');
   const [backButton, setBackButton] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-
   if (backButton) {
     return <ShareOnline playerName={playerName} avatar={avatar} />;
   }
@@ -36,7 +35,7 @@ export default function PostBullyScene({ playerName, avatar }) {
         <Box sx={{ position: 'relative', mb: 3 }}>
           <LinearProgress
             variant="determinate"
-            value={70}
+            value={60}
             sx={{
               height: 25,
               borderRadius: 1,
@@ -56,7 +55,7 @@ export default function PostBullyScene({ playerName, avatar }) {
               padding: '0.25rem',
             }}
           >
-            70%
+            60%
           </Typography>
         </Box>
 
@@ -79,9 +78,9 @@ export default function PostBullyScene({ playerName, avatar }) {
             <Typography fontSize="1.5rem" mr={1}>
               {avatar?.emoji}
             </Typography>
-            <Typography fontWeight={600}>Friend</Typography>
+            <Typography fontWeight={600}>{playerName}</Typography>
           </Box>
-          <Typography mb={2}>Check out my new dance video! #dance #fun</Typography>
+          <Typography mb={2}>Just enjoying my weekend! #weekend #fun</Typography>
           <Box
             sx={{
               backgroundColor: '#eee',
@@ -108,7 +107,16 @@ export default function PostBullyScene({ playerName, avatar }) {
                 mb: 1,
               }}
             >
-              NiceUser: Great moves!
+              FriendlyUser: Looking good! Have a great weekend!
+            </ListItem>
+            <ListItem
+              sx={{
+                backgroundColor: '#fddde0',
+                borderRadius: '0.5rem',
+                mb: 1,
+              }}
+            >
+              Bully1: You're too ugly to post this.
             </ListItem>
             <ListItem
               sx={{
@@ -116,7 +124,7 @@ export default function PostBullyScene({ playerName, avatar }) {
                 borderRadius: '0.5rem',
               }}
             >
-              Bully4: You're so stupid, why would you post this?
+              Bully2: Go back to your country.
             </ListItem>
           </List>
         </Paper>
@@ -126,12 +134,15 @@ export default function PostBullyScene({ playerName, avatar }) {
           You feel hurt and confused. What will you do?
         </Typography>
 
-        {/* Response Options */}
+        {/* Options */}
         {[
-          { label: 'Ignore it', icon: '👀', value: 'Ignore' },
-          { label: 'Send a private message to your friend', icon: '💬', value: 'Message' },
-          { label: 'Stand up in the comments', icon: '💪', value: 'StandUp' },
-          { label: 'Report the bully', icon: '🚩', value: 'Report' },
+          { label: 'Fight Back - Respond with an angry comment', icon: '🥊', value: 'Fight' },
+          { label: 'Report - Report the abusive comments', icon: '🚩', value: 'Report' },
+          {
+            label: 'Talk to a Trusted Adult - Speak to a parent or teacher',
+            icon: '🧑‍🏫',
+            value: 'Talk',
+          },
         ].map(({ label, icon, value }) => (
           <Box
             key={value}

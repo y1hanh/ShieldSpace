@@ -1,36 +1,40 @@
 import { useState } from 'react';
-import { Box, Typography, Button, LinearProgress} from '@mui/material';
-import GameLayOutBox from './GameLayOutBox';
-import AvatarSelect from './AvatarSelect';
-import PostBully from './PostBully';
+import { Box, Typography, Button, LinearProgress, Alert } from '@mui/material';
+import GameLayOutBox from '../component/GameLayOutBox';
+import ShareOnline from './ShareOnline';
 
 interface Avatar {
   emoji: string;
   label: string;
 }
 
-interface ShareOnlineProps {
+interface AvatarSelectProps {
   playerName: string;
-  avatar: Avatar;
+  avatar?: Avatar;
 }
 
-const options = [
-  { emoji: '🧍‍♀️', label: 'A Selfie' },
-  { emoji: '🍕', label: 'A Photo of Food' },
-  { emoji: '🐾', label: 'A Picture of your pet' },
+const avatars = [
+  { emoji: '🐱', label: 'Kitten' },
+  { emoji: '🐶', label: 'Puppy' },
+  { emoji: '🦊', label: 'Fox' },
+  { emoji: '🐰', label: 'Bunny' },
 ];
 
-export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
-  const [selected, setSelected] = useState('A Photo of Food');
+export default function AvatarSelect({ playerName, avatar }: AvatarSelectProps) {
+  const [selected, setSelected] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
-  const [backButton, setBackButton] = useState(false);
+  const [error, setError] = useState(false);
 
-  if (backButton) {
-    return <AvatarSelect playerName={playerName} avatar={avatar} />;
-  }
+  const handleNext = () => {
+    if (!selected) {
+      setError(true);
+    } else {
+      setGameStarted(true);
+    }
+  };
 
   if (gameStarted) {
-    return <PostBully playerName={playerName} avatar={avatar} />;
+    return <ShareOnline playerName={playerName} avatar={selected} />;
   }
 
   return (
@@ -45,14 +49,14 @@ export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
           boxShadow: 1,
         }}
       >
-        {/* Progress Bar */}
-        <Typography variant="caption" fontWeight={500} gutterBottom>
+        {/* Progress */}
+        <Typography variant="caption" fontWeight={500} color="#666666" gutterBottom>
           Progress
         </Typography>
         <Box sx={{ position: 'relative', mb: 3 }}>
           <LinearProgress
             variant="determinate"
-            value={40}
+            value={20}
             sx={{
               height: 25,
               borderRadius: 1,
@@ -72,42 +76,50 @@ export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
               padding: '0.25rem',
             }}
           >
-            40%
+            20%
           </Typography>
         </Box>
 
-        {/* Title & Description */}
+        {/* Instructions */}
         <Typography fontWeight={600} mb={1}>
-          Share Something Online
+          Choose Your Avatar
         </Typography>
         <Typography variant="body2" mb={3}>
-          You're excited about the weekend, so you decide to post something on social media. What
-          will you share?
+          Select a character to represent you in the digital world:
         </Typography>
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            Please select an avatar before continuing.
+          </Alert>
+        )}
 
+        
         <Box
   sx={{
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 3,
+    gap: 4,
     mb: 4,
   }}
 >
-  {options.map(({ emoji, label }) => (
+  {avatars.map(({ emoji, label }) => (
     <Box
       key={label}
-      onClick={() => setSelected(label)}
+      onClick={() => {
+        setSelected({ emoji, label });
+        setError(false);
+      }}
       sx={{
-        width: { xs: '100%', sm: '30%' },
+        width: { xs: '100%', sm: '40%', md: '25%' },
         textAlign: 'center',
-        padding: '1.5rem',
+        padding: '3rem',
         borderRadius: '1rem',
-        border: selected === label ? '2px solid #90caf9' : '1px solid #ddd',
-        backgroundColor: selected === label ? '#e3f2fd' : '#fff',
+        border: selected?.label === label ? '2px solid #90caf9' : '1px solid #ddd',
+        backgroundColor: selected?.label === label ? '#e3f2fd' : '#fff',
         cursor: 'pointer',
         transition: '0.2s ease',
-        boxShadow: selected === label ? 4 : 1,
+        boxShadow: selected?.label === label ? 4 : 1,
       }}
     >
       <Typography fontSize="2.5rem">{emoji}</Typography>
@@ -116,27 +128,10 @@ export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
   ))}
 </Box>
 
-        {/* Buttons */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* Next Button */}
+        <Box textAlign="right">
           <Button
-            onClick={() => setBackButton(true)}
-            variant="contained"
-            sx={{
-              backgroundColor: '#f89b5e',
-              borderRadius: '25px',
-              paddingX: '2rem',
-              paddingY: '0.5rem',
-              fontWeight: 600,
-              textTransform: 'none',
-              '&:hover': {
-                backgroundColor: '#f57c00',
-              },
-            }}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={() => setGameStarted(true)}
+            onClick={handleNext}
             variant="contained"
             sx={{
               backgroundColor: '#f89b5e',

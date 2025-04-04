@@ -1,40 +1,36 @@
 import { useState } from 'react';
-import { Box, Typography, Button, LinearProgress, Alert } from '@mui/material';
-import GameLayOutBox from './GameLayOutBox';
-import ShareOnline from './ShareOnline';
+import { Box, Typography, Button, LinearProgress} from '@mui/material';
+import GameLayOutBox from '../component/GameLayOutBox';
+import AvatarSelect from './AvatarSelect';
+import PostBully from './PostBully';
 
 interface Avatar {
   emoji: string;
   label: string;
 }
 
-interface AvatarSelectProps {
+interface ShareOnlineProps {
   playerName: string;
-  avatar?: Avatar;
+  avatar: Avatar;
 }
 
-const avatars = [
-  { emoji: '🐱', label: 'Kitten' },
-  { emoji: '🐶', label: 'Puppy' },
-  { emoji: '🦊', label: 'Fox' },
-  { emoji: '🐰', label: 'Bunny' },
+const options = [
+  { emoji: '🧍‍♀️', label: 'A Selfie' },
+  { emoji: '🍕', label: 'A Photo of Food' },
+  { emoji: '🐾', label: 'A Picture of your pet' },
 ];
 
-export default function AvatarSelect({ playerName, avatar }: AvatarSelectProps) {
-  const [selected, setSelected] = useState(null);
+export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
+  const [selected, setSelected] = useState('A Photo of Food');
   const [gameStarted, setGameStarted] = useState(false);
-  const [error, setError] = useState(false);
+  const [backButton, setBackButton] = useState(false);
 
-  const handleNext = () => {
-    if (!selected) {
-      setError(true);
-    } else {
-      setGameStarted(true);
-    }
-  };
+  if (backButton) {
+    return <AvatarSelect playerName={playerName} avatar={avatar} />;
+  }
 
   if (gameStarted) {
-    return <ShareOnline playerName={playerName} avatar={selected} />;
+    return <PostBully playerName={playerName} avatar={avatar} />;
   }
 
   return (
@@ -49,14 +45,14 @@ export default function AvatarSelect({ playerName, avatar }: AvatarSelectProps) 
           boxShadow: 1,
         }}
       >
-        {/* Progress */}
-        <Typography variant="caption" fontWeight={500} color="#666666" gutterBottom>
+        {/* Progress Bar */}
+        <Typography variant="caption" fontWeight={500} gutterBottom>
           Progress
         </Typography>
         <Box sx={{ position: 'relative', mb: 3 }}>
           <LinearProgress
             variant="determinate"
-            value={20}
+            value={40}
             sx={{
               height: 25,
               borderRadius: 1,
@@ -76,50 +72,42 @@ export default function AvatarSelect({ playerName, avatar }: AvatarSelectProps) 
               padding: '0.25rem',
             }}
           >
-            20%
+            40%
           </Typography>
         </Box>
 
-        {/* Instructions */}
+        {/* Title & Description */}
         <Typography fontWeight={600} mb={1}>
-          Choose Your Avatar
+          Share Something Online
         </Typography>
         <Typography variant="body2" mb={3}>
-          Select a character to represent you in the digital world:
+          You're excited about the weekend, so you decide to post something on social media. What
+          will you share?
         </Typography>
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            Please select an avatar before continuing.
-          </Alert>
-        )}
 
-        
         <Box
   sx={{
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 4,
+    gap: 3,
     mb: 4,
   }}
 >
-  {avatars.map(({ emoji, label }) => (
+  {options.map(({ emoji, label }) => (
     <Box
       key={label}
-      onClick={() => {
-        setSelected({ emoji, label });
-        setError(false);
-      }}
+      onClick={() => setSelected(label)}
       sx={{
-        width: { xs: '100%', sm: '40%', md: '25%' },
+        width: { xs: '100%', sm: '30%' },
         textAlign: 'center',
-        padding: '3rem',
+        padding: '1.5rem',
         borderRadius: '1rem',
-        border: selected?.label === label ? '2px solid #90caf9' : '1px solid #ddd',
-        backgroundColor: selected?.label === label ? '#e3f2fd' : '#fff',
+        border: selected === label ? '2px solid #90caf9' : '1px solid #ddd',
+        backgroundColor: selected === label ? '#e3f2fd' : '#fff',
         cursor: 'pointer',
         transition: '0.2s ease',
-        boxShadow: selected?.label === label ? 4 : 1,
+        boxShadow: selected === label ? 4 : 1,
       }}
     >
       <Typography fontSize="2.5rem">{emoji}</Typography>
@@ -128,10 +116,27 @@ export default function AvatarSelect({ playerName, avatar }: AvatarSelectProps) 
   ))}
 </Box>
 
-        {/* Next Button */}
-        <Box textAlign="right">
+        {/* Buttons */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button
-            onClick={handleNext}
+            onClick={() => setBackButton(true)}
+            variant="contained"
+            sx={{
+              backgroundColor: '#f89b5e',
+              borderRadius: '25px',
+              paddingX: '2rem',
+              paddingY: '0.5rem',
+              fontWeight: 600,
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: '#f57c00',
+              },
+            }}
+          >
+            Previous
+          </Button>
+          <Button
+            onClick={() => setGameStarted(true)}
             variant="contained"
             sx={{
               backgroundColor: '#f89b5e',

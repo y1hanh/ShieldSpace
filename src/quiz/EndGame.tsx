@@ -1,5 +1,5 @@
 import { Box, Typography, Button, LinearProgress, Paper, Chip } from '@mui/material';
-import GameLayOutBox from './GameLayOutBox';
+import GameLayOutBox from '../component/GameLayOutBox';
 import { useState } from 'react';
 import GamePage from '../page/GamePage';
 import DigitalDefender from './DigitDefender';
