@@ -13,7 +13,6 @@ import { useState } from 'react';
 import ShareOnline from './ShareOnline';
 import EndReflection from './EndReflection';
 
-
 export default function PostBully({ playerName, avatar }) {
   const [selected, setSelected] = useState('Report');
   const [backButton, setBackButton] = useState(false);
@@ -25,7 +24,7 @@ export default function PostBully({ playerName, avatar }) {
   }
 
   if (gameStarted) {
-    return <EndReflection playerName={playerName} avatar={avatar} />;
+    return <EndReflection />;
   }
 
   return (

@@ -30,9 +30,9 @@ export default function SecondOutcome({ playerName, avatar }: SecondOutcomeProps
   if (backButton) {
     return <FirstOutcome playerName={playerName} avatar={avatar} />;
   }
-  if (gameStarted) {
+  /* if (gameStarted) {
     return <EndReflection playerName={playerName} avatar={avatar} />;
-  }
+  } */
 
   return (
     <GameLayOutBox>

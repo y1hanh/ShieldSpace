@@ -22,7 +22,7 @@ interface EndReflectionProps {
   avatar: Avatar;
 } */
 
-  //export default function EndReflection({ playerName, avatar }: EndReflectionProps)
+//export default function EndReflection({ playerName, avatar }: EndReflectionProps)
 export default function EndReflection() {
   const [gameStarted, setGameStarted] = useState(false);
 
