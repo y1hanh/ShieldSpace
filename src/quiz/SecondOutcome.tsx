@@ -57,7 +57,7 @@ export default function SecondOutcome({ playerName, avatar }: SecondOutcomeProps
             sx={{
               height: 25,
               borderRadius: 1,
-              backgroundColor: '#e0e0e0', 
+              backgroundColor: '#e0e0e0',
               '& .MuiLinearProgress-bar': {
                 background: 'linear-gradient(to right, #62B5E5, #469fd8)',
               },

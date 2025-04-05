@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Typography, Button, LinearProgress} from '@mui/material';
+import { Box, Typography, Button, LinearProgress } from '@mui/material';
 import GameLayOutBox from '../component/GameLayOutBox';
 import AvatarSelect from './AvatarSelect';
 import PostBully from './PostBully';
@@ -86,35 +86,35 @@ export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
         </Typography>
 
         <Box
-  sx={{
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 3,
-    mb: 4,
-  }}
->
-  {options.map(({ emoji, label }) => (
-    <Box
-      key={label}
-      onClick={() => setSelected(label)}
-      sx={{
-        width: { xs: '100%', sm: '30%' },
-        textAlign: 'center',
-        padding: '1.5rem',
-        borderRadius: '1rem',
-        border: selected === label ? '2px solid #90caf9' : '1px solid #ddd',
-        backgroundColor: selected === label ? '#e3f2fd' : '#fff',
-        cursor: 'pointer',
-        transition: '0.2s ease',
-        boxShadow: selected === label ? 4 : 1,
-      }}
-    >
-      <Typography fontSize="2.5rem">{emoji}</Typography>
-      <Typography fontWeight={600}>{label}</Typography>
-    </Box>
-  ))}
-</Box>
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 3,
+            mb: 4,
+          }}
+        >
+          {options.map(({ emoji, label }) => (
+            <Box
+              key={label}
+              onClick={() => setSelected(label)}
+              sx={{
+                width: { xs: '100%', sm: '30%' },
+                textAlign: 'center',
+                padding: '1.5rem',
+                borderRadius: '1rem',
+                border: selected === label ? '2px solid #90caf9' : '1px solid #ddd',
+                backgroundColor: selected === label ? '#e3f2fd' : '#fff',
+                cursor: 'pointer',
+                transition: '0.2s ease',
+                boxShadow: selected === label ? 4 : 1,
+              }}
+            >
+              <Typography fontSize="2.5rem">{emoji}</Typography>
+              <Typography fontWeight={600}>{label}</Typography>
+            </Box>
+          ))}
+        </Box>
 
         {/* Buttons */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

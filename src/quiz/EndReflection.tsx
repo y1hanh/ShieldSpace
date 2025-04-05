@@ -12,7 +12,7 @@ import GameLayOutBox from '../component/GameLayOutBox';
 import { useState } from 'react';
 import EndGame from './EndGame';
 
-interface Avatar {
+/* interface Avatar {
   emoji: string;
   label: string;
 }
@@ -20,9 +20,10 @@ interface Avatar {
 interface EndReflectionProps {
   playerName: string;
   avatar: Avatar;
-}
+} */
 
-export default function EndReflection({ playerName, avatar }: EndReflectionProps) {
+  //export default function EndReflection({ playerName, avatar }: EndReflectionProps)
+export default function EndReflection() {
   const [gameStarted, setGameStarted] = useState(false);
 
   if (gameStarted) {

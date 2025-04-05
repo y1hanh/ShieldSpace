@@ -93,40 +93,39 @@ export default function AvatarSelect({ playerName, avatar }: AvatarSelectProps) 
           </Alert>
         )}
 
-        
         <Box
-  sx={{
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 4,
-    mb: 4,
-  }}
->
-  {avatars.map(({ emoji, label }) => (
-    <Box
-      key={label}
-      onClick={() => {
-        setSelected({ emoji, label });
-        setError(false);
-      }}
-      sx={{
-        width: { xs: '100%', sm: '40%', md: '25%' },
-        textAlign: 'center',
-        padding: '3rem',
-        borderRadius: '1rem',
-        border: selected?.label === label ? '2px solid #90caf9' : '1px solid #ddd',
-        backgroundColor: selected?.label === label ? '#e3f2fd' : '#fff',
-        cursor: 'pointer',
-        transition: '0.2s ease',
-        boxShadow: selected?.label === label ? 4 : 1,
-      }}
-    >
-      <Typography fontSize="2.5rem">{emoji}</Typography>
-      <Typography fontWeight={600}>{label}</Typography>
-    </Box>
-  ))}
-</Box>
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 4,
+            mb: 4,
+          }}
+        >
+          {avatars.map(({ emoji, label }) => (
+            <Box
+              key={label}
+              onClick={() => {
+                setSelected({ emoji, label });
+                setError(false);
+              }}
+              sx={{
+                width: { xs: '100%', sm: '40%', md: '25%' },
+                textAlign: 'center',
+                padding: '3rem',
+                borderRadius: '1rem',
+                border: selected?.label === label ? '2px solid #90caf9' : '1px solid #ddd',
+                backgroundColor: selected?.label === label ? '#e3f2fd' : '#fff',
+                cursor: 'pointer',
+                transition: '0.2s ease',
+                boxShadow: selected?.label === label ? 4 : 1,
+              }}
+            >
+              <Typography fontSize="2.5rem">{emoji}</Typography>
+              <Typography fontWeight={600}>{label}</Typography>
+            </Box>
+          ))}
+        </Box>
 
         {/* Next Button */}
         <Box textAlign="right">
