@@ -15,7 +15,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  CircularProgress,
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import PageLayoutBox from '../component/PageLayOutBox';
@@ -90,27 +89,15 @@ const STYLES = {
 
 export default function AssessmentPage() {
   // State management
-  const [questions, setQuestions] = useState([]);
+  const [questions] = useState([
+    'Welcome to the No More Bully assessment tool.\n How does this situation make you feel?',
+    'What actions could you take if this happens again?',
+    'How would you support a friend in the same situation?',
+  ]);
   const [responses, setResponses] = useState([]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
-
-  // Fetch questions on component mount
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const res = await axios.get('/api/assessment/questions');
-        setQuestions(res.data);
-      } catch (error) {
-        console.error('Failed to load questions', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchQuestions();
-  }, []);
 
   // Handle user response submission
   const handleSubmit = () => {
@@ -120,7 +107,7 @@ export default function AssessmentPage() {
     const responseObj = {
       question: currentQuestion,
       answer: input,
-      type: currentIndex === 1 ? 'scale' : 'text',
+      type: 'text',
     };
 
     const updatedResponses = [...responses, responseObj];
@@ -160,67 +147,55 @@ export default function AssessmentPage() {
             situations.
           </Typography>
           <Box sx={STYLES.container}>
-            {loading ? (
-              <Box textAlign="center" mt={6}>
-                <CircularProgress />
-              </Box>
-            ) : (
-              <>
-                {/* Chat Interface */}
-                <Paper sx={STYLES.chatBubble}>
-                  <List>
-                    {responses.map((res, i) => (
-                      <Box key={i}>
-                        <ListItem>
-                          <ListItemText primary={res.question} />
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: 'flex-end' }}>
-                          <ListItemText
-                            primary={res.answer}
-                            sx={{
-                              maxWidth: 'fit-content',
-                              backgroundColor: '#f89b5e',
-                              color: 'white',
-                              px: 2,
-                              py: 1,
-                              borderRadius: '15px',
-                            }}
-                          />
-                        </ListItem>
-                      </Box>
-                    ))}
-                    {questions[currentIndex] && (
-                      <ListItem>
-                        <ListItemText primary={questions[currentIndex]} />
-                      </ListItem>
-                    )}
-                  </List>
-                </Paper>
-
-                {/* Progress Indicator */}
-                <LinearProgress
-                  variant="determinate"
-                  value={progress}
-                  sx={STYLES.progressBar}
-                />
-
-                {/* Response Input */}
-                {questions[currentIndex] && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <TextField
-                      fullWidth
-                      placeholder="Type your response here..."
-                      value={input}
-                      onChange={e => setInput(e.target.value)}
-                      onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                      sx={{ borderRadius: '10px' }}
-                    />
-                    <Button onClick={handleSubmit} sx={STYLES.submitButton}>
-                      <ArrowUpwardIcon />
-                    </Button>
+            {/* Chat Interface */}
+            <Paper sx={STYLES.chatBubble}>
+              <List>
+                {responses.map((res, i) => (
+                  <Box key={i}>
+                    <ListItem>
+                      <ListItemText primary={res.question} />
+                    </ListItem>
+                    <ListItem sx={{ justifyContent: 'flex-end' }}>
+                      <ListItemText
+                        primary={res.answer}
+                        sx={{
+                          maxWidth: 'fit-content',
+                          backgroundColor: '#f89b5e',
+                          color: 'white',
+                          px: 2,
+                          py: 1,
+                          borderRadius: '15px',
+                        }}
+                      />
+                    </ListItem>
                   </Box>
+                ))}
+                {questions[currentIndex] && (
+                  <ListItem>
+                    <ListItemText primary={questions[currentIndex]} />
+                  </ListItem>
                 )}
-              </>
+              </List>
+            </Paper>
+
+            {/* Progress Indicator */}
+            <LinearProgress variant="determinate" value={progress} sx={STYLES.progressBar} />
+
+            {/* Response Input */}
+            {questions[currentIndex] && (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <TextField
+                  fullWidth
+                  placeholder="Type your response here..."
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                  sx={{ borderRadius: '10px' }}
+                />
+                <Button onClick={handleSubmit} sx={STYLES.submitButton}>
+                  <ArrowUpwardIcon />
+                </Button>
+              </Box>
             )}
           </Box>
         </>
