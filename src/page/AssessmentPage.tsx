@@ -91,8 +91,7 @@ export default function AssessmentPage() {
   // State management
   const [questions] = useState([
     'Welcome to the No More Bully assessment tool.\n How does this situation make you feel?',
-    'What actions could you take if this happens again?',
-    'How would you support a friend in the same situation?',
+    'On the scale of 1 to 10, how intense is that feeling?',
   ]);
   const [responses, setResponses] = useState([]);
   const [input, setInput] = useState('');
@@ -102,12 +101,19 @@ export default function AssessmentPage() {
   // Handle user response submission
   const handleSubmit = () => {
     if (!input.trim()) return;
+    if (currentIndex === 1) {
+      const scaleValue = parseInt(input);
+      if (isNaN(scaleValue) || scaleValue < 1 || scaleValue > 10) {
+        alert('Please enter a number between 1 and 10.');
+        return;
+      }
+    }
 
     const currentQuestion = questions[currentIndex];
     const responseObj = {
       question: currentQuestion,
       answer: input,
-      type: 'text',
+      type: currentIndex === 1 ? 'scale' : 'text',
     };
 
     const updatedResponses = [...responses, responseObj];
@@ -130,7 +136,10 @@ export default function AssessmentPage() {
     };
     console.log('Submitting:', payload);
     // await axios.post('/api/assessment/submit', payload);
-    navigate('/assessment/results');
+    setResponses([]);
+    setCurrentIndex(0);
+    setInput('');
+    navigate('/assessment');
   };
 
   const progress = (responses.length / questions.length) * 100;
@@ -184,14 +193,27 @@ export default function AssessmentPage() {
             {/* Response Input */}
             {questions[currentIndex] && (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <TextField
-                  fullWidth
-                  placeholder="Type your response here..."
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                  sx={{ borderRadius: '10px' }}
-                />
+                {currentIndex === 1 ? (
+                  <TextField
+                    fullWidth
+                    placeholder="Rate from 1 to 10"
+                    type="number"
+                    inputProps={{ min: 1, max: 10 }}
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                    sx={{ borderRadius: '10px' }}
+                  />
+                ) : (
+                  <TextField
+                    fullWidth
+                    placeholder="Type your response here..."
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                    sx={{ borderRadius: '10px' }}
+                  />
+                )}
                 <Button onClick={handleSubmit} sx={STYLES.submitButton}>
                   <ArrowUpwardIcon />
                 </Button>
