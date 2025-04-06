@@ -21,6 +21,9 @@ import PageLayoutBox from '../component/PageLayOutBox';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import axios from 'axios';
 
+//token
+const token = sessionStorage.getItem('token');
+
 // Skills data configuration
 const SKILLS_DATA = [
   {
@@ -99,7 +102,7 @@ export default function AssessmentPage() {
   const navigate = useNavigate();
 
   // Handle user response submission
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     if (!input.trim()) return;
     if (currentIndex === 1) {
       const scaleValue = parseInt(input);
@@ -123,23 +126,43 @@ export default function AssessmentPage() {
     if (currentIndex + 1 < questions.length) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      submitToBackend(updatedResponses);
+      await submitToBackend(updatedResponses);
     }
   };
 
   // Submit final responses to backend
   const submitToBackend = async finalResponses => {
-    const payload = {
-      userId: 'u001',
-      username: 'FoxPlayer123',
-      responses: finalResponses,
-    };
-    console.log('Submitting:', payload);
-    // await axios.post('/api/assessment/submit', payload);
-    setResponses([]);
-    setCurrentIndex(0);
-    setInput('');
-    navigate('/assessment');
+    const message = finalResponses.find(res => res.type === 'text')?.answer;
+    //const rating = parseInt(finalResponses.find(res => res.type === 'scale')?.answer);
+
+    //isNaN(rating)
+    if (!message) {
+      alert('Please complete all questions before submitting.');
+      return;
+    }
+    try {
+      await axios.post(
+        'http://localhost:3000/emotions',
+        {
+          transformer_emotions: message,
+          nrc_emotions: message,
+         //rating: rating,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
+      navigate('/assessment');
+      setResponses([]);
+      setCurrentIndex(0);
+      setInput('');
+      
+    } catch (err) {
+      console.error('Failed to submit', err);
+      alert('Submission failed.');
+    }
   };
 
   const progress = (responses.length / questions.length) * 100;
@@ -193,27 +216,20 @@ export default function AssessmentPage() {
             {/* Response Input */}
             {questions[currentIndex] && (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                {currentIndex === 1 ? (
-                  <TextField
-                    fullWidth
-                    placeholder="Rate from 1 to 10"
-                    type="number"
-                    inputProps={{ min: 1, max: 10 }}
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                    sx={{ borderRadius: '10px' }}
-                  />
-                ) : (
-                  <TextField
-                    fullWidth
-                    placeholder="Type your response here..."
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                    sx={{ borderRadius: '10px' }}
-                  />
-                )}
+                <TextField
+                  fullWidth
+                  type={currentIndex === 1 ? 'number' : 'text'}
+                  inputProps={currentIndex === 1 ? { min: 1, max: 10 } : {}}
+                  placeholder={
+                    currentIndex === 1
+                      ? 'Rate from 1 to 10'
+                      : 'Type your response here...'
+                  }
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                  sx={{ borderRadius: '10px' }}
+                />
                 <Button onClick={handleSubmit} sx={STYLES.submitButton}>
                   <ArrowUpwardIcon />
                 </Button>
