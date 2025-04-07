@@ -1,10 +1,5 @@
-import { useState, useEffect } from 'react';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import PsychologyAltOutlinedIcon from '@mui/icons-material/PsychologyAltOutlined';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
-import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import {
   Box,
   Typography,
@@ -16,15 +11,24 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import { useNavigate } from 'react-router';
-import PageLayoutBox from '../component/PageLayOutBox';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import PsychologyAltOutlinedIcon from '@mui/icons-material/PsychologyAltOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import axios from 'axios';
+import PageLayoutBox from '../component/PageLayOutBox';
 
-//token
+// Constants
+const API_BASE_URL = 'http://localhost:3000';
 const token = sessionStorage.getItem('token');
 
-// Skills data configuration
+/**
+ * Skills data configuration for the assessment tool
+ * Each skill has a label, description, and associated icon
+ */
 const SKILLS_DATA = [
   {
     label: 'Digital Resilience',
@@ -53,7 +57,9 @@ const SKILLS_DATA = [
   },
 ];
 
-// Common styles
+/**
+ * Common styles used throughout the component
+ */
 const STYLES = {
   container: {
     width: '100%',
@@ -90,6 +96,12 @@ const STYLES = {
   },
 };
 
+/**
+ * AssessmentPage Component
+ * 
+ * A tool for users to assess their emotional responses and receive feedback
+ * Includes a chat interface, progress tracking, and skills development section
+ */
 export default function AssessmentPage() {
   // State management
   const [questions] = useState([
@@ -101,9 +113,14 @@ export default function AssessmentPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
-  // Handle user response submission
-  const handleSubmit = async() => {
+  /**
+   * Handles the submission of user responses
+   * Validates input and updates the chat interface
+   */
+  const handleSubmit = async () => {
     if (!input.trim()) return;
+    
+    // Validate scale input for intensity question
     if (currentIndex === 1) {
       const scaleValue = parseInt(input);
       if (isNaN(scaleValue) || scaleValue < 1 || scaleValue > 10) {
@@ -130,41 +147,47 @@ export default function AssessmentPage() {
     }
   };
 
-  // Submit final responses to backend
+  /**
+   * Submits the final responses to the backend
+   * Clears the chat interface and navigates to results
+   */
   const submitToBackend = async finalResponses => {
     const message = finalResponses.find(res => res.type === 'text')?.answer;
-    //const rating = parseInt(finalResponses.find(res => res.type === 'scale')?.answer);
+    const rating = parseInt(finalResponses.find(res => res.type === 'scale')?.answer);
 
-    //isNaN(rating)
-    if (!message) {
+    if (!message || !rating) {
       alert('Please complete all questions before submitting.');
       return;
     }
+
     try {
       await axios.post(
-        'http://localhost:3000/emotions',
+        `${API_BASE_URL}/emotions`,
         {
           transformer_emotions: message,
           nrc_emotions: message,
-         //rating: rating,
+          rating: rating,
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, 
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      navigate('/assessment');
+
+      // Clear the chat interface
       setResponses([]);
       setCurrentIndex(0);
       setInput('');
       
+      navigate('/assessment');
     } catch (err) {
       console.error('Failed to submit', err);
       alert('Submission failed.');
     }
   };
 
+  // Calculate progress percentage
   const progress = (responses.length / questions.length) * 100;
 
   return (
@@ -175,7 +198,7 @@ export default function AssessmentPage() {
             Emotional Assessment Tool
           </Typography>
           <Typography sx={{ color: '#7A7A9D' }} variant="body1">
-            Share your feelings and responses to build resillience and practice managing difficult
+            Share your feelings and responses to build resilience and practice managing difficult
             situations.
           </Typography>
           <Box sx={STYLES.container}>
@@ -218,13 +241,13 @@ export default function AssessmentPage() {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 <TextField
                   fullWidth
-                  type={currentIndex === 1 ? 'number' : 'text'}
-                  inputProps={currentIndex === 1 ? { min: 1, max: 10 } : {}}
                   placeholder={
                     currentIndex === 1
                       ? 'Rate from 1 to 10'
                       : 'Type your response here...'
                   }
+                  type={currentIndex === 1 ? 'number' : 'text'}
+                  inputProps={currentIndex === 1 ? { min: 1, max: 10 } : {}}
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSubmit()}
