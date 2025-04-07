@@ -11,16 +11,16 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   });
 
   const isLoggedIn = !!token;
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem('token', token);
+      sessionStorage.setItem('token', token);
     } else {
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
     }
   }, [token]);
 
@@ -30,8 +30,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setToken(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('userEmail'); // optional if you're storing email
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userEmail'); // optional
   };
 
   return (

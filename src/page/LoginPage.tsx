@@ -57,6 +57,9 @@ export default function Login() {
       }
 
       login(data.access_token);
+
+      navigate('/');
+
       setToken(data.access_token);
 
       // You can navigate after showing the token if needed:

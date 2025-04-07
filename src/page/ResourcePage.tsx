@@ -1,5 +1,5 @@
 import { Box, Typography, Button } from '@mui/material';
-import PageLayoutBox from '../component/PageLayoutBox';
+import PageLayoutBox from '../component/PageLayOutBox';
 
 export default function ResourcePage() {
   console.log('ResourcePage component rendered');

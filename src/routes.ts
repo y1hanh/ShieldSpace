@@ -7,6 +7,7 @@ import CommunityPage from './page/CommunityPage';
 import RegisterPage from './page/RegisterPage';
 import LoginPage from './page/LoginPage';
 import App from './App';
+import AssessmentPage from './page/AssessmentPage';
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: 'community',
         Component: CommunityPage,
+      },
+      {
+        path: 'assessment',
+        Component: AssessmentPage,
       },
       {
         path: 'register',
@@ -71,6 +76,10 @@ export const routes: routesArray[] = [
   {
     path: '/community',
     name: 'Community',
+  },
+  {
+    path: '/assessment',
+    name: 'Assessment',
   },
   {
     path: '#',
