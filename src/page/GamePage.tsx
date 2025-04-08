@@ -36,14 +36,14 @@ export default function GamePage() {
       {/* Game Card */}
       <Box
         sx={{
-          width: '80%',
           padding: '2rem',
           backgroundColor: '#FFFFFF',
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: '2rem',
+          mt: '2rem',
+          borderRadius: '16px',
           borderTop: '6px solid #FF9966',
         }}
       >
@@ -115,13 +115,12 @@ export default function GamePage() {
       <Box
         component="img"
         src="../public/gameskill.png"
-        sx={{ maxWidth: '86%', marginTop: '1rem' }}
+        sx={{ maxWidth: '100%', marginTop: '2rem', borderRadius: '16px'}}
       />
 
       <Box
         sx={{
-          width: '81.5%',
-          backgroundColor: '#fff',
+           backgroundColor: '#fff',
           padding: '1.5rem',
           borderRadius: '1rem',
           marginTop: '2rem',
@@ -137,7 +136,7 @@ export default function GamePage() {
           sx={{
             height: '1.5rem',
             backgroundColor: '#e0e0e0',
-            borderRadius: '1rem',
+            borderRadius: '16px',
             overflow: 'hidden',
             position: 'relative',
           }}

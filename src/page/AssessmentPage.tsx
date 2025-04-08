@@ -22,8 +22,8 @@ import axios from 'axios';
 import PageLayoutBox from '../component/PageLayOutBox';
 
 // Constants
-const API_BASE_URL = 'http://localhost:3000';
-const token = sessionStorage.getItem('token');
+const API_BASE_URL = 'http://209.38.91.23/model';
+//const token = sessionStorage.getItem('token');
 
 /**
  * Skills data configuration for the assessment tool
@@ -105,35 +105,52 @@ const STYLES = {
 export default function AssessmentPage() {
   // State management
   const [questions] = useState([
-    'Welcome to the No More Bully assessment tool.\n How does this situation make you feel?',
-    'On the scale of 1 to 10, how intense is that feeling?',
+    'Welcome to the No More Bully assessment tool.\n How does this situation make you feel?'
   ]);
   const [responses, setResponses] = useState([]);
   const [input, setInput] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
+  
   /**
    * Handles the submission of user responses
    * Validates input and updates the chat interface
    */
   const handleSubmit = async () => {
-    if (!input.trim()) return;
     
-    // Validate scale input for intensity question
-    if (currentIndex === 1) {
-      const scaleValue = parseInt(input);
-      if (isNaN(scaleValue) || scaleValue < 1 || scaleValue > 10) {
-        alert('Please enter a number between 1 and 10.');
-        return;
+    const validateInput = (text: string): string | null => {
+      const trimmed = text.trim();
+      const words = trimmed.split(/\s+/);
+    
+      if (trimmed === '') {
+        return 'Input cannot be empty.';
       }
+    
+      if (words.length < 3) {
+        return 'Please enter at least 3 words to describe how you feel.';
+      }
+    
+      const hasNumber = words.some(word => /^\d+$/.test(word));
+      if (hasNumber) {
+        return 'Please do not include numbers. Use words to describe your feelings.';
+      }
+    
+      return null; 
+    };
+    // Validate input
+    const error = validateInput(input);
+    if (currentIndex === 0 && error) {
+      alert(error);
+      return;
     }
+    if (!input.trim()) return;
 
     const currentQuestion = questions[currentIndex];
     const responseObj = {
       question: currentQuestion,
       answer: input,
-      type: currentIndex === 1 ? 'scale' : 'text',
+      type: 'text',
     };
 
     const updatedResponses = [...responses, responseObj];
@@ -152,10 +169,9 @@ export default function AssessmentPage() {
    * Clears the chat interface and navigates to results
    */
   const submitToBackend = async finalResponses => {
-    const message = finalResponses.find(res => res.type === 'text')?.answer;
-    const rating = parseInt(finalResponses.find(res => res.type === 'scale')?.answer);
-
-    if (!message || !rating) {
+    const message = finalResponses.map(res => res.answer).join(' ');
+    
+    if (!message) {
       alert('Please complete all questions before submitting.');
       return;
     }
@@ -164,15 +180,13 @@ export default function AssessmentPage() {
       await axios.post(
         `${API_BASE_URL}/emotions`,
         {
-          transformer_emotions: message,
-          nrc_emotions: message,
-          rating: rating,
-        },
+          user_input: message,
+         }/* ,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        } */
       );
 
       // Clear the chat interface
@@ -241,13 +255,8 @@ export default function AssessmentPage() {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 <TextField
                   fullWidth
-                  placeholder={
-                    currentIndex === 1
-                      ? 'Rate from 1 to 10'
-                      : 'Type your response here...'
-                  }
-                  type={currentIndex === 1 ? 'number' : 'text'}
-                  inputProps={currentIndex === 1 ? { min: 1, max: 10 } : {}}
+                  placeholder='Type your response here...'
+                  type='text'
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSubmit()}
@@ -265,11 +274,8 @@ export default function AssessmentPage() {
       {/* Skills Development Section */}
       <Box
         sx={{
-          width: '100%',
-          maxWidth: '900px',
           mx: 'auto',
-          mt: 4,
-          mb: 6,
+          mt: 2,
           backgroundColor: '#FFFFFF',
           borderRadius: '1rem',
           p: 3,
@@ -307,13 +313,11 @@ export default function AssessmentPage() {
       </Box>
 
       {/* Assessment Progress Section */}
-      <Box
+      {/* <Box
         sx={{
           backgroundColor: '#ffffff',
           borderRadius: '1rem',
           p: 3,
-          maxWidth: '900px',
-          width: '100%',
           textAlign: 'center',
         }}
       >
@@ -329,9 +333,9 @@ export default function AssessmentPage() {
             gap: 4,
             mb: 4,
           }}
-        >
+        > */}
           {/* Progress Indicators */}
-          <Box display="flex" alignItems="center" gap={1}>
+          {/* <Box display="flex" alignItems="center" gap={1}>
             <Box
               sx={{
                 width: 12,
@@ -397,7 +401,7 @@ export default function AssessmentPage() {
         >
           View All Results
         </Button>
-      </Box>
+      </Box> */}
     </PageLayoutBox>
   );
 }
