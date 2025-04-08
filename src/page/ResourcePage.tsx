@@ -50,7 +50,6 @@ export default function ResourcePage() {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          width: '90%',
           flexWrap: {
             xs: 'wrap',
             md: 'nowrap',
@@ -90,7 +89,7 @@ export default function ResourcePage() {
             sx={{
               backgroundColor: '#fff',
               borderRadius: '1rem',
-              padding: '1.2rem 0rem',
+              padding: '1.2rem 0.1rem',
               borderTop: '5px solid #f8bbd0',
               display: 'flex',
               flexDirection: 'column',
@@ -144,7 +143,6 @@ export default function ResourcePage() {
       {/* Support Flow Section */}
       <Box
         sx={{
-          width: '85%',
           backgroundColor: '#f9fbfc',
           borderRadius: '16px',
           padding: '2rem',
@@ -173,7 +171,6 @@ export default function ResourcePage() {
           backgroundColor: '#fff',
           padding: '2rem',
           marginTop: '3rem',
-          width: '90%',
           borderRadius: '16px',
           borderTop: '5px solid #FF9966',
         }}
@@ -284,7 +281,6 @@ export default function ResourcePage() {
           borderTop: '6px solid #80d0ff',
           borderRadius: '16px',
           padding: '2rem',
-          width: '90%',
           marginTop: '3rem',
         }}
       >

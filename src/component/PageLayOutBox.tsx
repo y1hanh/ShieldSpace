@@ -6,7 +6,6 @@ const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'column',
         ...outerSx,
@@ -18,19 +17,28 @@ const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
           alignItems: 'center',
           flexDirection: 'column',
           textAlign: 'center',
-          margin: 'auto',
-          marginTop: '2rem',
+          mt: 4,
+          mb: 4,
           padding: '2rem',
           backgroundColor: 'white',
           borderRadius: '1rem',
-          width: '80%',
+          width: '100%',
+          maxWidth: '900px',
+          boxSizing: 'border-box',
           ...innerSx,
         }}
       >
         {header}
       </Box>
-
-      {children}
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: '900px',
+          boxSizing: 'border-box',
+        }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 };

@@ -28,7 +28,6 @@ export default function CommunityPage() {
             xs: 'wrap',
             md: 'nowrap',
           },
-          width: '80%',
           marginTop: '2rem',
           gap: '1rem',
         }}
