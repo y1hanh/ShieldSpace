@@ -98,45 +98,43 @@ const STYLES = {
 
 /**
  * AssessmentPage Component
- * 
+ *
  * A tool for users to assess their emotional responses and receive feedback
  * Includes a chat interface, progress tracking, and skills development section
  */
 export default function AssessmentPage() {
   // State management
   const [questions] = useState([
-    'Welcome to the No More Bully assessment tool.\n How does this situation make you feel?'
+    'Welcome to the No More Bully assessment tool.\n How does this situation make you feel?',
   ]);
   const [responses, setResponses] = useState([]);
   const [input, setInput] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
-  
   /**
    * Handles the submission of user responses
    * Validates input and updates the chat interface
    */
   const handleSubmit = async () => {
-    
     const validateInput = (text: string): string | null => {
       const trimmed = text.trim();
       const words = trimmed.split(/\s+/);
-    
+
       if (trimmed === '') {
         return 'Input cannot be empty.';
       }
-    
+
       if (words.length < 3) {
         return 'Please enter at least 3 words to describe how you feel.';
       }
-    
+
       const hasNumber = words.some(word => /^\d+$/.test(word));
       if (hasNumber) {
         return 'Please do not include numbers. Use words to describe your feelings.';
       }
-    
-      return null; 
+
+      return null;
     };
     // Validate input
     const error = validateInput(input);
@@ -170,7 +168,7 @@ export default function AssessmentPage() {
    */
   const submitToBackend = async finalResponses => {
     const message = finalResponses.map(res => res.answer).join(' ');
-    
+
     if (!message) {
       alert('Please complete all questions before submitting.');
       return;
@@ -181,7 +179,7 @@ export default function AssessmentPage() {
         `${API_BASE_URL}/emotions`,
         {
           user_input: message,
-         }/* ,
+        } /* ,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -193,7 +191,7 @@ export default function AssessmentPage() {
       setResponses([]);
       setCurrentIndex(0);
       setInput('');
-      
+
       navigate('/assessment');
     } catch (err) {
       console.error('Failed to submit', err);
@@ -255,8 +253,8 @@ export default function AssessmentPage() {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 <TextField
                   fullWidth
-                  placeholder='Type your response here...'
-                  type='text'
+                  placeholder="Type your response here..."
+                  type="text"
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSubmit()}
@@ -334,8 +332,8 @@ export default function AssessmentPage() {
             mb: 4,
           }}
         > */}
-          {/* Progress Indicators */}
-          {/* <Box display="flex" alignItems="center" gap={1}>
+      {/* Progress Indicators */}
+      {/* <Box display="flex" alignItems="center" gap={1}>
             <Box
               sx={{
                 width: 12,

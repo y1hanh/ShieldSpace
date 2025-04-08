@@ -24,7 +24,7 @@ const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
           borderRadius: '1rem',
           width: '100%',
           maxWidth: '900px',
-          boxSizing: 'border-box', 
+          boxSizing: 'border-box',
           ...innerSx,
         }}
       >
@@ -34,10 +34,10 @@ const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
         sx={{
           width: '100%',
           maxWidth: '900px',
-          boxSizing: 'border-box', 
-          }}
+          boxSizing: 'border-box',
+        }}
       >
-      {children}
+        {children}
       </Box>
     </Box>
   );
