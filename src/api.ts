@@ -1,8 +1,9 @@
-const API_BASE_URL = 'http://209.38.91.23';
+const API_BASE_URL = 'https://api.shieldspace.games';
 
 export const getCountBullyingData = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/visualization`);
+    console.log(response);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
