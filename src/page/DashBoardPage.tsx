@@ -31,10 +31,20 @@ const slideIn = keyframes`
 
 // Create styled component for the animated logo
 const AnimatedLogo = styled.img`
-  margin-bottom: 1rem;
-  max-width: 40%;
   height: auto;
   animation: ${slideIn} 1.2s ease-out forwards;
+  @media (max-width: 600px) {
+    width: 280px;
+    max-width: 85%;
+  }
+  @media (min-width: 601px) and (max-width: 900px) {
+    width: 320px;
+    max-width: 85%;
+  }
+  @media (min-width: 901px) {
+    width: 400px;
+    max-width: 85%;
+  }
 `;
 
 // Add text fade-in animation
@@ -52,10 +62,13 @@ const fadeIn = keyframes`
 // Styled components for text
 const TextContainer = styled(Box)`
   text-align: left;
-  max-width: 500px;
   padding: 2rem;
   border-radius: 16px;
-  backdrop-filter: blur(8px);
+  @media (max-width: 600px) {
+    padding: 1.5rem;
+    text-align: center;
+    margin: 0 1rem;
+  }
 `;
 
 interface AnimatedTypographyProps extends TypographyProps {
@@ -237,13 +250,6 @@ export default function DashBoardPage() {
         backgroundColor: '#fff',
         p: 3,
         textAlign: 'center',
-        gap: {
-          xs: 1,
-          sm: 2,
-          md: 2,
-          lg: 3,
-        },
-        flex: '1 1 0',
         width: {
           xs: '80%', // Full width on very small screens
           sm: '30%', // Roughly one-third of container width
@@ -327,15 +333,33 @@ export default function DashBoardPage() {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
+            flexDirection: { xs: 'column', md: 'row' },
+            justifyContent: { xs: 'center', md: 'space-between' },
             alignItems: 'center',
-            px: 6,
-            flexWrap: 'wrap',
+            minHeight: { xs: '60vh', md: 'auto' },
+            py: { xs: 4, md: 6 },
+            px: { xs: 2, sm: 4, md: 6 },
+            gap: { xs: 4, md: 2 },
           }}
         >
-          <AnimatedLogo src="/logo.png" alt="Logo" />
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <AnimatedLogo src="/logo.png" alt="Logo" />
+          </Box>
 
-          <Box sx={{ textAlign: 'center', maxWidth: '60%' }}>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: { xs: '100%', md: '60%' },
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <TextContainer>
               <AnimatedTypography
                 variant="h2"
@@ -344,7 +368,7 @@ export default function DashBoardPage() {
                 gutterBottom
                 delay="0.2s"
                 sx={{
-                  fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                  fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
                   letterSpacing: '0.5px',
                   marginBottom: '1rem',
                 }}
@@ -399,23 +423,21 @@ export default function DashBoardPage() {
       }
     >
       <AssessmentTool />
-     
+
       <Box
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: { xs: 2, sm: 3, md: 4, lg: 5 },
+          gap: { xs: 2, sm: 2, md: 3, lg: 4 },
           justifyContent: 'space-between',
           alignItems: 'stretch',
           width: '100%',
           maxWidth: {
             xs: '100%',
             sm: '800px',
-            md: '1000px',
+            md: '1200px',
           },
           mt: 3,
-          mx: 'auto',
-          px: { xs: 2, sm: 4 },
         }}
       >
         <SupportCard
@@ -432,7 +454,12 @@ export default function DashBoardPage() {
           subtitle="File an official report"
           buttonLabel="Report"
           color="#f48fb1"
-          onClick={() => window.open('https://www.esafety.gov.au/key-topics/cyberbullying/report-cyberbullying', '_blank')}
+          onClick={() =>
+            window.open(
+              'https://www.esafety.gov.au/key-topics/cyberbullying/report-cyberbullying',
+              '_blank'
+            )
+          }
         />
         <SupportCard
           icon={<EmojiPeopleIcon />}
@@ -440,7 +467,12 @@ export default function DashBoardPage() {
           subtitle="Learn how to help others"
           buttonLabel="Learn How"
           color="#64b5f6"
-          onClick={() => window.open('https://www.esafety.gov.au/key-topics/cyberbullying/how-to-help-someone-deal-with-cyberbullying', '_blank')}
+          onClick={() =>
+            window.open(
+              'https://www.esafety.gov.au/key-topics/cyberbullying/how-to-help-someone-deal-with-cyberbullying',
+              '_blank'
+            )
+          }
         />
       </Box>
 

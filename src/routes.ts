@@ -56,34 +56,34 @@ export const routes: routesArray[] = [
     path: '/',
     name: 'Dashboard',
   },
-  {
-    path: '/game',
-    name: 'Games',
-  },
+  // {
+  //   path: '/game',
+  //   name: 'Games',
+  // },
   {
     path: '/analytics',
     name: 'Analytics',
   },
-  {
-    path: '/resources',
-    name: 'Resources',
-  },
-  {
-    path: '/community',
-    name: 'Community',
-  },
-  {
-    path: '#',
-    name: 'Account',
-    children: [
-      {
-        path: '/login',
-        name: 'Login',
-      },
-      {
-        path: '/register',
-        name: 'Register',
-      },
-    ],
-  },
+  // {
+  //   path: '/resources',
+  //   name: 'Resources',
+  // },
+  // {
+  //   path: '/community',
+  //   name: 'Community',
+  // },
+  // {
+  //   path: '#',
+  //   name: 'Account',
+  //   children: [
+  //     {
+  //       path: '/login',
+  //       name: 'Login',
+  //     },
+  //     {
+  //       path: '/register',
+  //       name: 'Register',
+  //     },
+  //   ],
+  // },
 ];
