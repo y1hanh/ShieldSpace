@@ -114,7 +114,7 @@ export default function GamePage() {
       </Box>
       <Box
         component="img"
-        src="../public/gameskill.png"
+        src="/gameskill.png"
         sx={{ maxWidth: '100%', marginTop: '2rem', borderRadius: '16px' }}
       />
 

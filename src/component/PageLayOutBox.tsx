@@ -18,7 +18,7 @@ const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
           flexDirection: 'column',
           textAlign: 'center',
           mt: 4,
-          mb: 4,
+          mb: 2,
           padding: '2rem',
           backgroundColor: 'white',
           borderRadius: '1rem',
