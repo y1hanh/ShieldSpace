@@ -65,15 +65,15 @@ export default function Nav() {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        // justifyContent: 'space-between',
+        // alignItems: 'center',
         padding: '0.5rem',
         borderBottom: '3px solid #66CCFF',
       }}
     >
       <Box
         onClick={() => navigate('/')}
-        sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+        sx={{ flex: 3, display: 'flex', alignItems: 'center', cursor: 'pointer' }}
       >
         <Box
           sx={{
@@ -107,6 +107,7 @@ export default function Nav() {
                       backgroundColor: isActive ? '#66CCFF' : 'transparent',
                       display: 'block',
                       width: '100%',
+                      padding: '0.5rem',
                       borderRadius: '0.5rem',
                     })}
                   >
@@ -114,12 +115,12 @@ export default function Nav() {
                   </NavLink>
                 </ListItem>
               ))}
-              <ListItem>
+              {/* <ListItem>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#FF9966' }}>
                   Account
                 </Typography>
-              </ListItem>
-              {isLoggedIn ? (
+              </ListItem> */}
+              {/* {isLoggedIn ? (
                 <ListItem onClick={handleLogoutClick}>
                   <Box
                     sx={{
@@ -154,12 +155,12 @@ export default function Nav() {
                     </NavLink>
                   </ListItem>
                 ))
-              )}
+              )} */}
             </List>
           </Drawer>
         </>
       ) : (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
           {mainRoutes.map(route => (
             <Button key={route.path}>
               <NavLink
@@ -178,7 +179,7 @@ export default function Nav() {
             </Button>
           ))}
 
-          {isLoggedIn ? (
+          {/* {isLoggedIn ? (
             <>
               <IconButton onClick={handleAccountMenu} sx={{ color: '#FF9966' }}>
                 <AccountCircle sx={{ fontSize: 32 }} />
@@ -254,11 +255,11 @@ export default function Nav() {
                 ))}
               </Menu>
             </>
-          )}
+          )} */}
         </Box>
       )}
 
-      <Dialog
+      {/* <Dialog
         open={logoutDialogOpen}
         onClose={handleLogoutCancel}
         PaperProps={{
@@ -289,7 +290,7 @@ export default function Nav() {
             Logout
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Box>
   );
 }
