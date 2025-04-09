@@ -6,17 +6,32 @@ export default function AnalyticsPage() {
   return (
     <PageLayoutBox
       header={
-        <>
-          <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
-            Bully Analytics
-          </Typography>
-          <Typography sx={{ color: '#7A7A9D' }} variant="body1">
-            View data insights and patterns related to reported bullying incidents.
-          </Typography>
-        </>
+        <Typography
+          sx={{
+            color: '#3A4559',
+            fontWeight: 600,
+            borderBottom: '4px solid #FF9966',
+            display: 'inline-block',
+            paddingBottom: 1,
+          }}
+          variant="h5"
+        >
+          Bullying Incidents Over Time
+        </Typography>
       }
+      innerSx={{ backgroundColor: 'transparent' }}
     >
-      <CountBullyingDiagram />
+      <Box
+        sx={{
+          mx: 'auto',
+          mt: 2,
+          backgroundColor: '#FFFFFF',
+          borderRadius: '1rem',
+          p: 3,
+        }}
+      >
+        <CountBullyingDiagram />
+      </Box>
     </PageLayoutBox>
   );
 }

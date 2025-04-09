@@ -95,9 +95,14 @@ export default function AssessmentTool() {
             <Paper sx={STYLES.chatBubble} elevation={0}>
               {/* Show this prompt only when no responses have been submitted */}
               {responses.length === 0 && (
-                <Typography mb={1} fontWeight="bold">
-                  “Type the message or words that upset you...”
-                </Typography>
+                <>
+                  <Typography mb={1} fontWeight="bold">
+                    What message or words have made you feel uncomfortable or hurt?
+                  </Typography>
+                  <Typography mb={1} fontWeight="bold">
+                    Paste it below and we’ll help you understand it better.
+                  </Typography>
+                </>
               )}
 
               <List>
