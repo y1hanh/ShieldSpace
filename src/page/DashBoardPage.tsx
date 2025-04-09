@@ -13,6 +13,61 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import AssessmentTool from '../component/AssessmentTool';
 import PageLayoutBox from '../component/PageLayOutBox';
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import { TypographyProps } from '@mui/material';
+
+// Replace the float keyframes with slideIn
+const slideIn = keyframes`
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+// Create styled component for the animated logo
+const AnimatedLogo = styled.img`
+  margin-bottom: 1rem;
+  max-width: 40%;
+  height: auto;
+  animation: ${slideIn} 1.2s ease-out forwards;
+`;
+
+// Add text fade-in animation
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+// Styled components for text
+const TextContainer = styled(Box)`
+  text-align: left;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+`;
+
+interface AnimatedTypographyProps extends TypographyProps {
+  delay?: string;
+}
+
+const AnimatedTypography = styled(Typography)<AnimatedTypographyProps>`
+  animation: ${fadeIn} 0.8s ease-out forwards;
+  animation-delay: ${props => props.delay || '0s'};
+  opacity: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+`;
 
 export default function DashBoardPage() {
   const faqList = [
@@ -182,7 +237,38 @@ export default function DashBoardPage() {
         backgroundColor: '#fff',
         p: 3,
         textAlign: 'center',
-        gap: 2,
+        gap: {
+          xs: 1,
+          sm: 2,
+          md: 2,
+          lg: 3,
+        },
+        flex: '1 1 0',
+        width: {
+          xs: '80%', // Full width on very small screens
+          sm: '30%', // Roughly one-third of container width
+        },
+        minWidth: {
+          xs: '100px', // Minimum width to maintain readability
+          sm: '220px', // Smaller minimum on tablets
+          md: '250px', // Slightly larger on desktop
+        },
+        maxWidth: {
+          xs: '100%',
+          sm: '32%',
+          md: '30%',
+          lg: '20%',
+        },
+        minHeight: {
+          xs: '5vh',
+          sm: '8vh',
+          md: '9vh',
+          lg: '13vh',
+        },
+        transition: 'transform 0.2s ease-in-out',
+        '&:hover': {
+          transform: 'translateY(-4px)',
+        },
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -206,23 +292,27 @@ export default function DashBoardPage() {
           </Typography>
         </Box>
       </Box>
-      <Button
-        variant="contained"
-        onClick={onClick}
-        sx={{
-          backgroundColor: color,
-          color: 'white',
-          borderRadius: '25px',
-          textTransform: 'none',
-          px: 4,
-          mt: 'auto',
-          '&:hover': {
-            backgroundColor: `${color}CC`,
-          },
-        }}
-      >
-        {buttonLabel}
-      </Button>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 'auto' }}>
+        <Button
+          variant="contained"
+          onClick={onClick}
+          sx={{
+            backgroundColor: color,
+            color: 'white',
+            borderRadius: '25px',
+            textTransform: 'none',
+            maxWidth: '60%',
+            px: 4,
+            mt: 'auto',
+            '&:hover': {
+              backgroundColor: `${color}CC`,
+            },
+          }}
+        >
+          {buttonLabel}
+        </Button>
+      </Box>
     </Paper>
   );
 
@@ -243,25 +333,67 @@ export default function DashBoardPage() {
             flexWrap: 'wrap',
           }}
         >
-          <img
-            src="/logo.png"
-            alt="Logo"
-            style={{ marginBottom: '1rem', maxWidth: '40%', height: 'auto' }}
-          />
+          <AnimatedLogo src="/logo.png" alt="Logo" />
 
-          <Box sx={{ textAlign: 'center', maxWidth: '400px' }}>
-            <Typography variant="h3" fontWeight="bold" color="white" gutterBottom>
-              You're Not Alone
-            </Typography>
-            <Typography variant="h6" fontWeight={500} color="white" gutterBottom>
-              Cyberbullying hurts.
-            </Typography>
-            <Typography variant="h6" fontWeight={500} color="white" gutterBottom>
-              But you're stronger than you know.
-            </Typography>
-            <Typography variant="h6" fontWeight={500} color="white" gutterBottom>
-              This tool helps you reflect, heal and grow — one step at a time.
-            </Typography>
+          <Box sx={{ textAlign: 'center', maxWidth: '60%' }}>
+            <TextContainer>
+              <AnimatedTypography
+                variant="h2"
+                fontWeight="bold"
+                color="white"
+                gutterBottom
+                delay="0.2s"
+                sx={{
+                  fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                  letterSpacing: '0.5px',
+                  marginBottom: '1rem',
+                }}
+              >
+                You're Not Alone
+              </AnimatedTypography>
+              <AnimatedTypography
+                variant="h5"
+                fontWeight={500}
+                color="white"
+                gutterBottom
+                delay="0.4s"
+                sx={{
+                  opacity: 0.9,
+                  marginBottom: '0.5rem',
+                }}
+              >
+                Cyberbullying hurts.
+              </AnimatedTypography>
+              <AnimatedTypography
+                variant="h4"
+                fontWeight={600}
+                color="white"
+                gutterBottom
+                delay="0.6s"
+                sx={{
+                  fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
+                  marginBottom: '1rem',
+                  borderLeft: '4px solid white',
+                  paddingLeft: '1rem',
+                  marginLeft: '-1rem',
+                }}
+              >
+                But you're stronger than you know.
+              </AnimatedTypography>
+              <AnimatedTypography
+                variant="h6"
+                fontWeight={400}
+                color="white"
+                delay="0.8s"
+                sx={{
+                  opacity: 0.9,
+                  lineHeight: 1.6,
+                  letterSpacing: '0.3px',
+                }}
+              >
+                This tool helps you reflect, heal and grow, one step at a time.
+              </AnimatedTypography>
+            </TextContainer>
           </Box>
         </Box>
       }
@@ -272,11 +404,18 @@ export default function DashBoardPage() {
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: 5.9,
-          justifyContent: 'center',
+          gap: { xs: 2, sm: 3, md: 4, lg: 5 },
+          justifyContent: 'space-between',
+          alignItems: 'stretch',
           width: '100%',
-          maxWidth: '900px',
+          maxWidth: {
+            xs: '100%',
+            sm: '800px',
+            md: '1000px',
+          },
           mt: 3,
+          mx: 'auto',
+          px: { xs: 2, sm: 4 },
         }}
       >
         <SupportCard

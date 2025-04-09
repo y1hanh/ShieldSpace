@@ -48,7 +48,7 @@ export function CountBullyingDiagram() {
       },
       title: {
         display: true,
-        text: 'Pie Chart of Category Counts',
+        text: 'Bullying category counts',
       },
     },
   };
@@ -63,9 +63,10 @@ export function CountBullyingDiagram() {
         display: 'flex',
         marginTop: '2rem',
         justifyContent: 'center',
+        background: 'rgba(102, 204, 255, 0.05)',
       }}
     >
-      <Box sx={{ width: '70%', height: '50%' }}>
+      <Box sx={{ width: '50vh', height: '50vh' }}>
         {isEmpty(data) ? <Box>Loading....</Box> : <Pie data={chartData} options={options} />}
       </Box>
     </Box>

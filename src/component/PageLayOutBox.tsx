@@ -1,7 +1,15 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, SxProps, Theme } from '@mui/material';
+import { ReactNode } from 'react';
 
-const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
+interface PageLayoutBoxProps {
+  children: ReactNode;
+  header?: ReactNode;
+  outerSx?: {};
+  innerSx?: SxProps<Theme>;
+}
+
+const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }: PageLayoutBoxProps) => {
   return (
     <Box
       sx={{
@@ -23,7 +31,7 @@ const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
           backgroundColor: 'white',
           borderRadius: '1rem',
           width: '100%',
-          maxWidth: '900px',
+          maxWidth: '1200px',
           boxSizing: 'border-box',
           ...innerSx,
         }}
@@ -33,7 +41,7 @@ const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }) => {
       <Box
         sx={{
           width: '100%',
-          maxWidth: '900px',
+          maxWidth: '1200px',
           boxSizing: 'border-box',
         }}
       >

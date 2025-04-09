@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { Box, Typography, TextField, Button, Paper, List, ListItem, ListItemText } from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import axios from 'axios';
@@ -70,7 +79,7 @@ export default function AssessmentTool() {
       localStorage.setItem('userInput', message);
       setResponses([]);
       setInput('');
-      setSubmitted(true); 
+      setSubmitted(true);
     } catch (err) {
       console.error('Failed to submit', err);
       alert('Submission failed.');
@@ -90,7 +99,7 @@ export default function AssessmentTool() {
       header={
         <>
           <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5" mb={2}>
-          {submitted ? 'Message Analysis' : 'Emotional Assessment Tool'}
+            {submitted ? 'Message Analysis' : 'Emotional Assessment Tool'}
           </Typography>
           <Box sx={STYLES.container}>
             <Paper sx={STYLES.chatBubble} elevation={0}>
