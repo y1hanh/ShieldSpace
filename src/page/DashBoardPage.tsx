@@ -244,7 +244,7 @@ export default function DashBoardPage() {
           }}
         >
           <img
-            src="/public/logo.png"
+            src="/logo.png"
             alt="Logo"
             style={{ marginBottom: '1rem', maxWidth: '40%', height: 'auto' }}
           />
