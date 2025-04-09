@@ -16,7 +16,6 @@ import PsychologyAltOutlinedIcon from '@mui/icons-material/PsychologyAltOutlined
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import axios from 'axios';
 import PageLayoutBox from '../component/PageLayOutBox';
