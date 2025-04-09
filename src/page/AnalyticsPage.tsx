@@ -1,9 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import PageLayoutBox from '../component/PageLayOutBox';
+import { CountBullyingDiagram } from '../component/CountBullyingDiagram';
 
 export default function AnalyticsPage() {
-  console.log('AnalyticsPage component rendered');
-
   return (
     <PageLayoutBox
       header={
@@ -17,11 +16,7 @@ export default function AnalyticsPage() {
         </>
       }
     >
-      <Box sx={{ width: '80%', marginTop: '2rem' }}>
-        <Typography variant="body2" color="#7A7A9D">
-          Analytics content coming soon...
-        </Typography>
-      </Box>
+      <CountBullyingDiagram />
     </PageLayoutBox>
   );
 }
