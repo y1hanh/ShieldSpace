@@ -15,10 +15,9 @@ import EndReflection from './EndReflection';
 
 interface PostBullyProps {
   playerName: string;
-  avatar: { emoji: string }; 
+  avatar: { emoji: string };
   postType: string;
 }
-
 
 export default function PostBully({ playerName, avatar, postType }: PostBullyProps) {
   const [selected, setSelected] = useState('Report');
@@ -31,7 +30,7 @@ export default function PostBully({ playerName, avatar, postType }: PostBullyPro
     'A Photo of Food': '/food.png',
     'A Picture of your pet': '/pets.png',
   };
-  
+
   const imageSrc = postImages[postType];
 
   if (backButton) {
@@ -118,7 +117,7 @@ export default function PostBully({ playerName, avatar, postType }: PostBullyPro
               overflow: 'hidden',
             }}
           >
-            <img src={imageSrc} alt={postType} style={{ maxHeight: '100%', maxWidth: '100%' }}/>
+            <img src={imageSrc} alt={postType} style={{ maxHeight: '100%', maxWidth: '100%' }} />
           </Box>
 
           {/* Comments */}

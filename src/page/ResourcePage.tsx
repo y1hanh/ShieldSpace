@@ -159,7 +159,7 @@ export default function ResourcePage() {
         </Typography>
         <Box
           component="img"
-          src="../public/support-flow.png"
+          src="/support-flow.png"
           alt="Support flow chart"
           sx={{ maxWidth: '100%', marginTop: '1rem' }}
         />

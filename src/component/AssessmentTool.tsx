@@ -15,7 +15,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import axios from 'axios';
 import PageLayoutBox from './PageLayOutBox';
 
-const API_BASE_URL = 'http://209.38.91.23/model';
+const API_BASE_URL = 'https://api.shieldspace.games/model';
 
 const STYLES = {
   container: {
