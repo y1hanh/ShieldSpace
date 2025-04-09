@@ -267,7 +267,7 @@ export default function DashBoardPage() {
       }
     >
       <AssessmentTool />
-
+     
       <Box
         sx={{
           display: 'flex',
@@ -282,10 +282,10 @@ export default function DashBoardPage() {
         <SupportCard
           icon={<LocalPhoneIcon />}
           title="24/7 Helpline"
-          subtitle="Call 1-800-123-4567"
+          subtitle="Call 1800 55 1800"
           buttonLabel="Call Now"
           color="#f89b5e"
-          onClick={() => window.open('tel:1-800-123-4567', '_blank')}
+          onClick={() => window.open('https://kidshelpline.com.au/', '_blank')}
         />
         <SupportCard
           icon={<AssignmentIcon />}
@@ -293,7 +293,7 @@ export default function DashBoardPage() {
           subtitle="File an official report"
           buttonLabel="Report"
           color="#f48fb1"
-          onClick={() => window.open('https://example.com/report', '_blank')}
+          onClick={() => window.open('https://www.esafety.gov.au/key-topics/cyberbullying/report-cyberbullying', '_blank')}
         />
         <SupportCard
           icon={<EmojiPeopleIcon />}
@@ -301,7 +301,7 @@ export default function DashBoardPage() {
           subtitle="Learn how to help others"
           buttonLabel="Learn How"
           color="#64b5f6"
-          onClick={() => window.open('https://example.com/support', '_blank')}
+          onClick={() => window.open('https://www.esafety.gov.au/key-topics/cyberbullying/how-to-help-someone-deal-with-cyberbullying', '_blank')}
         />
       </Box>
 

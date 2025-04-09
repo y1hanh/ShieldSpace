@@ -1,19 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
-
+import { Box, Typography, TextField, Button, Paper, List, ListItem, ListItemText } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import axios from 'axios';
 import PageLayoutBox from './PageLayOutBox';
+import MessageAnalysis from './MessageAnalysis';
 
 const API_BASE_URL = 'https://api.shieldspace.games/model';
 
@@ -22,8 +13,8 @@ const STYLES = {
     width: '100%',
     maxWidth: '900px',
     mx: 'auto',
-    mt: 4,
-    mb: 4,
+    mt: 2,
+    mb: 2,
   },
   chatBubble: {
     p: 3,
@@ -44,7 +35,7 @@ const STYLES = {
 export default function AssessmentTool() {
   const [responses, setResponses] = useState([]);
   const [input, setInput] = useState('');
-  const navigate = useNavigate();
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async () => {
     const trimmed = input.trim();
@@ -74,14 +65,24 @@ export default function AssessmentTool() {
     const message = finalResponses.map(res => res.answer).join(' ');
 
     try {
-      await axios.post(`${API_BASE_URL}/emotions`, { user_input: message });
+      const response = await axios.post(`${API_BASE_URL}/emotions`, { user_input: message });
+      localStorage.setItem('analysisResult', JSON.stringify(response.data));
+      localStorage.setItem('userInput', message);
       setResponses([]);
       setInput('');
-      navigate('/');
+      setSubmitted(true); 
     } catch (err) {
       console.error('Failed to submit', err);
       alert('Submission failed.');
     }
+  };
+
+  const resetAssessment = () => {
+    localStorage.removeItem('analysisResult');
+    localStorage.removeItem('userInput');
+    setResponses([]);
+    setInput('');
+    setSubmitted(false);
   };
 
   return (
@@ -89,48 +90,72 @@ export default function AssessmentTool() {
       header={
         <>
           <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5" mb={2}>
-            Emotional Assessment Tool
+          {submitted ? 'Message Analysis' : 'Emotional Assessment Tool'}
           </Typography>
           <Box sx={STYLES.container}>
             <Paper sx={STYLES.chatBubble} elevation={0}>
-              {/* Show this prompt only when no responses have been submitted */}
-              {responses.length === 0 && (
-                <Typography mb={1} fontWeight="bold">
-                  “Type the message or words that upset you...”
-                </Typography>
-              )}
-
-              <List>
-                {responses.map((res, i) => (
-                  <ListItem key={i} sx={{ justifyContent: 'flex-end' }}>
-                    <ListItemText
-                      primary={res.answer}
+              {submitted ? (
+                <>
+                  <MessageAnalysis />
+                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                    <Button
+                      variant="contained"
+                      onClick={resetAssessment}
+                      startIcon={<RestartAltIcon />}
                       sx={{
-                        maxWidth: 'fit-content',
                         backgroundColor: '#f89b5e',
                         color: 'white',
-                        px: 2,
-                        py: 1,
-                        borderRadius: '15px',
+                        borderRadius: '25px',
+                        px: 4,
+                        textTransform: 'none',
+                        '&:hover': {
+                          backgroundColor: '#f57c00',
+                        },
                       }}
+                    >
+                      Analyze Again
+                    </Button>
+                  </Box>
+                </>
+              ) : (
+                <>
+                  {responses.length === 0 && (
+                    <Typography mb={1} fontWeight="bold">
+                      “Type the message or words that upset you...”
+                    </Typography>
+                  )}
+                  <List>
+                    {responses.map((res, i) => (
+                      <ListItem key={i} sx={{ justifyContent: 'flex-end' }}>
+                        <ListItemText
+                          primary={res.answer}
+                          sx={{
+                            maxWidth: 'fit-content',
+                            backgroundColor: '#f89b5e',
+                            color: 'white',
+                            px: 2,
+                            py: 1,
+                            borderRadius: '15px',
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
+                    <TextField
+                      fullWidth
+                      placeholder="Type your response here..."
+                      value={input}
+                      onChange={e => setInput(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                      sx={{ borderRadius: '10px' }}
                     />
-                  </ListItem>
-                ))}
-              </List>
-
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
-                <TextField
-                  fullWidth
-                  placeholder="Type your response here..."
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                  sx={{ borderRadius: '10px' }}
-                />
-                <Button onClick={handleSubmit} sx={STYLES.submitButton}>
-                  <ArrowUpwardIcon />
-                </Button>
-              </Box>
+                    <Button onClick={handleSubmit} sx={STYLES.submitButton}>
+                      <ArrowUpwardIcon />
+                    </Button>
+                  </Box>
+                </>
+              )}
             </Paper>
           </Box>
         </>
