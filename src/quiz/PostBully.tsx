@@ -13,14 +13,29 @@ import { useState } from 'react';
 import ShareOnline from './ShareOnline';
 import EndReflection from './EndReflection';
 
-export default function PostBully({ playerName, avatar }) {
+interface PostBullyProps {
+  playerName: string;
+  avatar: { emoji: string }; 
+  postType: string;
+}
+
+
+export default function PostBully({ playerName, avatar, postType }: PostBullyProps) {
   const [selected, setSelected] = useState('Report');
   const [backButton, setBackButton] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showOutcome, setShowOutcome] = useState(false);
 
+  const postImages: Record<string, string> = {
+    'A Selfie': '/selfie.png',
+    'A Photo of Food': '/food.png',
+    'A Picture of your pet': '/pets.png',
+  };
+  
+  const imageSrc = postImages[postType];
+
   if (backButton) {
-    return <ShareOnline playerName={playerName} avatar={avatar} />;
+    return <ShareOnline playerName={playerName} avatar={{ ...avatar, label: 'Player Avatar' }} />;
   }
 
   if (gameStarted) {
@@ -94,16 +109,16 @@ export default function PostBully({ playerName, avatar }) {
           <Typography mb={2}>Just enjoying my weekend! #weekend #fun</Typography>
           <Box
             sx={{
-              backgroundColor: '#eee',
               height: '200px',
               borderRadius: '0.5rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               mb: 3,
+              overflow: 'hidden',
             }}
           >
-            <Typography color="text.secondary">Post photo</Typography>
+            <img src={imageSrc} alt={postType} style={{ maxHeight: '100%', maxWidth: '100%' }}/>
           </Box>
 
           {/* Comments */}

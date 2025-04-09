@@ -30,7 +30,7 @@ export default function ShareOnline({ playerName, avatar }: ShareOnlineProps) {
   }
 
   if (gameStarted) {
-    return <PostBully playerName={playerName} avatar={avatar} />;
+    return <PostBully playerName={playerName} avatar={avatar} postType={selected} />;
   }
 
   return (
