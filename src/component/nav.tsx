@@ -93,7 +93,7 @@ export default function Nav() {
           }}
         />
         <Typography sx={{ color: '#FF9966', fontWeight: 600 }} variant="h5">
-          No More Bullying!
+          shieldspace
         </Typography>
       </Box>
 
