@@ -150,7 +150,7 @@ export function StoryTelling() {
               >
                 Emotional Assessment Tool
               </Typography>
-              <Typography color="#01579B" sx={{ mb: 1, fontSize: '0.9rem' }}>
+              <Typography color="#01579B" sx={{ display: 'block', mb: 1, fontSize: '0.9rem' }}>
                 Paste a message to check how it may make someone feel:
               </Typography>
               <Paper
@@ -167,6 +167,7 @@ export function StoryTelling() {
                   fontStyle: 'italic',
                   color: '#546E7A',
                   fontSize: '0.85rem',
+                  cursor: 'default',
                 }}
               >
                 "You're so weird, nobody likes you."
