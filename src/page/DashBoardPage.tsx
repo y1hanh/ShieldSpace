@@ -16,6 +16,7 @@ import PageLayoutBox from '../component/PageLayOutBox';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TypographyProps } from '@mui/material';
+import { StoryTelling } from '../component/StoryTelling';
 
 // Replace the float keyframes with slideIn
 const slideIn = keyframes`
@@ -324,6 +325,7 @@ export default function DashBoardPage() {
 
   return (
     <PageLayoutBox
+      id="dashboard"
       innerSx={{
         backgroundColor: '#FFD9C2',
         justifyContent: 'center',
@@ -404,24 +406,12 @@ export default function DashBoardPage() {
               >
                 But you're stronger than you know.
               </AnimatedTypography>
-              <AnimatedTypography
-                variant="h6"
-                fontWeight={400}
-                color="white"
-                delay="0.8s"
-                sx={{
-                  opacity: 0.9,
-                  lineHeight: 1.6,
-                  letterSpacing: '0.3px',
-                }}
-              >
-                This tool helps you reflect, heal and grow, one step at a time.
-              </AnimatedTypography>
             </TextContainer>
           </Box>
         </Box>
       }
     >
+      <StoryTelling />
       <AssessmentTool />
 
       <Box
@@ -446,7 +436,7 @@ export default function DashBoardPage() {
           subtitle="Call 1800 55 1800"
           buttonLabel="Call Now"
           color="#f89b5e"
-          onClick={() => window.open('https://kidshelpline.com.au/', '_blank')}
+          onClick={() => window.open('tel://1800551800')}
         />
         <SupportCard
           icon={<AssignmentIcon />}
@@ -454,12 +444,7 @@ export default function DashBoardPage() {
           subtitle="File an official report"
           buttonLabel="Report"
           color="#f48fb1"
-          onClick={() =>
-            window.open(
-              'https://www.esafety.gov.au/key-topics/cyberbullying/report-cyberbullying',
-              '_blank'
-            )
-          }
+          onClick={() => window.open('https://www.esafety.gov.au/report/forms', '_blank')}
         />
         <SupportCard
           icon={<EmojiPeopleIcon />}

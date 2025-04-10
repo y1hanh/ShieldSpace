@@ -61,6 +61,14 @@ export default function Nav() {
   const mainRoutes = routes.filter(route => route.path !== '#');
   const accountRoutes = routes.find(route => route.path === '#')?.children || [];
 
+  const scrollToTop = () => {
+    navigate('/');
+    const element = document.getElementById('dashboard');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -72,7 +80,7 @@ export default function Nav() {
       }}
     >
       <Box
-        onClick={() => navigate('/')}
+        onClick={() => scrollToTop()}
         sx={{ flex: 3, display: 'flex', alignItems: 'center', cursor: 'pointer' }}
       >
         <Box
