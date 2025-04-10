@@ -1,15 +1,6 @@
 import { useState } from 'react';
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { Box, Typography, TextField, IconButton, Button } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import axios from 'axios';
 import PageLayoutBox from './PageLayOutBox';
@@ -17,32 +8,7 @@ import MessageAnalysis from './MessageAnalysis';
 
 const API_BASE_URL = 'https://api.shieldspace.games/model';
 
-const STYLES = {
-  container: {
-    width: '100%',
-    maxWidth: '900px',
-    mx: 'auto',
-    mt: 2,
-    mb: 2,
-  },
-  chatBubble: {
-    p: 3,
-    minHeight: '200px',
-  },
-  submitButton: {
-    minWidth: '3rem',
-    height: '3rem',
-    borderRadius: '50%',
-    backgroundColor: '#f89b5e',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: '#f57c00',
-    },
-  },
-};
-
 export default function AssessmentTool() {
-  const [responses, setResponses] = useState([]);
   const [input, setInput] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -59,25 +25,10 @@ export default function AssessmentTool() {
       return;
     }
 
-    const responseObj = {
-      answer: input,
-    };
-
-    const updatedResponses = [...responses, responseObj];
-    setResponses(updatedResponses);
-    setInput('');
-
-    await submitToBackend(updatedResponses);
-  };
-
-  const submitToBackend = async finalResponses => {
-    const message = finalResponses.map(res => res.answer).join(' ');
-
     try {
-      const response = await axios.post(`${API_BASE_URL}/emotions`, { user_input: message });
+      const response = await axios.post(`${API_BASE_URL}/emotions`, { user_input: trimmed });
       localStorage.setItem('analysisResult', JSON.stringify(response.data));
-      localStorage.setItem('userInput', message);
-      setResponses([]);
+      localStorage.setItem('userInput', trimmed);
       setInput('');
       setSubmitted(true);
     } catch (err) {
@@ -89,7 +40,6 @@ export default function AssessmentTool() {
   const resetAssessment = () => {
     localStorage.removeItem('analysisResult');
     localStorage.removeItem('userInput');
-    setResponses([]);
     setInput('');
     setSubmitted(false);
   };
@@ -97,76 +47,135 @@ export default function AssessmentTool() {
   return (
     <PageLayoutBox
       id="assessment"
+      innerSx={{
+        backgroundColor: '#FDF6EC',
+        py: 6,
+      }}
       header={
         <>
-          <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5" mb={2}>
-            {submitted ? 'Message Analysis' : 'Emotional Assessment Tool'}
+          <Typography variant="h4" fontWeight="bold" color="#1f2a40" mb={1}>
+            Emotional Assessment Tool
           </Typography>
-          <Box sx={STYLES.container}>
-            <Paper sx={STYLES.chatBubble} elevation={0}>
-              {submitted ? (
-                <>
-                  <MessageAnalysis />
-                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                    <Button
-                      variant="contained"
-                      onClick={resetAssessment}
-                      startIcon={<RestartAltIcon />}
+          {!submitted && (
+            <Typography variant="h6" fontWeight="bold" color="#1f2a40" mb={4}>
+              What was the hurtful message?
+            </Typography>
+          )}
+
+          <Box
+            sx={{
+              backgroundColor: '#fff7f2',
+              borderRadius: '20px',
+              position: 'relative',
+              p: 3,
+              gap: 3,
+              justifyContent: 'space-between',
+              mx: 'auto',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            {submitted ? (
+              <Box width="100%">
+                <MessageAnalysis />
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                  <Button
+                    variant="contained"
+                    onClick={resetAssessment}
+                    startIcon={<RestartAltIcon />}
+                    sx={{
+                      backgroundColor: '#f89b5e',
+                      color: 'white',
+                      borderRadius: '25px',
+                      px: 4,
+                      textTransform: 'none',
+                      '&:hover': {
+                        backgroundColor: '#f57c00',
+                      },
+                    }}
+                  >
+                    Analyze Again
+                  </Button>
+                </Box>
+              </Box>
+            ) : (
+              <>
+                <Box sx={{ flex: 1 }}>
+                  <Box
+                    sx={{
+                      backgroundColor: '#fff',
+                      borderRadius: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      px: 2,
+                      py: 1,
+                      border: '1px solid #ddd',
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="Type the message..."
+                      variant="standard"
+                      InputProps={{ disableUnderline: true }}
+                      value={input}
+                      onChange={e => setInput(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                      sx={{
+                        fontSize: '1.1rem',
+                        width: {
+                          xs: '100%',
+                          sm: '300px',
+                          md: '400px',
+                        },
+                        mx: 'auto',
+                      }}
+                    />
+                    <IconButton
+                      onClick={handleSubmit}
                       sx={{
                         backgroundColor: '#f89b5e',
                         color: 'white',
-                        borderRadius: '25px',
-                        px: 4,
-                        textTransform: 'none',
+                        ml: 1,
+                        width: 50,
+                        height: 50,
+                        borderRadius: '50%',
                         '&:hover': {
                           backgroundColor: '#f57c00',
                         },
                       }}
                     >
-                      Analyze Again
-                    </Button>
+                      <SendIcon />
+                    </IconButton>
                   </Box>
-                </>
-              ) : (
-                <>
-                  {responses.length === 0 && (
-                    <Typography mb={1} fontWeight="bold">
-                      “Type the message or words that upset you...”
-                    </Typography>
-                  )}
-                  <List>
-                    {responses.map((res, i) => (
-                      <ListItem key={i} sx={{ justifyContent: 'flex-end' }}>
-                        <ListItemText
-                          primary={res.answer}
-                          sx={{
-                            maxWidth: 'fit-content',
-                            backgroundColor: '#f89b5e',
-                            color: 'white',
-                            px: 2,
-                            py: 1,
-                            borderRadius: '15px',
-                          }}
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
-                    <TextField
-                      fullWidth
-                      placeholder="Type your response here..."
-                      value={input}
-                      onChange={e => setInput(e.target.value)}
-                      onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                      sx={{ borderRadius: '10px' }}
-                    />
-                    <Button onClick={handleSubmit} sx={STYLES.submitButton}>
-                      <ArrowUpwardIcon />
-                    </Button>
-                  </Box>
-                </>
-              )}
-            </Paper>
+                </Box>
+
+                <Box
+                  component="img"
+                  src="/bear.png"
+                  alt="sad bear"
+                  sx={{
+                    position: 'absolute',
+                    right: {
+                      xs: '-40px',
+                      sm: '-100px',
+                      md: '-110px',
+                    },
+                    bottom: {
+                      xs: '0px',
+                      sm: '-45px',
+                      md: '-45px',
+                    },
+                    height: {
+                      xs: '130px',
+                      sm: '220px',
+                      md: '250px',
+                    },
+                    zIndex: 1,
+                    pointerEvents: 'none',
+                  }}
+                />
+              </>
+            )}
           </Box>
         </>
       }
