@@ -96,6 +96,7 @@ export default function AssessmentTool() {
 
   return (
     <PageLayoutBox
+      id="assessment"
       header={
         <>
           <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5" mb={2}>
