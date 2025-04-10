@@ -325,6 +325,7 @@ export default function DashBoardPage() {
 
   return (
     <PageLayoutBox
+      id="dashboard"
       innerSx={{
         backgroundColor: '#FFD9C2',
         justifyContent: 'center',

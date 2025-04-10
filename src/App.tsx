@@ -3,8 +3,6 @@ import Nav from './component/nav';
 import { Outlet } from 'react-router';
 
 function App() {
-  console.log('App component rendered');
-  const unUsed = '';
   return (
     <div className="App">
       <Box

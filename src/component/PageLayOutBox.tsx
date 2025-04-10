@@ -7,11 +7,19 @@ interface PageLayoutBoxProps {
   header?: ReactNode;
   outerSx?: {};
   innerSx?: SxProps<Theme>;
+  id?: string;
 }
 
-const PageLayoutBox = ({ header, children, outerSx = {}, innerSx = {} }: PageLayoutBoxProps) => {
+const PageLayoutBox = ({
+  header,
+  children,
+  outerSx = {},
+  innerSx = {},
+  id,
+}: PageLayoutBoxProps) => {
   return (
     <Box
+      {...(id ? { id } : {})}
       sx={{
         display: 'flex',
         alignItems: 'center',

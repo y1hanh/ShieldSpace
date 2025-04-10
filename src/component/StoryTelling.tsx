@@ -22,6 +22,13 @@ export function StoryTelling() {
     mt: 1,
   };
 
+  const scrollToAssessment = () => {
+    const element = document.getElementById('assessment');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Box>
       <Paper
@@ -179,6 +186,7 @@ export function StoryTelling() {
                   fontSize: '0.8rem',
                   '&:hover': { backgroundColor: '#FB8C00' },
                 }}
+                onClick={() => scrollToAssessment()}
               >
                 ANALYZE
               </Button>
