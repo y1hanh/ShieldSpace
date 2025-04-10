@@ -63,7 +63,6 @@ export function CountBullyingDiagram() {
         display: 'flex',
         marginTop: '2rem',
         justifyContent: 'center',
-        background: 'rgba(102, 204, 255, 0.05)',
       }}
     >
       <Box sx={{ width: '50vh', height: '50vh' }}>
