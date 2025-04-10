@@ -406,19 +406,6 @@ export default function DashBoardPage() {
               >
                 But you're stronger than you know.
               </AnimatedTypography>
-              <AnimatedTypography
-                variant="h6"
-                fontWeight={400}
-                color="white"
-                delay="0.8s"
-                sx={{
-                  opacity: 0.9,
-                  lineHeight: 1.6,
-                  letterSpacing: '0.3px',
-                }}
-              >
-                This tool helps you reflect, heal and grow, one step at a time.
-              </AnimatedTypography>
             </TextContainer>
           </Box>
         </Box>
