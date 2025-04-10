@@ -121,7 +121,7 @@ export default function AssessmentTool() {
                       onKeyDown={e => e.key === 'Enter' && handleSubmit()}
                       sx={{
                         fontSize: '1.1rem',
-                        width:{
+                        width: {
                           xs: '100%',
                           sm: '300px',
                           md: '400px',
