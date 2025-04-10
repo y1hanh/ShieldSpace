@@ -52,9 +52,7 @@ const MessageAnalysis = () => {
   const toxicLevel = toxicity?.toxic || 0;
   const isBullying = toxicLevel > 0.1;
 
-  const emotionEntries = Object.entries(emotions || {}).filter(
-    ([key]) => key !== 'toxic_level'
-  );
+  const emotionEntries = Object.entries(emotions || {}).filter(([key]) => key !== 'toxic_level');
 
   const sortedEmotions = emotionEntries
     .map(([key, value]) => ({ name: key, value: value as number }))
@@ -72,13 +70,13 @@ const MessageAnalysis = () => {
         mx: 'auto',
       }}
     >
-     {/* Message */}
+      {/* Message */}
       <Typography fontSize="0.95rem" color="text.secondary" mb={0.5} textAlign="left">
         Message Analyzed:
-        </Typography>
-        <Typography fontSize="0.95rem" color="text.secondary" mb={2} textAlign="left" pl={2} >
+      </Typography>
+      <Typography fontSize="0.95rem" color="text.secondary" mb={2} textAlign="left" pl={2}>
         {text}
-    </Typography>
+      </Typography>
 
       {/* Bullying Detection */}
       <Box
@@ -119,8 +117,11 @@ const MessageAnalysis = () => {
         const labelColor = getLabelColor(level, isBullying);
 
         return (
-          <Box key={name} sx={{ display: 'flex', alignItems: 'center', mb: 1, justifyContent: 'space-between', }}>
-            <Box sx={{ width: '120px', textAlign: 'left'}}>
+          <Box
+            key={name}
+            sx={{ display: 'flex', alignItems: 'center', mb: 1, justifyContent: 'space-between' }}
+          >
+            <Box sx={{ width: '120px', textAlign: 'left' }}>
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </Box>
             <Box sx={{ flexGrow: 1, mx: 1 }}>
@@ -148,7 +149,7 @@ const MessageAnalysis = () => {
       })}
 
       {/* Primary Emotion */}
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 3}}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
         <Typography fontWeight={600}>Primary Emotion:</Typography>
         <Chip
           label={trigger_emotion}
