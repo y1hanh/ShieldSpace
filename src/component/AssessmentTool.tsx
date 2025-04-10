@@ -121,6 +121,12 @@ export default function AssessmentTool() {
                       onKeyDown={e => e.key === 'Enter' && handleSubmit()}
                       sx={{
                         fontSize: '1.1rem',
+                        width:{
+                          xs: '100%',
+                          sm: '300px',
+                          md: '400px',
+                        },
+                        mx: 'auto',
                       }}
                     />
                     <IconButton
@@ -150,8 +156,8 @@ export default function AssessmentTool() {
                     position: 'absolute',
                     right: {
                       xs: '-40px',
-                      sm: '-120px',
-                      md: '-120px',
+                      sm: '-100px',
+                      md: '-110px',
                     },
                     bottom: {
                       xs: '0px',
@@ -161,7 +167,7 @@ export default function AssessmentTool() {
                     height: {
                       xs: '130px',
                       sm: '220px',
-                      md: '220px',
+                      md: '250px',
                     },
                     zIndex: 1,
                     pointerEvents: 'none',
