@@ -7,8 +7,13 @@ import CommunityPage from './page/CommunityPage';
 import RegisterPage from './page/RegisterPage';
 import LoginPage from './page/LoginPage';
 import App from './App';
+import { SecurePage } from './page/SecurePage';
 
 export const router = createBrowserRouter([
+  {
+    path: '/secure',
+    Component: SecurePage,
+  },
   {
     path: '/',
     Component: App,
@@ -56,34 +61,34 @@ export const routes: routesArray[] = [
     path: '/',
     name: 'Dashboard',
   },
-  // {
-  //   path: '/game',
-  //   name: 'Games',
-  // },
+  {
+    path: '/game',
+    name: 'Games',
+  },
   {
     path: '/analytics',
     name: 'Analytics',
   },
-  // {
-  //   path: '/resources',
-  //   name: 'Resources',
-  // },
-  // {
-  //   path: '/community',
-  //   name: 'Community',
-  // },
-  // {
-  //   path: '#',
-  //   name: 'Account',
-  //   children: [
-  //     {
-  //       path: '/login',
-  //       name: 'Login',
-  //     },
-  //     {
-  //       path: '/register',
-  //       name: 'Register',
-  //     },
-  //   ],
-  // },
+  {
+    path: '/resources',
+    name: 'Resources',
+  },
+  {
+    path: '/community',
+    name: 'Community',
+  },
+  {
+    path: '#',
+    name: 'Account',
+    children: [
+      {
+        path: '/login',
+        name: 'Login',
+      },
+      {
+        path: '/register',
+        name: 'Register',
+      },
+    ],
+  },
 ];
