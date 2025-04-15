@@ -2,8 +2,6 @@ import { Box, Typography, Button } from '@mui/material';
 import PageLayoutBox from '../component/PageLayOutBox';
 
 export default function ResourcePage() {
-  console.log('ResourcePage component rendered');
-
   const steps = [
     {
       number: '1.',
