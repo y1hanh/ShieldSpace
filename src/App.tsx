@@ -1,9 +1,13 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import Nav from './component/nav';
 import { Outlet } from 'react-router';
+import { SecurePage } from './page/SecurePage';
+import { useAuth } from './context/AuthContext';
 
 function App() {
-  return (
+  const { secure } = useAuth();
+
+  return secure ? (
     <div className="App">
       <Box
         sx={{
@@ -30,6 +34,8 @@ function App() {
         <Outlet />
       </Box>
     </div>
+  ) : (
+    <SecurePage></SecurePage>
   );
 }
 
