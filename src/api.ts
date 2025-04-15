@@ -3,13 +3,17 @@ const API_BASE_URL = 'https://api.shieldspace.games';
 type Methond = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 function fetchWithSecureToken(path: string, method: Methond = 'GET', options: RequestInit = {}) {
-  return fetch(`${API_BASE_URL}/${path}`, {
+  const params: RequestInit = {
     method: method,
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-    ...options,
-  });
+  };
+  if (options?.body) {
+    params.body = options.body;
+  }
+  return fetch(`${API_BASE_URL}/${path}`, params);
 }
 
 export const getSecureToken = async (username, password) => {
@@ -38,6 +42,25 @@ export const getSecureToken = async (username, password) => {
 export const getCountBullyingData = async () => {
   try {
     const response = await fetchWithSecureToken('visualization');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching bullying data:', error);
+    throw error;
+  }
+};
+
+export const getEmotions = async (input: { user_input: string }) => {
+  const body = {
+    body: JSON.stringify(input),
+  };
+
+  try {
+    const response = await fetchWithSecureToken('model/emotions', 'POST', body);
+
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

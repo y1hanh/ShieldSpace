@@ -2,16 +2,14 @@ import { useState } from 'react';
 import { Box, Typography, TextField, IconButton, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import axios from 'axios';
 import PageLayoutBox from './PageLayOutBox';
 import MessageAnalysis from './MessageAnalysis';
-
-const API_BASE_URL = 'https://api.shieldspace.games/model';
+import { getEmotions } from '../api';
+import { isNumber } from 'lodash';
 
 export default function AssessmentTool() {
   const [input, setInput] = useState('');
   const [submitted, setSubmitted] = useState(false);
-
   const handleSubmit = async () => {
     const trimmed = input.trim();
     if (trimmed.length < 3) {
@@ -19,16 +17,16 @@ export default function AssessmentTool() {
       return;
     }
 
-    const hasNumber = /\d/.test(trimmed);
-    if (hasNumber) {
+    if (isNumber(trimmed)) {
       alert('Please avoid using numbers.');
       return;
     }
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/emotions`, { user_input: trimmed });
-      localStorage.setItem('analysisResult', JSON.stringify(response.data));
+      const response = await getEmotions({ user_input: trimmed });
+      localStorage.setItem('analysisResult', JSON.stringify(response));
       localStorage.setItem('userInput', trimmed);
+
       setInput('');
       setSubmitted(true);
     } catch (err) {
