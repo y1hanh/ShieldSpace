@@ -4,8 +4,8 @@ import GamePage from './page/GamePage';
 import AnalyticsPage from './page/AnalyticsPage';
 import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
-import RegisterPage from './page/RegisterPage';
-import LoginPage from './page/LoginPage';
+// import RegisterPage from './page/RegisterPage';
+// import LoginPage from './page/LoginPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
 
@@ -38,14 +38,14 @@ export const router = createBrowserRouter([
         path: 'community',
         Component: CommunityPage,
       },
-      {
-        path: 'register',
-        Component: RegisterPage,
-      },
-      {
-        path: 'login',
-        Component: LoginPage,
-      },
+      // {
+      //   path: 'register',
+      //   Component: RegisterPage,
+      // },
+      // {
+      //   path: 'login',
+      //   Component: LoginPage,
+      // },
     ],
   },
 ]);
