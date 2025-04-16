@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, LinearProgress, Chip, Paper } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
+import { useAssessment } from '../slice/assessmentSlice';
 
 const getEmotionLevel = (score: number) => {
   if (score >= 0.6) return 'high';
@@ -27,6 +28,7 @@ const getLabelColor = (level: string, isBullying: boolean) => {
 };
 
 const MessageAnalysis = () => {
+  const { userInput, analysisResult } = useAssessment();
   interface AnalysisData {
     emotions: Record<string, number>;
     toxicity: { toxic: number };
@@ -37,12 +39,12 @@ const MessageAnalysis = () => {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    const stored = localStorage.getItem('analysisResult');
-    const userInput = localStorage.getItem('userInput');
-    if (stored && userInput) {
+    const user_input = userInput;
+    const stored = analysisResult;
+    if (stored && user_input) {
       const parsed = JSON.parse(stored);
       setData(parsed.analysis);
-      setText(userInput);
+      setText(user_input);
     }
   }, []);
 

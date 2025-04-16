@@ -2,12 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router';
 import { router } from './routes.ts';
-import { AuthProvider } from './context/AuthContext.tsx';
+import { SliceContext } from './slice/sliceContext.tsx';
+import { slices } from './slice/slice.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthProvider>
+    <SliceContext slices={slices}>
       <RouterProvider router={router} />
-    </AuthProvider>
+    </SliceContext>
   </StrictMode>
 );

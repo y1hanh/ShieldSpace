@@ -5,7 +5,6 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import PageLayoutBox from '../component/PageLayOutBox';
 
 export default function CommunityPage() {
-  console.log('CommunityPage component rendered');
   return (
     <PageLayoutBox
       header={

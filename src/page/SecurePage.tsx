@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../slice/authSlice';
 
 export function SecurePage() {
   const [username, setName] = useState<string>('');
@@ -15,7 +15,7 @@ export function SecurePage() {
       setError('');
     } catch (error) {
       setError('Wrong username or password');
-      console.log('Error:', error);
+      console.error(error);
     }
   };
 
@@ -47,6 +47,7 @@ export function SecurePage() {
           id="outlined-controlled"
           label="Password"
           value={password}
+          type="password"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
           }}

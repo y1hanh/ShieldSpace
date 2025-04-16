@@ -6,10 +6,14 @@ import PageLayoutBox from './PageLayOutBox';
 import MessageAnalysis from './MessageAnalysis';
 import { getEmotions } from '../api';
 import { isNumber } from 'lodash';
+import { useAssessment } from '../slice/assessmentSlice';
 
 export default function AssessmentTool() {
   const [input, setInput] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  const { setUserInput, setAnalysisResult } = useAssessment();
+
   const handleSubmit = async () => {
     const trimmed = input.trim();
     if (trimmed.length < 3) {
@@ -24,8 +28,8 @@ export default function AssessmentTool() {
 
     try {
       const response = await getEmotions({ user_input: trimmed });
-      localStorage.setItem('analysisResult', JSON.stringify(response));
-      localStorage.setItem('userInput', trimmed);
+      setUserInput(trimmed);
+      setAnalysisResult(JSON.stringify(response));
 
       setInput('');
       setSubmitted(true);
