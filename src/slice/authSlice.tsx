@@ -7,10 +7,9 @@ interface AuthContextType {
   useSubmit: (username: string, password: string) => Promise<void>;
   logout: () => void;
 }
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function authSlice({ children }: { children: React.ReactNode }) {
   const [secure, setSecure] = useState(false);
   const [token, setToken] = useState<string | null>(() => {
     return sessionStorage.getItem('token');
@@ -42,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
+  const context = useContext<AuthContextType>(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }

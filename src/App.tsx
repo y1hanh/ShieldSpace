@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import Nav from './component/nav';
 import { Outlet } from 'react-router';
 import { SecurePage } from './page/SecurePage';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './slice/authSlice';
 
 function App() {
   const { secure } = useAuth();
