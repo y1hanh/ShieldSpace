@@ -5,7 +5,6 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PageLayoutBox from './PageLayOutBox';
 import MessageAnalysis from './MessageAnalysis';
 import { getEmotions } from '../api';
-import { isNumber } from 'lodash';
 import { useAssessment } from '../slice/assessmentSlice';
 
 export default function AssessmentTool() {
@@ -18,11 +17,6 @@ export default function AssessmentTool() {
     const trimmed = input.trim();
     if (trimmed.length < 3) {
       alert('Please enter at least 3 words.');
-      return;
-    }
-
-    if (isNumber(trimmed)) {
-      alert('Please avoid using numbers.');
       return;
     }
 
@@ -50,23 +44,28 @@ export default function AssessmentTool() {
     <PageLayoutBox
       id="assessment"
       innerSx={{
-        backgroundColor: '#FDF6EC',
+        backgroundColor: '#F0F6FA',
         py: 6,
       }}
       header={
         <>
-          <Typography variant="h4" fontWeight="bold" color="#1f2a40" mb={1}>
-            Emotional Assessment Tool
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            color="#4B4072"
+            mb={4}
+          
+          >
+            Assessment Tool
           </Typography>
           {!submitted && (
-            <Typography variant="h6" fontWeight="bold" color="#1f2a40" mb={4}>
-              What was the hurtful message?
+            <Typography fontSize="16px" color="#555555" mb={4}>
+              Pasta the message you received to see if it is bullying.
             </Typography>
           )}
 
           <Box
             sx={{
-              backgroundColor: '#fff7f2',
               borderRadius: '20px',
               position: 'relative',
               p: 3,
@@ -116,7 +115,7 @@ export default function AssessmentTool() {
                   >
                     <TextField
                       fullWidth
-                      placeholder="Type the message..."
+                      placeholder="Pasta the message o comment here..."
                       variant="standard"
                       InputProps={{ disableUnderline: true }}
                       value={input}
@@ -126,8 +125,8 @@ export default function AssessmentTool() {
                         fontSize: '1.1rem',
                         width: {
                           xs: '100%',
-                          sm: '300px',
-                          md: '400px',
+                          sm: '400px',
+                          md: '700px',
                         },
                         mx: 'auto',
                       }}
@@ -149,9 +148,12 @@ export default function AssessmentTool() {
                       <SendIcon />
                     </IconButton>
                   </Box>
+                  <Typography fontSize="14px" color="#555555" mt={4} sx={{ fontStyle: 'italic' }}>
+                    We'll help you understand if this is cyberbullying and suggest ways to respond.
+                  </Typography>
                 </Box>
 
-                <Box
+                {/* <Box
                   component="img"
                   src="/bear.png"
                   alt="sad bear"
@@ -175,7 +177,7 @@ export default function AssessmentTool() {
                     zIndex: 1,
                     pointerEvents: 'none',
                   }}
-                />
+                /> */}
               </>
             )}
           </Box>

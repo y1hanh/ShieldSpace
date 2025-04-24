@@ -66,7 +66,6 @@ export default function Nav() {
         // justifyContent: 'space-between',
         // alignItems: 'center',
         padding: '0.5rem',
-        borderBottom: '3px solid #66CCFF',
       }}
     >
       <Box
@@ -76,14 +75,15 @@ export default function Nav() {
         <Box
           sx={{
             backgroundColor: '#FF9966',
-            width: '1.5rem',
-            height: '1.5rem',
+            width: '1.2rem',
+            height: '1.2rem',
             borderRadius: '50%',
+            marginLeft: '0.5rem',
             marginRight: '0.5rem',
           }}
         />
-        <Typography sx={{ color: '#FF9966', fontWeight: 600 }} variant="h5">
-          shieldspace
+        <Typography sx={{ color: 'Black'}} variant="h5">
+          No more Bully
         </Typography>
       </Box>
 
@@ -106,7 +106,7 @@ export default function Nav() {
                       display: 'block',
                       width: '100%',
                       padding: '0.5rem',
-                      borderRadius: '0.5rem',
+                      borderRadius: '1.5rem',
                     })}
                   >
                     {route.name}
@@ -167,7 +167,7 @@ export default function Nav() {
                   fontWeight: isActive ? 'bold' : '',
                   color: isActive ? 'white' : 'black',
                   backgroundColor: isActive ? '#66CCFF' : 'transparent',
-                  borderRadius: '1rem',
+                  borderRadius: '1.5rem',
                   padding: '0.8rem',
                   textDecoration: 'none',
                 })}
