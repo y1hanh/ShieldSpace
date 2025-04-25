@@ -44,7 +44,7 @@ export default function AssessmentTool() {
     <PageLayoutBox
       id="assessment"
       innerSx={{
-        backgroundColor: '#F0F6FA',
+        backgroundColor: '#E2F3FF',
         py: 6,
       }}
       header={

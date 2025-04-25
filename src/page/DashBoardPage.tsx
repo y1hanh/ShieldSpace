@@ -4,13 +4,21 @@ import AssessmentTool from '../component/AssessmentTool';
 export default function DashBoardPage() {
   const cardBoxStyle = {
     maxWidth: {
-      xs: '100%',   
-      sm: '250px',    
-      md: '300px',  
+      xs: '100%',
+      sm: '180px',
+      md: '25%',
+      lg: '25%',
     },
     backgroundColor: '#F8F8F8',
     padding: '1.2rem',
     borderRadius: '8px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+
+    '&:hover': {
+      transform: 'translateY(-5px)',
+      boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
+    },
   };
 
   const cardTextStyle = {
@@ -20,10 +28,10 @@ export default function DashBoardPage() {
   };
 
   const contentBoxTitle = {
-    fontWeight: 'bold', 
-    color: '#4B3F72', 
-    textAlign: 'center', 
-    mb: 2
+    fontWeight: 'bold',
+    color: '#4B3F72',
+    textAlign: 'center',
+    mb: 2,
   };
   return (
     <>
@@ -33,7 +41,7 @@ export default function DashBoardPage() {
           padding: '2rem',
         }}
       >
-        {/* Left Section */}
+        {/* Section 1  */}
         <Box
           sx={{
             display: 'flex',
@@ -41,8 +49,8 @@ export default function DashBoardPage() {
             justifyContent: 'center',
           }}
         >
-          <Box sx={{ padding: '4rem'}}>
-            <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 3 }}>
+          <Box sx={{ padding: '4rem' }}>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 5 }}>
               What feels small... <br /> can hurt big.
             </Typography>
 
@@ -54,7 +62,18 @@ export default function DashBoardPage() {
 
           {/* section1 image  */}
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-            <Box component="img" src="/l_image.png" sx={{ maxWidth: '60%', height: 'auto' }} />
+            <Box
+              component="img"
+              src="/l_image.png"
+              sx={{
+                maxWidth: {
+                  xs: '100%',
+                  sm: '70%',
+                  md: '60%',
+                },
+                height: 'auto',
+              }}
+            />
           </Box>
         </Box>
       </Box>
@@ -77,12 +96,9 @@ export default function DashBoardPage() {
           How Cyberbullying Affects Us
         </Typography>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '3' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 5 }}>
           <Box sx={cardBoxStyle}>
-            <Typography
-              variant="h5"
-              sx={contentBoxTitle} 
-            >
+            <Typography variant="h5" sx={contentBoxTitle}>
               A regular Scroll
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
@@ -95,10 +111,7 @@ export default function DashBoardPage() {
           </Box>
 
           <Box sx={cardBoxStyle}>
-            <Typography
-              variant="h5"
-              sx={contentBoxTitle}
-            >
+            <Typography variant="h5" sx={contentBoxTitle}>
               The shift
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
@@ -109,10 +122,7 @@ export default function DashBoardPage() {
             </Typography>
           </Box>
           <Box sx={cardBoxStyle}>
-            <Typography
-              variant="h5"
-              sx={contentBoxTitle}
-            >
+            <Typography variant="h5" sx={contentBoxTitle}>
               Taking Action
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
@@ -125,7 +135,7 @@ export default function DashBoardPage() {
           </Box>
         </Box>
       </Box>
-    <AssessmentTool/>
+      <AssessmentTool />
     </>
   );
 }
