@@ -33,7 +33,6 @@ const PageLayoutBox = ({
           alignItems: 'center',
           flexDirection: 'column',
           textAlign: 'center',
-          mt: 4,
           mb: 2,
           padding: '2rem',
           backgroundColor: 'white',
