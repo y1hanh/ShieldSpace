@@ -1,11 +1,8 @@
 import { createBrowserRouter } from 'react-router';
 import DashBoardPage from './page/DashBoardPage';
-import GamePage from './page/GamePage';
 import AnalyticsPage from './page/AnalyticsPage';
 import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
-// import RegisterPage from './page/RegisterPage';
-// import LoginPage from './page/LoginPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
 
@@ -22,10 +19,10 @@ export const router = createBrowserRouter([
         index: true,
         Component: DashBoardPage,
       },
-      {
-        path: 'game',
-        Component: GamePage,
-      },
+      // {
+      //   path: 'game',
+      //   Component: GamePage,
+      // },
       {
         path: 'analytics',
         Component: AnalyticsPage,
@@ -38,14 +35,6 @@ export const router = createBrowserRouter([
         path: 'community',
         Component: CommunityPage,
       },
-      // {
-      //   path: 'register',
-      //   Component: RegisterPage,
-      // },
-      // {
-      //   path: 'login',
-      //   Component: LoginPage,
-      // },
     ],
   },
 ]);
@@ -73,18 +62,18 @@ export const routes: routesArray[] = [
     path: '/community',
     name: 'Resources & Community',
   },
-  {
-    path: '#',
-    name: 'Account',
-    children: [
-      {
-        path: '/login',
-        name: 'Login',
-      },
-      {
-        path: '/register',
-        name: 'Register',
-      },
-    ],
-  },
+  // {
+  //   path: '#',
+  //   name: 'Account',
+  //   children: [
+  //     {
+  //       path: '/login',
+  //       name: 'Login',
+  //     },
+  //     {
+  //       path: '/register',
+  //       name: 'Register',
+  //     },
+  //   ],
+  // },
 ];

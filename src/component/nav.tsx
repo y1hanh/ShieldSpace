@@ -16,40 +16,12 @@ import { routes } from '../routes';
 export default function Nav() {
   const isMobile = useMediaQuery('(max-width:768px)');
   const [drawerOpen, setDrawerOpen] = useState(false);
-  // const [accountAnchor, setAccountAnchor] = useState(null);
-  // const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const navigate = useNavigate();
-  // const { isLoggedIn, logout } = useAuth();
 
   const toggleDrawer = open => () => {
     setDrawerOpen(open);
   };
-
-  // const handleAccountMenu = event => {
-  //   setAccountAnchor(event.currentTarget);
-  // };
-
-  // const handleAccountClose = () => {
-  //   setAccountAnchor(null);
-  // };
-
-  // const handleLogoutClick = () => {
-  //   setLogoutDialogOpen(true);
-  //   handleAccountClose();
-  // };
-
-  // const handleLogoutConfirm = () => {
-  //   logout();
-  //   setLogoutDialogOpen(false);
-  //   navigate('/');
-  // };
-
-  // const handleLogoutCancel = () => {
-  //   setLogoutDialogOpen(false);
-  // };
-
   const mainRoutes = routes.filter(route => route.path !== '#');
-  const accountRoutes = routes.find(route => route.path === '#')?.children || [];
 
   const scrollToTop = () => {
     navigate('/');

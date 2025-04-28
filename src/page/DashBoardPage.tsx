@@ -119,12 +119,19 @@ export default function DashBoardPage() {
       >
         <Typography
           variant="h4"
-          sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mb: 5 }}
+          sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mt: 5 }}
         >
           How Cyberbullying Affects Us
         </Typography>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 5 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            padding: '3rem',
+          }}
+        >
           <Box sx={cardBoxStyle}>
             <Typography variant="h5" sx={contentBoxTitle}>
               A regular Scroll

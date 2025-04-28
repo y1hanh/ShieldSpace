@@ -37,7 +37,7 @@ const PageLayoutBox = ({
           mb: 3,
           padding: '2rem',
           width: '100%',
-          maxWidth: '1200px',
+          maxWidth: '1000px',
           boxSizing: 'border-box',
           ...innerSx,
         }}
@@ -47,7 +47,7 @@ const PageLayoutBox = ({
       <Box
         sx={{
           width: '100%',
-          maxWidth: '1200px',
+          maxWidth: '1000px',
           boxSizing: 'border-box',
         }}
       >
