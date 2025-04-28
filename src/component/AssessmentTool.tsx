@@ -24,7 +24,6 @@ export default function AssessmentTool() {
       const response = await getEmotions({ user_input: trimmed });
       setUserInput(trimmed);
       setAnalysisResult(JSON.stringify(response));
-
       setInput('');
       setSubmitted(true);
     } catch (err) {
@@ -44,144 +43,115 @@ export default function AssessmentTool() {
     <PageLayoutBox
       id="assessment"
       innerSx={{
-        backgroundColor: '#E2F3FF',
+        backgroundColor: '#F0F6FA',
+        width: '1200px',
+        borderRadius: '12px',
         py: 6,
+        transition: 'all 0.3s ease',
+        '&:hover': {
+          boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+          transform: 'translateY(-4px)',
+          backgroundColor: '#e6f0f8',
+        },
       }}
       header={
-        <>
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            color="#4B4072"
-            mb={4}
-          
-          >
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: '1200px',
+            mx: 'auto',
+            px: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4} textAlign="center">
             Assessment Tool
           </Typography>
           {!submitted && (
-            <Typography fontSize="16px" color="#555555" mb={4}>
-              Pasta the message you received to see if it is bullying.
+            <Typography fontSize="16px" color="#555555" mb={4} textAlign="center">
+              Paste the message you received to see if it is bullying.
             </Typography>
           )}
 
-          <Box
-            sx={{
-              borderRadius: '20px',
-              position: 'relative',
-              p: 3,
-              gap: 3,
-              justifyContent: 'space-between',
-              mx: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            {submitted ? (
-              <Box width="100%">
-                <MessageAnalysis />
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                  <Button
-                    variant="contained"
-                    onClick={resetAssessment}
-                    startIcon={<RestartAltIcon />}
-                    sx={{
-                      backgroundColor: '#f89b5e',
-                      color: 'white',
-                      borderRadius: '25px',
-                      px: 4,
-                      textTransform: 'none',
-                      '&:hover': {
-                        backgroundColor: '#f57c00',
-                      },
-                    }}
-                  >
-                    Analyze Again
-                  </Button>
-                </Box>
-              </Box>
-            ) : (
-              <>
-                <Box sx={{ flex: 1 }}>
-                  <Box
-                    sx={{
-                      backgroundColor: '#fff',
-                      borderRadius: '12px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      px: 2,
-                      py: 1,
-                      border: '1px solid #ddd',
-                    }}
-                  >
-                    <TextField
-                      fullWidth
-                      placeholder="Pasta the message o comment here..."
-                      variant="standard"
-                      InputProps={{ disableUnderline: true }}
-                      value={input}
-                      onChange={e => setInput(e.target.value)}
-                      onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                      sx={{
-                        fontSize: '1.1rem',
-                        width: {
-                          xs: '100%',
-                          sm: '400px',
-                          md: '700px',
-                        },
-                        mx: 'auto',
-                      }}
-                    />
-                    <IconButton
-                      onClick={handleSubmit}
-                      sx={{
-                        backgroundColor: '#f89b5e',
-                        color: 'white',
-                        ml: 1,
-                        width: 50,
-                        height: 50,
-                        borderRadius: '50%',
-                        '&:hover': {
-                          backgroundColor: '#f57c00',
-                        },
-                      }}
-                    >
-                      <SendIcon />
-                    </IconButton>
-                  </Box>
-                  <Typography fontSize="14px" color="#555555" mt={4} sx={{ fontStyle: 'italic' }}>
-                    We'll help you understand if this is cyberbullying and suggest ways to respond.
-                  </Typography>
-                </Box>
-
-                {/* <Box
-                  component="img"
-                  src="/bear.png"
-                  alt="sad bear"
+          {submitted ? (
+            <Box width="100%">
+              <MessageAnalysis />
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                <Button
+                  variant="contained"
+                  onClick={resetAssessment}
+                  startIcon={<RestartAltIcon />}
                   sx={{
-                    position: 'absolute',
-                    right: {
-                      xs: '-40px',
-                      sm: '-100px',
-                      md: '-110px',
+                    backgroundColor: '#f89b5e',
+                    color: 'white',
+                    borderRadius: '25px',
+                    px: 4,
+                    textTransform: 'none',
+                    '&:hover': {
+                      backgroundColor: '#f57c00',
                     },
-                    bottom: {
-                      xs: '0px',
-                      sm: '-45px',
-                      md: '-45px',
-                    },
-                    height: {
-                      xs: '130px',
-                      sm: '220px',
-                      md: '250px',
-                    },
-                    zIndex: 1,
-                    pointerEvents: 'none',
                   }}
-                /> */}
-              </>
-            )}
-          </Box>
-        </>
+                >
+                  Analyze Again
+                </Button>
+              </Box>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                width: '100%',
+                maxWidth: '700px',
+                backgroundColor: '#fff',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                px: 2,
+                py: 1,
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <TextField
+                fullWidth
+                placeholder="Paste the message or comment here..."
+                variant="standard"
+                InputProps={{ disableUnderline: true }}
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                sx={{ fontSize: '1.1rem' }}
+              />
+              <IconButton
+                onClick={handleSubmit}
+                sx={{
+                  backgroundColor: '#f89b5e',
+                  color: 'white',
+                  ml: 1,
+                  width: 50,
+                  height: 50,
+                  borderRadius: '50%',
+                  '&:hover': {
+                    backgroundColor: '#f57c00',
+                  },
+                }}
+              >
+                <SendIcon />
+              </IconButton>
+            </Box>
+          )}
+
+          {!submitted && (
+            <Typography
+              fontSize="14px"
+              color="#555555"
+              mt={4}
+              sx={{ fontStyle: 'italic', textAlign: 'center' }}
+            >
+              We'll help you understand if this is cyberbullying and suggest ways to respond.
+            </Typography>
+          )}
+        </Box>
       }
     >
       <Box />

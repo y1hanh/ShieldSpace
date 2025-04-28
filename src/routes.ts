@@ -5,6 +5,7 @@ import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
+import ScenarioBasedQuiz from './component/scenario/ScenarioBasedQuiz';
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
         path: 'community',
         Component: CommunityPage,
       },
+      {
+        path:'ScenarioBasedQuiz',
+        Component: ScenarioBasedQuiz,
+      },
     ],
   },
 ]);
@@ -51,7 +56,7 @@ export const routes: routesArray[] = [
     name: 'Analytics',
   },
   {
-    path: '/game',
+    path: '/ScenarioBasedQuiz',
     name: 'Senrio quiz',
   },
   /* {

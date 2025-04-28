@@ -35,11 +35,9 @@ const PageLayoutBox = ({
           textAlign: 'center',
           mt: 4,
           mb: 3,
-          padding: '2rem',
           width: '100%',
-          maxWidth: '1000px',
-          boxSizing: 'border-box',
-          ...innerSx,
+          maxWidth: '1200px',
+           ...innerSx,
         }}
       >
         {header}
@@ -47,8 +45,7 @@ const PageLayoutBox = ({
       <Box
         sx={{
           width: '100%',
-          maxWidth: '1000px',
-          boxSizing: 'border-box',
+          maxWidth: '1200px',
         }}
       >
         {children}
