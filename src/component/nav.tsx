@@ -82,7 +82,7 @@ export default function Nav() {
             marginRight: '0.5rem',
           }}
         />
-        <Typography sx={{ color: 'Black'}} variant="h5">
+        <Typography sx={{ color: 'Black' }} variant="h5">
           No more Bully
         </Typography>
       </Box>
@@ -158,12 +158,19 @@ export default function Nav() {
           </Drawer>
         </>
       ) : (
-        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {mainRoutes.map(route => (
-            <Button key={route.path}>
+            <Button
+              key={route.path}
+              fullWidth
+              sx={{
+                flex: 1,
+              }}
+            >
               <NavLink
                 to={route.path}
                 style={({ isActive }) => ({
+                  fontSize: '12px',
                   fontWeight: isActive ? 'bold' : '',
                   color: isActive ? 'white' : 'black',
                   backgroundColor: isActive ? '#66CCFF' : 'transparent',

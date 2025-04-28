@@ -58,24 +58,20 @@ type routesArray = {
 
 export const routes: routesArray[] = [
   {
-    path: '/',
-    name: 'Dashboard',
-  },
-  {
-    path: '/game',
-    name: 'Games',
-  },
-  {
     path: '/analytics',
     name: 'Analytics',
   },
   {
+    path: '/game',
+    name: 'Senrio quiz',
+  },
+  /* {
     path: '/resources',
     name: 'Resources',
-  },
+  }, */
   {
     path: '/community',
-    name: 'Community',
+    name: 'Resources & Community',
   },
   {
     path: '#',

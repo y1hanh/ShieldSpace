@@ -3,11 +3,13 @@ import AssessmentTool from '../component/AssessmentTool';
 
 export default function DashBoardPage() {
   const cardBoxStyle = {
-    maxWidth: {
+    alignItems: 'center',
+    flexDirection: 'column',
+    textAlign: 'center',
+    flex: {
       xs: '100%',
-      sm: '180px',
+      sm: '45%',
       md: '25%',
-      lg: '25%',
     },
     backgroundColor: '#F8F8F8',
     padding: '1.2rem',
@@ -47,9 +49,25 @@ export default function DashBoardPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexWrap: 'wrap', // 👈 allow wrapping
+            gap: 4, // 👈 optional: add some space between text and image
+            px: 2, // 👈 optional: padding on small screens
           }}
         >
-          <Box sx={{ padding: '4rem' }}>
+          {/* Text section */}
+          <Box
+            sx={{
+              padding: '2rem',
+              flex: {
+                xs: '100%',
+                md: '45%',
+              },
+              textAlign: {
+                xs: 'center',
+                md: 'left',
+              },
+            }}
+          >
             <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 5 }}>
               What feels small... <br /> can hurt big.
             </Typography>
@@ -60,16 +78,25 @@ export default function DashBoardPage() {
             </Typography>
           </Box>
 
-          {/* section1 image  */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          {/* Image section */}
+          <Box
+            sx={{
+              flex: {
+                xs: '100%',
+                md: '45%',
+              },
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <Box
               component="img"
               src="/l_image.png"
               sx={{
                 maxWidth: {
-                  xs: '100%',
+                  xs: '90%',
                   sm: '70%',
-                  md: '60%',
+                  md: '70%',
                 },
                 height: 'auto',
               }}
@@ -86,7 +113,8 @@ export default function DashBoardPage() {
           flexDirection: 'column',
           backgroundColor: '#F9FBFC',
           padding: '3rem',
-          width: '100%',
+          gap: 5,
+          mt: 2,
         }}
       >
         <Typography

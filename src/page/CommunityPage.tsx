@@ -5,16 +5,39 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import PageLayoutBox from '../component/PageLayOutBox';
 
 export default function CommunityPage() {
+  const cards = [
+    {
+      title: 'Support Forums',
+      buttonText: 'Join Forum',
+      icon: <GroupsIcon fontSize="large" sx={{ color: '#B39DDB' }} />,
+    },
+    {
+      title: 'Local Groups',
+      buttonText: 'Find Groups',
+      icon: <PublicIcon fontSize="large" sx={{ color: '#B39DDB' }} />,
+    },
+    {
+      title: 'School Programs',
+      buttonText: 'View Programs',
+      icon: <StarBorderIcon fontSize="large" sx={{ color: '#B39DDB' }} />,
+    },
+    {
+      title: 'Volunteer Hub',
+      buttonText: 'Get Involved',
+      icon: <GroupsIcon fontSize="large" sx={{ color: '#B39DDB' }} />,
+    },
+  ];
+
   return (
     <PageLayoutBox
       header={
         <>
-          <Typography sx={{ color: '#3A4559', fontWeight: 600 }} variant="h5">
-            Support Community
+          <Typography sx={{ color: '#4A4A6A', fontWeight: 600, mb: 3 }} variant="h4">
+            Resources & Community
           </Typography>
           <Typography sx={{ color: '#7A7A9D' }} variant="body1">
-            connect with peers who understand what you're going through and share experiences in a
-            safe, moderated environment.
+            Access trusted resources, find support, and join a community dedicated to creating safer
+            online spaces for everone.
           </Typography>
         </>
       }
@@ -22,161 +45,130 @@ export default function CommunityPage() {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
-          flexWrap: {
-            xs: 'wrap',
-            md: 'nowrap',
-          },
-          marginTop: '2rem',
-          gap: '1rem',
+          justifyContent: 'center',
+          mt: '1rem',
         }}
       >
-        {/* CARD 1 */}
         <Box
           sx={{
-            flex: 1,
+            display: 'inline-block',
+            minWidth: '50%',
+            padding: '1rem',
             backgroundColor: '#FFFFFF',
-            padding: '1.5rem',
+            borderRadius: '16px',
+            boxShadow: 1,
+            mx: 'auto',
             textAlign: 'center',
-            borderTop: '5px solid #66CCFF',
-            borderRadius: '12px',
           }}
         >
-          <Box
-            sx={{
-              width: '60px',
-              height: '60px',
-              backgroundColor: '#e3f2fd',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 1rem',
-            }}
-          >
-            <GroupsIcon sx={{ fontSize: 30, color: '#72b6f1' }} />
-          </Box>
-          <Typography fontWeight={600} color="#3A4559" sx={{ padding: '0.1rem 1rem' }}>
-            Teen Support Circle
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{ marginY: '0.1rem', color: '#7A7A9D', padding: '1.2rem 0.1rem' }}
-          >
-            For teens 13-17 to share experiences and support each other.
-          </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              fontSize: '10px',
-              backgroundColor: '#FFCC99',
-              color: '#3A4559',
-              borderRadius: '25px',
-              paddingX: '1.5rem',
-              paddingY: '0.3rem',
-            }}
-          >
-            Join Community
-          </Button>
+          <Typography variant="h4">What Would You Do?</Typography>
         </Box>
+      </Box>
 
-        {/* CARD 2 */}
-        <Box
-          sx={{
-            flex: 1,
-            backgroundColor: '#FFFFFF',
-            padding: '1.5rem',
-            textAlign: 'center',
-            borderTop: '5px solid #FFB3C6',
-            borderRadius: '12px',
-          }}
-        >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          mt: '3rem',
+        }}
+      >
+        <Typography variant="h4" sx={{ color: '#4A4A6A', fontWeight: 500, mb: 3 }}>
+          Support{' '}
           <Box
+            component="span"
             sx={{
-              width: '60px',
-              height: '60px',
-              backgroundColor: '#ffe5ec',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 1rem',
+              borderBottom: '3px solid #FF6B4A',
+              display: 'inline',
+              paddingBottom: '4px',
             }}
           >
-            <PublicIcon sx={{ fontSize: 30, color: '#f89ba8' }} />
+            Com
           </Box>
-          <Typography fontWeight={600} color="#3A4559" sx={{ padding: '0.1rem 1rem' }}>
-            Cultural Identity
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{ marginY: '0.1rem', color: '#7A7A9D', padding: '1.2rem 0.1rem' }}
-          >
-            Support for those experiencing cultural or racial harassment.
-          </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              fontSize: '10px',
-              backgroundColor: '#FFB3C6',
-              color: '#3A4559',
-              borderRadius: '25px',
-              paddingX: '1.5rem',
-              paddingY: '0.3rem',
-            }}
-          >
-            Join Community
-          </Button>
-        </Box>
+          munities
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#4A4A6A' }}>
+          Connect with others who understand your experience and can provide support
+        </Typography>
+      </Box>
 
-        {/* CARD 3 */}
-        <Box
-          sx={{
-            flex: 1,
-            backgroundColor: '#FFFFFF',
-            padding: '1.5rem',
-            textAlign: 'center',
-            borderTop: '5px solid #FF9966',
-            borderRadius: '12px',
-          }}
-        >
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: 4,
+          mt: 4,
+          mb: 4,
+        }}
+      >
+        {cards.map((card, index) => (
           <Box
+            key={index}
             sx={{
-              width: '60px',
-              height: '60px',
-              backgroundColor: '#fff3e6',
-              borderRadius: '50%',
+              backgroundColor: '#E6E0F4',
+              borderRadius: '16px',
+              width: 180,
+              height: 260,
+              padding: 2,
               display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 1rem',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-5px)',
+                boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
+              },
             }}
           >
-            <StarBorderIcon sx={{ fontSize: 30, color: '#f9b864' }} />
+            {/* Icon Circle */}
+            <Box
+              sx={{
+                width: 80,
+                height: 80,
+                borderRadius: '50%',
+                backgroundColor: '#dcd0f7',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mt: 2,
+              }}
+            >
+              {card.icon}
+            </Box>
+
+            {/* Title */}
+            <Typography
+              variant="h6"
+              sx={{
+                color: '#4A4A6A',
+                fontWeight: 500,
+                textAlign: 'center',
+              }}
+            >
+              {card.title}
+            </Typography>
+
+            {/* Button */}
+            <Button
+              variant="contained"
+              sx={{
+                mt: 2,
+                backgroundColor: '#b39ddb',
+                borderRadius: '20px',
+                textTransform: 'none',
+                px: 3,
+                '&:hover': {
+                  backgroundColor: '#a58cd3',
+                },
+              }}
+            >
+              {card.buttonText}
+            </Button>
           </Box>
-          <Typography fontWeight={600} color="#3A4559" sx={{ padding: '0.1rem 1rem' }}>
-            Recovery & Success
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{ marginY: '0.1rem', color: '#7A7A9D', padding: '1.2rem 0.1rem' }}
-          >
-            Share stories of overcoming bullying and building resilience.
-          </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              fontSize: '10px',
-              backgroundColor: '#66CCFF',
-              color: '#FFFFFF',
-              borderRadius: '25px',
-              paddingX: '1.5rem',
-              paddingY: '0.3rem',
-            }}
-          >
-            Join Community
-          </Button>
-        </Box>
+        ))}
       </Box>
     </PageLayoutBox>
   );
