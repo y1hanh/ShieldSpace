@@ -49,9 +49,9 @@ export default function DashBoardPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexWrap: 'wrap', // 👈 allow wrapping
-            gap: 4, // 👈 optional: add some space between text and image
-            px: 2, // 👈 optional: padding on small screens
+            flexWrap: 'wrap', 
+            gap: 4, 
+            px: 2, 
           }}
         >
           {/* Text section */}
