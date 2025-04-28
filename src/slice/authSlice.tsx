@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, use } from 'react';
 import { getSecureToken } from '../api';
 
 interface AuthContextType {
@@ -12,14 +12,32 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function authSlice({ children }: { children: React.ReactNode }) {
   const [secure, setSecure] = useState(false);
   const [token, setToken] = useState<string | null>(() => {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   });
+
+  useEffect(() => {
+    if (token) {
+      const tokenExpiry = localStorage.getItem('token-expiry');
+      if (tokenExpiry) {
+        const currentTime = new Date().getTime();
+        const expiryTime = parseInt(tokenExpiry, 10);
+        if (currentTime - 1000 * 60 * 60 * 2 < expiryTime) {
+          setSecure(true);
+        } else {
+          localStorage.removeItem('token');
+          localStorage.removeItem('token-expiry');
+          setSecure(false);
+        }
+      }
+    }
+  }, [token]);
 
   const useSubmit = async (username: string, password: string) => {
     try {
       const data = await getSecureToken(username, password);
       if (data.access_token) {
         localStorage.setItem('token', data.access_token);
+        localStorage.setItem('token-expiry', new Date().getTime().toString());
         setSecure(true);
       }
     } catch (error) {
@@ -30,7 +48,8 @@ export function authSlice({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setToken(null);
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('token-expiry');
   };
 
   return (
