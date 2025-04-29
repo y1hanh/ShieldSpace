@@ -67,8 +67,8 @@ const MessageAnalysis = () => {
       sx={{
         backgroundColor: '#F7FAFD',
         borderRadius: '1rem',
-        p: 4,
-        maxWidth: '500px',
+        p: 2,
+        maxWidth: '900px',
         mx: 'auto',
       }}
     >
@@ -77,7 +77,7 @@ const MessageAnalysis = () => {
         Message Analyzed:
       </Typography>
       <Typography fontSize="0.95rem" color="text.secondary" mb={2} textAlign="left" pl={2}>
-        {text}
+        "{text}"
       </Typography>
 
       {/* Bullying Detection */}
@@ -110,7 +110,12 @@ const MessageAnalysis = () => {
       </Box>
 
       {/* Emotion Analysis */}
-      <Typography fontWeight={600} mb={1} textAlign="left">
+      <Typography
+        fontWeight={600}
+        mb={1}
+        textAlign="left"
+        sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+      >
         Emotion Analysis:
       </Typography>
       {sortedEmotions.map(({ name, value }) => {
@@ -121,17 +126,36 @@ const MessageAnalysis = () => {
         return (
           <Box
             key={name}
-            sx={{ display: 'flex', alignItems: 'center', mb: 1, justifyContent: 'space-between' }}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              mb: 1,
+              justifyContent: 'space-between',
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: { xs: 1, sm: 0 },
+            }}
           >
-            <Box sx={{ width: '120px', textAlign: 'left' }}>
+            <Box
+              sx={{
+                width: { xs: '100%', sm: '120px' },
+                textAlign: { xs: 'center', sm: 'left' },
+                fontSize: { xs: '0.9rem', sm: '1rem' },
+              }}
+            >
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </Box>
-            <Box sx={{ flexGrow: 1, mx: 1 }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                mx: { xs: 0, sm: 1 },
+                width: { xs: '100%', sm: 'auto' },
+              }}
+            >
               <LinearProgress
                 variant="determinate"
                 value={value * 100}
                 sx={{
-                  height: 10,
+                  height: { xs: 15, sm: 10 },
                   borderRadius: '5px',
                   backgroundColor: '#f1f1f1',
                   '& .MuiLinearProgress-bar': {
@@ -142,7 +166,13 @@ const MessageAnalysis = () => {
             </Box>
             <Typography
               variant="caption"
-              sx={{ fontWeight: 600, color: labelColor, width: '50px', textAlign: 'left' }}
+              sx={{
+                fontWeight: 500,
+                color: labelColor,
+                width: { xs: '100%', sm: '50px' },
+                textAlign: { xs: 'center', sm: 'left' },
+                fontSize: { xs: '0.7rem', sm: '0.9rem' },
+              }}
             >
               {level.charAt(0).toUpperCase() + level.slice(1)}
             </Typography>
@@ -151,16 +181,28 @@ const MessageAnalysis = () => {
       })}
 
       {/* Primary Emotion */}
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
-        <Typography fontWeight={600}>Primary Emotion:</Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          mt: 3,
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: { xs: 1, sm: 0 },
+        }}
+      >
+        <Typography fontWeight={600} sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+          Primary Emotion:
+        </Typography>
         <Chip
           label={trigger_emotion}
           sx={{
             backgroundColor: isBullying ? '#EF4444' : '#10B981',
             color: 'white',
-            ml: 1,
+            ml: { xs: 0, sm: 1 },
+            mt: { xs: 1, sm: 0 },
             fontWeight: 600,
             textTransform: 'capitalize',
+            fontSize: { xs: '0.9rem', sm: '0.875rem' },
           }}
         />
       </Box>
