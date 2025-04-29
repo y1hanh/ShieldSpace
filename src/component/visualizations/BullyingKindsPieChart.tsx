@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { CountBullyingDiagram } from './CountBullyingDiagram';
 
-export default function BullyingKindsPieChart({ colorScheme }: { colorScheme: string[] }) {
+export default function BullyingKindsPieChart({ colorScheme }: { colorScheme?: string[] }) {
   return (
     <Box
       sx={{
