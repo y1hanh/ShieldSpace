@@ -5,6 +5,7 @@ import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
+import AssessmentPage from './page/AssessmentPage';
 
 export const router = createBrowserRouter([
   {
@@ -31,10 +32,10 @@ export const router = createBrowserRouter([
         path: 'resources',
         Component: ResourcePage,
       },
-      // {
-      //   path: 'community',
-      //   Component: CommunityPage,
-      // },
+      {
+        path: 'assessment',
+        Component: AssessmentPage,
+      },
     ],
   },
 ]);
@@ -50,10 +51,10 @@ export const routes: routesArray[] = [
     path: '/',
     name: 'Home',
   },
-  // {
-  //   path: '/game',
-  //   name: 'Games',
-  // },
+  {
+    path: '/assessment',
+    name: 'Assessment',
+  },
   {
     path: '/analytics',
     name: 'Analytics',
