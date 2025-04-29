@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import AssessmentTool from '../component/AssessmentTool';
+import AssessmentTool from '../component/assessment/AssessmentTool';
 
 /**
  * AssessmentPage Component

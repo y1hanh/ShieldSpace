@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
-import { CountBullyingDiagram } from '../CountBullyingDiagram';
+import { CountBullyingDiagram } from './CountBullyingDiagram';
 
 export default function BullyingKindsPieChart({ colorScheme }: { colorScheme: string[] }) {
   return (
@@ -39,7 +39,7 @@ export default function BullyingKindsPieChart({ colorScheme }: { colorScheme: st
       </Box>
 
       {/* Top left box */}
-      {/* <Paper
+      <Paper
         elevation={2}
         sx={{
           p: { xs: 1, sm: 1.5 },
@@ -62,7 +62,7 @@ export default function BullyingKindsPieChart({ colorScheme }: { colorScheme: st
         <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
           Our analysis uncovered three major types of online bullying
         </Typography>
-      </Paper> */}
+      </Paper>
 
       {/* Top right box */}
       <Paper

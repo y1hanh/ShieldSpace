@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, LinearProgress, Chip, Paper } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
-import { useAssessment } from '../slice/assessmentSlice';
+import { useAssessment } from '../../slice/assessmentSlice';
 
 const getEmotionLevel = (score: number) => {
   if (score >= 0.6) return 'high';
