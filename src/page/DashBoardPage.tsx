@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material';
-import AssessmentTool from '../component/AssessmentTool';
+import { Box, Button, Typography } from '@mui/material';
 import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router';
 export default function DashBoardPage() {
   const cardBoxStyle = {
     maxWidth: {
@@ -34,6 +34,8 @@ export default function DashBoardPage() {
     textAlign: 'center',
     mb: 2,
   };
+
+  const navigate = useNavigate();
   return (
     <>
       <Box
@@ -59,6 +61,26 @@ export default function DashBoardPage() {
               Our Message Analyser helps identify cyberbullying, understand its emotional impact,
               and find ways to respond.
             </Typography>
+
+            <Button
+              variant="contained"
+              onClick={() => navigate('/assessment')}
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                backgroundColor: '#f89b5e',
+                color: 'white',
+                borderRadius: '25px',
+                px: 4,
+                py: 1,
+                mt: 2,
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: '#f57c00',
+                },
+              }}
+            >
+              Get Started
+            </Button>
           </Box>
 
           {/* section1 image  */}
