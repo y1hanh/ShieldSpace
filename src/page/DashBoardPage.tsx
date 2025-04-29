@@ -2,6 +2,8 @@ import { Box, Button, Typography } from '@mui/material';
 import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
+import LazyLoadComponent from '../component/LazyLoadComponent';
+
 export default function DashBoardPage() {
   const cardBoxStyle = {
     maxWidth: {
@@ -174,11 +176,12 @@ export default function DashBoardPage() {
         <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
           Insights from 100,000 Tweets
         </Typography>
-        <BullyingKindsPieChart
-          colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
-        />
+        <LazyLoadComponent>
+          <BullyingKindsPieChart
+            colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
+          />
+        </LazyLoadComponent>
       </Box>
-      {/* <AssessmentTool /> */}
     </>
   );
 }

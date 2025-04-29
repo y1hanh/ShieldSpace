@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Box, Typography, TextField, IconButton, Button, Fade, Grow } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import PageLayoutBox from './PageLayOutBox';
+import PageLayoutBox from '../PageLayOutBox';
 import MessageAnalysis from './MessageAnalysis';
-import { getEmotions } from '../api';
-import { useAssessment } from '../slice/assessmentSlice';
+import { getEmotions } from '../../api';
+import { useAssessment } from '../../slice/assessmentSlice';
 
 export default function AssessmentTool() {
   const [input, setInput] = useState('');

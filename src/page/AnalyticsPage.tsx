@@ -1,6 +1,6 @@
 import { Box, Typography, Paper } from '@mui/material';
 import PageLayoutBox from '../component/PageLayOutBox';
-import { CountBullyingDiagram } from '../component/CountBullyingDiagram';
+import { CountBullyingDiagram } from '../component/visualizations/CountBullyingDiagram';
 import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
 
 export default function AnalyticsPage() {
