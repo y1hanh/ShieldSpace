@@ -9,9 +9,10 @@ interface QuizCardProps {
 export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
   return (
     <Box
+      onClick={onClick}
       sx={{
         width: { xs: '280px', sm: '300px', md: '320px' },
-        height: { xs: '250px', sm: '270px', md: '300px' },
+        height: { xs: '250px', sm: '270px', md: '390px' },
         backgroundColor: 'white',
         borderRadius: { xs: '8px', sm: '12px' },
         overflow: 'hidden',
@@ -23,12 +24,11 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
           boxShadow: '0 8px 12px rgba(0,0,0,0.15)',
         },
       }}
-      onClick={onClick}
     >
       <Box
         sx={{
           width: '100%',
-          height: { xs: '180px', sm: '200px', md: '230px' },
+          height: { xs: '180px', sm: '200px', md: '320px' },
           position: 'relative',
           '&::after': {
             content: '""',
@@ -58,10 +58,10 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
       </Box>
       <Box
         sx={{
-          padding: { xs: '12px', sm: '14px' },
+          padding: { xs: '8px', sm: '10px' },
           backgroundColor: '#4B3F72',
           color: 'white',
-          height: { xs: '70px', sm: '70px', md: '70px' },
+          height: { xs: '40px', sm: '50px', md: '60px' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

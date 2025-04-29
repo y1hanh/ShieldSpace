@@ -42,13 +42,24 @@ export function CountBullyingDiagram() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: 'bottom' as const,
+        labels: {
+          boxWidth: 12,
+          padding: 15,
+          font: {
+            size: 12,
+          },
+        },
       },
       title: {
         display: true,
         text: 'Bullying category counts',
+        font: {
+          size: 14,
+        },
       },
     },
   };
@@ -61,13 +72,15 @@ export function CountBullyingDiagram() {
     <Box
       sx={{
         display: 'flex',
-        marginTop: '2rem',
         justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: { xs: '250px', sm: '300px', md: '400px' },
+        maxWidth: '500px',
+        margin: '0 auto',
       }}
     >
-      <Box sx={{ width: '50vh', height: '50vh' }}>
-        {isEmpty(data) ? <Box>Loading....</Box> : <Pie data={chartData} options={options} />}
-      </Box>
+      {isEmpty(data) ? <Box>Loading....</Box> : <Pie data={chartData} options={options} />}
     </Box>
   );
 }

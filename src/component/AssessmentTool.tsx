@@ -49,18 +49,12 @@ export default function AssessmentTool() {
       }}
       header={
         <>
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            color="#4B4072"
-            mb={4}
-          
-          >
+          <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4}>
             Assessment Tool
           </Typography>
           {!submitted && (
             <Typography fontSize="16px" color="#555555" mb={4}>
-              Pasta the message you received to see if it is bullying.
+              Paste the message you received to see if it is bullying.
             </Typography>
           )}
 
@@ -115,7 +109,7 @@ export default function AssessmentTool() {
                   >
                     <TextField
                       fullWidth
-                      placeholder="Pasta the message o comment here..."
+                      placeholder="Paste the message or comment here..."
                       variant="standard"
                       InputProps={{ disableUnderline: true }}
                       value={input}

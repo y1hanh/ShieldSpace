@@ -31,10 +31,10 @@ export const router = createBrowserRouter([
         path: 'resources',
         Component: ResourcePage,
       },
-      {
-        path: 'community',
-        Component: CommunityPage,
-      },
+      // {
+      //   path: 'community',
+      //   Component: CommunityPage,
+      // },
     ],
   },
 ]);
@@ -46,10 +46,10 @@ type routesArray = {
 };
 
 export const routes: routesArray[] = [
-  // {
-  //   path: '/',
-  //   name: 'Dashboard',
-  // },
+  {
+    path: '/',
+    name: 'Home',
+  },
   // {
   //   path: '/game',
   //   name: 'Games',
@@ -62,10 +62,10 @@ export const routes: routesArray[] = [
     path: '/resources',
     name: 'Resources',
   },
-  {
-    path: '/community',
-    name: 'Community',
-  },
+  // {
+  //   path: '/community',
+  //   name: 'Community',
+  // },
   // {
   //   path: '#',
   //   name: 'Account',

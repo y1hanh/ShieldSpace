@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import AssessmentTool from '../component/AssessmentTool';
+import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
 
 export default function DashBoardPage() {
   const cardBoxStyle = {
@@ -141,7 +142,21 @@ export default function DashBoardPage() {
           </Box>
         </Box>
       </Box>
-      <AssessmentTool />
+      <Box sx={{ mx: 'auto', mt: 2, p: 3 }}>
+        <Typography
+          variant="h4"
+          sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mb: 2 }}
+        >
+          It's common than you think...
+        </Typography>
+        <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
+          Insights from 100,000 Tweets
+        </Typography>
+        <BullyingKindsPieChart
+          colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
+        />
+      </Box>
+      {/* <AssessmentTool /> */}
     </>
   );
 }

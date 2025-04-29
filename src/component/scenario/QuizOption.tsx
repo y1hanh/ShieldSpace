@@ -4,19 +4,17 @@ import gsap from 'gsap';
 
 interface QuizOptionProps {
   scenario: string[];
-  options: {
-    label: string;
-    description: string;
-    reason: string;
+  choices: {
+    text: string;
+    feedback: string;
   }[];
   onClick: () => void;
 }
 
-export default function QuizOption({ scenario, options, onClick }: QuizOptionProps) {
+export default function QuizOption({ scenario, choices, onClick }: QuizOptionProps) {
   const [selectedOption, setSelectedOption] = useState<{
-    label: string;
-    description: string;
-    reason: string;
+    text: string;
+    feedback: string;
   } | null>(null);
 
   const optionsContainerRef = useRef<HTMLDivElement>(null);
@@ -67,7 +65,7 @@ export default function QuizOption({ scenario, options, onClick }: QuizOptionPro
     // Animate the clicked option before setting the selected state
     const elements = document.querySelectorAll('.option-box');
     elements.forEach(el => {
-      if (el.getAttribute('data-label') === option?.label) {
+      if (el.getAttribute('data-label') === option?.text) {
         gsap.to(el, {
           scale: 1.02,
           duration: 0.2,
@@ -153,11 +151,11 @@ export default function QuizOption({ scenario, options, onClick }: QuizOptionPro
             overflow: 'auto',
           }}
         >
-          {options.map(option => (
+          {choices.map(option => (
             <Box
-              key={option.label}
+              key={option.text}
               className="option-box"
-              data-label={option.label}
+              data-label={option.text}
               onClick={() => handleOptionClick(option)}
               sx={{
                 padding: { xs: '12px 15px', sm: '15px 20px' },
@@ -165,10 +163,10 @@ export default function QuizOption({ scenario, options, onClick }: QuizOptionPro
                 border: '2px solid #4B3F72',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
-                backgroundColor: selectedOption?.label === option.label ? '#4B3F72' : 'transparent',
-                color: selectedOption?.label === option.label ? 'white' : '#4B3F72',
+                backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : 'transparent',
+                color: selectedOption?.text === option.text ? 'white' : '#4B3F72',
                 '&:hover': {
-                  backgroundColor: selectedOption?.label === option.label ? '#4B3F72' : '#E6E0F4',
+                  backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : '#E6E0F4',
                   transform: 'translateY(-2px)',
                 },
               }}
@@ -181,7 +179,7 @@ export default function QuizOption({ scenario, options, onClick }: QuizOptionPro
                   fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
                 }}
               >
-                {option.label}
+                {option.text}
               </Typography>
               <Typography
                 variant="body1"
@@ -189,7 +187,7 @@ export default function QuizOption({ scenario, options, onClick }: QuizOptionPro
                   fontSize: { xs: '0.9rem', sm: '1rem' },
                 }}
               >
-                {option.description}
+                {option.feedback}
               </Typography>
             </Box>
           ))}
@@ -236,7 +234,7 @@ export default function QuizOption({ scenario, options, onClick }: QuizOptionPro
               fontSize: { xs: '0.9rem', sm: '1rem' },
             }}
           >
-            {selectedOption.reason}
+            {selectedOption.feedback}
           </Typography>
         </Box>
       )}
