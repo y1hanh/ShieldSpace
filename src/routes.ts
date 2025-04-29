@@ -6,11 +6,16 @@ import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
 import ScenarioBasedQuiz from './component/scenario/ScenarioBasedQuiz';
+import CyberSafetyQuiz from './component/survey/CyberSafetyQuiz';
 
 export const router = createBrowserRouter([
   {
     path: '/secure',
     Component: SecurePage,
+  },
+  {
+    path: '/',
+    Component: App,
   },
   {
     path: '/',
@@ -40,6 +45,10 @@ export const router = createBrowserRouter([
         path:'ScenarioBasedQuiz',
         Component: ScenarioBasedQuiz,
       },
+      {
+        path:'CyberSafetyQuiz',
+        Component: CyberSafetyQuiz,
+      },
     ],
   },
 ]);
@@ -52,12 +61,16 @@ type routesArray = {
 
 export const routes: routesArray[] = [
   {
+    path: '/',
+    name: 'Home',
+  },
+  {
     path: '/analytics',
     name: 'Analytics',
   },
   {
     path: '/ScenarioBasedQuiz',
-    name: 'Senrio quiz',
+    name: 'Scenario quiz',
   },
   /* {
     path: '/resources',

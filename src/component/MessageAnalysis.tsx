@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, LinearProgress, Chip, Paper } from '@mui/material';
+import { Box, Typography, LinearProgress, Chip, Paper, Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useAssessment } from '../slice/assessmentSlice';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const getEmotionLevel = (score: number) => {
   if (score >= 0.6) return 'high';
@@ -27,7 +28,10 @@ const getLabelColor = (level: string, isBullying: boolean) => {
   return '#6B7280'; // Gray
 };
 
-const MessageAnalysis = () => {
+interface MessageAnalysisProps {
+  resetAssessment: () => void;
+}
+const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
   const { userInput, analysisResult } = useAssessment();
   interface AnalysisData {
     emotions: Record<string, number>;
@@ -186,6 +190,26 @@ const MessageAnalysis = () => {
             ? 'Detected Tags: Direct insult, Negative characterization'
             : 'Detected Tags: No critical flags'}
         </Typography>
+      </Box>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+        <Button
+          variant="contained"
+          onClick={resetAssessment}
+          startIcon={<RestartAltIcon />}
+          sx={{
+            backgroundColor: '#f89b5e',
+            color: 'white',
+            borderRadius: '25px',
+            px: 4,
+            textTransform: 'none',
+            '&:hover': {
+              backgroundColor: '#f57c00',
+            },
+          }}
+        >
+          Analyze Again
+        </Button>
       </Box>
     </Paper>
   );

@@ -130,15 +130,9 @@ export default function Nav() {
           </Drawer>
         </>
       ) : (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'space-between', gap: 0.1 }}>
           {mainRoutes.map(route => (
-            <Button
-              key={route.path}
-              fullWidth
-              sx={{
-                flex: 1,
-              }}
-            >
+            <Button key={route.path}>
               <NavLink
                 to={route.path}
                 style={({ isActive }) => ({

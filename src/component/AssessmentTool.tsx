@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { Box, Typography, TextField, IconButton, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PageLayoutBox from './PageLayOutBox';
 import MessageAnalysis from './MessageAnalysis';
 import { getEmotions } from '../api';
 import { useAssessment } from '../slice/assessmentSlice';
+import { useNavigate } from 'react-router';
+import QuizIcon from '@mui/icons-material/Quiz';
 
 export default function AssessmentTool() {
   const [input, setInput] = useState('');
   const [submitted, setSubmitted] = useState(false);
-
+  const navigate = useNavigate();
   const { setUserInput, setAnalysisResult } = useAssessment();
 
   const handleSubmit = async () => {
@@ -37,6 +38,10 @@ export default function AssessmentTool() {
     localStorage.removeItem('userInput');
     setInput('');
     setSubmitted(false);
+  };
+
+  const handleStartQuiz = () => {
+    navigate('/CyberSafetyQuiz');
   };
 
   return (
@@ -77,26 +82,55 @@ export default function AssessmentTool() {
 
           {submitted ? (
             <Box width="100%">
-              <MessageAnalysis />
+              <MessageAnalysis resetAssessment={resetAssessment} />
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                color="text.primary"
+                textAlign="center"
+                sx={{ mt: 4 }}
+              />
+              🎯 Ready to discover your emotional superpowers?
               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
                 <Button
                   variant="contained"
-                  onClick={resetAssessment}
-                  startIcon={<RestartAltIcon />}
+                  onClick={handleStartQuiz}
+                  startIcon={<QuizIcon />}
                   sx={{
-                    backgroundColor: '#f89b5e',
+                    backgroundColor: '#6A4CA7',
                     color: 'white',
                     borderRadius: '25px',
                     px: 4,
                     textTransform: 'none',
                     '&:hover': {
-                      backgroundColor: '#f57c00',
+                      backgroundColor: '#59359e',
                     },
                   }}
                 >
-                  Analyze Again
+                  Start Quiz
                 </Button>
               </Box>
+              <Button
+                onClick={() => {
+                  window.location.href = '/';
+                }}
+                sx={{
+                  mt: 2,
+                  background: 'none',
+                  color: '#7C4DFF',
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  fontSize: '0.95rem',
+                  textDecoration: 'underline',
+                  '&:hover': {
+                    color: '#5E35B1',
+                    background: 'transparent',
+                  },
+                }}
+              >
+                👉 Not ready? That’s totally okay — you can always come back later. Let’s explore
+                more together!
+              </Button>
             </Box>
           ) : (
             <Box
@@ -116,7 +150,7 @@ export default function AssessmentTool() {
                 fullWidth
                 placeholder="Paste the message or comment here..."
                 variant="standard"
-                InputProps={{ disableUnderline: true }}
+                slotProps={{ input: { disableUnderline: true } }}
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSubmit()}
