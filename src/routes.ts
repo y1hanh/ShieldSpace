@@ -7,6 +7,7 @@ import App from './App';
 import { SecurePage } from './page/SecurePage';
 import ScenarioBasedQuiz from './component/scenario/ScenarioBasedQuiz';
 import CyberSafetyQuiz from './component/survey/CyberSafetyQuiz';
+import AssessmentResult from './component/tool/AssessmentResult';
 
 
 export const router = createBrowserRouter([
@@ -50,7 +51,11 @@ export const router = createBrowserRouter([
         path:'CyberSafetyQuiz',
         Component: CyberSafetyQuiz,
       },
-      
+      {
+        path: 'AssessmentResult',
+        Component: AssessmentResult,
+      },
+
     ],
   },
 ]);

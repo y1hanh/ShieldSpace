@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, LinearProgress, Chip, Paper, Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
-import { useAssessment } from '../slice/assessmentSlice';
+import { useAssessment } from '../../slice/assessmentSlice';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const getEmotionLevel = (score: number) => {
@@ -81,7 +81,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
         Message Analyzed:
       </Typography>
       <Typography fontSize="0.95rem" color="text.secondary" mb={2} textAlign="left" pl={2}>
-        {text}
+      "{text}"
       </Typography>
 
       {/* Bullying Detection */}

@@ -1,7 +1,20 @@
 import { Box, Typography, Container } from '@mui/material';
-import AssessmentTool from '../component/AssessmentTool';
+import AssessmentTool from '../component/tool/AssessmentTool';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router';
 
 export default function DashBoardPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollToAssessment) {
+      const element = document.getElementById('assessment');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location.state]);
+
   const cardBoxStyle = {
     alignItems: 'center',
     flexDirection: 'column',

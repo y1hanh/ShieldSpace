@@ -1,0 +1,128 @@
+import { Box, Typography, Button } from '@mui/material';
+import PageLayoutBox from '../PageLayOutBox';
+import { useAssessment } from '../../slice/assessmentSlice';
+import { useNavigate } from 'react-router';
+import QuizIcon from '@mui/icons-material/Quiz';
+import MessageAnalysis from './MessageAnalysis';
+
+export default function ResultsPage() {
+  const navigate = useNavigate();
+  const { userInput } = useAssessment();
+
+  const handleStartQuiz = () => {
+    navigate('/CyberSafetyQuiz');
+  };
+
+  const resetAssessment = () => {
+    navigate('/', { state: { scrollToAssessment: true } });
+  };
+
+  return (
+    <PageLayoutBox
+      innerSx={{
+        backgroundColor: '#F0F6FA',
+        width: '1200px',
+        borderRadius: '12px',
+        py: 6,
+        transition: 'all 0.3s ease',
+        '&:hover': {
+          boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+          transform: 'translateY(-4px)',
+          backgroundColor: '#e6f0f8',
+        },
+      }}
+      header={
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: '1200px',
+            mx: 'auto',
+            px: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4} textAlign="center">
+            Assessment Results
+          </Typography>
+          
+          <Box width="100%">
+            <Typography variant="h6" color="text.primary" mb={2}>
+              Your Input:
+            </Typography>
+            <Box
+              sx={{
+                backgroundColor: '#fff',
+                p: 2,
+                borderRadius: '8px',
+                mb: 4,
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                maxWidth: '530px',
+                mx: 'auto',
+                wordBreak: 'break-word', 
+              }}
+            >
+              <Typography sx={{
+      whiteSpace: 'pre-wrap',
+    }}>{userInput}</Typography>
+            </Box>
+            <MessageAnalysis resetAssessment={resetAssessment} />
+
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              color="text.primary"
+              textAlign="center"
+              sx={{ mt: 4 }}
+            >
+              🎯 Ready to discover your emotional superpowers?
+            </Typography>
+            
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+              <Button
+                variant="contained"
+                onClick={handleStartQuiz}
+                startIcon={<QuizIcon />}
+                sx={{
+                  backgroundColor: '#6A4CA7',
+                  color: 'white',
+                  borderRadius: '25px',
+                  minWidth: '200px',
+                  px: 4,
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: '#59359e',
+                  },
+                }}
+              >
+                Start Quiz
+              </Button>
+            </Box>
+
+            <Button
+              onClick={() => navigate('/')}
+              sx={{
+                mt: 2,
+                background: 'none',
+                color: '#7C4DFF',
+                textTransform: 'none',
+                fontWeight: 400,
+                fontSize: '0.85rem',
+                textDecoration: 'underline',
+                '&:hover': {
+                  color: '#5E35B1',
+                  background: 'transparent',
+                },
+              }}
+            >
+              👉 Back to Home Page
+            </Button>
+          </Box>
+        </Box>
+      }
+    >
+      <Box />
+    </PageLayoutBox>
+  );
+} 
