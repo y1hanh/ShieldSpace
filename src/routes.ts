@@ -8,6 +8,7 @@ import { SecurePage } from './page/SecurePage';
 import ScenarioBasedQuiz from './component/scenario/ScenarioBasedQuiz';
 import CyberSafetyQuiz from './component/survey/CyberSafetyQuiz';
 
+
 export const router = createBrowserRouter([
   {
     path: '/secure',
@@ -49,6 +50,7 @@ export const router = createBrowserRouter([
         path:'CyberSafetyQuiz',
         Component: CyberSafetyQuiz,
       },
+      
     ],
   },
 ]);

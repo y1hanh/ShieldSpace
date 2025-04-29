@@ -128,8 +128,7 @@ export default function AssessmentTool() {
                   },
                 }}
               >
-                👉 Not ready? That’s totally okay — you can always come back later. Let’s explore
-                more together!
+                👉 Back to Home Page
               </Button>
             </Box>
           ) : (

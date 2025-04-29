@@ -21,7 +21,13 @@ interface StyledButtonProps {
   textColor?: string;
 }
 
-function StyledButton({ children, onClick, endIcon, bgColor = '#7C4DFF', textColor = 'white'}: StyledButtonProps) {
+function StyledButton({
+  children,
+  onClick,
+  endIcon,
+  bgColor = '#7C4DFF',
+  textColor = 'white',
+}: StyledButtonProps) {
   return (
     <Button
       variant="contained"
@@ -107,7 +113,7 @@ export default function CyberSafetyQuiz() {
   ];
 
   function handleSelect(selectedValue: string) {
-    setSelectedAnswer(selectedValue); 
+    setSelectedAnswer(selectedValue);
   }
 
   function handleContinue() {
@@ -126,7 +132,7 @@ export default function CyberSafetyQuiz() {
       finishQuiz();
     } else {
       setCurrentStep(prev => prev + 1);
-      setSelectedAnswer(''); 
+      setSelectedAnswer('');
     }
   }
 
@@ -201,6 +207,7 @@ export default function CyberSafetyQuiz() {
         maxWidth: 600,
         mx: 'auto',
         mt: 6,
+        mb: 4,
         p: 3,
         borderRadius: '20px',
         backgroundColor: '#ffffff',
@@ -230,7 +237,7 @@ export default function CyberSafetyQuiz() {
               height: 8,
               borderRadius: 5,
               backgroundColor: '#FFF9C4',
-              '& .MuiLinearProgress-bar': { backgroundColor: '#FFEB99' },
+              '& .MuiLinearProgress-bar': { backgroundColor: '#f2e767' },
             }}
           />
           <Typography variant="caption">
@@ -342,7 +349,36 @@ export default function CyberSafetyQuiz() {
               }}
             >
               <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-                {finalFeedback}
+                {finalFeedback.split(/(".*?"|\d+)/g).map((part, index) => {
+                  if (!part) return null;
+
+                  if (!isNaN(Number(part)) && part.trim() !== '') {
+                    return (
+                      <Box
+                        key={index}
+                        component="span"
+                        sx={{ fontWeight: 'bold', color: 'red' }}
+                      >
+                        {part}
+                      </Box>
+                    );
+                  }
+
+                  if (part.startsWith('"') && part.endsWith('"')) {
+                    const label = part.replace(/"/g, '');
+                    return (
+                      <Box
+                        key={index}
+                        component="span"
+                        sx={{ fontWeight: 'bold', color: '#7C4DFF' }}
+                      >
+                        {label.toUpperCase()}
+                      </Box>
+                    );
+                  }
+
+                  return part;
+                })}
               </Typography>
             </Box>
 
@@ -367,7 +403,11 @@ export default function CyberSafetyQuiz() {
               <StyledButton onClick={() => navigate('/analytics')} bgColor="#1E88E5">
                 📈 Analysis Overview
               </StyledButton>
-              <StyledButton onClick={() => navigate('/community')} bgColor="#FBC02D" textColor="#333">
+              <StyledButton
+                onClick={() => navigate('/community')}
+                bgColor="#FBC02D"
+                textColor="#333"
+              >
                 📚 Learn More
               </StyledButton>
             </Box>
