@@ -1,16 +1,31 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, Container } from '@mui/material';
 import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
-import LazyLoadComponent from '../component/LazyLoadComponent';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router';
+import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
 
 export default function DashBoardPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollToAssessment) {
+      const element = document.getElementById('assessment');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location.state]);
+
   const cardBoxStyle = {
-    maxWidth: {
+    alignItems: 'center',
+    flexDirection: 'column',
+    textAlign: 'center',
+    flex: {
       xs: '100%',
-      sm: '180px',
+      sm: '45%',
       md: '25%',
-      lg: '25%',
     },
     backgroundColor: '#F8F8F8',
     padding: '1.2rem',
@@ -40,21 +55,31 @@ export default function DashBoardPage() {
   const navigate = useNavigate();
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          padding: '2rem',
-        }}
-      >
-        {/* Section 1  */}
+      {/* Section 1 */}
+      <Container maxWidth="lg" sx={{ padding: '2rem 0' }}>
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 4,
           }}
         >
-          <Box sx={{ padding: '4rem' }}>
+          {/* Text section */}
+          <Box
+            sx={{
+              padding: '2rem',
+              flex: {
+                xs: '100%',
+                md: '45%',
+              },
+              textAlign: {
+                xs: 'center',
+                md: 'left',
+              },
+            }}
+          >
             <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 5 }}>
               What feels small... <br /> can hurt big.
             </Typography>
@@ -85,103 +110,122 @@ export default function DashBoardPage() {
             </Button>
           </Box>
 
-          {/* section1 image  */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          {/* Image section */}
+          <Box
+            sx={{
+              flex: {
+                xs: '100%',
+                md: '45%',
+              },
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <Box
               component="img"
               src="/l_image.png"
               sx={{
                 maxWidth: {
-                  xs: '100%',
+                  xs: '90%',
                   sm: '70%',
-                  md: '60%',
+                  md: '70%',
                 },
                 height: 'auto',
               }}
             />
           </Box>
         </Box>
-      </Box>
+      </Container>
 
-      {/* section2 */}
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          backgroundColor: '#F9FBFC',
-          width: '100%',
-        }}
-      >
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mt: 5 }}
-        >
-          How Cyberbullying Affects Us
-        </Typography>
-
+      {/* Section 2 */}
+      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#F9FBFC', mt: 2 }}>
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            padding: '3rem',
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: 5,
           }}
         >
-          <Box sx={cardBoxStyle}>
-            <Typography variant="h5" sx={contentBoxTitle}>
-              A regular Scroll
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-              <Box component="img" src="/l_image2.png" sx={{ maxWidth: '70%', height: 'auto' }} />
-            </Box>
-            <Typography sx={cardTextStyle}>
-              Emily was checking her messages like she always does - memes, class updates, group
-              chats.
-            </Typography>
-          </Box>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mt: 5 }}
+          >
+            How Cyberbullying Affects Us
+          </Typography>
 
-          <Box sx={cardBoxStyle}>
-            <Typography variant="h5" sx={contentBoxTitle}>
-              The shift
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-              <Box component="img" src="/l_image3.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              padding: '3rem',
+              gap: 5,
+            }}
+          >
+            {/* Card 1 */}
+            <Box sx={cardBoxStyle}>
+              <Typography variant="h5" sx={contentBoxTitle}>
+                A regular Scroll
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <Box component="img" src="/l_image2.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+              </Box>
+              <Typography sx={cardTextStyle}>
+                Emily was checking her messages like she always does - memes, class updates, group
+                chats.
+              </Typography>
             </Box>
-            <Typography sx={cardTextStyle}>
-              The words stayed with her. Emily began hestating before she posted again.
-            </Typography>
-          </Box>
-          <Box sx={cardBoxStyle}>
-            <Typography variant="h5" sx={contentBoxTitle}>
-              Taking Action
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-              <Box component="img" src="/l_image4.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+
+            {/* Card 2 */}
+            <Box sx={cardBoxStyle}>
+              <Typography variant="h5" sx={contentBoxTitle}>
+                The shift
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <Box component="img" src="/l_image3.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+              </Box>
+              <Typography sx={cardTextStyle}>
+                The words stayed with her. Emily began hesitating before she posted again.
+              </Typography>
             </Box>
-            <Typography sx={cardTextStyle}>
-              With our tool, Emily can identify hurtful messages, understand their impact, and learn
-              effective ways to respond.
-            </Typography>
+
+            {/* Card 3 */}
+            <Box sx={cardBoxStyle}>
+              <Typography variant="h5" sx={contentBoxTitle}>
+                Taking Action
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <Box component="img" src="/l_image4.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+              </Box>
+              <Typography sx={cardTextStyle}>
+                With our tool, Emily can identify hurtful messages, understand their impact, and
+                learn effective ways to respond.
+              </Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
-      <Box sx={{ mx: 'auto', mt: 2, p: 3 }}>
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mb: 2 }}
-        >
-          It's common than you think...
-        </Typography>
-        <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
-          Insights from 100,000 Tweets
-        </Typography>
-        <LazyLoadComponent>
-          <BullyingKindsPieChart
-            colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
-          />
-        </LazyLoadComponent>
-      </Box>
+      </Container>
+
+      {/* Section 3: Assessment Tool */}
+      <Container maxWidth="lg" sx={{ padding: '3rem 0' }}>
+        <Box sx={{ mx: 'auto', mt: 2, p: 3 }}>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mb: 2 }}
+          >
+            It's common than you think...
+          </Typography>
+          <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
+            Insights from 100,000 Tweets
+          </Typography>
+          <LazyLoadComponent>
+            <BullyingKindsPieChart
+              colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
+            />
+          </LazyLoadComponent>
+        </Box>
+      </Container>
     </>
   );
 }

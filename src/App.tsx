@@ -25,7 +25,7 @@ function App() {
 
       <Box
         sx={{
-          bgcolor: '#E2F3FF',
+          bgcolor: '#F0F6FA',
           // width: '100vw',
           // height: '100vh',
           overflow: 'auto',

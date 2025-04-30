@@ -5,6 +5,9 @@ import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
+import ScenarioBasedQuiz from './component/scenario/ScenarioBasedQuiz';
+import CyberSafetyQuiz from './component/survey/CyberSafetyQuiz';
+import AssessmentResult from './component/assessment/AssessmentResult';
 import AssessmentPage from './page/AssessmentPage';
 
 export const router = createBrowserRouter([
@@ -20,10 +23,10 @@ export const router = createBrowserRouter([
         index: true,
         Component: DashBoardPage,
       },
-      // {
-      //   path: 'game',
-      //   Component: GamePage,
-      // },
+      {
+        path: 'assessment',
+        Component: AssessmentPage,
+      },
       {
         path: 'analytics',
         Component: AnalyticsPage,
@@ -33,8 +36,20 @@ export const router = createBrowserRouter([
         Component: ResourcePage,
       },
       {
-        path: 'assessment',
-        Component: AssessmentPage,
+        path: 'community',
+        Component: CommunityPage,
+      },
+      {
+        path: 'ScenarioBasedQuiz',
+        Component: ScenarioBasedQuiz,
+      },
+      {
+        path: 'CyberSafetyQuiz',
+        Component: CyberSafetyQuiz,
+      },
+      {
+        path: 'AssessmentResult',
+        Component: AssessmentResult,
       },
     ],
   },
@@ -60,25 +75,11 @@ export const routes: routesArray[] = [
     name: 'Analytics',
   },
   {
-    path: '/resources',
-    name: 'Resources',
+    path: '/ScenarioBasedQuiz',
+    name: 'Scenario quiz',
   },
-  // {
-  //   path: '/community',
-  //   name: 'Community',
-  // },
-  // {
-  //   path: '#',
-  //   name: 'Account',
-  //   children: [
-  //     {
-  //       path: '/login',
-  //       name: 'Login',
-  //     },
-  //     {
-  //       path: '/register',
-  //       name: 'Register',
-  //     },
-  //   ],
-  // },
+  {
+    path: '/community',
+    name: 'Resources & Community',
+  },
 ];
