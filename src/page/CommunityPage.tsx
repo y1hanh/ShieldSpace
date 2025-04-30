@@ -255,7 +255,7 @@ export default function CommunityPage() {
             display: 'inline-block',
             minWidth: '50%',
             padding: '1rem',
-            //backgroundColor: '#FFFFFF',
+            //backgroundColor: '#D4F0F6',
             borderRadius: '16px',
             //boxShadow: 1,
             mx: 'auto',
