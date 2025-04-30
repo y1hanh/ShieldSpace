@@ -63,6 +63,7 @@ export default function CyberSafetyQuiz() {
   const [totalPoints, setTotalPoints] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
   const [finalFeedback, setFinalFeedback] = useState('');
+  const [tips, setTips] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const questions: Question[] = [
@@ -123,22 +124,25 @@ export default function CyberSafetyQuiz() {
     }
 
     const currentQuestionKey = `q${currentStep + 1}`;
-    setAnswers(prev => ({ ...prev, [currentQuestionKey]: selectedAnswer }));
-
-    const points = getPointValue(currentQuestionKey, selectedAnswer);
-    setTotalPoints(prev => prev + points);
+    const updatedAnswers = { ...answers, [currentQuestionKey]: selectedAnswer };
+    const updatedPoints = totalPoints + getPointValue(currentQuestionKey, selectedAnswer);
 
     if (currentStep === questions.length - 1) {
-      finishQuiz();
+      setAnswers(updatedAnswers);
+      setTotalPoints(updatedPoints);
+      finishQuiz(updatedAnswers, updatedPoints);
     } else {
+      setAnswers(updatedAnswers);
+      setTotalPoints(updatedPoints);
       setCurrentStep(prev => prev + 1);
       setSelectedAnswer('');
     }
   }
 
-  function finishQuiz() {
+  function finishQuiz(updatedAnswers: Record<string, string>, updatedPoints: number) {
     setQuizFinished(true);
-    setFinalFeedback(generateFeedback(answers, totalPoints));
+    setFinalFeedback(generateFeedback(updatedAnswers, updatedPoints));
+    setTips(getRandomTips());
   }
 
   function handlePrevious() {
@@ -161,11 +165,22 @@ export default function CyberSafetyQuiz() {
   function generateFeedback(answers: Record<string, string>, points: number) {
     const feedbackParts: string[] = [];
 
-    if (answers.q1 === '3' || answers.q4 === '3') {
+    const q1 = answers.q1;
+    const q2 = answers.q2;
+    const q3 = answers.q3;
+    const q4 = answers.q4;
+    const q5 = answers.q5;
+    console.log("q1: ", q1);
+    console.log("q2: ", q2);
+    console.log("q3: ", q3);
+    console.log("q4: ", q4);
+    console.log("q5: ", q5);
+
+    if (q1 === '3' || q4 === '3') {
       feedbackParts.push(
         "You sometimes feel overwhelmed. It's important to reach out and talk to someone!"
       );
-    } else if (answers.q1 === '5') {
+    } else if (q1 === '5') {
       feedbackParts.push(
         "Feeling scared is normal. Remember, you're not alone and help is always available!"
       );
@@ -173,20 +188,110 @@ export default function CyberSafetyQuiz() {
       feedbackParts.push('You are handling things positively! Stay strong.');
     }
 
-    if (answers.q2 === '2') {
-      feedbackParts.push('When unsure, always ask a grown-up for advice.');
-    } else if (answers.q2 === '3') {
-      feedbackParts.push('Recognizing meanness shows your strong sense of kindness and fairness!');
+    if (q2 === '2') {
+      feedbackParts.push(
+        "When you're unsure if a message is mean or just silly, it's always a good idea to ask a grown-up for guidance."
+      );
+    } else if (q2 === '3') {
+      feedbackParts.push(
+        'Noticing that a message could hurt shows how much you care about kindness. Trust your feelings!'
+      );
+    } else {
+      feedbackParts.push(
+        "It's great that you can see the fun side of things—it keeps your day bright!"
+      );
     }
 
-    if (answers.q3 === '1') {
-      feedbackParts.push('Ignoring a mean message can sometimes protect your feelings.');
-    } else if (answers.q3 === '2') {
-      feedbackParts.push('Telling a trusted adult is always a brave and wise choice.');
+    if (q3 === '1') {
+      feedbackParts.push(
+        'Ignoring a mean message sometimes protects your mood—like skipping over a puddle to keep your shoes dry.'
+      );
+    } else if (q3 === '2') {
+      feedbackParts.push(
+        'Talking to a trusted adult is like having a superhero by your side—it makes you stronger!'
+      );
+    } else if (q3 === '3') {
+      feedbackParts.push(
+        'Even if anger tempts you to shout back, a calm reply can help clear the storm and bring back the sunshine.'
+      );
+    } else if (q3 === '4') {
+      feedbackParts.push(
+        'Crying shows you have a caring heart. Sharing your feelings can help clear away the clouds.'
+      );
     }
+
+    if (q4 === '3') {
+      feedbackParts.push(
+        'Seeing lots of hurtful messages can feel heavy—sharing your feelings can let the sunshine in.'
+      );
+    } else if (q4 === '2') {
+      feedbackParts.push(
+        'Even a few mean messages help you learn how to protect your smile and grow stronger.'
+      );
+    } else {
+      feedbackParts.push(
+        'It looks like your online world is mostly kind—a wonderful space to be in!'
+      );
+    }
+
+    if (q5 === '4') {
+      feedbackParts.push(
+        'Although keeping your feelings inside might seem easier sometimes, sharing them can really help you feel lighter.'
+      );
+    } else if (q5 === '1') {
+      feedbackParts.push(
+        'Blocking mean messages is a smart way to protect your space—like closing a door to keep the cold wind out.'
+      );
+    } else if (q5 === '2') {
+      feedbackParts.push(
+        'Telling your parents or teachers is a brave move—it invites caring support when you need it.'
+      );
+    } else if (q5 === '3') {
+      feedbackParts.push(
+        'Using humor to respond can sometimes turn a frown upside down and brighten the moment.'
+      );
+    }
+
+    const feedbackShortMap: Record<string, string> = {
+      "You sometimes feel overwhelmed. It's important to reach out and talk to someone!":
+        "You're feeling overwhelmed—talk to someone!",
+      "Feeling scared is normal. Remember, you're not alone and help is always available!":
+        "It's okay to feel scared. You're not alone!",
+      'You are handling things positively! Stay strong.': "You're doing great—stay strong!",
+      "When you're unsure if a message is mean or just silly, it's always a good idea to ask a grown-up for guidance.":
+        'Not sure? Ask a grown-up!',
+      'Noticing that a message could hurt shows how much you care about kindness. Trust your feelings!':
+        'You care about kindness. Trust your feelings!',
+      "It's great that you can see the fun side of things—it keeps your day bright!":
+        'Seeing fun in things is awesome!',
+      'Ignoring a mean message sometimes protects your mood—like skipping over a puddle to keep your shoes dry.':
+        'Ignoring helps protect your feelings.',
+      'Talking to a trusted adult is like having a superhero by your side—it makes you stronger!':
+        'Telling an adult makes you stronger!',
+      'Even if anger tempts you to shout back, a calm reply can help clear the storm and bring back the sunshine.':
+        'Stay calm—it helps more than shouting.',
+      'Crying shows you have a caring heart. Sharing your feelings can help clear away the clouds.':
+        "Crying is okay. You're caring!",
+      'Seeing lots of hurtful messages can feel heavy—sharing your feelings can let the sunshine in.':
+        'Talk about hurtful messages—it helps!',
+      'Even a few mean messages help you learn how to protect your smile and grow stronger.':
+        'Mean messages help you grow stronger.',
+      'It looks like your online world is mostly kind—a wonderful space to be in!':
+        "You're in a kind online space—yay!",
+      'Although keeping your feelings inside might seem easier sometimes, sharing them can really help you feel lighter.':
+        "Don't bottle it up—sharing helps!",
+      'Blocking mean messages is a smart way to protect your space—like closing a door to keep the cold wind out.':
+        'Blocking bad messages protects you!',
+      'Telling your parents or teachers is a brave move—it invites caring support when you need it.':
+        'Telling adults is brave and smart!',
+      'Using humor to respond can sometimes turn a frown upside down and brighten the moment.':
+        'Humor can brighten things up!',
+    };
+
+    const shortenedFeedback = feedbackParts.map(sentence => feedbackShortMap[sentence] || sentence);
 
     const [badge, levelMessage] = getBadge(points);
-    return `${feedbackParts.join(' ')} You earned ${points} points and the badge: "${badge}". ${levelMessage}`;
+    return `${shortenedFeedback.join(' ')} You earned ${points} points and the badge: "${badge}". ${levelMessage}`;
   }
 
   function getBadge(points: number): [string, string] {
@@ -199,13 +304,33 @@ export default function CyberSafetyQuiz() {
     }
   }
 
+  //tips
+  const allTips = [
+    "If you ever feel upset or confused, try taking three deep, slow breaths—it can help you calm down.",
+    "Remember, it's always a good idea to talk to someone you trust when something feels wrong.",
+    "If you see unkind messages, don't let them ruin your day. Focus on the things that make you happy!",
+    "Keep a fun journal where you draw or write about your favorite moments—it can brighten even a cloudy day.",
+    "Be kind to yourself. Everyone has tough days, but you have the strength to overcome them!",
+    "Sharing your feelings is brave. It helps you feel understood and supported.",
+    "Sometimes, a little humor can turn a bad day around. Don't be afraid to laugh!",
+    "Always remember that your feelings matter, and it's okay to ask for help when you need it."
+  ];
+
+  function getRandomTips(count = 3): string[] {
+    const shuffled = [...allTips].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  }
+  
+  
+
   const progressPercent = ((currentStep + 1) / questions.length) * 100;
 
   return (
     <Box
       sx={{
         maxWidth: 600,
-        mx: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         mt: 6,
         mb: 4,
         p: 3,
@@ -336,50 +461,153 @@ export default function CyberSafetyQuiz() {
             {/* Final feedback in a soft box */}
             <Box
               sx={{
-                backgroundColor: '#F3E5F5',
+                backgroundColor: '#F8F0FF',
                 px: 4,
                 py: 3,
                 borderRadius: '16px',
                 maxWidth: 500,
                 mx: 'auto',
                 mb: 4,
-                fontSize: '1rem',
+                fontSize: '1.1rem',
                 color: '#4A148C',
                 textAlign: 'left',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                border: '1px solid rgba(124, 77, 255, 0.1)',
               }}
             >
               <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-                {finalFeedback.split(/(".*?"|\d+)/g).map((part, index) => {
-                  if (!part) return null;
+                <ul style={{ paddingLeft: '1.2rem' }}>
+                  {(() => {
+                    const parts = finalFeedback.split(/(".*?"|\d+)/g).filter(p => p && p.trim());
+                    console.log('parts[0]: ', parts[0]);
+                    console.log('parts[1]: ', parts[1]);
+                    console.log('parts[2]: ', parts[2]);
+                    console.log('parts[3]: ', parts[3]);
+                    console.log('parts[4]: ', parts[4]);
+                    console.log('parts[5]: ', parts[5]);
+                    const cleaned = parts[0].split('You earned')[0].trim();
+                    const lines = cleaned
+                      .split('. ')
+                      .map(line => line.trim())
+                      .filter(line => line.length > 0);
+                    console.log('lines: ', lines);
 
-                  if (!isNaN(Number(part)) && part.trim() !== '') {
+                    for (let i = lines.length - 1; i > 0; i--) {
+                      const j = Math.floor(Math.random() * (i + 1));
+                      [lines[i], lines[j]] = [lines[j], lines[i]];
+                    }
+
+                    
+                    console.log('shuffled & extended lines:', lines);
+
+                    const badge = parts[3]?.replace(/"/g, '');
+                    const finalLine = parts[4]?.replace(/^\s*\./, '').trim();
+
                     return (
-                      <Box
-                        key={index}
-                        component="span"
-                        sx={{ fontWeight: 'bold', color: 'red' }}
-                      >
-                        {part}
-                      </Box>
-                    );
-                  }
+                      <>
+                        {/* Points and Badge Box */}
+                        <li
+                          style={{
+                            marginBottom: '20px',
+                            lineHeight: '1.7',
+                            listStyle: 'none',
+                            textAlign: 'center',
+                            mx: 'auto',
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              backgroundColor: '#F3E5F5',
+                              borderRadius: '12px',
+                              px: 2,
+                              py: 1.5,
+                              display: 'inline-block',
+                              fontSize: '1.3rem',  
+                              mx: 'auto',
+                            }}
+                          >
+                            <Box
+                              component="div"
+                              sx={{
+                                fontSize: '1.3rem',
+                              }}
+                            >
+                              <Box component="span" sx={{ fontWeight: 500, color: '#4A148C' }}>
+                                🏅🛡️{' '}
+                              </Box>
+                              <Box component="span" sx={{ fontWeight: 'bold', color: '#7C4DFF' }}>
+                                {badge?.toUpperCase()}
+                              </Box>
+                            </Box>
+                          </Box>
+                        </li>
 
-                  if (part.startsWith('"') && part.endsWith('"')) {
-                    const label = part.replace(/"/g, '');
-                    return (
-                      <Box
-                        key={index}
-                        component="span"
-                        sx={{ fontWeight: 'bold', color: '#7C4DFF' }}
-                      >
-                        {label.toUpperCase()}
-                      </Box>
-                    );
-                  }
+                        {/* Feedback Messages */}
+                        {lines.map((line, idx) => (
+                          <li
+                            key={idx}
+                            style={{
+                              marginBottom: '10px',
+                              lineHeight: '1.7',
+                              listStyle: 'none',
+                              position: 'relative',
+                              paddingLeft: '25px',
+                            }}
+                          >
+                            <span
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                color: '#7C4DFF',
+                              }}
+                            >
+                              ✓
+                            </span>
+                            {line}
+                          </li>
+                        ))}
 
-                  return part;
-                })}
+                        {finalLine && (
+                          <li
+                            style={{
+                              marginBottom: '10px',
+                              lineHeight: '1.7',
+                              listStyle: 'none',
+                              position: 'relative',
+                              paddingLeft: '25px',
+                            }}
+                          >
+                            <span
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                color: '#7C4DFF',
+                              }}
+                            >
+                              ✓
+                            </span>
+                            {finalLine}
+                          </li>
+                        )}
+                      </>
+                    );
+                  })()}
+                </ul>
               </Typography>
+              {quizFinished && (
+  <Box sx={{ mt: 4 }}>
+    <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom>
+      🌟 Helpful Tips
+    </Typography>
+    <ul style={{ paddingLeft: '1.5rem' }}>
+      {tips.map((tip, index) => (
+        <li key={index} style={{ marginBottom: '10px', lineHeight: '1.6' }}>
+          {tip}
+        </li>
+      ))}
+    </ul>
+  </Box>
+)}
             </Box>
 
             {/* Button */}
@@ -401,7 +629,7 @@ export default function CyberSafetyQuiz() {
                 🧾 More Quizs
               </StyledButton>
               <StyledButton onClick={() => navigate('/analytics')} bgColor="#1E88E5">
-                📈 Analysis Overview
+                📈 Analytic
               </StyledButton>
               <StyledButton
                 onClick={() => navigate('/community')}

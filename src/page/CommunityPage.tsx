@@ -120,7 +120,12 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
     <Box
       sx={{
         width: { xs: '90%', sm: 350, md: 450 },
-        height: 400,
+        height: {
+          xs: '100%',
+          sm: '100%',
+          md: 400,
+          lg: 400,   
+        },
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '16px',

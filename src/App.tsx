@@ -25,8 +25,13 @@ function App() {
 
       <Box
         sx={{
-          bgcolor: '#F0F6FA',
+
+          background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
+          // width: '100vw',
+          // height: '100vh',
+          overflow: 'auto',
           marginTop: '5rem',
+          mx: 'auto'
         }}
       >
         <Outlet />
