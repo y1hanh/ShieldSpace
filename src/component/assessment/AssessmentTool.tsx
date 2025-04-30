@@ -35,15 +35,15 @@ export default function AssessmentTool() {
       id="assessment"
       innerSx={{
         backgroundColor: '#F0F6FA',
-        width: '1200px',
         borderRadius: '12px',
+        width:{
+          xs: '60%',
+          sm: '90%',
+          md: '100%',
+        },
         py: 6,
         transition: 'all 0.3s ease',
-        '&:hover': {
-          boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
-          transform: 'translateY(-4px)',
-          backgroundColor: '#e6f0f8',
-        },
+        
       }}
       header={
         <Box

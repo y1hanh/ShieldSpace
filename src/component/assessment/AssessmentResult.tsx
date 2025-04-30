@@ -14,7 +14,7 @@ export default function ResultsPage() {
   };
 
   const resetAssessment = () => {
-    navigate('/', { state: { scrollToAssessment: true } });
+    navigate('/assessment');
   };
 
   return (
