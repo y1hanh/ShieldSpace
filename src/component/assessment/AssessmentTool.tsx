@@ -30,28 +30,28 @@ export default function AssessmentTool() {
   };
 
   return (
+    
     <Box
       sx={{
-        minHeight: '100vh',
         width: '100%',
+        maxWidth: '1200px',
         background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
         display: 'flex',
         flexDirection: 'column',
+        overflowX: 'hidden',
         alignItems: 'center',
         justifyContent: 'flex-start',
         mx: 'auto',
+        py: 4,
+        mt:{
+          xs: 20,
+          sm: 0,
+          md: 0,
+        },
+        
       }}
     >
-      <Box
-        sx={{
-          width: { xs: '85%', sm: '90%', md: '80%', lg: '80%' },
-          background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
-          borderRadius: '24px',
-          padding: { xs: 4, md: 6 },
-          textAlign: 'center',
-        }}
-      >
-        <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={2}>
+      <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={2}>
           Assessment Tool
         </Typography>
         <Typography fontSize="18px" color="rgb(22, 128, 115)">
@@ -63,6 +63,15 @@ export default function AssessmentTool() {
         <Typography fontSize="18px" color="rgb(22, 128, 115)" mb={3}>
           Paste it here and we'll help you out!
         </Typography>
+      <Box
+        sx={{
+          width: { xs: '85%', sm: '90%', md: '80%', lg: '80%' },
+          background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
+          borderRadius: '24px',
+          padding: { xs: 4, md: 6 },
+          textAlign: 'center',  
+        }}
+      >
 
         {/* Input Box */}
         <Box

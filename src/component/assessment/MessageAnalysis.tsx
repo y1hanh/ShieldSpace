@@ -74,6 +74,10 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
         borderRadius: '1rem',
         p: 4,
         maxWidth: '500px',
+        width:{
+          xs: '70%',
+          sm: '100%',
+        },
         mx: 'auto',
       }}
     >

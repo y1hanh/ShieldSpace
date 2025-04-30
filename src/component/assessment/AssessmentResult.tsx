@@ -20,7 +20,6 @@ export default function ResultsPage() {
   return (
     <PageLayoutBox
       innerSx={{
-        backgroundColor: '#F0F6FA',
         borderRadius: '12px',
         py: 6,
       }}
