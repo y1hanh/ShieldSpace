@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Box, Typography, TextField, IconButton } from '@mui/material';
+import { Box, Typography, TextField, IconButton, Chip } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import PageLayoutBox from '../PageLayOutBox';
 import { getEmotions } from '../../api';
 import { useAssessment } from '../../slice/assessmentSlice';
 import { useNavigate } from 'react-router';
@@ -31,260 +30,197 @@ export default function AssessmentTool() {
   };
 
   return (
-    <PageLayoutBox
-      id="assessment"
-      innerSx={{
-        backgroundColor: '#F0F6FA',
-        borderRadius: '12px',
-        width:{
-          xs: '60%',
-          sm: '90%',
-          md: '100%',
-        },
-        py: 6,
-        transition: 'all 0.3s ease',
-        
+    <Box
+      sx={{
+        minHeight: '100vh',
+        width: '100%',
+        background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        mx: 'auto',
       }}
-      header={
+    >
+      <Box
+        sx={{
+          width: { xs: '85%', sm: '90%', md: '80%', lg: '80%' },
+          background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
+          borderRadius: '24px',
+          padding: { xs: 4, md: 6 },
+          textAlign: 'center',
+        }}
+      >
+        <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={2}>
+          Assessment Tool
+        </Typography>
+        <Typography fontSize="18px" color="rgb(22, 128, 115)">
+          <Box component="span" sx={{ fontSize: '2rem', mr: 1 }}>
+            📨
+          </Box>
+          Got a mean message?
+        </Typography>
+        <Typography fontSize="18px" color="rgb(22, 128, 115)" mb={3}>
+          Paste it here and we'll help you out!
+        </Typography>
+
+        {/* Input Box */}
         <Box
           sx={{
-            width: '100%',
+            width: '80%',
+            maxWidth: '530px',
+            backgroundColor: 'rgb(231, 250, 253)',
+            border: '2px solid #00ACC1',
+            borderRadius: '16px',
+            p: 2,
             mx: 'auto',
-            px: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            position: 'relative',
           }}
         >
-          <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4} textAlign="center">
-            Assessment Tool
-          </Typography>
-          <Typography fontSize="16px" color="#555555" mb={4} textAlign="center">
-            Paste the message you received to see if it is bullying.
-          </Typography>
+          <Box
+            component="img"
+            src="/robot.png"
+            alt="robot"
+            sx={{
+              position: 'absolute',
+              left: {
+                xs: 'calc(100% - 65px)',
+                sm: 'calc(100% - 115px)',
+                md: 'calc(100% - 110px)',
+              },
+              top: {
+                xs: 'calc(100% - 120px)',
+                sm: 'calc(100% - 220px)',
+                md: 'calc(100% - 260px)',
+              },
+              width: {
+                xs: '130px',
+                sm: '250px',
+                md: '300px',
+              },
+              height: 'auto',
+              zIndex: 2,
+              pointerEvents: 'none',
+            }}
+          />
 
           <Box
             sx={{
-              width: '100%',
-              maxWidth: '700px',
+              width: '90%',
+              maxWidth: '500px',
+              mx: 'auto',
               backgroundColor: '#fff',
               borderRadius: '12px',
               display: 'flex',
               alignItems: 'center',
-              px: 2,
-              py: 1,
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
             }}
           >
             <TextField
               fullWidth
-              placeholder="Paste the message or comment here..."
+              placeholder="Paste the message..."
               variant="standard"
               slotProps={{ input: { disableUnderline: true } }}
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-              sx={{ fontSize: '1.1rem' }}
+              sx={{ fontSize: '1rem' }}
             />
             <IconButton
               onClick={handleSubmit}
               sx={{
-                backgroundColor: '#f89b5e',
-                color: 'white',
+                background: 'linear-gradient(135deg, #FFA726, #FB8C00)',
+                color: '#fff',
                 ml: 1,
-                width: 50,
-                height: 50,
+                width: 48,
+                height: 48,
                 borderRadius: '50%',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                 '&:hover': {
-                  backgroundColor: '#f57c00',
+                  background: '#f57c00',
                 },
               }}
             >
               <SendIcon />
             </IconButton>
           </Box>
-
-          <Typography
-            fontSize="14px"
-            color="#555555"
-            mt={4}
-            sx={{ fontStyle: 'italic', textAlign: 'center' }}
-          >
-            We'll help you understand if this is cyberbullying and suggest ways to respond.
-          </Typography>
         </Box>
-      }
-    >
-      <Box />
-    </PageLayoutBox>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
+        {/* Chip 1 */}
+        <Chip
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+              <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
+                ☑️
+              </Box>
+              <Typography fontWeight="bold" fontSize="1.2rem" color="#4B4072">
+                Is it <br />
+                Bullying?
+              </Typography>
+            </Box>
+          }
+          sx={{
+            backgroundColor: 'rgb(232, 191, 240)',
+            borderRadius: '16px',
+            px: 3,
+            py: 6,
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+          }}
+        />
+
+        {/* Chip 2 */}
+        <Chip
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+              <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
+                💡
+              </Box>
+              <Typography fontWeight="bold" fontSize="1.2rem" color="#166">
+                How to <br />
+                Respond?
+              </Typography>
+            </Box>
+          }
+          sx={{
+            backgroundColor: '#E0F7FA',
+            borderRadius: '16px',
+            px: 3,
+            py: 6,
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+          }}
+        />
+
+        {/* Chip 3 */}
+        <Chip
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+              <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
+                🧘‍♂️
+              </Box>
+              <Typography fontWeight="bold" fontSize="1.2rem" color="#4B4072">
+                Stay <br />
+                Calm Tips
+              </Typography>
+            </Box>
+          }
+          sx={{
+            backgroundColor: '#FCE4EC',
+            borderRadius: '16px',
+            px: 3,
+            py: 6,
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+          }}
+        />
+      </Box>
+    </Box>
   );
 }
-// import { useState } from 'react';
-// import { Box, Typography, TextField, IconButton, Button, Fade, Grow } from '@mui/material';
-// import SendIcon from '@mui/icons-material/Send';
-// import RestartAltIcon from '@mui/icons-material/RestartAlt';
-// import PageLayoutBox from '../PageLayOutBox';
-// import MessageAnalysis from './MessageAnalysis';
-// import { getEmotions } from '../../api';
-// import { useAssessment } from '../../slice/assessmentSlice';
 
-// export default function AssessmentTool() {
-//   const [input, setInput] = useState('');
-//   const [submitted, setSubmitted] = useState(false);
-//   const [showResult, setShowResult] = useState(false);
-
-//   const { setUserInput, setAnalysisResult } = useAssessment();
-
-//   const handleSubmit = async () => {
-//     const trimmed = input.trim();
-//     if (trimmed.length < 3) {
-//       alert('Please enter at least 3 words.');
-//       return;
-//     }
-
-//     try {
-//       const response = await getEmotions({ user_input: trimmed });
-//       setUserInput(trimmed);
-//       setAnalysisResult(JSON.stringify(response));
-
-//       setInput('');
-//       setSubmitted(true);
-//       setTimeout(() => {
-//         setShowResult(true);
-//       }, 280);
-//     } catch (err) {
-//       console.error('Failed to submit', err);
-//       alert('Submission failed.');
-//     }
-//   };
-
-//   const resetAssessment = () => {
-//     localStorage.removeItem('analysisResult');
-//     localStorage.removeItem('userInput');
-//     setInput('');
-//     setSubmitted(false);
-//     setShowResult(false);
-//   };
-
-//   return (
-//     <PageLayoutBox
-//       id="assessment"
-//       innerSx={{
-//         backgroundColor: '#E2F3FF',
-//         py: 6,
-//       }}
-//       header={
-//         <>
-//           <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4}>
-//             Assessment Tool
-//           </Typography>
-//           {!submitted && (
-//             <Typography fontSize="16px" color="#555555" mb={4}>
-//               Paste the message you received to see if it is bullying.
-//             </Typography>
-//           )}
-
-//           <Box
-//             sx={{
-//               borderRadius: '20px',
-//               position: 'relative',
-//               p: 3,
-//               gap: 3,
-//               justifyContent: 'space-between',
-//               mx: 'auto',
-//               display: 'flex',
-//               alignItems: 'center',
-//             }}
-//           >
-//             {/* {submitted ? (
-//               <Fade in={showResult} timeout={1000}>
-//                 <Grow in={showResult} timeout={1000}>
-//                   <Box sx={{ width: { xs: '100%', sm: '500px' } }}>
-//                     <MessageAnalysis />
-//                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-//                       <Button
-//                         variant="contained"
-//                         onClick={resetAssessment}
-//                         startIcon={<RestartAltIcon />}
-//                         sx={{
-//                           backgroundColor: '#f89b5e',
-//                           color: 'white',
-//                           borderRadius: '25px',
-//                           px: 4,
-//                           textTransform: 'none',
-//                           '&:hover': {
-//                             backgroundColor: '#f57c00',
-//                           },
-//                         }}
-//                       >
-//                         Analyze Again
-//                       </Button>
-//                     </Box>
-//                   </Box>
-//                 </Grow>
-//               </Fade>
-//             ) : ( */}
-//             {/* <> */}
-//             <Box sx={{ flex: 1 }}>
-//               <Box
-//                 sx={{
-//                   backgroundColor: '#fff',
-//                   borderRadius: '12px',
-//                   display: 'flex',
-//                   alignItems: 'center',
-//                   px: 2,
-//                   py: 1,
-//                   border: '1px solid #ddd',
-//                 }}
-//               >
-//                 <TextField
-//                   fullWidth
-//                   placeholder="Paste the message here..."
-//                   InputProps={{ disableUnderline: true }}
-//                   variant="standard"
-//                   value={input}
-//                   onChange={e => setInput(e.target.value)}
-//                   onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-//                   sx={{
-//                     fontSize: {
-//                       xs: '0.9rem',
-//                       sm: '1rem',
-//                       md: '1.1rem',
-//                     },
-//                     width: {
-//                       xs: '100%',
-//                       sm: '400px',
-//                       md: '700px',
-//                     },
-//                     mx: 'auto',
-//                   }}
-//                 />
-//                 <IconButton
-//                   onClick={handleSubmit}
-//                   sx={{
-//                     backgroundColor: '#f89b5e',
-//                     color: 'white',
-//                     ml: 1,
-//                     width: 50,
-//                     height: 50,
-//                     borderRadius: '50%',
-//                     '&:hover': {
-//                       backgroundColor: '#f57c00',
-//                     },
-//                   }}
-//                 >
-//                   <SendIcon />
-//                 </IconButton>
-//               </Box>
-//               <Typography fontSize="14px" color="#555555" mt={4} sx={{ fontStyle: 'italic' }}>
-//                 We'll help you understand if this is cyberbullying and suggest ways to respond.
-//               </Typography>
-//             </Box>
-//           </Box>
-//         </>
-//       }
-//     >
-//       <Box />
-//     </PageLayoutBox>
-//   );
-// }
