@@ -170,11 +170,6 @@ export default function CyberSafetyQuiz() {
     const q3 = answers.q3;
     const q4 = answers.q4;
     const q5 = answers.q5;
-    console.log("q1: ", q1);
-    console.log("q2: ", q2);
-    console.log("q3: ", q3);
-    console.log("q4: ", q4);
-    console.log("q5: ", q5);
 
     if (q1 === '3' || q4 === '3') {
       feedbackParts.push(
@@ -306,22 +301,20 @@ export default function CyberSafetyQuiz() {
 
   //tips
   const allTips = [
-    "If you ever feel upset or confused, try taking three deep, slow breaths—it can help you calm down.",
+    'If you ever feel upset or confused, try taking three deep, slow breaths—it can help you calm down.',
     "Remember, it's always a good idea to talk to someone you trust when something feels wrong.",
     "If you see unkind messages, don't let them ruin your day. Focus on the things that make you happy!",
-    "Keep a fun journal where you draw or write about your favorite moments—it can brighten even a cloudy day.",
-    "Be kind to yourself. Everyone has tough days, but you have the strength to overcome them!",
-    "Sharing your feelings is brave. It helps you feel understood and supported.",
+    'Keep a fun journal where you draw or write about your favorite moments—it can brighten even a cloudy day.',
+    'Be kind to yourself. Everyone has tough days, but you have the strength to overcome them!',
+    'Sharing your feelings is brave. It helps you feel understood and supported.',
     "Sometimes, a little humor can turn a bad day around. Don't be afraid to laugh!",
-    "Always remember that your feelings matter, and it's okay to ask for help when you need it."
+    "Always remember that your feelings matter, and it's okay to ask for help when you need it.",
   ];
 
   function getRandomTips(count = 3): string[] {
     const shuffled = [...allTips].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
   }
-  
-  
 
   const progressPercent = ((currentStep + 1) / questions.length) * 100;
 
@@ -497,7 +490,6 @@ export default function CyberSafetyQuiz() {
                       [lines[i], lines[j]] = [lines[j], lines[i]];
                     }
 
-                    
                     console.log('shuffled & extended lines:', lines);
 
                     const badge = parts[3]?.replace(/"/g, '');
@@ -512,7 +504,7 @@ export default function CyberSafetyQuiz() {
                             lineHeight: '1.7',
                             listStyle: 'none',
                             textAlign: 'center',
-                            mx: 'auto',
+                            // mx: 'auto',
                           }}
                         >
                           <Box
@@ -522,7 +514,7 @@ export default function CyberSafetyQuiz() {
                               px: 2,
                               py: 1.5,
                               display: 'inline-block',
-                              fontSize: '1.3rem',  
+                              fontSize: '1.3rem',
                               mx: 'auto',
                             }}
                           >
@@ -595,19 +587,19 @@ export default function CyberSafetyQuiz() {
                 </ul>
               </Typography>
               {quizFinished && (
-  <Box sx={{ mt: 4 }}>
-    <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom>
-      🌟 Helpful Tips
-    </Typography>
-    <ul style={{ paddingLeft: '1.5rem' }}>
-      {tips.map((tip, index) => (
-        <li key={index} style={{ marginBottom: '10px', lineHeight: '1.6' }}>
-          {tip}
-        </li>
-      ))}
-    </ul>
-  </Box>
-)}
+                <Box sx={{ mt: 4 }}>
+                  <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom>
+                    🌟 Helpful Tips
+                  </Typography>
+                  <ul style={{ paddingLeft: '1.5rem' }}>
+                    {tips.map((tip, index) => (
+                      <li key={index} style={{ marginBottom: '10px', lineHeight: '1.6' }}>
+                        {tip}
+                      </li>
+                    ))}
+                  </ul>
+                </Box>
+              )}
             </Box>
 
             {/* Button */}
