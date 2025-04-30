@@ -5,9 +5,10 @@ import { SecurePage } from './page/SecurePage';
 import { useAuth } from './slice/authSlice';
 
 function App() {
-  const { secure } = useAuth();
+  // const { secure } = useAuth();
 
-  return secure ? (
+  // return secure ? (
+  return (
     <div className="App">
       <Box
         sx={{
@@ -34,9 +35,10 @@ function App() {
         <Outlet />
       </Box>
     </div>
-  ) : (
-    <SecurePage></SecurePage>
   );
+  // : (
+  // <SecurePage></SecurePage>
+  // );
 }
 
 export default App;
