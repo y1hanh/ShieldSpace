@@ -5,6 +5,7 @@ export type QuizCardProps = {
   choices: {
     text: string;
     feedback: string;
+    right?: boolean;
   }[];
   answer: string;
 };
@@ -29,6 +30,7 @@ export const quizData: QuizCardProps[] = [
       {
         text: 'Report it and support your classmate',
         feedback: 'Best choice! You help stop the bullying and support your classmate.',
+        right: true,
       },
       {
         text: 'Share it with more people',
@@ -49,6 +51,7 @@ export const quizData: QuizCardProps[] = [
       {
         text: "Tell your friend it's not kind",
         feedback: "Correct! You help your friend understand why it's wrong.",
+        right: true,
       },
       { text: 'Ignore it', feedback: 'Ignoring allows harmful behavior to continue.' },
       {
@@ -70,6 +73,7 @@ export const quizData: QuizCardProps[] = [
       {
         text: 'Block and report them',
         feedback: 'Correct! Block and report to stop them from contacting you.',
+        right: true,
       },
       {
         text: 'Post the message to embarrass them',

@@ -3,18 +3,28 @@ import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 interface QuizOptionProps {
+  image: string;
   scenario: string[];
   choices: {
     text: string;
     feedback: string;
+    right?: boolean;
   }[];
   onClick: () => void;
+  saveOptions: (right: number) => void;
 }
 
-export default function QuizOption({ scenario, choices, onClick }: QuizOptionProps) {
+export default function QuizOption({
+  scenario,
+  choices,
+  image,
+  onClick,
+  saveOptions,
+}: QuizOptionProps) {
   const [selectedOption, setSelectedOption] = useState<{
     text: string;
     feedback: string;
+    right?: boolean;
   } | null>(null);
 
   const optionsContainerRef = useRef<HTMLDivElement>(null);
@@ -29,7 +39,6 @@ export default function QuizOption({ scenario, choices, onClick }: QuizOptionPro
         ease: 'power2.out',
       });
 
-      // Animate feedback in
       gsap.fromTo(
         feedbackRef.current,
         {
@@ -62,7 +71,6 @@ export default function QuizOption({ scenario, choices, onClick }: QuizOptionPro
   }, [selectedOption]);
 
   const handleOptionClick = (option: typeof selectedOption) => {
-    // Animate the clicked option before setting the selected state
     const elements = document.querySelectorAll('.option-box');
     elements.forEach(el => {
       if (el.getAttribute('data-label') === option?.text) {
@@ -82,6 +90,7 @@ export default function QuizOption({ scenario, choices, onClick }: QuizOptionPro
         });
       }
     });
+    saveOptions(option?.right ? 1 : 0);
   };
 
   return (
@@ -91,11 +100,11 @@ export default function QuizOption({ scenario, choices, onClick }: QuizOptionPro
         flexDirection: 'column',
         gap: { xs: 2, sm: 2.5 },
         maxWidth: { xs: '100%', sm: '600px', md: '800px' },
-        width: '100%',
         margin: '0 auto',
         padding: { xs: '10px', sm: '20px' },
-        height: '100%',
         overflow: 'auto',
+        height: '90vh',
+        width: '80vw',
       }}
     >
       <Button
@@ -114,6 +123,7 @@ export default function QuizOption({ scenario, choices, onClick }: QuizOptionPro
         ← Back
       </Button>
 
+      {/* Scenario Description */}
       <Box
         sx={{
           backgroundColor: 'white',
@@ -139,105 +149,131 @@ export default function QuizOption({ scenario, choices, onClick }: QuizOptionPro
         ))}
       </Box>
 
-      {!selectedOption && (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: { xs: 3, md: 4 },
+          width: '100%',
+        }}
+      >
         <Box
-          ref={optionsContainerRef}
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            paddingTop: { xs: 2, sm: 3 },
-            gap: { xs: 1.5, sm: 2 },
-            flex: 1,
-            overflow: 'auto',
+            width: { xs: '100%', md: '50%' },
+            height: { xs: '300px', md: '400px' },
+            position: 'relative',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            backgroundColor: 'white',
+            '& img': {
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            },
           }}
         >
-          {choices.map(option => (
+          <img src={image} alt="" />
+        </Box>
+
+        <Box
+          sx={{
+            width: { xs: '100%', md: '50%' },
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          {!selectedOption && (
             <Box
-              key={option.text}
-              className="option-box"
-              data-label={option.text}
-              onClick={() => handleOptionClick(option)}
+              ref={optionsContainerRef}
               sx={{
-                padding: { xs: '12px 15px', sm: '15px 20px' },
+                display: 'flex',
+                flexDirection: 'column',
+                gap: { xs: 1.5, sm: 2 },
+                flex: 1,
+                overflow: 'auto',
+              }}
+            >
+              {choices.map(option => (
+                <Box
+                  key={option.text}
+                  className="option-box"
+                  data-label={option.text}
+                  onClick={() => handleOptionClick(option)}
+                  sx={{
+                    padding: { xs: '12px 12px', sm: '15px 15px' },
+                    borderRadius: '8px',
+                    border: '2px solid #4B3F72',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    backgroundColor:
+                      selectedOption?.text === option.text ? '#4B3F72' : 'transparent',
+                    color: selectedOption?.text === option.text ? 'white' : '#4B3F72',
+                    '&:hover': {
+                      backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : '#E6E0F4',
+                      transform: 'translateY(-2px)',
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 'bold',
+                      marginBottom: { xs: 0.5, sm: 1 },
+                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
+                    }}
+                  >
+                    {option.text}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          )}
+
+          {selectedOption && (
+            <Box
+              ref={feedbackRef}
+              sx={{
+                padding: { xs: '15px', sm: '20px' },
+                backgroundColor: '#E6E0F4',
                 borderRadius: '8px',
                 border: '2px solid #4B3F72',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
-                backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : 'transparent',
-                color: selectedOption?.text === option.text ? 'white' : '#4B3F72',
-                '&:hover': {
-                  backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : '#E6E0F4',
-                  transform: 'translateY(-2px)',
-                },
+              }}
+              onClick={() => {
+                gsap.to(feedbackRef.current, {
+                  opacity: 0,
+                  y: -20,
+                  duration: 0.3,
+                  ease: 'power2.out',
+                  onComplete: () => setSelectedOption(null),
+                });
               }}
             >
               <Typography
                 variant="h6"
                 sx={{
                   fontWeight: 'bold',
+                  color: '#4B3F72',
                   marginBottom: { xs: 0.5, sm: 1 },
-                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
+                  fontSize: { xs: '1.1rem', sm: '1.25rem' },
                 }}
               >
-                {option.text}
+                Feedback:
               </Typography>
               <Typography
                 variant="body1"
                 sx={{
+                  color: '#4B3F72',
                   fontSize: { xs: '0.9rem', sm: '1rem' },
                 }}
               >
-                {option.feedback}
+                {selectedOption.feedback}
               </Typography>
             </Box>
-          ))}
+          )}
         </Box>
-      )}
-
-      {selectedOption && (
-        <Box
-          ref={feedbackRef}
-          sx={{
-            marginTop: { xs: 2, sm: 2 },
-            padding: { xs: '15px', sm: '20px' },
-            backgroundColor: '#E6E0F4',
-            borderRadius: '8px',
-            border: '2px solid #4B3F72',
-            cursor: 'pointer',
-          }}
-          onClick={() => {
-            // Animate feedback out before resetting selection
-            gsap.to(feedbackRef.current, {
-              opacity: 0,
-              y: -20,
-              duration: 0.3,
-              ease: 'power2.out',
-              onComplete: () => setSelectedOption(null),
-            });
-          }}
-        >
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 'bold',
-              color: '#4B3F72',
-              marginBottom: { xs: 0.5, sm: 1 },
-              fontSize: { xs: '1.1rem', sm: '1.25rem' },
-            }}
-          >
-            Feedback:
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: '#4B3F72',
-              fontSize: { xs: '0.9rem', sm: '1rem' },
-            }}
-          >
-            {selectedOption.feedback}
-          </Typography>
-        </Box>
-      )}
+      </Box>
     </Box>
   );
 }

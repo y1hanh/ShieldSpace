@@ -5,7 +5,6 @@ import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
-import ScenarioBasedQuiz from './component/scenario/ScenarioBasedQuiz';
 import CyberSafetyQuiz from './component/survey/CyberSafetyQuiz';
 import AssessmentResult from './component/assessment/AssessmentResult';
 import AssessmentPage from './page/AssessmentPage';
@@ -40,10 +39,6 @@ export const router = createBrowserRouter([
         Component: CommunityPage,
       },
       {
-        path: 'ScenarioBasedQuiz',
-        Component: ScenarioBasedQuiz,
-      },
-      {
         path: 'CyberSafetyQuiz',
         Component: CyberSafetyQuiz,
       },
@@ -75,7 +70,7 @@ export const routes: routesArray[] = [
     name: 'Analytics',
   },
   {
-    path: '/ScenarioBasedQuiz',
+    path: '/resources',
     name: 'Scenario quiz',
   },
   {
