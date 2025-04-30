@@ -1,5 +1,5 @@
 import { Box, Typography, Container } from '@mui/material';
-import AssessmentTool from '../component/tool/AssessmentTool';
+import AssessmentTool from '../component/assessment/AssessmentTool';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 
