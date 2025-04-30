@@ -8,7 +8,7 @@ import { SecurePage } from './page/SecurePage';
 import ScenarioBasedQuiz from './component/scenario/ScenarioBasedQuiz';
 import CyberSafetyQuiz from './component/survey/CyberSafetyQuiz';
 import AssessmentResult from './component/assessment/AssessmentResult';
-
+import AssessmentPage from './page/AssessmentPage';
 
 export const router = createBrowserRouter([
   {
@@ -18,19 +18,15 @@ export const router = createBrowserRouter([
   {
     path: '/',
     Component: App,
-  },
-  {
-    path: '/',
-    Component: App,
     children: [
       {
         index: true,
         Component: DashBoardPage,
       },
-      // {
-      //   path: 'game',
-      //   Component: GamePage,
-      // },
+      {
+        path: 'assessment',
+        Component: AssessmentPage,
+      },
       {
         path: 'analytics',
         Component: AnalyticsPage,
@@ -44,18 +40,17 @@ export const router = createBrowserRouter([
         Component: CommunityPage,
       },
       {
-        path:'ScenarioBasedQuiz',
+        path: 'ScenarioBasedQuiz',
         Component: ScenarioBasedQuiz,
       },
       {
-        path:'CyberSafetyQuiz',
+        path: 'CyberSafetyQuiz',
         Component: CyberSafetyQuiz,
       },
       {
         path: 'AssessmentResult',
         Component: AssessmentResult,
       },
-
     ],
   },
 ]);
@@ -72,6 +67,10 @@ export const routes: routesArray[] = [
     name: 'Home',
   },
   {
+    path: '/assessment',
+    name: 'Assessment',
+  },
+  {
     path: '/analytics',
     name: 'Analytics',
   },
@@ -79,26 +78,8 @@ export const routes: routesArray[] = [
     path: '/ScenarioBasedQuiz',
     name: 'Scenario quiz',
   },
-  /* {
-    path: '/resources',
-    name: 'Resources',
-  }, */
   {
     path: '/community',
     name: 'Resources & Community',
   },
-  // {
-  //   path: '#',
-  //   name: 'Account',
-  //   children: [
-  //     {
-  //       path: '/login',
-  //       name: 'Login',
-  //     },
-  //     {
-  //       path: '/register',
-  //       name: 'Register',
-  //     },
-  //   ],
-  // },
 ];

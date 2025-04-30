@@ -21,7 +21,7 @@ export function authSlice({ children }: { children: React.ReactNode }) {
       if (tokenExpiry) {
         const currentTime = new Date().getTime();
         const expiryTime = parseInt(tokenExpiry, 10);
-        if (currentTime - 1000 * 60 * 60 * 2 < expiryTime) {
+        if (currentTime - 1000 * 60 * 60 * 10 < expiryTime) {
           setSecure(true);
         } else {
           localStorage.removeItem('token');

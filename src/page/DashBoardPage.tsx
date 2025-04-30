@@ -1,7 +1,10 @@
-import { Box, Typography, Container } from '@mui/material';
-import AssessmentTool from '../component/assessment/AssessmentTool';
+import { Box, Button, Typography, Container } from '@mui/material';
+import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
+import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
 
 export default function DashBoardPage() {
   const location = useLocation();
@@ -49,6 +52,7 @@ export default function DashBoardPage() {
     mb: 2,
   };
 
+  const navigate = useNavigate();
   return (
     <>
       {/* Section 1 */}
@@ -84,6 +88,26 @@ export default function DashBoardPage() {
               Our Message Analyser helps identify cyberbullying, understand its emotional impact,
               and find ways to respond.
             </Typography>
+
+            <Button
+              variant="contained"
+              onClick={() => navigate('/assessment')}
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                backgroundColor: '#f89b5e',
+                color: 'white',
+                borderRadius: '25px',
+                px: 4,
+                py: 1,
+                mt: 2,
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: '#f57c00',
+                },
+              }}
+            >
+              Get Started
+            </Button>
           </Box>
 
           {/* Image section */}
@@ -175,8 +199,8 @@ export default function DashBoardPage() {
                 <Box component="img" src="/l_image4.png" sx={{ maxWidth: '70%', height: 'auto' }} />
               </Box>
               <Typography sx={cardTextStyle}>
-                With our tool, Emily can identify hurtful messages, understand their impact, and learn
-                effective ways to respond.
+                With our tool, Emily can identify hurtful messages, understand their impact, and
+                learn effective ways to respond.
               </Typography>
             </Box>
           </Box>
@@ -185,9 +209,23 @@ export default function DashBoardPage() {
 
       {/* Section 3: Assessment Tool */}
       <Container maxWidth="lg" sx={{ padding: '3rem 0' }}>
-        <AssessmentTool />
+        <Box sx={{ mx: 'auto', mt: 2, p: 3 }}>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mb: 2 }}
+          >
+            It's common than you think...
+          </Typography>
+          <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
+            Insights from 100,000 Tweets
+          </Typography>
+          <LazyLoadComponent>
+            <BullyingKindsPieChart
+              colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
+            />
+          </LazyLoadComponent>
+        </Box>
       </Container>
     </>
   );
 }
-

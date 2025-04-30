@@ -81,7 +81,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
         Message Analyzed:
       </Typography>
       <Typography fontSize="0.95rem" color="text.secondary" mb={2} textAlign="left" pl={2}>
-      "{text}"
+        "{text}"
       </Typography>
 
       {/* Bullying Detection */}
