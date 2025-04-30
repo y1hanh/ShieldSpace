@@ -30,6 +30,7 @@ function App() {
           // height: '100vh',
           overflow: 'auto',
           marginTop: '5rem',
+          mx: 'auto'
         }}
       >
         <Outlet />

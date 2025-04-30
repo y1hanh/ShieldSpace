@@ -349,36 +349,86 @@ export default function CyberSafetyQuiz() {
               }}
             >
               <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-                {finalFeedback.split(/(".*?"|\d+)/g).map((part, index) => {
-                  if (!part) return null;
+                <ul style={{ paddingLeft: '1.2rem' }}>
+                  {(() => {
+                    const parts = finalFeedback.split(/(".*?"|\d+)/g).filter(p => p && p.trim());
+                    const beforeRecognizing = parts[0].split('Recognizing')[0]?.trim();
+                    //console.log('beforeRecognizing:', beforeRecognizing);
+                    const afterRecognizing = parts[0].includes('Recognizing')
+                      ? 'Recognizing ' +
+                        parts[0].split('Recognizing')[1].replace('You earned', '').trim()
+                      : '';
+                    // console.log('afterRecognizing:', afterRecognizing);
 
-                  if (!isNaN(Number(part)) && part.trim() !== '') {
+                    const points = parts[1];
+                    const pointsText = parts[2].replace(' and the badge:', '').trim();
+                    const badge = parts[3]?.replace(/"/g, '');
+                    console.log('badge:', badge);
+
+                    const finalLine = parts[4]?.replace(/^\s*\./, '').trim();
+
                     return (
-                      <Box
-                        key={index}
-                        component="span"
-                        sx={{ fontWeight: 'bold', color: 'red' }}
-                      >
-                        {part}
-                      </Box>
-                    );
-                  }
+                      <>
+                        <li style={{ marginBottom: '20px', lineHeight: '1.7', listStyle: 'none',textAlign: 'center' }}>
+                          <Box
+                            sx={{
+                              backgroundColor: '#E1BEE7',
+                              borderRadius: '12px',
+                              px: 2,
+                              py: 1.5,
+                              display: 'inline-block',
+                              fontSize: '1.3rem'
+                            }}
+                          >
+                            🏅 You earned{' '}
+                            <Box
+                              component="span"
+                              sx={{ fontWeight: 'bold', color: 'red', display: 'inline' }}
+                            >
+                              {points}
+                            </Box>{' '}
+                            {pointsText}
+                            <Box
+                              component="div"
+                              sx={{
+                                fontSize: '1.3rem',
+                                mt: 1,
+                              }}
+                            >
+                              <Box component="span" sx={{ fontWeight: 500, color: '#4A148C' }}>
+                              🛡️ {' '}
+                              </Box>
+                              <Box component="span" sx={{ fontWeight: 'bold', color: '#7C4DFF' }}>
+                                {badge?.toUpperCase()}
+                              </Box>
+                            </Box>
+                          </Box>
+                        </li>
+                        {/* Bullet 1 */}
+                        {beforeRecognizing && (
+                          <li style={{ marginBottom: '10px', lineHeight: '1.7' }}>
+                            {beforeRecognizing}
+                          </li>
+                        )}
 
-                  if (part.startsWith('"') && part.endsWith('"')) {
-                    const label = part.replace(/"/g, '');
-                    return (
-                      <Box
-                        key={index}
-                        component="span"
-                        sx={{ fontWeight: 'bold', color: '#7C4DFF' }}
-                      >
-                        {label.toUpperCase()}
-                      </Box>
-                    );
-                  }
+                        {/* Bullet 2 */}
+                        {afterRecognizing && (
+                          <li style={{ marginBottom: '10px', lineHeight: '1.7' }}>
+                            {afterRecognizing}
+                          </li>
+                        )}
 
-                  return part;
-                })}
+                        {/* Bullet 3 */}
+                        
+
+                        {/* Bullet 4 */}
+                        {finalLine && (
+                          <li style={{ marginBottom: '10px', lineHeight: '1.7' }}>{finalLine}</li>
+                        )}
+                      </>
+                    );
+                  })()}
+                </ul>
               </Typography>
             </Box>
 

@@ -37,6 +37,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
     emotions: Record<string, number>;
     toxicity: { toxic: number };
     trigger_emotion: string;
+    bias?: Record<string, number>;
   }
 
   const [data, setData] = useState<AnalysisData | null>(null);
@@ -54,7 +55,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
 
   if (!data) return null;
 
-  const { emotions, toxicity, trigger_emotion } = data;
+  const { emotions, toxicity, trigger_emotion, bias } = data;
   const toxicLevel = toxicity?.toxic || 0;
   const isBullying = toxicLevel > 0.1;
 
@@ -169,6 +170,28 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
         />
       </Box>
 
+      {/* Bias / Prejudice Section */}
+      {bias && Object.keys(bias).length > 0 && (
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1, flexWrap: 'wrap' }}>
+          <Typography fontWeight={600} >
+            Prejudice Detection:
+          </Typography>
+          {Object.entries(bias).map(([key, value]) => (
+            <Chip
+              key={key}
+              label={key.charAt(0).toUpperCase() + key.slice(1)}
+              sx={{
+                backgroundColor: value > 0.5 ? '#FFBF00' : '#E0E0E0',
+                color: value > 0.5 ? '#fff' : '#000',
+                fontWeight: 600,
+                textTransform: 'capitalize',
+                borderRadius: '25px',
+              }}
+            />
+          ))}
+        </Box>
+      )}
+
       {/* Toxicity Section */}
       <Box mt={2} sx={{ textAlign: 'left' }}>
         <Typography fontWeight={600} mb={1}>
@@ -191,7 +214,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
             : 'Detected Tags: No critical flags'}
         </Typography>
       </Box>
-
+    
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
         <Button
           variant="contained"

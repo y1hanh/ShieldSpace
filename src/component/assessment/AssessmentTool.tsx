@@ -49,7 +49,6 @@ export default function AssessmentTool() {
         <Box
           sx={{
             width: '100%',
-            maxWidth: '1200px',
             mx: 'auto',
             px: 2,
             display: 'flex',

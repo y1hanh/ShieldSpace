@@ -2,22 +2,9 @@ import { Box, Button, Typography, Container } from '@mui/material';
 import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
-import { useEffect } from 'react';
-import { useLocation } from 'react-router';
 import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
 
 export default function DashBoardPage() {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.state?.scrollToAssessment) {
-      const element = document.getElementById('assessment');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [location.state]);
-
   const cardBoxStyle = {
     alignItems: 'center',
     flexDirection: 'column',

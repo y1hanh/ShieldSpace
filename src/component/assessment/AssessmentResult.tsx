@@ -21,15 +21,8 @@ export default function ResultsPage() {
     <PageLayoutBox
       innerSx={{
         backgroundColor: '#F0F6FA',
-        width: '1200px',
         borderRadius: '12px',
         py: 6,
-        transition: 'all 0.3s ease',
-        '&:hover': {
-          boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
-          transform: 'translateY(-4px)',
-          backgroundColor: '#e6f0f8',
-        },
       }}
       header={
         <Box
@@ -41,6 +34,7 @@ export default function ResultsPage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            
           }}
         >
           <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4} textAlign="center">
@@ -48,25 +42,7 @@ export default function ResultsPage() {
           </Typography>
           
           <Box width="100%">
-            <Typography variant="h6" color="text.primary" mb={2}>
-              Your Input:
-            </Typography>
-            <Box
-              sx={{
-                backgroundColor: '#fff',
-                p: 2,
-                borderRadius: '8px',
-                mb: 4,
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                maxWidth: '530px',
-                mx: 'auto',
-                wordBreak: 'break-word', 
-              }}
-            >
-              <Typography sx={{
-      whiteSpace: 'pre-wrap',
-    }}>{userInput}</Typography>
-            </Box>
+            
             <MessageAnalysis resetAssessment={resetAssessment} />
 
             <Typography
