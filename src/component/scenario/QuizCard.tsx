@@ -12,7 +12,7 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
       onClick={onClick}
       sx={{
         width: { xs: '280px', sm: '300px', md: '320px' },
-        height: { xs: '250px', sm: '270px', md: '390px' },
+        height: { xs: '350px', sm: '370px', md: '390px' },
         backgroundColor: 'white',
         borderRadius: { xs: '8px', sm: '12px' },
         overflow: 'hidden',
@@ -28,7 +28,7 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
       <Box
         sx={{
           width: '100%',
-          height: { xs: '180px', sm: '200px', md: '320px' },
+          height: { xs: '290px', sm: '310px', md: '320px' },
           position: 'relative',
           '&::after': {
             content: '""',
@@ -61,7 +61,7 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
           padding: { xs: '8px', sm: '10px' },
           backgroundColor: '#4B3F72',
           color: 'white',
-          height: { xs: '40px', sm: '50px', md: '60px' },
+          height: { xs: '50px', sm: '50px', md: '60px' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
