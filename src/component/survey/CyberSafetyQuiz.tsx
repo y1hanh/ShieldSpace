@@ -329,7 +329,8 @@ export default function CyberSafetyQuiz() {
     <Box
       sx={{
         maxWidth: 600,
-        mx: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         mt: 6,
         mb: 4,
         p: 3,
@@ -511,6 +512,7 @@ export default function CyberSafetyQuiz() {
                             lineHeight: '1.7',
                             listStyle: 'none',
                             textAlign: 'center',
+                            mx: 'auto',
                           }}
                         >
                           <Box
@@ -520,7 +522,8 @@ export default function CyberSafetyQuiz() {
                               px: 2,
                               py: 1.5,
                               display: 'inline-block',
-                              fontSize: '1.3rem',
+                              fontSize: '1.3rem',  
+                              mx: 'auto',
                             }}
                           >
                             <Box
@@ -625,8 +628,8 @@ export default function CyberSafetyQuiz() {
               <StyledButton onClick={() => navigate('/ScenarioBasedQuiz')} bgColor="#43A047">
                 🧾 More Quizs
               </StyledButton>
-              <StyledButton onClick={() => navigate('/assessment')} bgColor="#1E88E5">
-                📈 Analyze again
+              <StyledButton onClick={() => navigate('/analytics')} bgColor="#1E88E5">
+                📈 Analytic
               </StyledButton>
               <StyledButton
                 onClick={() => navigate('/community')}
