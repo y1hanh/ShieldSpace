@@ -10,7 +10,7 @@ export default function ResultsPage() {
   const { userInput } = useAssessment();
 
   const handleStartQuiz = () => {
-    navigate('/CyberSafetyQuiz');
+    navigate('/cyber-safety-quiz');
   };
 
   const resetAssessment = () => {
@@ -33,15 +33,13 @@ export default function ResultsPage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            
           }}
         >
           <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4} textAlign="center">
             Assessment Results
           </Typography>
-          
+
           <Box width="100%">
-            
             <MessageAnalysis resetAssessment={resetAssessment} />
 
             <Typography
@@ -53,7 +51,7 @@ export default function ResultsPage() {
             >
               🎯 Ready to discover your emotional superpowers?
             </Typography>
-            
+
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
               <Button
                 variant="contained"
@@ -100,4 +98,4 @@ export default function ResultsPage() {
       <Box />
     </PageLayoutBox>
   );
-} 
+}

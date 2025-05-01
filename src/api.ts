@@ -7,8 +7,7 @@ function fetchWithSecureToken(path: string, method: Methond = 'GET', options: Re
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhMzAiLCJwYXNzd29yZCI6ImZpdDUxMjB0YTMwIiwiaWF0IjoxNzQ2MDExNTYwLCJleHAiOjE3NDYwNDc1NjB9.om_NiEw77BXwqETsD7B-6yWVLROv1fVWTmSR6e560MY`,
-      // `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   };
   if (options?.body) {

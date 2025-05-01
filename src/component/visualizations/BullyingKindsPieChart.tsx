@@ -192,8 +192,9 @@ export default function BullyingKindsPieChart({ colorScheme }: { colorScheme?: s
           These are all serious forms of cyberbullying — and none of them are okay. If you witness
           this kind of behavior online, don't stay silent. Talk to a trusted adult or{' '}
           <a href="https://www.esafety.gov.au/report/forms" target="_blank">
-            report it.
+            raise your concerns
           </a>
+          .
         </Typography>
         <Typography
           variant="caption"
@@ -206,7 +207,7 @@ export default function BullyingKindsPieChart({ colorScheme }: { colorScheme?: s
             target="_blank"
             rel="noopener noreferrer"
           >
-            Cyberbully Detection Dataset on Kaggle
+            Cyberbully Detection Dataset
           </a>
         </Typography>
       </Paper>

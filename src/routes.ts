@@ -5,7 +5,7 @@ import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
-import CyberSafetyQuiz from './component/survey/CyberSafetyQuiz';
+import CyberSafetyQuiz from './page/CyberSafetyQuizPage';
 import AssessmentResult from './component/assessment/AssessmentResult';
 import AssessmentPage from './page/AssessmentPage';
 
@@ -39,11 +39,11 @@ export const router = createBrowserRouter([
         Component: CommunityPage,
       },
       {
-        path: 'CyberSafetyQuiz',
+        path: 'cyber-safety-quiz',
         Component: CyberSafetyQuiz,
       },
       {
-        path: 'AssessmentResult',
+        path: 'assessment-result',
         Component: AssessmentResult,
       },
     ],
