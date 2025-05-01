@@ -59,7 +59,7 @@ export default function AssessmentTool() {
         Got a mean message?
       </Typography>
       <Typography fontSize="18px" color="rgb(22, 128, 115)" mb={3}>
-        Paste it here and we'll help you out!
+        Share what you saw and we'll help you!
       </Typography>
       <Box
         sx={{
@@ -124,7 +124,7 @@ export default function AssessmentTool() {
           >
             <TextField
               fullWidth
-              placeholder="Paste the message..."
+              placeholder="Type the message..."
               variant="standard"
               slotProps={{ input: { disableUnderline: true } }}
               value={input}
@@ -141,6 +141,7 @@ export default function AssessmentTool() {
                 width: 48,
                 height: 48,
                 borderRadius: '50%',
+                cursor: 'pointer', // Ensure pointer cursor
                 boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                 '&:hover': {
                   backgroundColor: '#f57c00',
@@ -161,7 +162,7 @@ export default function AssessmentTool() {
         }}
       >
         {/* Chip 1 */}
-        <Chip
+        {/* <Chip
           label={
             <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
               <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
@@ -180,15 +181,12 @@ export default function AssessmentTool() {
             py: 6,
             boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
           }}
-        />
+        /> */}
 
         {/* Chip 2 */}
         <Chip
           label={
-            <Box
-              sx={{ display: 'flex', alignItems: 'flex-start', cursor: 'pointer' }}
-              onClick={() => navigate('/resources')}
-            >
+            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
               <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
                 💡
               </Box>
@@ -198,12 +196,14 @@ export default function AssessmentTool() {
               </Typography>
             </Box>
           }
+          onClick={() => navigate('/resources')}
           sx={{
             backgroundColor: '#E0F7FA',
             borderRadius: '16px',
             px: 3,
             py: 6,
             boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            cursor: 'pointer', // Ensure pointer cursor
           }}
         />
 
@@ -220,12 +220,14 @@ export default function AssessmentTool() {
               </Typography>
             </Box>
           }
+          onClick={() => navigate('/coming-soon')}
           sx={{
             backgroundColor: '#FCE4EC',
             borderRadius: '16px',
             px: 3,
             py: 6,
             boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            cursor: 'pointer', // Ensure pointer cursor
           }}
         />
       </Box>

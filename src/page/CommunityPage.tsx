@@ -2,14 +2,13 @@ import { Box, Typography, Button, List, ListItem, ListItemIcon, ListItemText } f
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import PageLayoutBox from '../component/PageLayOutBox';
 
-
 const edu_cards = [
   {
     title: 'Cyberbullying Information',
     subtitle: 'Understanding Cyberbullying',
     source: 'ReachOut Australia',
     image: '/s1.png',
-    link: 'https://au.reachout.com/bullying/cyberbullying/what-is-cyberbullying',  
+    link: 'https://au.reachout.com/bullying/cyberbullying/what-is-cyberbullying',
     points: [
       'Explains what cyberbullying is, including examples',
       'Provides signs someone might be experiencing cyberbullying',
@@ -21,7 +20,7 @@ const edu_cards = [
     subtitle: 'Digital Safety Guide',
     source: 'eSafety Commissioner',
     image: '/s2.png',
-    link:'https://www.esafety.gov.au/parents/issues-and-advice/cyberbullying',
+    link: 'https://www.esafety.gov.au/parents/issues-and-advice/cyberbullying',
     points: [
       'Provides guidance for parents to recognize and respond',
       'Lists practical steps like supporting children emotionally',
@@ -33,7 +32,7 @@ const edu_cards = [
     subtitle: 'Research & Data',
     source: 'Australian Institute of Health and Welfare',
     image: '/s3.png',
-    link:'https://humanrights.gov.au/our-work/childrens-rights/cyberbullying',
+    link: 'https://humanrights.gov.au/our-work/childrens-rights/cyberbullying',
     points: [
       "Offers data on children's exposure to cyberbullying",
       'Highlights the impact on mental health',
@@ -45,7 +44,7 @@ const edu_cards = [
     subtitle: 'Parent & Educator Toolkit',
     source: 'Australian Human Rights Commission',
     image: '/s4.png',
-    link:'https://www.aihw.gov.au/reports/children-youth/negative-online-experiences',
+    link: 'https://www.aihw.gov.au/reports/children-youth/negative-online-experiences',
     points: [
       "Highlights children's rights concerning online safety",
       'Focuses on legal frameworks protecting young people',
@@ -60,7 +59,7 @@ const sup_cards = [
     subtitle: 'Webchat Counselling',
     source: 'Kids Helpline',
     image: '/s1.1.png',
-    link:'https://kidshelpline.com.au/get-help/webchat-counselling',
+    link: 'https://kidshelpline.com.au/get-help/webchat-counselling',
     points: [
       'Private, confidential counselling for ages 5–25.',
       'Immediate support for cyberbullying or anxiety.',
@@ -72,7 +71,7 @@ const sup_cards = [
     subtitle: 'Online Support',
     source: 'headspace',
     image: '/s2.1.png',
-    link:'https://headspace.org.au/online-and-phone-support/connect-with-us/',
+    link: 'https://headspace.org.au/online-and-phone-support/connect-with-us/',
     points: [
       'Support for young people facing mental health challenges.',
       'Group chats, one-on-one webchat, and phone support.',
@@ -84,7 +83,7 @@ const sup_cards = [
     subtitle: 'School Programs',
     source: 'Project ROCKIT',
     image: '/s3.1.png',
-    link:'https://www.projectrockit.com.au/book-program/',
+    link: 'https://www.projectrockit.com.au/book-program/',
     points: [
       'Workshops empowering youth to stand against bullying.',
       'Focus on empathy, leadership, and positive online behavior.',
@@ -96,7 +95,7 @@ const sup_cards = [
     subtitle: 'School Workshops',
     source: "Dolly's Dream",
     image: '/s4.1.png',
-    link:'https://www.dollysdream.org.au/what-we-do/school-workshops',
+    link: 'https://www.dollysdream.org.au/what-we-do/school-workshops',
     points: [
       'Workshops on cyberbullying and digital safety.',
       'Focus on kindness, resilience, and safer online spaces.',
@@ -112,7 +111,7 @@ interface Card {
   source: string;
   image: string;
   points: string[];
-  link: string; 
+  link: string;
 }
 
 function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }) {
@@ -124,7 +123,7 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
           xs: '100%',
           sm: '100%',
           md: 400,
-          lg: 400,   
+          lg: 400,
         },
         display: 'flex',
         flexDirection: 'column',
@@ -239,7 +238,7 @@ export default function CommunityPage() {
           <Typography variant="h4" sx={{ color: '#4A4A6A', fontWeight: 600, mb: 3 }}>
             Resources & Community
           </Typography>
-          <Typography variant="body1" sx={{ color: '#7A7A9D', mb: 4 }}>
+          <Typography fontWeight={600} sx={{ color: '#7A7A9D', mb: 4 }}>
             Access trusted resources, find support, and join a community dedicated to creating safer
             online spaces for everyone.
           </Typography>
@@ -260,9 +259,7 @@ export default function CommunityPage() {
             display: 'inline-block',
             minWidth: '50%',
             padding: '1rem',
-            //backgroundColor: '#D4F0F6',
             borderRadius: '16px',
-            //boxShadow: 1,
             mx: 'auto',
             textAlign: 'center',
           }}
@@ -271,7 +268,7 @@ export default function CommunityPage() {
             <Typography sx={{ color: '#333333', fontSize: '2rem', mb: 2 }}>
               Educational Resources
             </Typography>
-            <Typography sx={{ color: '#7A7A9D' }} variant="body1">
+            <Typography sx={{ color: '#7A7A9D' }} fontWeight={600}>
               Empower yourself with knowledge and tools to recognize, prevent, and respond to
               bullying.
             </Typography>
@@ -319,7 +316,7 @@ export default function CommunityPage() {
             <Typography sx={{ color: '#333333', fontSize: '2rem', mb: 2 }}>
               Support Communities
             </Typography>
-            <Typography sx={{ color: '#7A7A9D' }} variant="body1">
+            <Typography sx={{ color: '#7A7A9D' }} fontWeight={600}>
               Connect with others who understand your experiences and get practical support.
             </Typography>
             <Box
