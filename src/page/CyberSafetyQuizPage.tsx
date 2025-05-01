@@ -170,11 +170,6 @@ export default function CyberSafetyQuiz() {
     const q3 = answers.q3;
     const q4 = answers.q4;
     const q5 = answers.q5;
-    console.log('q1: ', q1);
-    console.log('q2: ', q2);
-    console.log('q3: ', q3);
-    console.log('q4: ', q4);
-    console.log('q5: ', q5);
 
     if (q1 === '3' || q4 === '3') {
       feedbackParts.push(
@@ -516,6 +511,7 @@ export default function CyberSafetyQuiz() {
                               lineHeight: '1.7',
                               listStyle: 'none',
                               textAlign: 'center',
+                              // mx: 'auto',
                             }}
                           >
                             <Box
