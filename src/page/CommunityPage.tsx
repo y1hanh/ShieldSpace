@@ -305,9 +305,7 @@ export default function CommunityPage() {
             display: 'inline-block',
             minWidth: '50%',
             padding: '1rem',
-            //backgroundColor: '#FFFFFF',
             borderRadius: '16px',
-            //boxShadow: 1,
             mx: 'auto',
             textAlign: 'center',
           }}

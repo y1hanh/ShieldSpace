@@ -50,14 +50,9 @@ export default function AssessmentTool() {
       }}
     >
       <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={2}>
-        Assessment Tool
-      </Typography>
-      <Typography fontSize="18px" color="rgb(22, 128, 115)">
-        <Box component="span" sx={{ fontSize: '2rem', mr: 1 }}>
-          📨
-        </Box>
         Got a mean message?
       </Typography>
+
       <Typography fontSize="18px" color="rgb(22, 128, 115)" mb={3}>
         Share what you saw and we'll help you!
       </Typography>

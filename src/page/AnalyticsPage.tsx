@@ -7,7 +7,7 @@ import AgeChart from '../component/visualizations/AgeChart';
 import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
 import BentoLayout from '../component/layout/BentoLayout';
 import {
-  age_summary,
+  // age_summary,
   race_summary,
   orientation_summary,
   religion_summary,
@@ -18,7 +18,6 @@ export default function AnalyticsPage() {
   return (
     <Box
       sx={{
-        height: '100%',
         p: 3,
       }}
     >
@@ -30,7 +29,7 @@ export default function AnalyticsPage() {
           gap: 6,
         }}
       >
-        <Box sx={{ flex: '1 1 45%', minWidth: '300px' }}>
+        <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
             title="Race Distribution"
             description="Distribution of cyberbullying cases across different racial groups"
@@ -52,7 +51,7 @@ export default function AnalyticsPage() {
           </BentoLayout>
         </Box>
 
-        <Box sx={{ flex: '1 1 45%', minWidth: '300px' }}>
+        <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
             title="Sexual Orientation"
             description="Distribution of cyberbullying cases by sexual orientation"
@@ -75,7 +74,7 @@ export default function AnalyticsPage() {
           </BentoLayout>
         </Box>
 
-        <Box sx={{ flex: '1 1 45%', minWidth: '300px' }}>
+        <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
             title="Religion Distribution"
             description="Distribution of cyberbullying cases across different religions"
@@ -97,7 +96,7 @@ export default function AnalyticsPage() {
           </BentoLayout>
         </Box>
 
-        <Box sx={{ flex: '1 1 45%', minWidth: '300px' }}>
+        <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
             title="Miscellaneous Categories"
             description="Distribution of cyberbullying cases in other categories"
