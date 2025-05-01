@@ -4,6 +4,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useAssessment } from '../../slice/assessmentSlice';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { isEmpty } from 'lodash';
 
 const getEmotionLevel = (score: number) => {
   if (score >= 0.6) return 'high';
@@ -57,7 +58,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
 
   const { emotions, toxicity, trigger_emotion, bias } = data;
   const toxicLevel = toxicity?.toxic || 0;
-  const isBullying = toxicLevel > 0.1;
+  const isBullying = toxicLevel > 0.1 || !isEmpty(bias);
 
   const emotionEntries = Object.entries(emotions || {}).filter(([key]) => key !== 'toxic_level');
 
@@ -74,7 +75,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
         borderRadius: '1rem',
         p: 4,
         maxWidth: '500px',
-        width:{
+        width: {
           xs: '70%',
           sm: '100%',
         },
@@ -177,9 +178,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
       {/* Bias / Prejudice Section */}
       {bias && Object.keys(bias).length > 0 && (
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1, flexWrap: 'wrap' }}>
-          <Typography fontWeight={600} >
-            Prejudice Detection:
-          </Typography>
+          <Typography fontWeight={600}>Prejudice Detection:</Typography>
           {Object.entries(bias).map(([key, value]) => (
             <Chip
               key={key}
@@ -218,7 +217,7 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
             : 'Detected Tags: No critical flags'}
         </Typography>
       </Box>
-    
+
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
         <Button
           variant="contained"

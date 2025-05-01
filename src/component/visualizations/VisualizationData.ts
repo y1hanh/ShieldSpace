@@ -31,6 +31,11 @@ export const race_summary = [
     count: 38,
     percentage: 0.006545,
   },
+  {
+    race: 'Indian',
+    count: 32,
+    percentage: 0.005512,
+  },
 ];
 
 export const orientation_summary = [
