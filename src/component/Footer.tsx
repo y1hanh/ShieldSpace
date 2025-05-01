@@ -4,9 +4,7 @@ export default function Footer() {
   return (
     <Box
       sx={{
-        width: '100%',
         height: 'auto',
-        padding: '20px',
         textAlign: 'center',
         position: 'relative',
         bottom: 0,

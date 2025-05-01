@@ -37,9 +37,7 @@ function App() {
         sx={{
           bottom: 0,
           left: 0,
-          width: '100vw',
           zIndex: 1000,
-          // bgcolor: '#FFFFFF',
         }}
       >
         <Footer />
