@@ -3,7 +3,7 @@ import RaceDistributionChart from '../component/visualizations/RaceDistributionC
 import OrientationChart from '../component/visualizations/OrientationChart';
 import ReligionBarChart from '../component/visualizations/ReligionBarChart';
 import MiscellaneousStack from '../component/visualizations/MiscellaneousStack';
-import AgeChart from '../component/visualizations/AgeChart';
+import AnalyticsStoryTelling from '../component/visualizations/AnalyticsStoryTelling';
 import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
 import BentoLayout from '../component/layout/BentoLayout';
 import {
@@ -21,6 +21,7 @@ export default function AnalyticsPage() {
         p: 3,
       }}
     >
+      <AnalyticsStoryTelling />
       <Box
         sx={{
           height: '100%',
@@ -31,8 +32,9 @@ export default function AnalyticsPage() {
       >
         <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
-            title="Race Distribution"
-            description="Distribution of cyberbullying cases across different racial groups"
+            title="Why are they being mean to me?"
+            description="More than 5,700 people were bullied online because of their race — and most of them were from African backgrounds.
+"
             stats={[
               {
                 label: 'Total Cases',
@@ -53,8 +55,8 @@ export default function AnalyticsPage() {
 
         <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
-            title="Sexual Orientation"
-            description="Distribution of cyberbullying cases by sexual orientation"
+            title="Being Yourself Shouldn’t Be A Problem"
+            description="People got bullied just for who they love. sGuess who got it the worst? Homosexual people — they were targeted over 1,700 times."
             stats={[
               {
                 label: 'Total Cases',
@@ -76,8 +78,9 @@ export default function AnalyticsPage() {
 
         <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
-            title="Religion Distribution"
-            description="Distribution of cyberbullying cases across different religions"
+            title="What You Believe Is Yours Alone"
+            description="Do you believe in something? A religion? A way of life?
+Some people were bullied online just because of their faith."
             stats={[
               {
                 label: 'Total Cases',
@@ -98,16 +101,16 @@ export default function AnalyticsPage() {
 
         <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
-            title="Miscellaneous Categories"
-            description="Distribution of cyberbullying cases in other categories"
+            title="The Quiet Ones Get Hurt Too"
+            description="Not all bullying makes big noise. Sometimes it happens to people who already feel left out."
             stats={[
               {
                 label: 'Total Cases',
                 value: miscellaneous_summary.reduce((sum, item) => sum + item.count, 0),
               },
               {
-                label: 'Categories',
-                value: new Set(miscellaneous_summary.map(item => item.category)).size,
+                label: 'Most Targeted',
+                value: 'Minority Groups',
               },
             ]}
           >

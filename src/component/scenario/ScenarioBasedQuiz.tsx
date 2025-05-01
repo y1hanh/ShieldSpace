@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import QuizOption from './QuizOption';
 import QuizCard from './QuizCard';
 import { quizData } from './scenarioData';
+import ScenarioStoryTelling from './ScenarioStoryTelling';
 
 export default function ScenarioBasedQuiz() {
   const [selectedQuiz, setSelectedQuiz] = useState<number | null>(null);
@@ -355,30 +356,24 @@ function QuizSelector({
   cardsRef: React.RefObject<HTMLDivElement[]>;
 }) {
   return (
-    <>
-      <Typography
-        variant="h4"
-        sx={{
-          fontWeight: 'bold',
-          color: '#4B3F72',
-          textAlign: 'center',
-          marginTop: { xs: 3, sm: 4 },
-          fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
-          padding: { xs: '0 10px', sm: '0 20px', md: '0' },
-          mb: { xs: 2, sm: 3 },
-        }}
-      >
-        What would you do?
-      </Typography>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxWidth: { xs: '100%', sm: '600px', md: '1000px' },
+        width: '100%',
+        margin: '0 auto',
+      }}
+    >
+      <ScenarioStoryTelling />
       <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           gap: { xs: 3, sm: 4, md: 5 },
           alignItems: 'center',
-          maxWidth: { xs: '100%', sm: '600px', md: '1000px' },
-          width: '100%',
-          margin: '0 auto',
+          // width: '100%',
         }}
       >
         {quizData.map((quiz, index) => (
@@ -399,6 +394,6 @@ function QuizSelector({
           </Box>
         ))}
       </Box>
-    </>
+    </Box>
   );
 }
