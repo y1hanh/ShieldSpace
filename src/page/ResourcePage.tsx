@@ -7,7 +7,6 @@ export default function ResourcePage() {
       sx={{
         minHeight: '100vh',
         width: '100%',
-        backgroundColor: '#E6E0F4',
         position: 'relative',
         overflow: 'auto',
       }}

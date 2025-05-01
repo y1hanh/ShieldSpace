@@ -321,318 +321,326 @@ export default function CyberSafetyQuiz() {
   return (
     <Box
       sx={{
-        maxWidth: 600,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        mt: 6,
-        mb: 4,
+        minHeight: '100vh',
         p: 3,
-        borderRadius: '20px',
-        backgroundColor: '#ffffff',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-        overflow: 'hidden',
       }}
     >
-      {/* Header */}
       <Box
         sx={{
-          backgroundColor: '#7C4DFF',
-          p: 2,
-          borderTopLeftRadius: '20px',
-          borderTopRightRadius: '20px',
-          color: 'white',
-          textAlign: 'center',
+          height: '100%',
+          maxWidth: 600,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          mt: 6,
+          mb: 4,
+          p: 3,
+          borderRadius: '20px',
+          backgroundColor: '#ffffff',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          overflow: 'hidden',
         }}
       >
-        <Typography variant="h5" fontWeight="bold">
-          Cyber Safety Quiz
-        </Typography>
-        <Box mt={1}>
-          <LinearProgress
-            variant="determinate"
-            value={progressPercent}
-            sx={{
-              height: 8,
-              borderRadius: 5,
-              backgroundColor: '#FFF9C4',
-              '& .MuiLinearProgress-bar': { backgroundColor: '#f2e767' },
-            }}
-          />
-          <Typography variant="caption">
-            {`Question ${currentStep + 1}/${questions.length}`} - {Math.round(progressPercent)}%
-            Complete
+        {/* Header */}
+        <Box
+          sx={{
+            backgroundColor: '#7C4DFF',
+            p: 2,
+            borderTopLeftRadius: '20px',
+            borderTopRightRadius: '20px',
+            color: 'white',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h5" fontWeight="bold">
+            Cyber Safety Quiz
           </Typography>
+          <Box mt={1}>
+            <LinearProgress
+              variant="determinate"
+              value={progressPercent}
+              sx={{
+                height: 8,
+                borderRadius: 5,
+                backgroundColor: '#FFF9C4',
+                '& .MuiLinearProgress-bar': { backgroundColor: '#f2e767' },
+              }}
+            />
+            <Typography variant="caption">
+              {`Question ${currentStep + 1}/${questions.length}`} - {Math.round(progressPercent)}%
+              Complete
+            </Typography>
+          </Box>
         </Box>
-      </Box>
 
-      <Box p={3}>
-        {!quizFinished ? (
-          <>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold' }}>
-              {questions[currentStep].text}
-            </Typography>
-
-            {questions[currentStep].options.map((option, idx) => (
-              <Button
-                key={idx}
-                variant={selectedAnswer === option.value ? 'contained' : 'outlined'}
-                sx={{
-                  mb: 2,
-                  width: '100%',
-                  borderColor: '#D1C4E9',
-                  color: '#4A148C',
-                  backgroundColor: selectedAnswer === option.value ? '#D1C4E9' : '#F3E5F5',
-                  textTransform: 'none',
-                  borderRadius: '12px',
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                  '&:hover': { backgroundColor: '#E1BEE7' },
-                }}
-                onClick={() => handleSelect(option.value)}
-              >
-                {option.label}
-              </Button>
-            ))}
-
-            <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
-              <Box>
-                {currentStep > 0 && (
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      justifyContent: 'flex-start',
-                      borderColor: '#D1C4E9',
-                      color: '#4A148C',
-                      textTransform: 'none',
-                      fontSize: '1rem',
-                      fontWeight: 500,
-                      '&:hover': { backgroundColor: '#E1BEE7' },
-                    }}
-                    onClick={handlePrevious}
-                  >
-                    Previous
-                  </Button>
-                )}
-              </Box>
-              <Box>
-                <Button
-                  variant="contained"
-                  sx={{ backgroundColor: '#7C4DFF', justifyContent: 'flex-end' }}
-                  onClick={handleContinue}
-                >
-                  Continue
-                </Button>
-              </Box>
-            </Box>
-          </>
-        ) : (
-          <Box textAlign="center">
-            {/* Trophy Image */}
-            <Box
-              sx={{
-                backgroundColor: '#FFF3E0',
-                width: 120,
-                height: 120,
-                borderRadius: '50%',
-                mx: 'auto',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mb: 3,
-              }}
-            >
-              <Typography variant="h1" component="div">
-                🏆
+        <Box p={3}>
+          {!quizFinished ? (
+            <Box>
+              <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold' }}>
+                {questions[currentStep].text}
               </Typography>
+
+              {questions[currentStep].options.map((option, idx) => (
+                <Button
+                  key={idx}
+                  variant={selectedAnswer === option.value ? 'contained' : 'outlined'}
+                  sx={{
+                    mb: 2,
+                    width: '100%',
+                    borderColor: '#D1C4E9',
+                    color: '#4A148C',
+                    backgroundColor: selectedAnswer === option.value ? '#D1C4E9' : '#F3E5F5',
+                    textTransform: 'none',
+                    borderRadius: '12px',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    '&:hover': { backgroundColor: '#E1BEE7' },
+                  }}
+                  onClick={() => handleSelect(option.value)}
+                >
+                  {option.label}
+                </Button>
+              ))}
+
+              <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
+                <Box>
+                  {currentStep > 0 && (
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        justifyContent: 'flex-start',
+                        borderColor: '#D1C4E9',
+                        color: '#4A148C',
+                        textTransform: 'none',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        '&:hover': { backgroundColor: '#E1BEE7' },
+                      }}
+                      onClick={handlePrevious}
+                    >
+                      Previous
+                    </Button>
+                  )}
+                </Box>
+                <Box>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: '#7C4DFF', justifyContent: 'flex-end' }}
+                    onClick={handleContinue}
+                  >
+                    Continue
+                  </Button>
+                </Box>
+              </Box>
             </Box>
+          ) : (
+            <Box textAlign="center">
+              {/* Trophy Image */}
+              <Box
+                sx={{
+                  backgroundColor: '#FFF3E0',
+                  width: 120,
+                  height: 120,
+                  borderRadius: '50%',
+                  mx: 'auto',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                }}
+              >
+                <Typography variant="h1" component="div">
+                  🏆
+                </Typography>
+              </Box>
 
-            {/* Title */}
-            <Typography variant="h4" sx={{ mb: 2, color: '#7C4DFF', fontWeight: 'bold' }}>
-              Quiz Completed!
-            </Typography>
+              {/* Title */}
+              <Typography variant="h4" sx={{ mb: 2, color: '#7C4DFF', fontWeight: 'bold' }}>
+                Quiz Completed!
+              </Typography>
 
-            {/* Final feedback in a soft box */}
-            <Box
-              sx={{
-                backgroundColor: '#F8F0FF',
-                px: 4,
-                py: 3,
-                borderRadius: '16px',
-                maxWidth: 500,
-                mx: 'auto',
-                mb: 4,
-                fontSize: '1.1rem',
-                color: '#4A148C',
-                textAlign: 'left',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                border: '1px solid rgba(124, 77, 255, 0.1)',
-              }}
-            >
-              <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-                <ul style={{ paddingLeft: '1.2rem' }}>
-                  {(() => {
-                    const parts = finalFeedback.split(/(".*?"|\d+)/g).filter(p => p && p.trim());
-                    console.log('parts[0]: ', parts[0]);
-                    console.log('parts[1]: ', parts[1]);
-                    console.log('parts[2]: ', parts[2]);
-                    console.log('parts[3]: ', parts[3]);
-                    console.log('parts[4]: ', parts[4]);
-                    console.log('parts[5]: ', parts[5]);
-                    const cleaned = parts[0].split('You earned')[0].trim();
-                    const lines = cleaned
-                      .split('. ')
-                      .map(line => line.trim())
-                      .filter(line => line.length > 0);
-                    console.log('lines: ', lines);
+              {/* Final feedback in a soft box */}
+              <Box
+                sx={{
+                  backgroundColor: '#F8F0FF',
+                  px: 4,
+                  py: 3,
+                  borderRadius: '16px',
+                  maxWidth: 500,
+                  mx: 'auto',
+                  mb: 4,
+                  fontSize: '1.1rem',
+                  color: '#4A148C',
+                  textAlign: 'left',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                  border: '1px solid rgba(124, 77, 255, 0.1)',
+                }}
+              >
+                <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
+                  <ul style={{ paddingLeft: '1.2rem' }}>
+                    {(() => {
+                      const parts = finalFeedback.split(/(".*?"|\d+)/g).filter(p => p && p.trim());
+                      console.log('parts[0]: ', parts[0]);
+                      console.log('parts[1]: ', parts[1]);
+                      console.log('parts[2]: ', parts[2]);
+                      console.log('parts[3]: ', parts[3]);
+                      console.log('parts[4]: ', parts[4]);
+                      console.log('parts[5]: ', parts[5]);
+                      const cleaned = parts[0].split('You earned')[0].trim();
+                      const lines = cleaned
+                        .split('. ')
+                        .map(line => line.trim())
+                        .filter(line => line.length > 0);
+                      console.log('lines: ', lines);
 
-                    for (let i = lines.length - 1; i > 0; i--) {
-                      const j = Math.floor(Math.random() * (i + 1));
-                      [lines[i], lines[j]] = [lines[j], lines[i]];
-                    }
+                      for (let i = lines.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [lines[i], lines[j]] = [lines[j], lines[i]];
+                      }
 
-                    console.log('shuffled & extended lines:', lines);
+                      console.log('shuffled & extended lines:', lines);
 
-                    const badge = parts[3]?.replace(/"/g, '');
-                    const finalLine = parts[4]?.replace(/^\s*\./, '').trim();
+                      const badge = parts[3]?.replace(/"/g, '');
+                      const finalLine = parts[4]?.replace(/^\s*\./, '').trim();
 
-                    return (
-                      <>
-                        {/* Points and Badge Box */}
-                        <li
-                          style={{
-                            marginBottom: '20px',
-                            lineHeight: '1.7',
-                            listStyle: 'none',
-                            textAlign: 'center',
-                            // mx: 'auto',
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              backgroundColor: '#F3E5F5',
-                              borderRadius: '12px',
-                              px: 2,
-                              py: 1.5,
-                              display: 'inline-block',
-                              fontSize: '1.3rem',
-                              mx: 'auto',
+                      return (
+                        <>
+                          {/* Points and Badge Box */}
+                          <li
+                            style={{
+                              marginBottom: '20px',
+                              lineHeight: '1.7',
+                              listStyle: 'none',
+                              textAlign: 'center',
+                              // mx: 'auto',
                             }}
                           >
                             <Box
-                              component="div"
                               sx={{
+                                backgroundColor: '#F3E5F5',
+                                borderRadius: '12px',
+                                px: 2,
+                                py: 1.5,
+                                display: 'inline-block',
                                 fontSize: '1.3rem',
+                                mx: 'auto',
                               }}
                             >
-                              <Box component="span" sx={{ fontWeight: 500, color: '#4A148C' }}>
-                                🏅🛡️{' '}
-                              </Box>
-                              <Box component="span" sx={{ fontWeight: 'bold', color: '#7C4DFF' }}>
-                                {badge?.toUpperCase()}
+                              <Box
+                                component="div"
+                                sx={{
+                                  fontSize: '1.3rem',
+                                }}
+                              >
+                                <Box component="span" sx={{ fontWeight: 500, color: '#4A148C' }}>
+                                  🏅🛡️{' '}
+                                </Box>
+                                <Box component="span" sx={{ fontWeight: 'bold', color: '#7C4DFF' }}>
+                                  {badge?.toUpperCase()}
+                                </Box>
                               </Box>
                             </Box>
-                          </Box>
-                        </li>
+                          </li>
 
-                        {/* Feedback Messages */}
-                        {lines.map((line, idx) => (
-                          <li
-                            key={idx}
-                            style={{
-                              marginBottom: '10px',
-                              lineHeight: '1.7',
-                              listStyle: 'none',
-                              position: 'relative',
-                              paddingLeft: '25px',
-                            }}
-                          >
-                            <span
+                          {/* Feedback Messages */}
+                          {lines.map((line, idx) => (
+                            <li
+                              key={idx}
                               style={{
-                                position: 'absolute',
-                                left: 0,
-                                color: '#7C4DFF',
+                                marginBottom: '10px',
+                                lineHeight: '1.7',
+                                listStyle: 'none',
+                                position: 'relative',
+                                paddingLeft: '25px',
                               }}
                             >
-                              ✓
-                            </span>
-                            {line}
-                          </li>
-                        ))}
+                              <span
+                                style={{
+                                  position: 'absolute',
+                                  left: 0,
+                                  color: '#7C4DFF',
+                                }}
+                              >
+                                ✓
+                              </span>
+                              {line}
+                            </li>
+                          ))}
 
-                        {finalLine && (
-                          <li
-                            style={{
-                              marginBottom: '10px',
-                              lineHeight: '1.7',
-                              listStyle: 'none',
-                              position: 'relative',
-                              paddingLeft: '25px',
-                            }}
-                          >
-                            <span
+                          {finalLine && (
+                            <li
                               style={{
-                                position: 'absolute',
-                                left: 0,
-                                color: '#7C4DFF',
+                                marginBottom: '10px',
+                                lineHeight: '1.7',
+                                listStyle: 'none',
+                                position: 'relative',
+                                paddingLeft: '25px',
                               }}
                             >
-                              ✓
-                            </span>
-                            {finalLine}
-                          </li>
-                        )}
-                      </>
-                    );
-                  })()}
-                </ul>
-              </Typography>
-              {quizFinished && (
-                <Box sx={{ mt: 4 }}>
-                  <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom>
-                    🌟 Helpful Tips
-                  </Typography>
-                  <ul style={{ paddingLeft: '1.5rem' }}>
-                    {tips.map((tip, index) => (
-                      <li key={index} style={{ marginBottom: '10px', lineHeight: '1.6' }}>
-                        {tip}
-                      </li>
-                    ))}
+                              <span
+                                style={{
+                                  position: 'absolute',
+                                  left: 0,
+                                  color: '#7C4DFF',
+                                }}
+                              >
+                                ✓
+                              </span>
+                              {finalLine}
+                            </li>
+                          )}
+                        </>
+                      );
+                    })()}
                   </ul>
-                </Box>
-              )}
-            </Box>
+                </Typography>
+                {quizFinished && (
+                  <Box sx={{ mt: 4 }}>
+                    <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom>
+                      🌟 Helpful Tips
+                    </Typography>
+                    <ul style={{ paddingLeft: '1.5rem' }}>
+                      {tips.map((tip, index) => (
+                        <li key={index} style={{ marginBottom: '10px', lineHeight: '1.6' }}>
+                          {tip}
+                        </li>
+                      ))}
+                    </ul>
+                  </Box>
+                )}
+              </Box>
 
-            {/* Button */}
-            <Box
-              display="grid"
-              gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }}
-              gap={2}
-              maxWidth="500px"
-              mx="auto"
-            >
-              <StyledButton
-                onClick={() => navigate('/')}
-                bgColor="#7C4DFF"
-                endIcon={<ArrowForwardIcon />}
+              {/* Button */}
+              <Box
+                display="grid"
+                gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }}
+                gap={2}
+                maxWidth="500px"
+                mx="auto"
               >
-                Home Page
-              </StyledButton>
-              <StyledButton onClick={() => navigate('/ScenarioBasedQuiz')} bgColor="#43A047">
-                🧾 More Quizs
-              </StyledButton>
-              <StyledButton onClick={() => navigate('/analytics')} bgColor="#1E88E5">
-                📈 Analytic
-              </StyledButton>
-              <StyledButton
-                onClick={() => navigate('/community')}
-                bgColor="#FBC02D"
-                textColor="#333"
-              >
-                📚 Learn More
-              </StyledButton>
+                <StyledButton
+                  onClick={() => navigate('/')}
+                  bgColor="#7C4DFF"
+                  endIcon={<ArrowForwardIcon />}
+                >
+                  Home Page
+                </StyledButton>
+                <StyledButton onClick={() => navigate('/resources')} bgColor="#43A047">
+                  🧾 More Quizs
+                </StyledButton>
+                <StyledButton onClick={() => navigate('/analytics')} bgColor="#1E88E5">
+                  📈 Analytic
+                </StyledButton>
+                <StyledButton
+                  onClick={() => navigate('/community')}
+                  bgColor="#FBC02D"
+                  textColor="#333"
+                >
+                  📚 Learn More
+                </StyledButton>
+              </Box>
             </Box>
-          </Box>
-        )}
+          )}
+        </Box>
       </Box>
     </Box>
   );

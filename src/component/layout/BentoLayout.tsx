@@ -18,6 +18,7 @@ export default function BentoLayout({ title, description, children, stats }: Ben
   return (
     <Box
       sx={{
+        backgroundColor: '#FFFFFF',
         p: { xs: 1, sm: 2 },
         borderRadius: 2,
         height: '100%',

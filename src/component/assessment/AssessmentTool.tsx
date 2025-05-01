@@ -22,7 +22,7 @@ export default function AssessmentTool() {
       setUserInput(trimmed);
       setAnalysisResult(JSON.stringify(response));
       setInput('');
-      navigate('/AssessmentResult');
+      navigate('/assessment-result');
     } catch (err) {
       console.error('Failed to submit', err);
       alert('Submission failed.');
@@ -30,7 +30,6 @@ export default function AssessmentTool() {
   };
 
   return (
-    
     <Box
       sx={{
         width: '100%',
@@ -43,36 +42,34 @@ export default function AssessmentTool() {
         justifyContent: 'flex-start',
         mx: 'auto',
         py: 4,
-        mt:{
+        mt: {
           xs: 20,
           sm: 0,
           md: 0,
         },
-        
       }}
     >
       <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={2}>
-          Assessment Tool
-        </Typography>
-        <Typography fontSize="18px" color="rgb(22, 128, 115)">
-          <Box component="span" sx={{ fontSize: '2rem', mr: 1 }}>
-            📨
-          </Box>
-          Got a mean message?
-        </Typography>
-        <Typography fontSize="18px" color="rgb(22, 128, 115)" mb={3}>
-          Paste it here and we'll help you out!
-        </Typography>
+        Assessment Tool
+      </Typography>
+      <Typography fontSize="18px" color="rgb(22, 128, 115)">
+        <Box component="span" sx={{ fontSize: '2rem', mr: 1 }}>
+          📨
+        </Box>
+        Got a mean message?
+      </Typography>
+      <Typography fontSize="18px" color="rgb(22, 128, 115)" mb={3}>
+        Paste it here and we'll help you out!
+      </Typography>
       <Box
         sx={{
           width: { xs: '85%', sm: '90%', md: '80%', lg: '80%' },
           background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
           borderRadius: '24px',
           padding: { xs: 4, md: 6 },
-          textAlign: 'center',  
+          textAlign: 'center',
         }}
       >
-
         {/* Input Box */}
         <Box
           sx={{
@@ -133,12 +130,12 @@ export default function AssessmentTool() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-              sx={{ fontSize: '1rem' }}
+              sx={{ fontSize: '1rem', p: 2 }}
             />
             <IconButton
               onClick={handleSubmit}
               sx={{
-                background: 'linear-gradient(135deg, #FFA726, #FB8C00)',
+                backgroundColor: ' #FFA726',
                 color: '#fff',
                 ml: 1,
                 width: 48,
@@ -146,7 +143,7 @@ export default function AssessmentTool() {
                 borderRadius: '50%',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                 '&:hover': {
-                  background: '#f57c00',
+                  backgroundColor: '#f57c00',
                 },
               }}
             >
@@ -188,7 +185,10 @@ export default function AssessmentTool() {
         {/* Chip 2 */}
         <Chip
           label={
-            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+            <Box
+              sx={{ display: 'flex', alignItems: 'flex-start', cursor: 'pointer' }}
+              onClick={() => navigate('/resources')}
+            >
               <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
                 💡
               </Box>
@@ -232,5 +232,3 @@ export default function AssessmentTool() {
     </Box>
   );
 }
-
-

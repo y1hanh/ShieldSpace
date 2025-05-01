@@ -18,12 +18,13 @@ export default function AnalyticsPage() {
   return (
     <Box
       sx={{
-        backgroundColor: '#FFFFFF',
+        height: '100%',
         p: 3,
       }}
     >
       <Box
         sx={{
+          height: '100%',
           display: 'flex',
           flexWrap: 'wrap',
           gap: 6,
@@ -141,7 +142,6 @@ export default function AnalyticsPage() {
           </LazyLoadComponent>
         </Box> */}
       </Box>
-      <Box>Footer</Box>
     </Box>
   );
 }

@@ -54,8 +54,8 @@ export default function Nav() {
             marginRight: '0.5rem',
           }}
         />
-        <Typography sx={{ color: 'Black' }} variant="h5">
-          No more Bully
+        <Typography sx={{ color: 'Black' }} variant="h6">
+          No More Bully
         </Typography>
       </Box>
 

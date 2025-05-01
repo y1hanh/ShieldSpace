@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router';
 import { router } from './routes.ts';
 import { SliceContext } from './slice/sliceContext.tsx';
 import { slices } from './slice/slice.ts';
+import './main.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
