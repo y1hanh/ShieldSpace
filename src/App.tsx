@@ -3,6 +3,7 @@ import Nav from './component/nav';
 import { Outlet } from 'react-router';
 import { SecurePage } from './page/SecurePage';
 import { useAuth } from './slice/authSlice';
+import Footer from './component/Footer';
 
 function App() {
   const { secure } = useAuth();
@@ -30,6 +31,18 @@ function App() {
         }}
       >
         <Outlet />
+      </Box>
+
+      <Box
+        sx={{
+          bottom: 0,
+          left: 0,
+          width: '100vw',
+          zIndex: 1000,
+          // bgcolor: '#FFFFFF',
+        }}
+      >
+        <Footer />
       </Box>
     </div>
   ) : (

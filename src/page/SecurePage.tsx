@@ -11,10 +11,10 @@ export function SecurePage() {
 
   const submit = async () => {
     try {
-      await useSubmit(username, password);
+      await useSubmit('ta30', password);
       setError('');
     } catch (error) {
-      setError('Wrong username or password');
+      setError('Wrong password');
       console.error(error);
     }
   };
@@ -31,16 +31,7 @@ export function SecurePage() {
       }}
     >
       {error && <Typography color="red">{error}</Typography>}
-      <Box>
-        <TextField
-          id="outlined-controlled"
-          label="User Name"
-          value={username}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setName(event.target.value);
-          }}
-        />
-      </Box>
+      <Typography> please input password to access this page</Typography>
 
       <Box>
         <TextField
@@ -53,7 +44,6 @@ export function SecurePage() {
           }}
         />
       </Box>
-
       <Box>
         <Button onClick={submit}>Submit</Button>
       </Box>
