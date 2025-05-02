@@ -56,7 +56,7 @@ export default function AnalyticsPage() {
         <Box sx={{ flex: '1 1 45%', minWidth: '300px', height: '100%' }}>
           <BentoLayout
             title="Being Yourself Shouldn’t Be A Problem"
-            description="People got bullied just for who they love. sGuess who got it the worst? Homosexual people — they were targeted over 1,700 times."
+            description="People got bullied just for who they love. Guess who got it the worst? Homosexual people — they were targeted over 1,700 times."
             stats={[
               {
                 label: 'Total Cases',
