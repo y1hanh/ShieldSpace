@@ -35,8 +35,6 @@ export default function Nav() {
     <Box
       sx={{
         display: 'flex',
-        // justifyContent: 'space-between',
-        // alignItems: 'center',
         padding: '0.5rem',
       }}
     >
@@ -50,11 +48,11 @@ export default function Nav() {
             width: '1.2rem',
             height: '1.2rem',
             borderRadius: '50%',
-            marginLeft: '0.5rem',
+            marginLeft: isMobile ? '0.5rem' : '5rem',
             marginRight: '0.5rem',
           }}
         />
-        <Typography sx={{ color: 'Black' }} variant="h6">
+        <Typography sx={{ color: 'Black', fontWeight: '600' }} variant="h6">
           No More Bully
         </Typography>
       </Box>
@@ -130,24 +128,27 @@ export default function Nav() {
           </Drawer>
         </>
       ) : (
-        <Box sx={{ display: 'flex', alignItems: 'space-between', gap: 0.1 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'space-between',
+            gap: 0.1,
+            marginRight: isMobile ? '0.5rem' : '5rem',
+          }}
+        >
           {mainRoutes.map(route => (
-            <Button key={route.path}>
-              <NavLink
-                to={route.path}
-                style={({ isActive }) => ({
-                  fontSize: '12px',
-                  fontWeight: isActive ? 'bold' : '',
-                  color: isActive ? 'white' : 'black',
-                  backgroundColor: isActive ? '#66CCFF' : 'transparent',
-                  borderRadius: '1.5rem',
-                  padding: '0.8rem',
-                  textDecoration: 'none',
-                })}
-              >
-                {route.name}
-              </NavLink>
-            </Button>
+            <NavLink
+              to={route.path}
+              style={({ isActive }) => ({
+                fontSize: '1rem',
+                color: isActive ? '#66CCFF' : 'black',
+                padding: '0.8rem',
+                textDecoration: 'none',
+                fontFamily: 'Roboto, sans-serif',
+              })}
+            >
+              {route.name}
+            </NavLink>
           ))}
 
           {/* {isLoggedIn ? (
