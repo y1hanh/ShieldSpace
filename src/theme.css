@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+--background: linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%);
+--background-secondary: #ffffff;
+--card-background: #F8F8F8;
+--text-title: #4B3F72;
+--text-subtitle: rgb(22, 128, 115);
+--text-body: #555;
+--highlight:#f57c00;
+}
+
+body {
+  background: linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%);
+}

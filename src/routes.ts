@@ -6,7 +6,7 @@ import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
 import CyberSafetyQuiz from './page/CyberSafetyQuizPage';
-import AssessmentResult from './component/assessment/AssessmentResult';
+import AssessmentResult from './page/AssessmentResultPage';
 import AssessmentPage from './page/AssessmentPage';
 import ComingSoonPage from './page/ComingSoonPage';
 

@@ -14,7 +14,7 @@ export default function DashBoardPage() {
       sm: '45%',
       md: '25%',
     },
-    backgroundColor: '#F8F8F8',
+    backgroundColor: 'var(--card-background)',
     padding: '1.2rem',
     borderRadius: '8px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
@@ -67,11 +67,11 @@ export default function DashBoardPage() {
               },
             }}
           >
-            <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 5 }}>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'var(--text-title)', mb: 5 }}>
               What feels small... <br /> can hurt big.
             </Typography>
 
-            <Typography sx={{ color: '#333' }}>
+            <Typography sx={{ color: 'var(--text-body)' }}>
               Our Message Analyser helps identify cyberbullying, understand its emotional impact,
               and find ways to respond.
             </Typography>
@@ -89,7 +89,7 @@ export default function DashBoardPage() {
                 mt: 2,
                 textTransform: 'none',
                 '&:hover': {
-                  backgroundColor: '#f57c00',
+                  backgroundColor: 'var(--highlight)',
                 },
               }}
             >
@@ -125,7 +125,10 @@ export default function DashBoardPage() {
       </Container>
 
       {/* Section 2 */}
-      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#F9FBFC', mt: 2 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ padding: '3rem 0', backgroundColor: 'var(--background-secondary)', mt: 2 }}
+      >
         <Box
           sx={{
             display: 'flex',
@@ -136,7 +139,7 @@ export default function DashBoardPage() {
         >
           <Typography
             variant="h4"
-            sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mt: 5 }}
+            sx={{ fontWeight: 'bold', color: 'var(--text-title)', textAlign: 'center', mt: 5 }}
           >
             How Cyberbullying Affects Us
           </Typography>

@@ -34,7 +34,6 @@ export default function AssessmentTool() {
       sx={{
         width: '100%',
         maxWidth: '1200px',
-        background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
         display: 'flex',
         flexDirection: 'column',
         overflowX: 'hidden',
@@ -49,17 +48,16 @@ export default function AssessmentTool() {
         },
       }}
     >
-      <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={2}>
+      <Typography variant="h4" fontWeight="bold" color="var(--text-title)" mb={2}>
         Got a mean message?
       </Typography>
 
-      <Typography fontSize="18px" color="rgb(22, 128, 115)" mb={3}>
+      <Typography fontSize="18px" color="var(--text-subtitle)" mb={3}>
         Share what you saw and we'll help you!
       </Typography>
       <Box
         sx={{
           width: { xs: '85%', sm: '90%', md: '80%', lg: '80%' },
-          background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
           borderRadius: '24px',
           padding: { xs: 4, md: 6 },
           textAlign: 'center',
@@ -70,7 +68,7 @@ export default function AssessmentTool() {
           sx={{
             width: '80%',
             maxWidth: '530px',
-            backgroundColor: 'rgb(231, 250, 253)',
+            backgroundColor: 'var(--background-secondary)',
             border: '2px solid #00ACC1',
             borderRadius: '16px',
             p: 2,

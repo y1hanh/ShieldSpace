@@ -27,7 +27,7 @@ export default function AnalyticsStoryTelling() {
 
   return (
     <Box sx={{ textAlign: 'center', mb: 4 }}>
-      <Typography variant="h3" sx={{ mb: 2, fontWeight: 700, color: '#4B3F72' }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 700, color: 'var(--text-title)' }}>
         The Reality of Online Bullying
       </Typography>
       {lines.map((line, index) => (
@@ -36,7 +36,7 @@ export default function AnalyticsStoryTelling() {
           ref={el => {
             linesRef.current[index] = el;
           }}
-          sx={{ opacity: 0, transform: 'translateY(20px)', color: 'text.secondary' }}
+          sx={{ opacity: 0, transform: 'translateY(20px)', color: 'var(--text-body)' }}
         >
           {line}
         </Typography>

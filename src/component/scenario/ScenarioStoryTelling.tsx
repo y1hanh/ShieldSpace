@@ -28,7 +28,7 @@ export default function ScenarioStoryTelling() {
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'var(--background-secondary)',
         borderRadius: '12px',
       }}
     >
@@ -36,17 +36,16 @@ export default function ScenarioStoryTelling() {
         variant="h4"
         sx={{
           fontWeight: 'bold',
-          color: '#4B3F72',
+          color: 'var(--text-title)',
           textAlign: 'center',
           marginTop: { xs: 3, sm: 4 },
           fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
           padding: { xs: '0 10px', sm: '0 20px', md: '0' },
-          // mb: { xs: 2, sm: 3 },
         }}
       >
         What would you do?
       </Typography>
-      <Typography fontWeight="bold" color="#4B3F72" mb={3}>
+      <Typography fontWeight="bold" color="var(--text-title)" mb={3}>
         You'll Learn
       </Typography>
 
@@ -72,7 +71,7 @@ export default function ScenarioStoryTelling() {
           >
             <Typography
               sx={{
-                color: '#60B5FF',
+                color: 'var(--text-subtitle)',
                 fontSize: { xs: '1.2rem', sm: '1.5rem' },
                 fontWeight: 'bold',
                 mb: 1,
@@ -83,7 +82,7 @@ export default function ScenarioStoryTelling() {
             <Typography
               sx={{
                 fontSize: { xs: '0.8rem', sm: '0.9rem' },
-                color: '#555',
+                color: 'var(--text-body)',
                 fontWeight: '600',
               }}
             >
