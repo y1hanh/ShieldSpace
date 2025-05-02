@@ -26,7 +26,7 @@ function App() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 50%, #EDE7F6 100%)',
-          marginTop: '5rem',
+          marginTop: '4rem',
           mx: 'auto',
         }}
       >
