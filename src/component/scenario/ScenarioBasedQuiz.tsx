@@ -373,7 +373,6 @@ function QuizSelector({
           flexDirection: { xs: 'column', md: 'row' },
           gap: { xs: 3, sm: 4, md: 5 },
           alignItems: 'center',
-          // width: '100%',
         }}
       >
         {quizData.map((quiz, index) => (
