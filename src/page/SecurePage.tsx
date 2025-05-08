@@ -38,6 +38,7 @@ export function SecurePage() {
           id="outlined-controlled"
           label="Password"
           value={password}
+          onKeyDown={e => e.key === 'Enter' && submit()}
           type="password"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
