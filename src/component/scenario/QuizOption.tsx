@@ -75,7 +75,7 @@ export default function QuizOption({
     elements.forEach(el => {
       if (el.getAttribute('data-label') === option?.text) {
         gsap.to(el, {
-          scale: 1.02,
+          opacity: 0,
           duration: 0.2,
           ease: 'power2.out',
           onComplete: () => {
@@ -103,7 +103,6 @@ export default function QuizOption({
         margin: '0 auto',
         padding: { xs: '10px', sm: '20px' },
         overflow: 'auto',
-        height: '90vh',
         width: '80vw',
       }}
     >

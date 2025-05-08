@@ -40,6 +40,9 @@ export default function ScenarioBasedQuiz() {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       {rightOptions.every(option => option != null) ? (
@@ -49,7 +52,6 @@ export default function ScenarioBasedQuiz() {
             flexDirection: 'column',
             alignItems: 'center',
             gap: 3,
-            padding: { xs: '20px', sm: '40px' },
             textAlign: 'center',
             animation: 'fadeIn 0.5s ease-in',
             '@keyframes fadeIn': {
@@ -287,7 +289,7 @@ function OptionSelector({
         alignItems: 'center',
         gap: { xs: 2, sm: 4 },
         width: '100%',
-        maxWidth: { xs: '90%', sm: '100%' },
+        maxWidth: '100%',
       }}
     >
       <Button
