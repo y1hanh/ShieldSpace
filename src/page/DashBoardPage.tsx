@@ -3,8 +3,58 @@ import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieC
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
 import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
+import gsap from 'gsap';
+import { Ref, RefObject, useEffect, useRef } from 'react';
 
 export default function DashBoardPage() {
+  // Animation refs
+  const headingRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const buttonRef = useRef(null);
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    const timeline = gsap.timeline();
+
+    timeline
+      .to(headingRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+      })
+      .to(
+        descriptionRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+        },
+        '-=0.5'
+      )
+      .to(
+        imageRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power2.out',
+        },
+        '-=0.5'
+      )
+      .to(
+        buttonRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 2,
+          ease: 'power2.out',
+        },
+        '-=0.5'
+      );
+  }, []);
+
   const cardBoxStyle = {
     alignItems: 'center',
     flexDirection: 'column',
@@ -67,20 +117,36 @@ export default function DashBoardPage() {
               },
             }}
           >
-            <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'var(--text-title)', mb: 5 }}>
+            <Typography
+              ref={headingRef}
+              variant="h3"
+              sx={{
+                opacity: 0,
+                transform: 'translateY(20px)',
+                fontWeight: 'bold',
+                color: 'var(--text-title)',
+                mb: 5,
+              }}
+            >
               What feels small... <br /> can hurt big.
             </Typography>
 
-            <Typography sx={{ color: 'var(--text-body)' }}>
+            <Typography
+              ref={descriptionRef}
+              sx={{ opacity: 0, transform: 'translateY(20px)', color: 'var(--text-body)' }}
+            >
               Our Message Analyser helps identify cyberbullying, understand its emotional impact,
               and find ways to respond.
             </Typography>
 
             <Button
+              ref={buttonRef}
               variant="contained"
               onClick={() => navigate('/assessment')}
               endIcon={<ArrowForwardIcon />}
               sx={{
+                opacity: 0,
+                transform: 'translateY(20px)',
                 backgroundColor: '#f89b5e',
                 color: 'white',
                 borderRadius: '25px',
@@ -109,9 +175,12 @@ export default function DashBoardPage() {
             }}
           >
             <Box
+              ref={imageRef}
               component="img"
               src="/l_image.png"
               sx={{
+                opacity: 0,
+                transform: 'translateY(20px)',
                 maxWidth: {
                   xs: '90%',
                   sm: '70%',
