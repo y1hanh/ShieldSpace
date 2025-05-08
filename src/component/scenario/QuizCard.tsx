@@ -37,7 +37,6 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
             left: 0,
             right: 0,
             bottom: 0,
-            // backgroundColor: 'rgba(0,0,0,0.1)',
             transition: 'background-color 0.2s',
           },
           '&:hover::after': {
@@ -61,7 +60,7 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
           padding: { xs: '8px', sm: '10px' },
           backgroundColor: '#4B3F72',
           color: 'white',
-          height: { xs: '50px', sm: '50px', md: '60px' },
+          height: { xs: '60px', sm: '60px', md: '70px' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
