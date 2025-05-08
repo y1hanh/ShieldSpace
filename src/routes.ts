@@ -76,7 +76,7 @@ export const routes: routesArray[] = [
   },
   {
     path: '/resources',
-    name: 'Scenario quiz',
+    name: 'Scenarios',
   },
   {
     path: '/community',
