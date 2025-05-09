@@ -79,7 +79,8 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
           xs: '70%',
           sm: '100%',
         },
-        mx: 'auto',
+        ml: 0,
+        mr: 'auto',
       }}
     >
       {/* Message */}
