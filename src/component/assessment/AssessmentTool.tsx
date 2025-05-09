@@ -176,7 +176,7 @@ export default function AssessmentTool() {
           }}
         /> */}
 
-        {/* Chip 2 */}
+        {/* Chip 2
         <Chip
           label={
             <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
@@ -201,7 +201,7 @@ export default function AssessmentTool() {
         />
 
         {/* Chip 3 */}
-        <Chip
+        {/* <Chip
           label={
             <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
               <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
@@ -222,7 +222,7 @@ export default function AssessmentTool() {
             boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
             cursor: 'pointer', // Ensure pointer cursor
           }}
-        />
+        />  */}
       </Box>
     </Box>
   );

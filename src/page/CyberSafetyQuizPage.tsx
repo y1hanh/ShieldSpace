@@ -68,7 +68,7 @@ export default function CyberSafetyQuiz() {
 
   const questions: Question[] = [
     {
-      text: 'How did this message make you feel?',
+      text: 'what is your first reaction to this message?',
       options: [
         { label: '😃 Happy', value: '1' },
         { label: '😐 Confused', value: '2' },
@@ -128,6 +128,8 @@ export default function CyberSafetyQuiz() {
     const updatedPoints = totalPoints + getPointValue(currentQuestionKey, selectedAnswer);
 
     if (currentStep === questions.length - 1) {
+      // TODO: save updatedAnswers
+      console.log('Final Answers:', updatedAnswers);
       setAnswers(updatedAnswers);
       setTotalPoints(updatedPoints);
       finishQuiz(updatedAnswers, updatedPoints);
@@ -352,7 +354,7 @@ export default function CyberSafetyQuiz() {
           }}
         >
           <Typography variant="h5" fontWeight="bold">
-            Cyber Safety Quiz
+            We would like to hear your feelings
           </Typography>
           <Box mt={1}>
             <LinearProgress
@@ -366,7 +368,7 @@ export default function CyberSafetyQuiz() {
               }}
             />
             <Typography variant="caption">
-              {`Question ${currentStep + 1}/${questions.length}`} - {Math.round(progressPercent)}%
+              {`Steps ${currentStep + 1}/${questions.length}`} - {Math.round(progressPercent)}%
               Complete
             </Typography>
           </Box>
@@ -455,7 +457,7 @@ export default function CyberSafetyQuiz() {
 
               {/* Title */}
               <Typography variant="h4" sx={{ mb: 2, color: '#7C4DFF', fontWeight: 'bold' }}>
-                Quiz Completed!
+                Completed!
               </Typography>
 
               {/* Final feedback in a soft box */}
