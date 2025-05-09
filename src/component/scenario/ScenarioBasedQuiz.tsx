@@ -171,7 +171,7 @@ export default function ScenarioBasedQuiz() {
               },
             }}
           >
-            Quiz Completed!
+            Completed!
           </Typography>
 
           <Typography

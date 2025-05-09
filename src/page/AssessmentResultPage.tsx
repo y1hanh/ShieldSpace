@@ -67,28 +67,9 @@ export default function ResultsPage() {
                   },
                 }}
               >
-                Start Quiz
+                Start
               </Button>
             </Box>
-
-            <Button
-              onClick={() => navigate('/')}
-              sx={{
-                mt: 2,
-                background: 'none',
-                color: '#7C4DFF',
-                textTransform: 'none',
-                fontWeight: 400,
-                fontSize: '0.85rem',
-                textDecoration: 'underline',
-                '&:hover': {
-                  color: '#5E35B1',
-                  background: 'transparent',
-                },
-              }}
-            >
-              👉 Back to Home Page
-            </Button>
           </Box>
         </Box>
       }

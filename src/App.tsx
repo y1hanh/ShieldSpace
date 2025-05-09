@@ -7,9 +7,10 @@ import { useAuth } from './slice/authSlice';
 import Footer from './component/Footer';
 
 function App() {
-  const { secure } = useAuth();
+  // const { secure } = useAuth();
 
-  return secure ? (
+  // return secure ?
+  return (
     <div className="App">
       <Box
         className="bg-primary"
@@ -46,8 +47,8 @@ function App() {
         <Footer />
       </Box>
     </div>
-  ) : (
-    <SecurePage></SecurePage>
+    // ) : (
+    //   <SecurePage></SecurePage>
   );
 }
 
