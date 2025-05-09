@@ -553,6 +553,7 @@ export default function CyberSafetyQuiz() {
                                 listStyle: 'none',
                                 position: 'relative',
                                 paddingLeft: '25px',
+                                fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                               }}
                             >
                               <span
@@ -576,6 +577,7 @@ export default function CyberSafetyQuiz() {
                                 listStyle: 'none',
                                 position: 'relative',
                                 paddingLeft: '25px',
+                                fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                               }}
                             >
                               <span
@@ -602,7 +604,7 @@ export default function CyberSafetyQuiz() {
                     </Typography>
                     <ul style={{ paddingLeft: '1.5rem' }}>
                       {tips.map((tip, index) => (
-                        <li key={index} style={{ marginBottom: '10px', lineHeight: '1.6' }}>
+                        <li key={index} style={{ fontSize: '1rem',marginBottom: '10px', lineHeight: '1.6', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' }}>
                           {tip}
                         </li>
                       ))}
