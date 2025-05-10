@@ -29,6 +29,7 @@ function App() {
       <Box
         sx={{
           marginTop: '4rem',
+          marginBottom: '4rem',
           mx: 'auto',
           background: 'var(--background)',
         }}

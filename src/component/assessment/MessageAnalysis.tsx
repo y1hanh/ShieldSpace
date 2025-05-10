@@ -30,10 +30,15 @@ const getLabelColor = (level: string, isBullying: boolean) => {
 };
 
 interface MessageAnalysisProps {
+  userInput: string;
+  analysisResult: string;
   resetAssessment: () => void;
 }
-const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
-  const { userInput, analysisResult } = useAssessment();
+export const MessageAnalysis = ({
+  resetAssessment,
+  analysisResult,
+  userInput,
+}: MessageAnalysisProps) => {
   interface AnalysisData {
     emotions: Record<string, number>;
     toxicity: { toxic: number };
@@ -74,25 +79,22 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
         backgroundColor: '#F7FAFD',
         borderRadius: '1rem',
         p: 4,
-        maxWidth: '500px',
         width: {
           xs: '70%',
-          sm: '100%',
+          sm: '90%',
         },
-        ml: 0,
-        mr: 'auto',
         opacity: 0,
         animation: 'fadeIn 1s ease-in forwards',
         '@keyframes fadeIn': {
           '0%': {
             opacity: 0,
-            transform: 'translateX(-20px)'
+            transform: 'translateX(-20px)',
           },
           '100%': {
             opacity: 1,
-            transform: 'translateX(0)'
-          }
-        }
+            transform: 'translateX(0)',
+          },
+        },
       }}
     >
       {/* Message */}
@@ -253,5 +255,3 @@ const MessageAnalysis = ({ resetAssessment }: MessageAnalysisProps) => {
     </Paper>
   );
 };
-
-export default MessageAnalysis;

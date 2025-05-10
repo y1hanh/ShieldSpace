@@ -2,9 +2,9 @@ import { Box, Button, Typography, Container } from '@mui/material';
 import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
-import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
+import LazyLoadComponent from '../component/LazyLoadComponent';
 import gsap from 'gsap';
-import { Ref, RefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function DashBoardPage() {
   // Animation refs
