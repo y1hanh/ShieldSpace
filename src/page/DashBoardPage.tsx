@@ -120,7 +120,7 @@ export default function DashBoardPage() {
           >
             <Typography
               ref={headingRef}
-              variant="h3"
+              variant="h4"
               sx={{
                 opacity: 0,
                 transform: 'translateY(20px)',
@@ -133,36 +133,7 @@ export default function DashBoardPage() {
               We help you spot bullying in messages <br /> — and stand up to it.
             </Typography>
 
-            <Typography
-              ref={descriptionRef}
-              sx={{ opacity: 0, transform: 'translateY(20px)', color: 'var(--text-body)' }}
-            >
-              Our Message Analyser helps identify cyberbullying, understand its emotional impact,
-              and find ways to respond.
-            </Typography>
-
-            <Button
-              ref={buttonRef}
-              variant="contained"
-              onClick={() => navigate('/assessment')}
-              endIcon={<ArrowForwardIcon />}
-              sx={{
-                opacity: 0,
-                transform: 'translateY(20px)',
-                backgroundColor: '#f89b5e',
-                color: 'white',
-                borderRadius: '25px',
-                px: 4,
-                py: 1,
-                mt: 2,
-                textTransform: 'none',
-                '&:hover': {
-                  backgroundColor: 'var(--highlight)',
-                },
-              }}
-            >
-              Get Started
-            </Button>
+            
           </Box>
 
           {/* Image section */}
@@ -229,7 +200,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -250,7 +221,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 1 }}
+              transition={{ duration: 0.8, delay: 1 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -270,7 +241,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 2 }}
+              transition={{ duration: 0.8, delay: 2 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -306,6 +277,45 @@ export default function DashBoardPage() {
               colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
             />
           </LazyLoadComponent>
+        </Box>
+      </Container>
+      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#f5f5f5', mx: 'auto'  }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
+          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 2 }}>
+            Is Someone Being Unkind? Let's Check Together!
+          </Typography>
+          
+          <Typography
+            ref={descriptionRef}
+            sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}
+          >
+            Our friendly Message Helper can spot when someone's not being nice in messages.
+            It helps you understand how it might make you feel and shows you what you can do about it! 
+          </Typography>
+
+          <Button
+            ref={buttonRef}
+            variant="contained"
+            onClick={() => navigate('/assessment')}
+            endIcon={<ArrowForwardIcon />}
+            sx={{
+              backgroundColor: '#f89b5e',
+              color: 'white',
+              borderRadius: '25px',
+              px: 4,
+              py: 1.5,
+              mt: 3,
+              fontSize: '1.1rem',
+              textTransform: 'none',
+              fontWeight: 600,
+              '&:hover': {
+                backgroundColor: 'var(--highlight)',
+                transform: 'scale(1.05)',
+              },
+            }}
+          >
+            Let's Go!
+          </Button>
         </Box>
       </Container>
     </>
