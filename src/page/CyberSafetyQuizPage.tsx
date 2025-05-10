@@ -629,7 +629,7 @@ export default function CyberSafetyQuiz() {
                   Home Page
                 </StyledButton>
                 <StyledButton onClick={() => navigate('/resources')} bgColor="#43A047">
-                  🧾 More quizzes
+                  🧾 Scenario Challenge
                 </StyledButton>
                 <StyledButton onClick={() => navigate('/analytics')} bgColor="#1E88E5">
                   📈 Analytics

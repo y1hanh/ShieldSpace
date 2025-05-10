@@ -1,6 +1,9 @@
 import { Box, Typography, Button, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import PageLayoutBox from '../component/PageLayOutBox';
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
+import SchoolIcon from '@mui/icons-material/School';
+import PeopleIcon from '@mui/icons-material/People';
 
 const edu_cards = [
   {
@@ -99,7 +102,7 @@ const sup_cards = [
     points: [
       'Workshops on cyberbullying and digital safety.',
       'Focus on kindness, resilience, and safer online spaces.',
-      'Inspired by Dolly Everett’s legacy to raise awareness.',
+      "Inspired by Dolly Everett's legacy to raise awareness.",
     ],
   },
 ];
@@ -122,8 +125,8 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
         height: {
           xs: '100%',
           sm: '100%',
-          md: 400,
-          lg: 400,
+          md: 430,
+          lg: 430,
         },
         display: 'flex',
         flexDirection: 'column',
@@ -132,9 +135,12 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
         gap: 1,
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        backgroundColor: '#FFFFFF',
+        border: '2px solid transparent',
         '&:hover': {
           transform: 'translateY(-5px)',
           boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
+          border: `2px solid ${buttonColor}`,
         },
       }}
     >
@@ -144,6 +150,16 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
           flex: '0 0 35%',
           width: '100%',
           overflow: 'hidden',
+          position: 'relative',
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '30%',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.1), transparent)',
+          }
         }}
       >
         <Box
@@ -166,33 +182,37 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
           padding: 2,
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'space-between'
         }}
       >
         <Box sx={{ textAlign: 'left' }}>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700, color: '#4A4A6A' }}>
             {card.subtitle}
           </Typography>
-          <Typography variant="subtitle2" sx={{ color: '#777', mb: 1 }}>
+          <Typography variant="subtitle2" sx={{ color: buttonColor, mb: 1, fontWeight: 600 }}>
             {card.source}
           </Typography>
 
           <List dense disablePadding>
             {card.points.map((point: string, idx: number) => (
-              <ListItem key={idx} disableGutters sx={{ alignItems: 'center' }}>
+              <ListItem key={idx} disableGutters sx={{ alignItems: 'flex-start', mb: 0.5 }}>
                 <ListItemIcon
                   sx={{
                     minWidth: 20,
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    alignItems: 'flex-start',
+                    pt: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: 8, color: '#F45B48' }} />
+                  <FiberManualRecordIcon sx={{ fontSize: 8, color: buttonColor }} />
                 </ListItemIcon>
                 <ListItemText
                   slotProps={{
                     primary: {
-                      fontSize: '0.8rem',
+                      fontSize: '0.9rem',
+                      color: '#555',
+                      lineHeight: 1.4,
                     },
                   }}
                 >
@@ -204,26 +224,29 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
         </Box>
 
         {/* Button */}
-        <Button
-          variant="contained"
-          size="small"
-          href={card.link}
-          target="_blank"
-          sx={{
-            backgroundColor: buttonColor,
-            borderRadius: '20px',
-            textTransform: 'none',
-            px: 2,
-            mt: 1,
-            mb: 2,
-            alignSelf: 'center',
-            '&:hover': {
-              backgroundColor: '#d84a3b',
-            },
-          }}
-        >
-          Learn more
-        </Button>
+        <Box sx={{ mt: 'auto', pt: 2 }}>
+          <Button
+            variant="contained"
+            size="small"
+            href={card.link}
+            target="_blank"
+            sx={{
+              backgroundColor: buttonColor,
+              borderRadius: '20px',
+              textTransform: 'none',
+              mb: 4,
+              px: 2,
+              alignSelf: 'center',
+              fontWeight: 600,
+              '&:hover': {
+                backgroundColor: buttonColor,
+                transform: 'scale(1.05)',
+              },
+            }}
+          >
+            Learn more
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
@@ -234,15 +257,23 @@ export default function CommunityPage() {
   return (
     <PageLayoutBox
       header={
-        <>
-          <Typography variant="h4" sx={{ color: '#4A4A6A', fontWeight: 600, mb: 3 }}>
-            Resources & Community
-          </Typography>
-          <Typography fontWeight={600} sx={{ color: '#7A7A9D', mb: 4 }}>
+        <Box sx={{ 
+          background: 'linear-gradient(135deg, #FFE5E5 0%, #E6E0F4 100%)', 
+          p: 4, 
+          borderRadius: '16px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+        }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
+            <EmojiObjectsIcon sx={{ fontSize: 32, color: '#6A4CA7', mr: 2 }} />
+            <Typography variant="h4" sx={{ color: '#4A4A6A', fontWeight: 700 }}>
+              Resources & Community
+            </Typography>
+          </Box>
+          <Typography variant="h6" sx={{ color: '#6A4CA7', fontWeight: 600, lineHeight: 1.6 }}>
             Access trusted resources, find support, and join a community dedicated to creating safer
             online spaces for everyone.
           </Typography>
-        </>
+        </Box>
       }
     >
       {/* Educational Resources Section */}
@@ -262,31 +293,33 @@ export default function CommunityPage() {
             borderRadius: '16px',
             mx: 'auto',
             textAlign: 'center',
+            backgroundColor: '#F8F9FF',
           }}
         >
-          <Box textAlign="center" mt={1}>
-            <Typography sx={{ color: '#333333', fontSize: '2rem', mb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+            <SchoolIcon sx={{ fontSize: 32, color: '#F45B48', mr: 2 }} />
+            <Typography sx={{ color: '#4A4A6A', fontSize: '2rem', fontWeight: 700 }}>
               Educational Resources
             </Typography>
-            <Typography sx={{ color: '#7A7A9D' }} fontWeight={600}>
-              Empower yourself with knowledge and tools to recognize, prevent, and respond to
-              bullying.
-            </Typography>
+          </Box>
+          <Typography sx={{ color: '#6A4CA7', fontSize: '1.1rem', mb: 3 }} fontWeight={600}>
+            Empower yourself with knowledge and tools to recognize, prevent, and respond to
+            bullying.
+          </Typography>
 
-            <Box
-              sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: 4,
-                mt: 4,
-                mb: 4,
-              }}
-            >
-              {edu_cards.map((card, index) => (
-                <ResourceCard key={index} card={card} buttonColor="#f45b48" />
-              ))}
-            </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 4,
+              mt: 4,
+              mb: 4,
+            }}
+          >
+            {edu_cards.map((card, index) => (
+              <ResourceCard key={index} card={card} buttonColor="#f45b48" />
+            ))}
           </Box>
         </Box>
       </Box>
@@ -308,29 +341,31 @@ export default function CommunityPage() {
             borderRadius: '16px',
             mx: 'auto',
             textAlign: 'center',
+            backgroundColor: '#F8F9FF',
           }}
         >
-          <Box textAlign="center" mt={1}>
-            <Typography sx={{ color: '#333333', fontSize: '2rem', mb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+            <PeopleIcon sx={{ fontSize: 32, color: '#6A4CA7', mr: 2 }} />
+            <Typography sx={{ color: '#4A4A6A', fontSize: '2rem', fontWeight: 700 }}>
               Support Communities
             </Typography>
-            <Typography sx={{ color: '#7A7A9D' }} fontWeight={600}>
-              Connect with others who understand your experiences and get practical support.
-            </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: 4,
-                mt: 4,
-                mb: 4,
-              }}
-            >
-              {sup_cards.map((card, index) => (
-                <ResourceCard key={index} card={card} buttonColor="#6A4CA7" />
-              ))}
-            </Box>
+          </Box>
+          <Typography sx={{ color: '#6A4CA7', fontSize: '1.1rem', mb: 3 }} fontWeight={600}>
+            Connect with others who understand your experiences and get practical support.
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 4,
+              mt: 4,
+              mb: 4,
+            }}
+          >
+            {sup_cards.map((card, index) => (
+              <ResourceCard key={index} card={card} buttonColor="#6A4CA7" />
+            ))}
           </Box>
         </Box>
       </Box>

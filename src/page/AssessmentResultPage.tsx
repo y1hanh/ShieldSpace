@@ -19,7 +19,7 @@ export default function ResultsPage() {
 
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4} textAlign="center">
+      <Typography variant="h4" fontWeight="bold" color="#4B4072" mt={10} mb={4} textAlign="center">
         Insights
       </Typography>
 
@@ -27,16 +27,27 @@ export default function ResultsPage() {
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          width: '100%',
-          minHeight: '400px', // Set a minimum height for the container
+           width: {
+            xs: '100%',
+            md: '100%'
+          },
+          minHeight: '400px', 
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          mx: 'auto',
         }}
       >
         <Box
           sx={{
-            width: '50%',
+            width: {
+              xs: '100%',
+              md: '50%'
+            },
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <MessageAnalysis
@@ -47,7 +58,10 @@ export default function ResultsPage() {
         </Box>
         <Box
           sx={{
-            width: '50%',
+            width: {
+              xs: '100%',
+              md: '50%'
+            },
             height: '100%',
             display: 'flex',
             flexDirection: 'column',

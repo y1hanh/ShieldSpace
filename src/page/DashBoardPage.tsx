@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import LazyLoadComponent from '../component/LazyLoadComponent';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 export default function DashBoardPage() {
   // Animation refs
@@ -126,9 +127,10 @@ export default function DashBoardPage() {
                 fontWeight: 'bold',
                 color: 'var(--text-title)',
                 mb: 5,
+                transition: 'all 1s ease-out',
               }}
             >
-              What feels small... <br /> can hurt big.
+              We help you spot bullying in messages <br /> — and stand up to it.
             </Typography>
 
             <Typography
@@ -223,7 +225,14 @@ export default function DashBoardPage() {
             }}
           >
             {/* Card 1 */}
-            <Box sx={cardBoxStyle}>
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              viewport={{ once: true }}
+              sx={cardBoxStyle}
+            >
               <Typography variant="h5" sx={contentBoxTitle}>
                 A regular Scroll
               </Typography>
@@ -237,7 +246,14 @@ export default function DashBoardPage() {
             </Box>
 
             {/* Card 2 */}
-            <Box sx={cardBoxStyle}>
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+              viewport={{ once: true }}
+              sx={cardBoxStyle}
+            >
               <Typography variant="h5" sx={contentBoxTitle}>
                 The shift
               </Typography>
@@ -250,7 +266,14 @@ export default function DashBoardPage() {
             </Box>
 
             {/* Card 3 */}
-            <Box sx={cardBoxStyle}>
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 2 }}
+              viewport={{ once: true }}
+              sx={cardBoxStyle}
+            >
               <Typography variant="h5" sx={contentBoxTitle}>
                 Taking Action
               </Typography>
