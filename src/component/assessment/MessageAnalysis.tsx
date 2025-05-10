@@ -127,14 +127,14 @@ export const MessageAnalysis = ({
           <>
             <ErrorIcon sx={{ color: '#e53935' }} />
             <Typography color="#e53935" fontWeight={600}>
-              It is probably bullying
+              Uh oh! This message doesn't seem very nice
             </Typography>
           </>
         ) : (
           <>
             <CheckCircleIcon sx={{ color: '#43a047' }} />
             <Typography color="#43a047" fontWeight={600}>
-              You are not being bullied
+              This message looks okay and safe
             </Typography>
           </>
         )}
