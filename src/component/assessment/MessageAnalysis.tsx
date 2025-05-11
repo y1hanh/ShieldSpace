@@ -98,10 +98,16 @@ export const MessageAnalysis = ({
       }}
     >
       {/* Message */}
-      <Typography fontSize="0.95rem" color="text.secondary" mb={0.5} textAlign="left">
+      <Typography
+        fontSize="1.5rem"
+        color="#4B4072"
+        fontWeight="bold"
+        mb={1}
+        textAlign="left"
+      >
         Message Analyzed:
       </Typography>
-      <Typography fontSize="0.95rem" color="text.secondary" mb={2} textAlign="left" pl={2}>
+      <Typography fontSize="1.2rem" color="text.secondary" mb={3} textAlign="left" pl={2}>
         "{text}"
       </Typography>
 
@@ -121,21 +127,21 @@ export const MessageAnalysis = ({
           <>
             <ErrorIcon sx={{ color: '#e53935' }} />
             <Typography color="#e53935" fontWeight={600}>
-              It is probably bullying
+              Uh oh! This message doesn't seem very nice
             </Typography>
           </>
         ) : (
           <>
             <CheckCircleIcon sx={{ color: '#43a047' }} />
             <Typography color="#43a047" fontWeight={600}>
-              You are not being bullied
+              This message looks okay and safe
             </Typography>
           </>
         )}
       </Box>
 
       {/* Emotion Analysis */}
-      <Typography fontWeight={600} mb={1} textAlign="left">
+      <Typography fontWeight={600} mb={2} textAlign="left">
         Emotion Analysis:
       </Typography>
       {sortedEmotions.map(({ name, value }) => {
@@ -146,7 +152,7 @@ export const MessageAnalysis = ({
         return (
           <Box
             key={name}
-            sx={{ display: 'flex', alignItems: 'center', mb: 1, justifyContent: 'space-between' }}
+            sx={{ display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'space-between' }}
           >
             <Box sx={{ width: '120px', textAlign: 'left' }}>
               {name.charAt(0).toUpperCase() + name.slice(1)}
@@ -192,7 +198,7 @@ export const MessageAnalysis = ({
 
       {/* Bias / Prejudice Section */}
       {bias && Object.keys(bias).length > 0 && (
-        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, gap: 1, flexWrap: 'wrap' }}>
           <Typography fontWeight={600}>Prejudice Detection:</Typography>
           {Object.entries(bias).map(([key, value]) => (
             <Chip
@@ -212,10 +218,10 @@ export const MessageAnalysis = ({
 
       {/* Toxicity Section */}
       <Box mt={2} sx={{ textAlign: 'left' }}>
-        <Typography fontWeight={600} mb={1}>
+        <Typography fontWeight={600} mb={2}>
           Toxicity Analysis:
         </Typography>
-        <Typography variant="body2" mb={1}>
+        <Typography variant="body2" mb={2}>
           Toxicity Level:{' '}
           <span
             style={{
@@ -226,10 +232,46 @@ export const MessageAnalysis = ({
             {isBullying ? 'Highly Concerning' : 'Not Concerning'}
           </span>
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {isBullying
-            ? 'Detected Tags: Direct insult, Negative characterization'
-            : 'Detected Tags: No critical flags'}
+        <Typography variant="body2" >
+          {isBullying ? (
+            <>
+              🚩 Detected Tags:{' '}
+              <Chip 
+                label="Direct insult"
+                size="small"
+                sx={{
+                  backgroundColor: '#ffcdd2',
+                  color: '#c62828',
+                  fontWeight: 600,
+                  mx: 0.5
+                }}
+              />,{' '}
+              <Chip
+                label="Negative characterization" 
+                size="small"
+                sx={{
+                  backgroundColor: '#ffcdd2',
+                  color: '#c62828',
+                  fontWeight: 600,
+                  mx: 0.5
+                }}
+              />
+            </>
+          ) : (
+            <>
+              👍 Detected Tags:{' '}
+              <Chip
+                label="No critical flags"
+                size="small" 
+                sx={{
+                  backgroundColor: '#c8e6c9',
+                  color: '#2e7d32',
+                  fontWeight: 600,
+                  mx: 0.5
+                }}
+              />
+            </>
+          )}
         </Typography>
       </Box>
 

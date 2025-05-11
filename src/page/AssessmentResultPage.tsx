@@ -22,7 +22,7 @@ export default function ResultsPage() {
 
   return userInput ? (
     <Box>
-      <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={4} textAlign="center">
+      <Typography variant="h4" fontWeight="bold" color="#4B4072" mt={10} mb={4} textAlign="center">
         Insights
       </Typography>
 

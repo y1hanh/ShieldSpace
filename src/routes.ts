@@ -68,7 +68,7 @@ export const routes: routesArray[] = [
   },
   {
     path: '/assessment',
-    name: 'Assessment',
+    name: 'Analyser',
   },
   {
     path: '/analytics',
