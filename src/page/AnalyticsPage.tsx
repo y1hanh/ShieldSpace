@@ -4,7 +4,7 @@ import OrientationChart from '../component/visualizations/OrientationChart';
 import ReligionBarChart from '../component/visualizations/ReligionBarChart';
 import MiscellaneousStack from '../component/visualizations/MiscellaneousStack';
 import AnalyticsStoryTelling from '../component/visualizations/AnalyticsStoryTelling';
-import LazyLoadComponent from '../component/assessment/LazyLoadComponent';
+import LazyLoadComponent from '../component/LazyLoadComponent';
 import BentoLayout from '../component/layout/BentoLayout';
 import {
   // age_summary,
