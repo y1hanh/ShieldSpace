@@ -293,7 +293,7 @@ export default function CommunityPage() {
             borderRadius: '16px',
             mx: 'auto',
             textAlign: 'center',
-            backgroundColor: '#F8F9FF',
+            backgroundColor: '#F4F1FA',
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
@@ -341,7 +341,7 @@ export default function CommunityPage() {
             borderRadius: '16px',
             mx: 'auto',
             textAlign: 'center',
-            backgroundColor: '#F8F9FF',
+            backgroundColor: '#F4F1FA',
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>

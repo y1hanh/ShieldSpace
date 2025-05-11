@@ -279,7 +279,7 @@ export default function DashBoardPage() {
           </LazyLoadComponent>
         </Box>
       </Container>
-      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#f5f5f5', mx: 'auto'  }}>
+      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#F4F1FA', mx: 'auto'  }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
           <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 2 }}>
             Is Someone Being Unkind? Let's Check Together!
