@@ -7,7 +7,7 @@ function fetchWithSecureToken(path: string, method: Methond = 'GET', options: Re
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhMzAiLCJwYXNzd29yZCI6ImZpdDUxMjB0YTMwIiwiaWF0IjoxNzQ2ODM2ODkyLCJleHAiOjE3NDY4NzI4OTJ9.RwdAJpXuHv1DFOFfUCGdPS8hCDcvDt0wM2L_TsfI_XI`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhMzAiLCJwYXNzd29yZCI6ImZpdDUxMjB0YTMwIiwiaWF0IjoxNzQ2OTQzODM1LCJleHAiOjE3NDY5Nzk4MzV9.8SNF4vPZMXM1M9oSaY1tomzFZaQTOJRPYT8Pzh4tubk`,
       // ${localStorage.getItem('token')}`,
     },
   };
@@ -61,6 +61,25 @@ export const getEmotions = async (input: { user_input: string }) => {
 
   try {
     const response = await fetchWithSecureToken('model/emotions', 'POST', body);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching bullying data:', error);
+    throw error;
+  }
+};
+
+export const getActionPlan = async (input: { user_input: string }) => {
+  const body = {
+    body: JSON.stringify(input),
+  };
+
+  try {
+    const response = await fetchWithSecureToken('ai/action', 'POST', body);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');

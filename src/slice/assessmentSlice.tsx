@@ -1,10 +1,13 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, use, useContext, useEffect, useState } from 'react';
+import { getActionPlan } from '../api';
 
 type AssessmentContextType = {
   userInput: string;
-  analysisResult: any; // todo
+  analysisResult: any;
   setUserInput: (input: string) => void;
-  setAnalysisResult: (result: any) => void; // todo
+  setAnalysisResult: (result: any) => void;
+  actionPlan: ActionPlanType;
+  setActionPlan: (plan: ActionPlanType) => void;
 };
 
 type AnalysisResultType = {
@@ -13,10 +16,34 @@ type AnalysisResultType = {
   emotions: Record<string, number>;
   trigger_emotion: string;
 };
+
+type ActionPlanType =
+  | {
+      'immediate-action': string[];
+      'long-term-skills': string[];
+    }
+  | 'error';
 const assessmentContext = createContext<AssessmentContextType>(undefined);
 export function assessmentSlice({ children }: { children: React.ReactNode }) {
   const [userInput, setUserInput] = useState<string>('');
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResultType>();
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResultType>(null);
+  const [actionPlan, setActionPlan] = useState<ActionPlanType>();
+
+  useEffect(() => {
+    const fetchActionPlan = async () => {
+      setActionPlan(null);
+      if (userInput) {
+        try {
+          const response = await getActionPlan({ user_input: userInput });
+          setActionPlan(response);
+        } catch (error) {
+          setActionPlan('error');
+          console.error('Error fetching action plan:', error);
+        }
+      }
+    };
+    fetchActionPlan();
+  }, [userInput]);
 
   return (
     <assessmentContext.Provider
@@ -25,6 +52,8 @@ export function assessmentSlice({ children }: { children: React.ReactNode }) {
         setUserInput,
         analysisResult,
         setAnalysisResult,
+        actionPlan,
+        setActionPlan,
       }}
     >
       {children}
