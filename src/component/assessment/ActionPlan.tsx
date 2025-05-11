@@ -1,70 +1,30 @@
-import {
-  Paper,
-  Box,
-  Typography,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Button,
-  Fade,
-} from '@mui/material';
+import { Paper, Box, Typography, List, ListItem, ListItemText, Button, Fade } from '@mui/material';
 import Lottie from 'lottie-react';
 import animationData from '../../animations/loading_animation.json';
 import { useState, useEffect } from 'react';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import BlockIcon from '@mui/icons-material/Block';
-import PsychologyIcon from '@mui/icons-material/Psychology';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
-import PeopleIcon from '@mui/icons-material/People';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useAssessment } from '../../slice/assessmentSlice';
+import { icons } from './icons';
+import { Sparkles } from 'lucide-react';
 
-export function ActionPlan({ userInput }: { userInput: string }) {
-  const [loading, setLoading] = useState(true);
+export function ActionPlan() {
+  const [loading, setLoading] = useState<LoadingStateType>('loading');
+  const { actionPlan } = useAssessment();
   const [activeView, setActiveView] = useState<'immediate' | 'longTerm'>('immediate');
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const mockData = {
-    'immediate-action': [
-      'Acknowledge Feelings: "It\'s okay to feel upset or angry about this message. Your feelings are valid."',
-      'Self-Compassion: "Remember, this person\'s words don\'t define your worth or abilities. You are capable and valuable."',
-      'Take a Break: "Step away from the screen. Do something you enjoy, like listening to music or talking to someone you trust."',
-      'Report/Block: "Report the comment to the platform and block the user to prevent further interaction."',
-    ],
-    'long-term-skills': [
-      'Challenge Negative Thoughts: "Recognize that stereotypes are harmful and untrue. Challenge the idea that girls shouldn\'t code by focusing on your own skills and interests."',
-      'Build Confidence: "Celebrate your achievements in coding and focus on your strengths. Surround yourself with supportive people who believe in you."',
-      'Develop Assertiveness: "Practice expressing your thoughts and feelings respectfully. Learn to stand up for yourself and others when faced with discrimination."',
-      'Seek Support: "Connect with online communities of female coders for encouragement and mentorship. Talk to trusted adults about your experiences."',
-    ],
-  };
-
-  const immediateIcons = [
-    <EmojiEmotionsIcon sx={{ color: '#FF9800' }} />,
-    <FavoriteIcon sx={{ color: '#E91E63' }} />,
-    <SportsEsportsIcon sx={{ color: '#2196F3' }} />,
-    <BlockIcon sx={{ color: '#F44336' }} />,
-  ];
-
-  const longTermIcons = [
-    <PsychologyIcon sx={{ color: '#9C27B0' }} />,
-    <EmojiEventsIcon sx={{ color: '#FFC107' }} />,
-    <RecordVoiceOverIcon sx={{ color: '#4CAF50' }} />,
-    <PeopleIcon sx={{ color: '#3F51B5' }} />,
-  ];
+    if (actionPlan && actionPlan !== 'error') {
+      setLoading('loaded');
+    }
+    if (actionPlan === 'error') {
+      setLoading('error');
+    }
+    console.log('actionPlan', actionPlan);
+  }, [actionPlan]);
 
   const simplifyText = (text: string) => {
-    const parts = text.split(': "');
+    const parts = text.split(':');
     const instruction = parts[0];
     const quote = parts.length > 1 ? parts[1].slice(0, -1) : '';
 
@@ -90,20 +50,30 @@ export function ActionPlan({ userInput }: { userInput: string }) {
         overflowY: 'auto',
       }}
     >
-      {loading ? (
-        <LoadingActionPlan />
+      {loading != 'loaded' ? (
+        <LoadingActionPlan loadingState={loading} />
       ) : (
         <Box>
           <Typography
             variant="h5"
             sx={{
-              color: '#4B4072',
+              color: 'var(--text-title)',
               fontWeight: 'bold',
               mb: 2,
               fontSize: '1.5rem',
             }}
           >
             Your Awesome Action Plan!
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: 'var(--text-body)',
+              mb: 2,
+              fontSize: '1rem',
+            }}
+          >
+            These ideas can help you feel better now and grow stronger in the future!
           </Typography>
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
@@ -117,7 +87,7 @@ export function ActionPlan({ userInput }: { userInput: string }) {
                 color: activeView === 'immediate' ? 'white' : '#FF9800',
                 '&:hover': {
                   backgroundColor:
-                    activeView === 'immediate' ? '#F57C00' : 'rgba(255, 152, 0, 0.1)',
+                    activeView === 'immediate' ? 'var(--highlight)' : 'rgba(255, 152, 0, 0.1)',
                 },
               }}
               onClick={() => setActiveView('immediate')}
@@ -146,7 +116,7 @@ export function ActionPlan({ userInput }: { userInput: string }) {
               <Typography
                 variant="h6"
                 sx={{
-                  backgroundColor: '#FF9800',
+                  backgroundColor: 'var(--highlight)',
                   color: 'white',
                   py: 1,
                   px: 2,
@@ -155,22 +125,34 @@ export function ActionPlan({ userInput }: { userInput: string }) {
                   fontSize: '1.2rem',
                 }}
               >
-                ⚡ Things You Can Do Right Now ⚡
+                ⚡ Things You Can Do Right Now
               </Typography>
 
               <List sx={{ bgcolor: '#FFF9C4', borderRadius: '0.5rem', mt: 1 }}>
-                {mockData['immediate-action'].map((action, index) => {
+                {actionPlan['immediate-action'].map((action, index) => {
                   const { instruction, quote } = simplifyText(action);
                   return (
                     <ListItem key={index} alignItems="flex-start" sx={{ py: 1 }}>
-                      <ListItemIcon sx={{ minWidth: '40px' }}>{immediateIcons[index]}</ListItemIcon>
                       <ListItemText
                         primary={
-                          <Typography sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                            {instruction}
-                          </Typography>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 1.5,
+                            }}
+                          >
+                            {index <= 3
+                              ? icons['immediate-action'][index]
+                              : icons['immediate-action'][0]}
+                            <Typography sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                              {instruction}
+                            </Typography>
+                          </Box>
                         }
-                        secondary={<Typography sx={{ fontSize: '0.9rem' }}>{quote}</Typography>}
+                        secondary={
+                          <Typography sx={{ fontSize: '0.9rem', ml: 4 }}>{quote}</Typography>
+                        }
                       />
                     </ListItem>
                   );
@@ -183,7 +165,7 @@ export function ActionPlan({ userInput }: { userInput: string }) {
                   endIcon={<ArrowForwardIcon />}
                   onClick={toggleView}
                   sx={{
-                    backgroundColor: '#4CAF50',
+                    backgroundColor: 'var(--highlight-secondary)',
                     '&:hover': { backgroundColor: '#388E3C' },
                     borderRadius: '20px',
                   }}
@@ -199,7 +181,7 @@ export function ActionPlan({ userInput }: { userInput: string }) {
               <Typography
                 variant="h6"
                 sx={{
-                  backgroundColor: '#4CAF50',
+                  backgroundColor: 'var(--highlight-secondary)',
                   color: 'white',
                   py: 1,
                   px: 2,
@@ -208,20 +190,30 @@ export function ActionPlan({ userInput }: { userInput: string }) {
                   fontSize: '1.2rem',
                 }}
               >
-                🌱 Super Skills to Grow 🌱
+                🌱 Super Skills to Grow
               </Typography>
 
               <List sx={{ bgcolor: '#E8F5E9', borderRadius: '0.5rem', mt: 1 }}>
-                {mockData['long-term-skills'].map((skill, index) => {
+                {actionPlan['long-term-skills'].map((skill, index) => {
                   const { instruction, quote } = simplifyText(skill);
                   return (
                     <ListItem key={index} alignItems="flex-start" sx={{ py: 1 }}>
-                      <ListItemIcon sx={{ minWidth: '40px' }}>{longTermIcons[index]}</ListItemIcon>
                       <ListItemText
                         primary={
-                          <Typography sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                            {instruction}
-                          </Typography>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 1.5,
+                            }}
+                          >
+                            {index <= 3
+                              ? icons['long-term-skills'][index]
+                              : icons['long-term-skills'][0]}
+                            <Typography sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                              {instruction}
+                            </Typography>
+                          </Box>
                         }
                         secondary={<Typography sx={{ fontSize: '0.9rem' }}>{quote}</Typography>}
                       />
@@ -236,7 +228,7 @@ export function ActionPlan({ userInput }: { userInput: string }) {
                   startIcon={<ArrowBackIcon />}
                   onClick={toggleView}
                   sx={{
-                    backgroundColor: '#FF9800',
+                    backgroundColor: 'var(--highlight)',
                     '&:hover': { backgroundColor: '#F57C00' },
                     borderRadius: '20px',
                   }}
@@ -252,8 +244,10 @@ export function ActionPlan({ userInput }: { userInput: string }) {
   );
 }
 
-function LoadingActionPlan() {
-  return (
+type LoadingStateType = 'loading' | 'loaded' | 'error';
+
+function LoadingActionPlan({ loadingState }: { loadingState: LoadingStateType }) {
+  return loadingState == 'loading' ? (
     <Box>
       <Typography variant="h5" color="var(--text-title)" mb={0.5} textAlign="left">
         We are preparing your action plan...
@@ -268,5 +262,25 @@ function LoadingActionPlan() {
         }}
       />
     </Box>
+  ) : (
+    loadingState == 'error' && (
+      <Box>
+        <Typography variant="h5" color="var(--text-title)" mb={0.5} textAlign="left">
+          Oops! Something went wrong while fetching your action plan.
+        </Typography>
+        <Typography variant="body1" color="var(--text-subtitle)" mb={2} textAlign="left">
+          Please try again later.
+        </Typography>
+        <Lottie
+          animationData={animationData}
+          loop={true}
+          style={{
+            width: '100%',
+            maxWidth: '400px',
+            maxHeight: '300px',
+          }}
+        />
+      </Box>
+    )
   );
 }

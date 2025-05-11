@@ -6,6 +6,7 @@
   --text-subtitle: rgb(22, 128, 115);
   --text-body: #555;
   --highlight:#f57c00;
+  --highlight-secondary: #4CAF50;
   }
   
   body {

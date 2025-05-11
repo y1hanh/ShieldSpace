@@ -72,3 +72,22 @@ export const getEmotions = async (input: { user_input: string }) => {
     throw error;
   }
 };
+
+export const getActionPlan = async (input: { user_input: string }) => {
+  const body = {
+    body: JSON.stringify(input),
+  };
+
+  try {
+    const response = await fetchWithSecureToken('ai/action', 'POST', body);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching bullying data:', error);
+    throw error;
+  }
+};

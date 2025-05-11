@@ -281,7 +281,7 @@ export const MessageAnalysis = ({
           onClick={resetAssessment}
           startIcon={<RestartAltIcon />}
           sx={{
-            backgroundColor: '#f89b5e',
+            backgroundColor: 'var(--highlight)',
             color: 'white',
             borderRadius: '25px',
             px: 4,
