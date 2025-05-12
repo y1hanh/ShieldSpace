@@ -4,6 +4,8 @@ import SendIcon from '@mui/icons-material/Send';
 import { getEmotions } from '../../api';
 import { useAssessment } from '../../slice/assessmentSlice';
 import { useNavigate } from 'react-router';
+import Lottie from 'lottie-react';
+import robot from '../../animations/robot.json';
 
 export default function AssessmentTool() {
   const [input, setInput] = useState('');
@@ -77,6 +79,34 @@ export default function AssessmentTool() {
           }}
         >
           <Box
+            sx={{
+              position: 'absolute',
+              left: {
+                xs: 'calc(100% - 100px)',
+                sm: 'calc(100% - 115px)',
+                md: 'calc(100% - 110px)',
+                lg: 'calc(100% - 110px)',
+              },
+              top: {
+                xs: 'calc(100% - 180px)',
+                sm: 'calc(100% - 220px)',
+                md: 'calc(100% - 280px)',
+                lg: 'calc(100% - 335px)',
+              },
+              width: {
+                xs: '180px',
+                sm: '250px',
+                md: '330px',
+                lg: '400px',
+              },
+              height: 'auto',
+              zIndex: 2,
+              pointerEvents: 'none',
+            }}
+          >
+            <Lottie animationData={robot} loop />
+          </Box>
+          {/* <Box
             component="img"
             src="/robot.png"
             alt="robot"
@@ -101,7 +131,7 @@ export default function AssessmentTool() {
               zIndex: 2,
               pointerEvents: 'none',
             }}
-          />
+          /> */}
 
           <Box
             sx={{
