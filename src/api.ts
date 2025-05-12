@@ -7,7 +7,7 @@ function fetchWithSecureToken(path: string, method: Methond = 'GET', options: Re
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhMzAiLCJwYXNzd29yZCI6ImZpdDUxMjB0YTMwIiwiaWF0IjoxNzQ2OTQzODM1LCJleHAiOjE3NDY5Nzk4MzV9.8SNF4vPZMXM1M9oSaY1tomzFZaQTOJRPYT8Pzh4tubk`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhMzAiLCJwYXNzd29yZCI6ImZpdDUxMjB0YTMwIiwiaWF0IjoxNzQ3MDE3MDAyLCJleHAiOjE3NDcxODk4MDJ9.hXKjZcKnBu8F9aj7_tWhBD3iajFGe-jX5NxGoQXC1TQ`,
       // ${localStorage.getItem('token')}`,
     },
   };
