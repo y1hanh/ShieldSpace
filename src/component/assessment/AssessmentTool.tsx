@@ -1,19 +1,47 @@
-import { useState } from 'react';
-import { Box, Typography, TextField, IconButton, Chip } from '@mui/material';
+import { useState, useRef } from 'react';
+import {
+  Box,
+  Typography,
+  TextField,
+  IconButton,
+  Tooltip,
+  Button,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Alert,
+} from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import ImageIcon from '@mui/icons-material/Image';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { getEmotions } from '../../api';
 import { useAssessment } from '../../slice/assessmentSlice';
 import { useNavigate } from 'react-router';
+import { ImageCrop } from './ImageCrop';
+import { debounce } from 'lodash';
+import alertAnimation from '../../animations/alert_animation.json';
+import Lottie from 'lottie-react';
+import { AlertDialog } from '../AlertDialog';
 
 export default function AssessmentTool() {
   const [input, setInput] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [editableText, setEditableText] = useState<string>('');
+  const [showTextConfirmation, setShowTextConfirmation] = useState<boolean>(false);
+  const [alertOpen, setAlertOpen] = useState<boolean>(false);
+  const [alertText, setAlertText] = useState<string>('');
+
   const navigate = useNavigate();
   const { setUserInput, setAnalysisResult } = useAssessment();
 
-  const handleSubmit = async () => {
+  const handleSubmit = debounce(async () => {
     const trimmed = input.trim();
     if (trimmed.length < 3) {
-      alert('Please enter at least 3 words.');
+      setAlertText('Please enter at least 3 words.');
+      setAlertOpen(true);
       return;
     }
 
@@ -25,8 +53,42 @@ export default function AssessmentTool() {
       navigate('/assessment-result');
     } catch (err) {
       console.error('Failed to submit', err);
-      alert('Submission failed.');
+      setAlertText('Submission failed.');
+      setAlertOpen(true);
     }
+  }, 500);
+
+  const triggerFileUpload = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const onTextExtracted = (text: string) => {
+    const cleanedText = text.trim().replace(/\s+/g, ' ');
+    if (cleanedText.length > 0) {
+      setEditableText(cleanedText);
+      setShowTextConfirmation(true);
+    } else {
+      setAlertOpen(true);
+      setAlertText(
+        'No text was detected in the image. Please try another image or type your message.'
+      );
+    }
+  };
+
+  const handleConfirmText = () => {
+    setInput(editableText);
+    setShowTextConfirmation(false);
+  };
+
+  const handleCancelText = () => {
+    setEditableText('');
+    setShowTextConfirmation(false);
+  };
+
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
   };
 
   return (
@@ -103,6 +165,9 @@ export default function AssessmentTool() {
             }}
           />
 
+          {/* Image preview area */}
+          <ImageCrop fileInputRef={fileInputRef} onTextExtracted={onTextExtracted} />
+
           <Box
             sx={{
               width: '90%',
@@ -117,32 +182,58 @@ export default function AssessmentTool() {
           >
             <TextField
               fullWidth
+              multiline
               placeholder="Type the message..."
               variant="standard"
               slotProps={{ input: { disableUnderline: true } }}
               value={input}
               onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit();
+                }
+              }}
               sx={{ fontSize: '1rem', p: 2 }}
             />
-            <IconButton
-              onClick={handleSubmit}
-              sx={{
-                backgroundColor: ' #FFA726',
-                color: '#fff',
-                ml: 1,
-                width: 48,
-                height: 48,
-                borderRadius: '50%',
-                cursor: 'pointer', // Ensure pointer cursor
-                boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                '&:hover': {
-                  backgroundColor: '#f57c00',
-                },
-              }}
-            >
-              <SendIcon />
-            </IconButton>
+
+            {/* image upload */}
+            <Tooltip title="Upload image">
+              <IconButton
+                onClick={triggerFileUpload}
+                sx={{
+                  color: '#9e9e9e',
+                  mx: 0.5,
+                  '&:hover': {
+                    color: '#757575',
+                  },
+                }}
+              >
+                <ImageIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Submit">
+              <IconButton
+                onClick={handleSubmit}
+                sx={{
+                  backgroundColor: ' #FFA726',
+                  color: '#fff',
+                  ml: 1,
+                  mr: 1,
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                  '&:hover': {
+                    backgroundColor: '#f57c00',
+                  },
+                }}
+              >
+                <SendIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Box>
       </Box>
@@ -153,77 +244,86 @@ export default function AssessmentTool() {
           justifyContent: 'center',
           flexWrap: 'wrap',
         }}
-      >
-        {/* Chip 1 */}
-        {/* <Chip
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-              <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
-                ☑️
-              </Box>
-              <Typography fontWeight="bold" fontSize="1.2rem" color="#4B4072">
-                Is it <br />
-                Bullying?
-              </Typography>
-            </Box>
-          }
-          sx={{
-            backgroundColor: 'rgb(232, 191, 240)',
-            borderRadius: '16px',
-            px: 3,
-            py: 6,
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-          }}
-        /> */}
+      ></Box>
 
-        {/* Chip 2
-        <Chip
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-              <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
-                💡
-              </Box>
-              <Typography fontWeight="bold" fontSize="1.2rem" color="#166">
-                How to <br />
-                Respond?
-              </Typography>
-            </Box>
-          }
-          onClick={() => navigate('/resources')}
-          sx={{
-            backgroundColor: '#E0F7FA',
-            borderRadius: '16px',
-            px: 3,
-            py: 6,
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-            cursor: 'pointer', // Ensure pointer cursor
-          }}
-        />
+      {/* Alert Dialog */}
+      <AlertDialog
+        alertOpen={alertOpen}
+        handleCloseAlert={handleCloseAlert}
+        title={'oops!'}
+        alertText={alertText}
+      />
 
-        {/* Chip 3 */}
-        {/* <Chip
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-              <Box component="span" sx={{ fontSize: '2rem', mr: 1, mt: 1 }}>
-                🧘‍♂️
-              </Box>
-              <Typography fontWeight="bold" fontSize="1.2rem" color="#4B4072">
-                Stay <br />
-                Calm Tips
-              </Typography>
-            </Box>
-          }
-          onClick={() => navigate('/coming-soon')}
-          sx={{
-            backgroundColor: '#FCE4EC',
-            borderRadius: '16px',
-            px: 3,
-            py: 6,
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-            cursor: 'pointer', // Ensure pointer cursor
-          }}
-        />  */}
-      </Box>
+      {/* Text Confirmation Dialog */}
+      <Dialog open={showTextConfirmation} onClose={handleCancelText} maxWidth="sm" fullWidth>
+        <Paper sx={{ p: 3 }}>
+          <Typography variant="h6" fontWeight="bold" color="var(--text-title)" mb={2}>
+            Text from Image
+          </Typography>
+
+          <Box
+            sx={{
+              bgcolor: '#f5f5f5',
+              p: 2,
+              borderRadius: 2,
+              border: '1px solid #e0e0e0',
+              mb: 3,
+            }}
+          >
+            <TextField
+              multiline
+              fullWidth
+              minRows={3}
+              maxRows={8}
+              variant="outlined"
+              value={editableText}
+              onChange={e => setEditableText(e.target.value)}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'white',
+                  '& fieldset': {
+                    borderColor: '#e0e0e0',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: 'var(--highlight)',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'var(--highlight)',
+                  },
+                },
+              }}
+            />
+          </Box>
+
+          <Typography variant="body2" color="text.secondary" mb={3}>
+            Is this text correct? You can use it as is, edit it, or try again.
+          </Typography>
+
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button
+              variant="outlined"
+              color="error"
+              startIcon={<CancelIcon />}
+              onClick={handleCancelText}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              variant="contained"
+              color="success"
+              startIcon={<CheckCircleIcon />}
+              onClick={handleConfirmText}
+              sx={{
+                bgcolor: 'var(--highlight)',
+                '&:hover': { bgcolor: '#F57C00' },
+              }}
+            >
+              Use This Text
+            </Button>
+          </Box>
+        </Paper>
+      </Dialog>
     </Box>
   );
 }
