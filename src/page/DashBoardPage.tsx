@@ -6,9 +6,9 @@ import LazyLoadComponent from '../component/LazyLoadComponent';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 export default function DashBoardPage() {
-  // Animation refs
   const headingRef = useRef(null);
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
@@ -133,7 +133,31 @@ export default function DashBoardPage() {
               We help you spot bullying in messages <br /> — and stand up to it.
             </Typography>
 
-            
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                mt: 3,
+                animation: 'bounce 2s infinite',
+                '@keyframes bounce': {
+                  '0%, 100%': {
+                    transform: 'translateY(0)',
+                  },
+                  '50%': {
+                    transform: 'translateY(8px)',
+                  },
+                },
+              }}
+              className="cursor-pointer"
+              onClick={() => {
+                document.getElementById('section-2')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              <Typography sx={{ mb: 1, color: 'var(--text-title)' }}>
+                See how cyberbullying affects us{' '}
+              </Typography>
+              <ArrowDownwardIcon sx={{ color: 'var(--text-title)' }} />
+            </Box>
           </Box>
 
           {/* Image section */}
@@ -141,7 +165,7 @@ export default function DashBoardPage() {
             sx={{
               flex: {
                 xs: '100%',
-                md: '45%',
+                md: '55%',
               },
               display: 'flex',
               justifyContent: 'center',
@@ -169,6 +193,7 @@ export default function DashBoardPage() {
       {/* Section 2 */}
       <Container
         maxWidth="lg"
+        id="section-2"
         sx={{ padding: '3rem 0', backgroundColor: 'var(--background-secondary)', mt: 2 }}
       >
         <Box
@@ -279,18 +304,25 @@ export default function DashBoardPage() {
           </LazyLoadComponent>
         </Box>
       </Container>
-      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#F4F1FA', mx: 'auto'  }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
+      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#F4F1FA', mx: 'auto' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        >
           <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 2 }}>
             Is Someone Being Unkind? Let's Check Together!
           </Typography>
-          
+
           <Typography
             ref={descriptionRef}
             sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}
           >
-            Our friendly Message Helper can spot when someone's not being nice in messages.
-            It helps you understand how it might make you feel and shows you what you can do about it! 
+            Our friendly Message Helper can spot when someone's not being nice in messages. It helps
+            you understand how it might make you feel and shows you what you can do about it!
           </Typography>
 
           <Button

@@ -6,7 +6,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAssessment } from '../../slice/assessmentSlice';
 import { icons } from './icons';
-import { Sparkles } from 'lucide-react';
 
 export function ActionPlan() {
   const [loading, setLoading] = useState<LoadingStateType>('loading');
