@@ -69,12 +69,11 @@ export default function DashBoardPage() {
     padding: '1.2rem',
     borderRadius: '8px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-
+    /* transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     '&:hover': {
       transform: 'translateY(-5px)',
       boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
-    },
+    }, */
   };
 
   const cardTextStyle = {
