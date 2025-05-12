@@ -14,14 +14,12 @@ export function AlertDialog({
   handleCloseAlert,
   alertText,
   confirmText = 'OK',
-  cancelText = 'Cancel',
   title,
 }: {
   alertOpen: boolean;
   handleCloseAlert: () => void;
   alertText: string;
   confirmText?: string;
-  cancelText?: string;
   title?: string;
 }) {
   return (
@@ -59,7 +57,7 @@ export function AlertDialog({
             '&:hover': { bgcolor: '#F57C00' },
           }}
         >
-          OK
+          {confirmText}
         </Button>
       </DialogActions>
     </Dialog>

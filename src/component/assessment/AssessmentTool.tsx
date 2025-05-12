@@ -8,10 +8,6 @@ import {
   Button,
   Paper,
   Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Alert,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import ImageIcon from '@mui/icons-material/Image';
@@ -22,8 +18,6 @@ import { useAssessment } from '../../slice/assessmentSlice';
 import { useNavigate } from 'react-router';
 import { ImageCrop } from './ImageCrop';
 import { debounce } from 'lodash';
-import alertAnimation from '../../animations/alert_animation.json';
-import Lottie from 'lottie-react';
 import { AlertDialog } from '../AlertDialog';
 
 export default function AssessmentTool() {
@@ -164,10 +158,8 @@ export default function AssessmentTool() {
               pointerEvents: 'none',
             }}
           />
-
           {/* Image preview area */}
           <ImageCrop fileInputRef={fileInputRef} onTextExtracted={onTextExtracted} />
-
           <Box
             sx={{
               width: '90%',
@@ -237,16 +229,8 @@ export default function AssessmentTool() {
           </Box>
         </Box>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          gap: 2,
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-        }}
-      ></Box>
 
-      {/* Alert Dialog */}
+      {/* text confimation Dialog */}
       <AlertDialog
         alertOpen={alertOpen}
         handleCloseAlert={handleCloseAlert}
@@ -254,49 +238,59 @@ export default function AssessmentTool() {
         alertText={alertText}
       />
 
-      {/* Text Confirmation Dialog */}
       <Dialog open={showTextConfirmation} onClose={handleCancelText} maxWidth="sm" fullWidth>
-        <Paper sx={{ p: 3 }}>
+        <Paper sx={{ p: 3, background: 'var(--background)' }}>
           <Typography variant="h6" fontWeight="bold" color="var(--text-title)" mb={2}>
-            Text from Image
+            We Found a Message…
           </Typography>
 
           <Box
             sx={{
-              bgcolor: '#f5f5f5',
-              p: 2,
-              borderRadius: 2,
-              border: '1px solid #e0e0e0',
+              position: 'relative',
+              width: '100%',
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: 'stretch',
+              gap: 2,
               mb: 3,
             }}
           >
-            <TextField
-              multiline
-              fullWidth
-              minRows={3}
-              maxRows={8}
-              variant="outlined"
-              value={editableText}
-              onChange={e => setEditableText(e.target.value)}
+            {/* Text Field */}
+            <Box
               sx={{
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white',
-                  '& fieldset': {
-                    borderColor: '#e0e0e0',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: 'var(--highlight)',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'var(--highlight)',
-                  },
-                },
+                flex: '1 1 auto',
+                order: { xs: 2, sm: 1 },
+                width: '100%',
               }}
-            />
+            >
+              <TextField
+                multiline
+                fullWidth
+                minRows={3}
+                maxRows={8}
+                variant="outlined"
+                value={editableText}
+                onChange={e => setEditableText(e.target.value)}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'white',
+                    '& fieldset': {
+                      borderColor: '#e0e0e0',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: 'var(--highlight)',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'var(--highlight)',
+                    },
+                  },
+                }}
+              />
+            </Box>
           </Box>
 
           <Typography variant="body2" color="text.secondary" mb={3}>
-            Is this text correct? You can use it as is, edit it, or try again.
+            Is this what the picture says? You can change it or keep it. We're here to help!
           </Typography>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -319,7 +313,7 @@ export default function AssessmentTool() {
                 '&:hover': { bgcolor: '#F57C00' },
               }}
             >
-              Use This Text
+              Next Step
             </Button>
           </Box>
         </Paper>
