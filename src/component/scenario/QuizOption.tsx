@@ -1,9 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Lottie from 'lottie-react';
 
 interface QuizOptionProps {
-  image: string;
+  animation: string;
   scenario: string[];
   choices: {
     text: string;
@@ -17,7 +18,7 @@ interface QuizOptionProps {
 export default function QuizOption({
   scenario,
   choices,
-  image,
+  animation,
   onClick,
   saveOptions,
 }: QuizOptionProps) {
@@ -99,11 +100,11 @@ export default function QuizOption({
         display: 'flex',
         flexDirection: 'column',
         gap: { xs: 2, sm: 2.5 },
-        maxWidth: { xs: '100%', sm: '600px', md: '800px' },
-        margin: '0 auto',
+        maxWidth: { xs: '100%', sm: '600px', md: '900px' },
         padding: { xs: '10px', sm: '20px' },
+        margin: '0 auto',
         overflow: 'auto',
-        width: '80vw',
+        width: '90vw',
       }}
     >
       <Button
@@ -122,32 +123,6 @@ export default function QuizOption({
         ← Back
       </Button>
 
-      {/* Scenario Description */}
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          padding: '16px',
-          marginBottom: 2,
-        }}
-      >
-        {scenario.map((line, index) => (
-          <Typography
-            key={line}
-            variant="h5"
-            sx={{
-              fontWeight: index === 0 ? 'bold' : 'normal',
-              color: '#4B3F72',
-              textAlign: 'center',
-              fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.6rem' },
-              marginBottom: index < scenario.length - 1 ? 1 : 0,
-            }}
-          >
-            {line}
-          </Typography>
-        ))}
-      </Box>
-
       <Box
         sx={{
           display: 'flex',
@@ -156,32 +131,62 @@ export default function QuizOption({
           width: '100%',
         }}
       >
+        {/* Animation container - always on left side for md+ screens */}
         <Box
           sx={{
-            width: { xs: '100%', md: '50%' },
-            height: { xs: '300px', md: '400px' },
+            width: { xs: '100%', md: '40%' },
             position: 'relative',
             borderRadius: '8px',
             overflow: 'hidden',
             backgroundColor: 'white',
-            '& img': {
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            },
+            alignSelf: 'flex-start',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
           }}
         >
-          <img src={image} alt="" />
+          <Lottie
+            animationData={animation}
+            loop={false}
+            style={{
+              width: '100%',
+            }}
+          />
         </Box>
 
         <Box
           sx={{
-            width: { xs: '100%', md: '50%' },
+            width: { xs: '100%', md: '60%' },
             display: 'flex',
             flexDirection: 'column',
-            gap: 2,
+            gap: 3,
           }}
         >
+          {/* Scenario Description */}
+          <Box
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '8px',
+              padding: '16px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+            }}
+          >
+            {scenario.map((line, index) => (
+              <Typography
+                key={line}
+                variant="h5"
+                sx={{
+                  fontWeight: index === 0 ? 'bold' : 'normal',
+                  color: '#4B3F72',
+                  textAlign: 'center',
+                  fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.6rem' },
+                  marginBottom: index < scenario.length - 1 ? 1 : 0,
+                }}
+              >
+                {line}
+              </Typography>
+            ))}
+          </Box>
+
+          {/* Options section */}
           {!selectedOption && (
             <Box
               ref={optionsContainerRef}
@@ -229,6 +234,7 @@ export default function QuizOption({
             </Box>
           )}
 
+          {/* Feedback section */}
           {selectedOption && (
             <Box
               ref={feedbackRef}

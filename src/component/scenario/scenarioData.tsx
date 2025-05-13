@@ -1,4 +1,9 @@
+import scenario1Animation from '../../animations/scenario_1.json';
+import scenario2Animation from '../../animations/scenario_2.json';
+import scenario3Animation from '../../animations/scenario_3.json';
+
 export type QuizCardProps = {
+  animation: any; // Changed from string to any to accept the JSON object
   image: string;
   alt: string;
   scenario: string[];
@@ -13,6 +18,7 @@ export type QuizCardProps = {
 export const quizData: QuizCardProps[] = [
   {
     image: '/quiz1.jpg',
+    animation: scenario1Animation,
     alt: 'A girl looking at a phone with a sad face',
     scenario: [
       'You see someone posting mean comments about your classmate online.',
@@ -41,6 +47,7 @@ export const quizData: QuizCardProps[] = [
   },
   {
     image: '/quiz2.jpg',
+    animation: scenario2Animation, // Use unique animation if available
     alt: 'Two kids looking at a screen together, one upset and one supportive',
     scenario: [
       'A friend sends you a funny meme about another student that could hurt their feelings',
@@ -63,6 +70,7 @@ export const quizData: QuizCardProps[] = [
   },
   {
     image: '/quiz3.jpg',
+    animation: scenario3Animation, // Use unique animation if available
     alt: 'A girl looking at a phone with a sad face',
     scenario: ["Someone you don't know sends you a rude message.", ' What should you do?'],
     choices: [
