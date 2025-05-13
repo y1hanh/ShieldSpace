@@ -2,6 +2,9 @@ import { useState, ReactNode } from 'react';
 import { Box, Button, Typography, LinearProgress } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
+import Lottie from 'lottie-react';
+import trophy from '../animations/trophy.json';
+import celebration from '../animations/celebration.json';
 
 interface QuestionOption {
   label: string;
@@ -436,12 +439,11 @@ export default function CyberSafetyQuiz() {
             </Box>
           ) : (
             <Box textAlign="center">
-              {/* Trophy Image */}
               <Box
                 sx={{
                   backgroundColor: '#FFF3E0',
-                  width: 120,
-                  height: 120,
+                  width: 200,
+                  height: 200,
                   borderRadius: '50%',
                   mx: 'auto',
                   display: 'flex',
@@ -450,9 +452,14 @@ export default function CyberSafetyQuiz() {
                   mb: 3,
                 }}
               >
-                <Typography variant="h1" component="div">
-                  🏆
-                </Typography>
+                <Lottie
+                  animationData={trophy}
+                  loop={true}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
               </Box>
 
               {/* Title */}
@@ -464,11 +471,11 @@ export default function CyberSafetyQuiz() {
               <Box
                 sx={{
                   backgroundColor: '#F8F0FF',
-                  px: 4,
-                  py: 3,
+                  px: { xs: 2, sm: 4 }, 
+                  py: { xs: 2, sm: 3 },
                   borderRadius: '16px',
                   maxWidth: 500,
-                  mx: 'auto',
+                  mx: 'auto', 
                   mb: 4,
                   fontSize: '1.1rem',
                   color: '#4A148C',
@@ -523,14 +530,16 @@ export default function CyberSafetyQuiz() {
                                 px: 2,
                                 py: 1.5,
                                 display: 'inline-block',
-                                fontSize: '1.3rem',
+                                fontSize: { xs: '1.1rem', sm: '1.3rem' },
                                 mx: 'auto',
+                                maxWidth: '100%',
+                                wordBreak: 'break-word',
                               }}
                             >
                               <Box
                                 component="div"
                                 sx={{
-                                  fontSize: '1.3rem',
+                                  fontSize: { xs: '1.1rem', sm: '1.3rem' },
                                 }}
                               >
                                 <Box component="span" sx={{ fontWeight: 500, color: '#4A148C' }}>
@@ -554,6 +563,7 @@ export default function CyberSafetyQuiz() {
                                 position: 'relative',
                                 paddingLeft: '25px',
                                 fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                                wordBreak: 'break-word',
                               }}
                             >
                               <span
@@ -578,6 +588,7 @@ export default function CyberSafetyQuiz() {
                                 position: 'relative',
                                 paddingLeft: '25px',
                                 fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                                wordBreak: 'break-word',
                               }}
                             >
                               <span
@@ -597,14 +608,37 @@ export default function CyberSafetyQuiz() {
                     })()}
                   </ul>
                 </Typography>
+                <Lottie
+                  animationData={celebration}
+                  loop={false}
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                    opacity: 0.4,
+                  }}
+                />
                 {quizFinished && (
                   <Box sx={{ mt: 4 }}>
-                    <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom>
+                    <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
                       🌟 Helpful Tips
                     </Typography>
                     <ul style={{ paddingLeft: '1.5rem' }}>
                       {tips.map((tip, index) => (
-                        <li key={index} style={{ fontSize: '1rem',marginBottom: '10px', lineHeight: '1.6', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' }}>
+                        <li
+                          key={index}
+                          style={{
+                            fontSize: '1rem',
+                            marginBottom: '10px',
+                            lineHeight: '1.6',
+                            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                            wordBreak: 'break-word',
+                          }}
+                        >
                           {tip}
                         </li>
                       ))}
