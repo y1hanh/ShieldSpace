@@ -327,7 +327,7 @@ export default function DashBoardPage() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            opacity: 0.4,
+            opacity: 0.6,
             zIndex: 0,
           }}
         />
@@ -340,7 +340,7 @@ export default function DashBoardPage() {
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
             p: 4,
             borderRadius: 4,
             maxWidth: '800px',
