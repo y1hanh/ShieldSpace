@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ChatIcon from '@mui/icons-material/Chat';
 
 export default function DashBoardPage() {
   const headingRef = useRef(null);
@@ -68,13 +69,12 @@ export default function DashBoardPage() {
     backgroundColor: 'var(--card-background)',
     padding: '1.2rem',
     borderRadius: '8px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+    /* transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     '&:hover': {
       transform: 'translateY(-5px)',
       boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
-    },
+    }, */
   };
 
   const cardTextStyle = {
@@ -285,7 +285,7 @@ export default function DashBoardPage() {
         </Box>
       </Container>
 
-      {/* Section 3: Assessment Tool */}
+      {/* Section 3: visualization */}
       <Container maxWidth="lg" sx={{ padding: '3rem 0' }}>
         <Box sx={{ mx: 'auto', mt: 2, p: 3 }}>
           <Typography
@@ -304,16 +304,68 @@ export default function DashBoardPage() {
           </LazyLoadComponent>
         </Box>
       </Container>
-      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#F4F1FA', mx: 'auto' }}>
+      
+      {/* Section 4: Assessment Tool */}
+      <Container
+        maxWidth="lg"
+        sx={{
+          position: 'relative',
+          padding: '4rem 0',
+          backgroundColor: '#F4F1FA',
+          overflow: 'hidden',
+          mx: 'auto',
+        }}
+      >
         <Box
           sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage: 'url(/bg.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: 0.4,
+            zIndex: 0,
+          }}
+        />
+
+        <Box
+          sx={{
+            position: 'relative',
+            zIndex: 1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            p: 4,
+            borderRadius: 4,
+            maxWidth: '800px',
+            mx: 'auto',
+            width: {
+              xs: '70%',
+              sm: '90%',
+            },
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 2 }}>
+          <Box
+            sx={{
+              backgroundColor: '#f89b5e',
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mx: 'auto',
+            }}
+          >
+            <ChatIcon sx={{ color: 'white'}} />
+          </Box>
+          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mt: 2, mb: 2 }}>
             Is Someone Being Unkind? Let's Check Together!
           </Typography>
 

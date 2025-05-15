@@ -94,7 +94,7 @@ export default function BullyingKindsPieChart({ colorScheme }: { colorScheme?: s
             fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
           }}
         >
-          32%
+          34%
         </Typography>
         <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
           involve hurtful remarks about a person's gender or sexual orientation
@@ -168,7 +168,7 @@ export default function BullyingKindsPieChart({ colorScheme }: { colorScheme?: s
             fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
           }}
         >
-          34%
+          32%
         </Typography>
         <Typography variant="body2" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
           contain negative statements targeting religion
