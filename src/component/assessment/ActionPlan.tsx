@@ -19,7 +19,6 @@ export function ActionPlan() {
     if (actionPlan === 'error') {
       setLoading('error');
     }
-    console.log('actionPlan', actionPlan);
   }, [actionPlan]);
 
   const simplifyText = (text: string) => {

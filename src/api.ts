@@ -2,13 +2,11 @@ const API_BASE_URL = 'https://api.shieldspace.games';
 
 type Methond = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-function fetchWithSecureToken(path: string, method: Methond = 'GET', options: RequestInit = {}) {
+function fetchData(path: string, method: Methond = 'GET', options: RequestInit = {}) {
   const params: RequestInit = {
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhMzAiLCJwYXNzd29yZCI6ImZpdDUxMjB0YTMwIiwiaWF0IjoxNzQ3MDE3MDAyLCJleHAiOjE3NDcxODk4MDJ9.hXKjZcKnBu8F9aj7_tWhBD3iajFGe-jX5NxGoQXC1TQ`,
-      // ${localStorage.getItem('token')}`,
     },
   };
   if (options?.body) {
@@ -42,7 +40,7 @@ export const getSecureToken = async (username, password) => {
 
 export const getCountBullyingData = async () => {
   try {
-    const response = await fetchWithSecureToken('visualization');
+    const response = await fetchData('visualization');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -60,7 +58,7 @@ export const getEmotions = async (input: { user_input: string }) => {
   };
 
   try {
-    const response = await fetchWithSecureToken('model/emotions', 'POST', body);
+    const response = await fetchData('model/emotions', 'POST', body);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -79,7 +77,7 @@ export const getActionPlan = async (input: { user_input: string }) => {
   };
 
   try {
-    const response = await fetchWithSecureToken('ai/action', 'POST', body);
+    const response = await fetchData('ai/action', 'POST', body);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
