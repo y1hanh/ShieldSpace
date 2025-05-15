@@ -33,13 +33,6 @@ export default function QuizOption({
 
   useEffect(() => {
     if (selectedOption) {
-      gsap.to(optionsContainerRef.current, {
-        opacity: 0,
-        y: -20,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-
       gsap.fromTo(
         feedbackRef.current,
         {
@@ -72,25 +65,7 @@ export default function QuizOption({
   }, [selectedOption]);
 
   const handleOptionClick = (option: typeof selectedOption) => {
-    const elements = document.querySelectorAll('.option-box');
-    elements.forEach(el => {
-      if (el.getAttribute('data-label') === option?.text) {
-        gsap.to(el, {
-          opacity: 0,
-          duration: 0.2,
-          ease: 'power2.out',
-          onComplete: () => {
-            setSelectedOption(option);
-          },
-        });
-      } else {
-        gsap.to(el, {
-          opacity: 0.5,
-          duration: 0.2,
-          ease: 'power2.out',
-        });
-      }
-    });
+    setSelectedOption(option);
     saveOptions(option?.right ? 1 : 0);
   };
 
@@ -187,52 +162,49 @@ export default function QuizOption({
           </Box>
 
           {/* Options section */}
-          {!selectedOption && (
-            <Box
-              ref={optionsContainerRef}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: { xs: 1.5, sm: 2 },
-                flex: 1,
-                overflow: 'auto',
-              }}
-            >
-              {choices.map(option => (
-                <Box
-                  key={option.text}
-                  className="option-box"
-                  data-label={option.text}
-                  onClick={() => handleOptionClick(option)}
+          <Box
+            ref={optionsContainerRef}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: { xs: 1.5, sm: 2 },
+              flex: 1,
+              overflow: 'auto',
+            }}
+          >
+            {choices.map(option => (
+              <Box
+                key={option.text}
+                className="option-box"
+                data-label={option.text}
+                onClick={() => handleOptionClick(option)}
+                sx={{
+                  padding: { xs: '12px 12px', sm: '15px 15px' },
+                  borderRadius: '8px',
+                  border: '2px solid #4B3F72',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : 'transparent',
+                  color: selectedOption?.text === option.text ? 'white' : '#4B3F72',
+                  '&:hover': {
+                    backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : '#E6E0F4',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                <Typography
+                  variant="h6"
                   sx={{
-                    padding: { xs: '12px 12px', sm: '15px 15px' },
-                    borderRadius: '8px',
-                    border: '2px solid #4B3F72',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    backgroundColor:
-                      selectedOption?.text === option.text ? '#4B3F72' : 'transparent',
-                    color: selectedOption?.text === option.text ? 'white' : '#4B3F72',
-                    '&:hover': {
-                      backgroundColor: selectedOption?.text === option.text ? '#4B3F72' : '#E6E0F4',
-                      transform: 'translateY(-2px)',
-                    },
+                    fontWeight: 'bold',
+                    marginBottom: { xs: 0.5, sm: 1 },
+                    fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
                   }}
                 >
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontWeight: 'bold',
-                      marginBottom: { xs: 0.5, sm: 1 },
-                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
-                    }}
-                  >
-                    {option.text}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-          )}
+                  {option.text}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
 
           {/* Feedback section */}
           {selectedOption && (

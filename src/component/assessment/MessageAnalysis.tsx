@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, LinearProgress, Chip, Paper, Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
-import { useAssessment } from '../../slice/assessmentSlice';
+import { AnalysisResultType, useAssessment } from '../../slice/assessmentSlice';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { isEmpty } from 'lodash';
 
@@ -31,39 +31,31 @@ const getLabelColor = (level: string, isBullying: boolean) => {
 
 interface MessageAnalysisProps {
   userInput: string;
-  analysisResult: string;
+  analysisResult: AnalysisResultType;
   resetAssessment: () => void;
+  isBullying: boolean;
 }
+
 export const MessageAnalysis = ({
   resetAssessment,
   analysisResult,
   userInput,
+  isBullying,
 }: MessageAnalysisProps) => {
-  interface AnalysisData {
-    emotions: Record<string, number>;
-    toxicity: { toxic: number };
-    trigger_emotion: string;
-    bias?: Record<string, number>;
-  }
-
-  const [data, setData] = useState<AnalysisData | null>(null);
+  const [data, setData] = useState<AnalysisResultType | null>(null);
   const [text, setText] = useState('');
 
   useEffect(() => {
-    const user_input = userInput;
-    const stored = analysisResult;
-    if (stored && user_input) {
-      const parsed = JSON.parse(stored);
-      setData(parsed.analysis);
-      setText(user_input);
+    if (userInput && analysisResult) {
+      setData(analysisResult);
+      setText(userInput);
     }
-  }, []);
+  }, [analysisResult, userInput]);
 
   if (!data) return null;
 
   const { emotions, toxicity, trigger_emotion, bias } = data;
   const toxicLevel = toxicity?.toxic || 0;
-  const isBullying = toxicLevel > 0.1 || !isEmpty(bias);
 
   const emotionEntries = Object.entries(emotions || {}).filter(([key]) => key !== 'toxic_level');
 
@@ -98,13 +90,7 @@ export const MessageAnalysis = ({
       }}
     >
       {/* Message */}
-      <Typography
-        fontSize="1.5rem"
-        color="#4B4072"
-        fontWeight="bold"
-        mb={1}
-        textAlign="left"
-      >
+      <Typography fontSize="1.5rem" color="#4B4072" fontWeight="bold" mb={1} textAlign="left">
         Message Analyzed:
       </Typography>
       <Typography fontSize="1.2rem" color="text.secondary" mb={3} textAlign="left" pl={2}>
@@ -232,28 +218,29 @@ export const MessageAnalysis = ({
             {isBullying ? 'Highly Concerning' : 'Not Concerning'}
           </span>
         </Typography>
-        <Typography variant="body2" >
+        <Typography variant="body2">
           {isBullying ? (
             <>
               🚩 Detected Tags:{' '}
-              <Chip 
+              <Chip
                 label="Direct insult"
                 size="small"
                 sx={{
                   backgroundColor: '#ffcdd2',
                   color: '#c62828',
                   fontWeight: 600,
-                  mx: 0.5
+                  mx: 0.5,
                 }}
-              />,{' '}
+              />
+              ,{' '}
               <Chip
-                label="Negative characterization" 
+                label="Negative characterization"
                 size="small"
                 sx={{
                   backgroundColor: '#ffcdd2',
                   color: '#c62828',
                   fontWeight: 600,
-                  mx: 0.5
+                  mx: 0.5,
                 }}
               />
             </>
@@ -262,12 +249,12 @@ export const MessageAnalysis = ({
               👍 Detected Tags:{' '}
               <Chip
                 label="No critical flags"
-                size="small" 
+                size="small"
                 sx={{
                   backgroundColor: '#c8e6c9',
                   color: '#2e7d32',
                   fontWeight: 600,
-                  mx: 0.5
+                  mx: 0.5,
                 }}
               />
             </>
