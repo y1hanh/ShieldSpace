@@ -6,12 +6,12 @@ import { ActionPlan } from '../component/assessment/ActionPlan';
 import { useAssessment } from '../slice/assessmentSlice';
 import error_animation from '../animations/error_animation.json';
 import Lottie from 'lottie-react';
-import { error } from 'console';
+import { isEmpty } from 'lodash';
 
 export default function ResultsPage() {
   const { userInput, analysisResult } = useAssessment();
   const navigate = useNavigate();
-
+  const isBullying = analysisResult.toxic_level > 0.1 || !isEmpty(analysisResult?.bias);
   const handleStartQuiz = () => {
     navigate('/cyber-safety-quiz');
   };
@@ -33,6 +33,7 @@ export default function ResultsPage() {
           width: '100%',
           minHeight: { xs: 'auto', md: '400px' },
           gap: 3,
+          justifyContent: 'center',
         }}
       >
         <Box
@@ -49,19 +50,22 @@ export default function ResultsPage() {
             resetAssessment={resetAssessment}
             userInput={userInput}
             analysisResult={analysisResult}
+            isBullying={isBullying}
           />
         </Box>
-        <Box
-          sx={{
-            width: { xs: '100%', md: '50%' },
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ActionPlan />
-        </Box>
+        {isBullying && (
+          <Box
+            sx={{
+              width: { xs: '100%', md: '50%' },
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <ActionPlan />
+          </Box>
+        )}
       </Box>
 
       <Typography

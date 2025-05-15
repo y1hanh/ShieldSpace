@@ -1,20 +1,21 @@
-import { createContext, use, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { getActionPlan } from '../api';
 
 type AssessmentContextType = {
   userInput: string;
-  analysisResult: any;
+  analysisResult: AnalysisResultType;
   setUserInput: (input: string) => void;
   setAnalysisResult: (result: any) => void;
   actionPlan: ActionPlanType;
   setActionPlan: (plan: ActionPlanType) => void;
 };
 
-type AnalysisResultType = {
+export type AnalysisResultType = {
   toxic_level: number;
   toxicity: Record<string, number>;
   emotions: Record<string, number>;
   trigger_emotion: string;
+  bias?: Record<string, number>;
 };
 
 type ActionPlanType =
@@ -26,7 +27,7 @@ type ActionPlanType =
 const assessmentContext = createContext<AssessmentContextType>(undefined);
 export function assessmentSlice({ children }: { children: React.ReactNode }) {
   const [userInput, setUserInput] = useState<string>('');
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResultType>(null);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResultType>();
   const [actionPlan, setActionPlan] = useState<ActionPlanType>();
 
   useEffect(() => {

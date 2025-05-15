@@ -174,16 +174,6 @@ export default function ScenarioBasedQuiz() {
             Completed!
           </Typography>
 
-          <Typography
-            sx={{
-              color: '#4B3F72',
-              fontSize: { xs: '1.1rem', sm: '1.3rem' },
-              animation: 'slideIn 0.5s ease-out 0.3s both',
-            }}
-          >
-            Your Score: {rightOptions.filter(option => option === 1).length} / {quizData.length}
-          </Typography>
-
           {(() => {
             const score = rightOptions.filter(option => option === 1).length;
             const totalQuestions = quizData.length;

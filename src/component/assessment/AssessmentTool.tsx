@@ -42,9 +42,9 @@ export default function AssessmentTool() {
     }
 
     try {
-      const response = await getEmotions({ user_input: trimmed });
+      const { analysis } = await getEmotions({ user_input: trimmed });
       setUserInput(trimmed);
-      setAnalysisResult(JSON.stringify(response));
+      setAnalysisResult(analysis);
       setInput('');
       navigate('/assessment-result');
     } catch (err) {
