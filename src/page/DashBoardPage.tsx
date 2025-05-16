@@ -92,7 +92,7 @@ export default function DashBoardPage() {
 
   const navigate = useNavigate();
   return (
-    <>
+    <Box id="main-page">
       {/* Section 1 */}
       <Container maxWidth="lg" sx={{ padding: '2rem 0' }}>
         <Box
@@ -419,6 +419,6 @@ export default function DashBoardPage() {
           </Box>
         </Container>
       </Box>
-    </>
+    </Box>
   );
 }

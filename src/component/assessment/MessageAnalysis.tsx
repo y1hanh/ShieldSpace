@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, LinearProgress, Chip, Paper, Button } from '@mui/material';
+import { Box, Typography, LinearProgress, Chip, Paper, Button, Divider } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
-import { AnalysisResultType, useAssessment } from '../../slice/assessmentSlice';
+import { AnalysisResultType } from '../../slice/assessmentSlice';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { isEmpty } from 'lodash';
-
+import { useNavigate } from 'react-router';
 const getEmotionLevel = (score: number) => {
   if (score >= 0.6) return 'high';
   if (score >= 0.3) return 'medium';
@@ -44,7 +43,7 @@ export const MessageAnalysis = ({
 }: MessageAnalysisProps) => {
   const [data, setData] = useState<AnalysisResultType | null>(null);
   const [text, setText] = useState('');
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (userInput && analysisResult) {
       setData(analysisResult);
@@ -55,7 +54,6 @@ export const MessageAnalysis = ({
   if (!data) return null;
 
   const { emotions, toxicity, trigger_emotion, bias } = data;
-  const toxicLevel = toxicity?.toxic || 0;
 
   const emotionEntries = Object.entries(emotions || {}).filter(([key]) => key !== 'toxic_level');
 
@@ -69,12 +67,8 @@ export const MessageAnalysis = ({
       elevation={2}
       sx={{
         backgroundColor: '#F7FAFD',
-        borderRadius: '1rem',
-        p: 4,
-        width: {
-          xs: '70%',
-          sm: '90%',
-        },
+        pb: 5,
+        width: '100%',
         opacity: 0,
         animation: 'fadeIn 1s ease-in forwards',
         '@keyframes fadeIn': {
@@ -89,197 +83,485 @@ export const MessageAnalysis = ({
         },
       }}
     >
-      {/* Message */}
-      <Typography fontSize="1.5rem" color="#4B4072" fontWeight="bold" mb={1} textAlign="left">
-        Message Analyzed:
-      </Typography>
-      <Typography fontSize="1.2rem" color="text.secondary" mb={3} textAlign="left" pl={2}>
-        "{text}"
-      </Typography>
-
-      {/* Bullying Detection */}
       <Box
         sx={{
-          backgroundColor: isBullying ? '#FFEBEB' : '#ECFDF5',
-          borderRadius: '10px',
-          p: 1.5,
+          background: 'linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%)',
+          p: { xs: 3, md: 4 },
           mb: 3,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
+          boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '150px',
+            height: '150px',
+            background:
+              'radial-gradient(circle, rgba(167, 139, 250, 0.3) 0%, rgba(167, 139, 250, 0) 70%)',
+            borderRadius: '50%',
+            transform: 'translate(30%, -30%)',
+            zIndex: 0,
+          },
         }}
       >
-        {isBullying ? (
-          <>
-            <ErrorIcon sx={{ color: '#e53935' }} />
-            <Typography color="#e53935" fontWeight={600}>
-              Uh oh! This message doesn't seem very nice
-            </Typography>
-          </>
-        ) : (
-          <>
-            <CheckCircleIcon sx={{ color: '#43a047' }} />
-            <Typography color="#43a047" fontWeight={600}>
-              This message looks okay and safe
-            </Typography>
-          </>
-        )}
-      </Box>
-
-      {/* Emotion Analysis */}
-      <Typography fontWeight={600} mb={2} textAlign="left">
-        Emotion Analysis:
-      </Typography>
-      {sortedEmotions.map(({ name, value }) => {
-        const level = getEmotionLevel(value);
-        const barColor = getBarColor(level, isBullying);
-        const labelColor = getLabelColor(level, isBullying);
-
-        return (
-          <Box
-            key={name}
-            sx={{ display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'space-between' }}
-          >
-            <Box sx={{ width: '120px', textAlign: 'left' }}>
-              {name.charAt(0).toUpperCase() + name.slice(1)}
-            </Box>
-            <Box sx={{ flexGrow: 1, mx: 1 }}>
-              <LinearProgress
-                variant="determinate"
-                value={value * 100}
-                sx={{
-                  height: 10,
-                  borderRadius: '5px',
-                  backgroundColor: '#f1f1f1',
-                  '& .MuiLinearProgress-bar': {
-                    backgroundColor: barColor,
-                  },
-                }}
-              />
-            </Box>
-            <Typography
-              variant="caption"
-              sx={{ fontWeight: 600, color: labelColor, width: '50px', textAlign: 'left' }}
-            >
-              {level.charAt(0).toUpperCase() + level.slice(1)}
-            </Typography>
-          </Box>
-        );
-      })}
-
-      {/* Primary Emotion */}
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
-        <Typography fontWeight={600}>Primary Emotion:</Typography>
-        <Chip
-          label={trigger_emotion}
-          sx={{
-            backgroundColor: isBullying ? '#EF4444' : '#10B981',
-            color: 'white',
-            ml: 1,
-            fontWeight: 600,
-            textTransform: 'capitalize',
-          }}
-        />
-      </Box>
-
-      {/* Bias / Prejudice Section */}
-      {bias && Object.keys(bias).length > 0 && (
-        <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, gap: 1, flexWrap: 'wrap' }}>
-          <Typography fontWeight={600}>Prejudice Detection:</Typography>
-          {Object.entries(bias).map(([key, value]) => (
-            <Chip
-              key={key}
-              label={key.charAt(0).toUpperCase() + key.slice(1)}
-              sx={{
-                backgroundColor: value > 0.5 ? '#FFBF00' : '#E0E0E0',
-                color: value > 0.5 ? '#fff' : '#000',
-                fontWeight: 600,
-                textTransform: 'capitalize',
-                borderRadius: '25px',
-              }}
-            />
-          ))}
-        </Box>
-      )}
-
-      {/* Toxicity Section */}
-      <Box mt={2} sx={{ textAlign: 'left' }}>
-        <Typography fontWeight={600} mb={2}>
-          Toxicity Analysis:
-        </Typography>
-        <Typography variant="body2" mb={2}>
-          Toxicity Level:{' '}
-          <span
-            style={{
-              color: isBullying ? '#e53935' : '#43a047',
-              fontWeight: 600,
+        <Box sx={{ position: 'relative', zIndex: 1 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              color: 'var(--text-title)',
+              fontWeight: 'bold',
+              mb: 2,
+              textAlign: 'center',
+              background: 'linear-gradient(90deg, #4B3F72 0%, #6A4CA7 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '0.5px',
             }}
           >
-            {isBullying ? 'Highly Concerning' : 'Not Concerning'}
-          </span>
+            Message Analysis
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'var(--text-body)',
+              textAlign: 'center',
+              maxWidth: '700px',
+              mx: 'auto',
+              fontSize: { xs: '0.95rem', md: '1.1rem' },
+              lineHeight: 1.6,
+              opacity: 0.9,
+            }}
+          >
+            We've carefully analyzed your message to identify emotional tones, potential
+            cyberbullying indicators, and other important patterns that might affect how someone
+            feels when reading it.
+          </Typography>
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          px: { xs: 5, md: 6, lg: 8 },
+          display: 'flex',
+          flexDirection: 'column',
+          alignContent: 'center',
+        }}
+      >
+        {/* Message */}
+        <Typography variant="h6" color="primary" fontWeight="600" mb={2}>
+          Message Analyzed:
         </Typography>
-        <Typography variant="body2">
+        <Typography
+          variant="body1"
+          sx={{
+            color: 'text.secondary',
+            mb: 3,
+            pl: 2,
+            py: 2,
+            backgroundColor: 'rgba(75, 64, 114, 0.05)',
+            borderRadius: '8px',
+            borderLeft: '3px solid var(--text-title)',
+            fontStyle: 'italic',
+          }}
+        >
+          "{text}"
+        </Typography>
+
+        {/* Bullying Detection */}
+        <Box
+          sx={{
+            backgroundColor: isBullying ? '#FFEBEB' : '#ECFDF5',
+            borderRadius: '10px',
+            p: 2,
+            mb: 3,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+          }}
+        >
           {isBullying ? (
             <>
-              🚩 Detected Tags:{' '}
-              <Chip
-                label="Direct insult"
-                size="small"
-                sx={{
-                  backgroundColor: '#ffcdd2',
-                  color: '#c62828',
-                  fontWeight: 600,
-                  mx: 0.5,
-                }}
-              />
-              ,{' '}
-              <Chip
-                label="Negative characterization"
-                size="small"
-                sx={{
-                  backgroundColor: '#ffcdd2',
-                  color: '#c62828',
-                  fontWeight: 600,
-                  mx: 0.5,
-                }}
-              />
+              <ErrorIcon sx={{ color: '#e53935' }} />
+              <Typography variant="subtitle1" color="#e53935" fontWeight={600}>
+                😟 That wasn’t a kind message.
+              </Typography>
             </>
           ) : (
             <>
-              👍 Detected Tags:{' '}
-              <Chip
-                label="No critical flags"
-                size="small"
-                sx={{
-                  backgroundColor: '#c8e6c9',
-                  color: '#2e7d32',
-                  fontWeight: 600,
-                  mx: 0.5,
-                }}
-              />
+              <CheckCircleIcon sx={{ color: '#43a047' }} />
+              <Typography variant="subtitle1" color="#43a047" fontWeight={600}>
+                This message looks okay
+              </Typography>
             </>
           )}
-        </Typography>
-      </Box>
+        </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-        <Button
-          variant="contained"
-          onClick={resetAssessment}
-          startIcon={<RestartAltIcon />}
+        {/* Two-column layout for analysis sections */}
+        <Box
           sx={{
-            backgroundColor: 'var(--highlight)',
-            color: 'white',
-            borderRadius: '25px',
-            px: 4,
-            textTransform: 'none',
-            '&:hover': {
-              backgroundColor: '#f57c00',
-            },
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: 3,
+            mt: 3,
           }}
         >
-          Analyze Again
-        </Button>
+          {/* Left Column - Emotion Analysis */}
+          <Box
+            sx={{
+              flex: { xs: '100%', md: '55%' },
+            }}
+          >
+            <Box
+              sx={{
+                p: 3,
+                backgroundColor: 'rgba(236, 239, 251, 0.5)',
+                borderRadius: '12px',
+                border: '1px solid #E0E7FF',
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontWeight={600}
+                mb={3}
+                color="primary"
+                sx={{
+                  borderBottom: '2px solid #CBD5E1',
+                  pb: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
+                <span role="img" aria-label="emotions">
+                  🔍
+                </span>{' '}
+                Emotion Analysis
+              </Typography>
+
+              <Box sx={{ mb: 2 }}>
+                {sortedEmotions.map(({ name, value }) => {
+                  const level = getEmotionLevel(value);
+                  const barColor = getBarColor(level, isBullying);
+                  const labelColor = getLabelColor(level, isBullying);
+                  return (
+                    <Box
+                      key={name}
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        mb: 2,
+                        justifyContent: 'space-between',
+                        backgroundColor: 'white',
+                        p: 1.5,
+                        borderRadius: '8px',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+                        '&:hover': {
+                          boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                        },
+                      }}
+                    >
+                      <Box sx={{ width: '120px', textAlign: 'left' }}>
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            fontWeight: 600,
+                            color: labelColor,
+                            textTransform: 'capitalize',
+                          }}
+                        >
+                          {name.charAt(0).toUpperCase() + name.slice(1)}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ flexGrow: 1, mx: 1 }}>
+                        <LinearProgress
+                          variant="determinate"
+                          value={value * 100}
+                          sx={{
+                            height: 8,
+                            borderRadius: '5px',
+                            backgroundColor: '#f1f1f1',
+                            '& .MuiLinearProgress-bar': {
+                              backgroundColor: barColor,
+                            },
+                          }}
+                        />
+                      </Box>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          fontWeight: 600,
+                          color: labelColor,
+                          width: '50px',
+                          textAlign: 'center',
+                        }}
+                      >
+                        {level.charAt(0).toUpperCase() + level.slice(1)}
+                      </Typography>
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Box>
+            {/* Bias/Prejudice Section - Full width below */}
+            {bias && Object.keys(bias).length > 0 && (
+              <Box
+                sx={{
+                  mt: 2,
+                  p: 3,
+                  backgroundColor: 'rgba(254, 243, 199, 0.3)',
+                  borderRadius: '12px',
+                  border: '1px solid #FEF3C7',
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  fontWeight={600}
+                  mb={2}
+                  color="#92400E"
+                  sx={{
+                    borderBottom: '2px solid #FDE68A',
+                    pb: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <span role="img" aria-label="warning">
+                    ⚠️
+                  </span>{' '}
+                  Prejudice Detection
+                </Typography>
+
+                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', p: 2 }}>
+                  {Object.entries(bias).map(([key, value]) => (
+                    <Chip
+                      key={key}
+                      label={key.charAt(0).toUpperCase() + key.slice(1)}
+                      sx={{
+                        backgroundColor: value > 0.5 ? '#FFBF00' : '#E0E0E0',
+                        color: value > 0.5 ? '#fff' : '#000',
+                        fontWeight: 600,
+                        textTransform: 'capitalize',
+                        borderRadius: '25px',
+                        padding: '20px 10px',
+                      }}
+                    />
+                  ))}
+                </Box>
+              </Box>
+            )}
+          </Box>
+
+          {/* Right Column - Primary Emotion, Toxicity, and Button */}
+          <Box
+            sx={{
+              flex: { xs: '100%', md: '45%' },
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 3,
+            }}
+          >
+            {/* Primary Emotion Card */}
+            <Box
+              sx={{
+                p: 3,
+                backgroundColor: 'rgba(236, 239, 251, 0.5)',
+                borderRadius: '12px',
+                border: '1px solid #E0E7FF',
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontWeight={600}
+                mb={3}
+                color="primary"
+                sx={{
+                  borderBottom: '2px solid #CBD5E1',
+                  pb: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
+                Primary Emotion
+              </Typography>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  backgroundColor: 'white',
+                  p: 2,
+                  borderRadius: '8px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+                }}
+              >
+                <Typography variant="body1" fontWeight={600} mr={1}>
+                  Main feeling detected:
+                </Typography>
+                <Chip
+                  label={trigger_emotion}
+                  sx={{
+                    backgroundColor: isBullying ? '#EF4444' : '#10B981',
+                    color: 'white',
+                    ml: 1,
+                    fontWeight: 600,
+                    textTransform: 'capitalize',
+                    fontSize: '1rem',
+                    py: 2,
+                  }}
+                />
+              </Box>
+            </Box>
+
+            {/* Toxicity Analysis Card */}
+            <Box
+              sx={{
+                p: 3,
+                backgroundColor: isBullying
+                  ? 'rgba(254, 226, 226, 0.5)'
+                  : 'rgba(209, 250, 229, 0.5)',
+                borderRadius: '12px',
+                border: `1px solid ${isBullying ? '#FECACA' : '#A7F3D0'}`,
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontWeight={600}
+                mb={3}
+                color={isBullying ? '#B91C1C' : '#047857'}
+                sx={{
+                  borderBottom: `2px solid ${isBullying ? '#FCA5A5' : '#6EE7B7'}`,
+                  pb: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
+                <span role="img" aria-label="toxicity">
+                  {isBullying ? '⚠️' : '✅'}
+                </span>{' '}
+                Toxicity Analysis
+              </Typography>
+
+              <Typography
+                variant="body1"
+                mb={2}
+                sx={{
+                  backgroundColor: 'white',
+                  p: 2,
+                  borderRadius: '8px',
+                  fontWeight: 500,
+                }}
+              >
+                Toxicity Level:{' '}
+                <span
+                  style={{
+                    color: isBullying ? '#e53935' : '#43a047',
+                    fontWeight: 700,
+                  }}
+                >
+                  {isBullying ? 'Highly Concerning' : 'Not Concerning'}
+                </span>
+              </Typography>
+
+              <Box
+                sx={{
+                  backgroundColor: 'white',
+                  p: 2,
+                  borderRadius: '8px',
+                }}
+              >
+                <Typography variant="body2" mb={1} fontWeight={500}>
+                  {isBullying ? '🚩 Detected Tags:' : '👍 Detected Tags:'}
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  {isBullying ? (
+                    <>
+                      <Chip
+                        label="Direct insult"
+                        size="small"
+                        sx={{
+                          backgroundColor: '#ffcdd2',
+                          color: '#c62828',
+                          fontWeight: 600,
+                        }}
+                      />
+                      <Chip
+                        label="Negative characterization"
+                        size="small"
+                        sx={{
+                          backgroundColor: '#ffcdd2',
+                          color: '#c62828',
+                          fontWeight: 600,
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <Chip
+                      label="No critical flags"
+                      size="small"
+                      sx={{
+                        backgroundColor: '#c8e6c9',
+                        color: '#2e7d32',
+                        fontWeight: 600,
+                      }}
+                    />
+                  )}
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Button to bottom of right column */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 'auto', pt: 2, gap: 2 }}>
+          <Button
+            variant="contained"
+            onClick={resetAssessment}
+            startIcon={<RestartAltIcon />}
+            sx={{
+              backgroundColor: 'var(--highlight)',
+              color: 'white',
+              borderRadius: '25px',
+              px: 4,
+              py: 1.5,
+              textTransform: 'none',
+              fontWeight: 500,
+              fontSize: '1rem',
+              '&:hover': {
+                backgroundColor: '#f57c00',
+              },
+            }}
+          >
+            Analyze Another Message
+          </Button>
+          {/* redirect to the /resources page */}
+          {!isBullying && (
+            <Button
+              variant="contained"
+              onClick={() => navigate('/resources')}
+              sx={{
+                backgroundColor: 'var(--text-title)',
+                color: 'white',
+                borderRadius: '25px',
+                px: 4,
+                py: 1.5,
+                textTransform: 'none',
+                fontWeight: 500,
+                fontSize: '1rem',
+                '&:hover': {
+                  backgroundColor: '#52447e',
+                },
+              }}
+            >
+              Explore Scenarios
+            </Button>
+          )}
+        </Box>
       </Box>
     </Paper>
   );

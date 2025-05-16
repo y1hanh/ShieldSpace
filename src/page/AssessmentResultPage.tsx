@@ -1,16 +1,12 @@
-import { Box, Typography, Button, IconButton } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
-import QuizIcon from '@mui/icons-material/Quiz';
 import { MessageAnalysis } from '../component/assessment/MessageAnalysis';
 import { ActionPlan } from '../component/assessment/ActionPlan';
 import { useAssessment } from '../slice/assessmentSlice';
 import error_animation from '../animations/error_animation.json';
 import Lottie from 'lottie-react';
 import { isEmpty } from 'lodash';
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ResultsPage() {
@@ -18,10 +14,18 @@ export default function ResultsPage() {
   const navigate = useNavigate();
   const isBullying = analysisResult?.toxic_level > 0.1 || !isEmpty(analysisResult?.bias);
   const [activeView, setActiveView] = useState<'analysis' | 'plan'>('analysis');
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleStartQuiz = () => {
-    navigate('/cyber-safety-quiz');
-  };
+  // Track scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 80);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const resetAssessment = () => {
     navigate('/assessment');
@@ -33,81 +37,102 @@ export default function ResultsPage() {
 
   return userInput ? (
     <Box sx={{ minHeight: '100vh' }}>
-      {/* swipe */}
+      {/* Floating swipe navigation */}
       {isBullying && (
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            mb: 5,
-            mt: 3,
-          }}
-        >
+        <>
+          {/* This empty box serves as a spacer to prevent page jumping when nav becomes fixed */}
+          {isScrolled && (
+            <Box
+              sx={{
+                height: { xs: '70px', md: '60px' },
+                mb: 5,
+                mt: 3,
+                visibility: 'hidden',
+              }}
+            />
+          )}
+
           <Box
             sx={{
               display: 'flex',
-              backgroundColor: '#f4f1fa',
-              borderRadius: '30px',
-              padding: '4px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              border: '1px solid #e0e0e0',
-              maxWidth: '500px',
-              width: '90%',
+              justifyContent: isScrolled ? 'flex-end' : 'center',
+              alignItems: 'center',
+              mb: isScrolled ? 0 : 5,
+              mt: isScrolled ? 0 : 3,
+              position: isScrolled ? 'fixed' : '',
+              top: isScrolled ? '50%' : 'auto',
+              right: isScrolled ? 0 : 'auto',
+              left: 0,
+              width: '100%',
+              transform: isScrolled ? 'translateY(-50%)' : 'none',
+              zIndex: 1000,
+              transition: 'all 0.3s ease',
+              pointerEvents: 'none',
             }}
           >
-            <Button
-              onClick={() => handleViewChange('analysis')}
-              startIcon={<QuizIcon />}
+            <Box
               sx={{
-                flex: 1,
-                padding: '10px 20px',
-                borderRadius: '25px',
-                backgroundColor: activeView === 'analysis' ? '#6A4CA7' : 'transparent',
-                color: activeView === 'analysis' ? 'white' : '#6A4CA7',
-                fontWeight: 600,
-                textTransform: 'none',
-                fontSize: '1rem',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  backgroundColor:
-                    activeView === 'analysis' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
-                },
+                display: 'flex',
+                flexDirection: isScrolled ? 'column' : 'row',
+                backgroundColor: isScrolled ? 'rgba(244, 241, 250, 0.95)' : '#f4f1fa',
+                borderRadius: isScrolled ? '30px 0 0 30px' : '30px',
+                padding: isScrolled ? '12px 8px' : '4px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                border: '1px solid #e0e0e0',
+                maxWidth: isScrolled ? '80px' : '500px',
+                pointerEvents: 'auto', // This restores mouse events for the button container
               }}
             >
-              Message Analysis
-            </Button>
+              <Button
+                onClick={() => handleViewChange('analysis')}
+                sx={{
+                  padding: isScrolled ? '10px' : '10px 20px',
+                  minWidth: isScrolled ? '48px' : 'auto',
+                  borderRadius: isScrolled ? '50%' : '25px',
+                  backgroundColor: activeView === 'analysis' ? '#6A4CA7' : 'transparent',
+                  color: activeView === 'analysis' ? 'white' : '#6A4CA7',
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor:
+                      activeView === 'analysis' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
+                  },
+                  '& .MuiButton-startIcon': {
+                    margin: isScrolled ? 0 : '0 8px 0 0',
+                  },
+                }}
+              >
+                {isScrolled ? '1' : 'Step 1: Message Analysis'}
+              </Button>
 
-            <Button
-              onClick={() => handleViewChange('plan')}
-              startIcon={<VolunteerActivismIcon />}
-              sx={{
-                flex: 1,
-                padding: '10px 20px',
-                borderRadius: '25px',
-                backgroundColor: activeView === 'plan' ? '#6A4CA7' : 'transparent',
-                color: activeView === 'plan' ? 'white' : '#6A4CA7',
-                fontWeight: 600,
-                textTransform: 'none',
-                fontSize: '1rem',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  backgroundColor: activeView === 'plan' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
-                },
-              }}
-            >
-              Support Plan
-            </Button>
+              <Button
+                onClick={() => handleViewChange('plan')}
+                sx={{
+                  padding: isScrolled ? '10px' : '10px 20px',
+                  minWidth: isScrolled ? '48px' : 'auto',
+                  borderRadius: isScrolled ? '50%' : '25px',
+                  backgroundColor: activeView === 'plan' ? '#6A4CA7' : 'transparent',
+                  color: activeView === 'plan' ? 'white' : '#6A4CA7',
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor: activeView === 'plan' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
+                  },
+                }}
+              >
+                {isScrolled ? '2' : 'Step 2: Support Plan'}
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </>
       )}
 
-      {!isBullying && <Box sx={{ my: '8rem' }}></Box>}
       <Box
         sx={{
           position: 'relative',
           width: '100%',
-          maxWidth: activeView === 'plan' ? '850px' : '650px', // Wider container for ActionPlan
           margin: '0 auto',
           minHeight: { xs: 'auto', md: '450px' },
           display: 'flex',
@@ -122,7 +147,7 @@ export default function ResultsPage() {
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.1}
-          onDragEnd={(e, { offset, velocity }) => {
+          onDragEnd={(e, { offset }) => {
             const swipe = offset.x;
 
             if (swipe < -100 && activeView === 'analysis' && isBullying) {

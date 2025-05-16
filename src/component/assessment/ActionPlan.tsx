@@ -13,10 +13,12 @@ import animationData from '../../animations/loading_animation.json';
 import { useState, useEffect } from 'react';
 import { useAssessment } from '../../slice/assessmentSlice';
 import { icons } from './icons';
+import { useNavigate } from 'react-router';
 
 export function ActionPlan() {
   const [loading, setLoading] = useState<LoadingStateType>('loading');
   const { actionPlan } = useAssessment();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (actionPlan && actionPlan !== 'error') {
@@ -40,12 +42,9 @@ export function ActionPlan() {
       elevation={2}
       sx={{
         backgroundColor: '#F7FAFD',
-        borderRadius: '1rem',
         width: '100%',
         height: '100%',
         overflowY: 'auto',
-        maxHeight: { xs: '80vh', md: 'none' },
-        maxWidth: { xs: '100%', md: '900px' }, // Made even wider to accommodate side-by-side layout
       }}
     >
       {loading != 'loaded' ? (
@@ -55,19 +54,21 @@ export function ActionPlan() {
           <Box
             sx={{
               background: 'linear-gradient(to right, #F5F3FF, #EEF2FF)',
-
               p: 2,
-              mb: 3,
+              mb: 2,
             }}
           >
             <Typography
-              variant="h5"
+              variant="h4"
               sx={{
                 color: 'var(--text-title)',
                 fontWeight: 'bold',
-                mb: 3,
-                fontSize: { xs: '1.3rem', sm: '1.5rem' },
+                mb: 2,
                 textAlign: 'center',
+                background: 'linear-gradient(90deg, #4B3F72 0%, #6A4CA7 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '0.5px',
               }}
             >
               Your Support Plan
@@ -76,7 +77,7 @@ export function ActionPlan() {
               variant="h6"
               sx={{
                 color: 'var(--text-body)',
-                mb: 4,
+
                 fontSize: { xs: '0.95rem', sm: '1rem' },
                 textAlign: 'center',
               }}
@@ -84,14 +85,13 @@ export function ActionPlan() {
               These ideas can help you feel better now and grow stronger in the future.
             </Typography>
           </Box>
-          <Box sx={{ p: { xs: 3, sm: 4, md: 6 } }}>
-            {/* Responsive container: vertical on mobile, horizontal on desktop */}
+
+          <Box sx={{ p: { xs: 3, sm: 3, md: 4 }, mb: 2 }}>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
                 gap: { xs: 4, md: 3 },
-                mb: 4,
               }}
             >
               {/* Now Actions Section */}
@@ -215,9 +215,6 @@ export function ActionPlan() {
                     borderRadius: '0 0 0.5rem 0.5rem',
                     mt: 0,
                     p: { xs: 2, sm: 3 },
-                    height: { md: '100%' },
-                    maxHeight: { xs: '300px', md: '350px' },
-                    overflowY: 'auto',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                   }}
                 >
@@ -286,7 +283,14 @@ export function ActionPlan() {
 
           <Divider />
 
-          <Box sx={{ p: { xs: 3, sm: 4, md: 6 } }}>
+          <Box
+            sx={{
+              p: { xs: 3, sm: 4, md: 6 },
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
             <Typography
               variant="h5"
               sx={{
@@ -296,7 +300,7 @@ export function ActionPlan() {
                 fontSize: { xs: '1.3rem', sm: '1.5rem' },
               }}
             >
-              Step 2: Tell Us How You're Feeling
+              Tell Us How You're Feeling
             </Typography>
 
             <Typography
@@ -328,6 +332,7 @@ export function ActionPlan() {
 
             <Button
               variant="contained"
+              onClick={() => navigate('/cyber-safety-quiz')}
               sx={{
                 backgroundColor: '#6A4CA7',
                 color: 'white',
@@ -344,7 +349,7 @@ export function ActionPlan() {
                 },
               }}
             >
-              Continue to Support Plan ➜
+              Next: Personalise My Support Plan
             </Button>
           </Box>
         </Box>

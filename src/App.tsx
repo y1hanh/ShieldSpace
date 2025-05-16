@@ -27,6 +27,7 @@ function App() {
       </Box>
 
       <Box
+        id="pages"
         sx={{
           marginTop: '4rem',
           mx: 'auto',

@@ -46,7 +46,7 @@ export default function AssessmentTool() {
   // Function to handle the analysis progress
   useEffect(() => {
     if (isAnalyzing) {
-      const time = Math.floor(Math.random() * 1000) + 500; // Random time between 0.5 and 1.5 seconds
+      const time = Math.floor(Math.random() * 1000);
 
       const timer = setTimeout(() => {
         if (analysisStep < analysisPhrases.length - 1) {
