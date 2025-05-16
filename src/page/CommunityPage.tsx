@@ -317,7 +317,7 @@ export default function CommunityPage() {
             <Typography 
               variant="h4" 
               sx={{ 
-                color: '#FF6B6B', 
+                color: 'var(--text-title)', 
                 fontWeight: 800,
                 fontSize: '2.5rem'
               }}
