@@ -1,7 +1,11 @@
 import { useState, ReactNode } from 'react';
-import { Box, Button, Typography, LinearProgress } from '@mui/material';
+import { Box, Button, Typography, LinearProgress, CircularProgress } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
+import Lottie from 'lottie-react';
+import trophy from '../animations/trophy.json';
+import celebration from '../animations/celebration.json';
+import { getSurvey } from '../api';
 
 interface QuestionOption {
   label: string;
@@ -62,8 +66,13 @@ export default function CyberSafetyQuiz() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [totalPoints, setTotalPoints] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
-  const [finalFeedback, setFinalFeedback] = useState('');
-  const [tips, setTips] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [customActionResult, setCustomActionResult] = useState<null | {
+    'immediate-action': string[];
+    'long-term-skills': string[];
+    'coping-advice': string[];
+    'encouraging-words': string[];
+  }>(null);
   const navigate = useNavigate();
 
   const questions: Question[] = [
@@ -128,11 +137,9 @@ export default function CyberSafetyQuiz() {
     const updatedPoints = totalPoints + getPointValue(currentQuestionKey, selectedAnswer);
 
     if (currentStep === questions.length - 1) {
-      // TODO: save updatedAnswers
-      console.log('Final Answers:', updatedAnswers);
       setAnswers(updatedAnswers);
       setTotalPoints(updatedPoints);
-      finishQuiz(updatedAnswers, updatedPoints);
+      finishQuiz(updatedAnswers);
     } else {
       setAnswers(updatedAnswers);
       setTotalPoints(updatedPoints);
@@ -141,10 +148,23 @@ export default function CyberSafetyQuiz() {
     }
   }
 
-  function finishQuiz(updatedAnswers: Record<string, string>, updatedPoints: number) {
+  function finishQuiz(updatedAnswers: Record<string, string>) {
     setQuizFinished(true);
-    setFinalFeedback(generateFeedback(updatedAnswers, updatedPoints));
-    setTips(getRandomTips());
+
+    const answerValues = Object.values(updatedAnswers);
+    const userInput = questions[0].text;
+    setIsLoading(true);
+
+    getSurvey({ userInput, userAnswers: answerValues })
+      .then(response => {
+        setCustomActionResult(response);
+      })
+      .catch(error => {
+        console.error('Error getting survey feedback:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   function handlePrevious() {
@@ -164,169 +184,10 @@ export default function CyberSafetyQuiz() {
     return pointsTable[question]?.[answer] || 0;
   }
 
-  function generateFeedback(answers: Record<string, string>, points: number) {
-    const feedbackParts: string[] = [];
-
-    const q1 = answers.q1;
-    const q2 = answers.q2;
-    const q3 = answers.q3;
-    const q4 = answers.q4;
-    const q5 = answers.q5;
-
-    if (q1 === '3' || q4 === '3') {
-      feedbackParts.push(
-        "You sometimes feel overwhelmed. It's important to reach out and talk to someone!"
-      );
-    } else if (q1 === '5') {
-      feedbackParts.push(
-        "Feeling scared is normal. Remember, you're not alone and help is always available!"
-      );
-    } else {
-      feedbackParts.push('You are handling things positively! Stay strong.');
-    }
-
-    if (q2 === '2') {
-      feedbackParts.push(
-        "When you're unsure if a message is mean or just silly, it's always a good idea to ask a grown-up for guidance."
-      );
-    } else if (q2 === '3') {
-      feedbackParts.push(
-        'Noticing that a message could hurt shows how much you care about kindness. Trust your feelings!'
-      );
-    } else {
-      feedbackParts.push(
-        "It's great that you can see the fun side of things—it keeps your day bright!"
-      );
-    }
-
-    if (q3 === '1') {
-      feedbackParts.push(
-        'Ignoring a mean message sometimes protects your mood—like skipping over a puddle to keep your shoes dry.'
-      );
-    } else if (q3 === '2') {
-      feedbackParts.push(
-        'Talking to a trusted adult is like having a superhero by your side—it makes you stronger!'
-      );
-    } else if (q3 === '3') {
-      feedbackParts.push(
-        'Even if anger tempts you to shout back, a calm reply can help clear the storm and bring back the sunshine.'
-      );
-    } else if (q3 === '4') {
-      feedbackParts.push(
-        'Crying shows you have a caring heart. Sharing your feelings can help clear away the clouds.'
-      );
-    }
-
-    if (q4 === '3') {
-      feedbackParts.push(
-        'Seeing lots of hurtful messages can feel heavy—sharing your feelings can let the sunshine in.'
-      );
-    } else if (q4 === '2') {
-      feedbackParts.push(
-        'Even a few mean messages help you learn how to protect your smile and grow stronger.'
-      );
-    } else {
-      feedbackParts.push(
-        'It looks like your online world is mostly kind—a wonderful space to be in!'
-      );
-    }
-
-    if (q5 === '4') {
-      feedbackParts.push(
-        'Although keeping your feelings inside might seem easier sometimes, sharing them can really help you feel lighter.'
-      );
-    } else if (q5 === '1') {
-      feedbackParts.push(
-        'Blocking mean messages is a smart way to protect your space—like closing a door to keep the cold wind out.'
-      );
-    } else if (q5 === '2') {
-      feedbackParts.push(
-        'Telling your parents or teachers is a brave move—it invites caring support when you need it.'
-      );
-    } else if (q5 === '3') {
-      feedbackParts.push(
-        'Using humor to respond can sometimes turn a frown upside down and brighten the moment.'
-      );
-    }
-
-    const feedbackShortMap: Record<string, string> = {
-      "You sometimes feel overwhelmed. It's important to reach out and talk to someone!":
-        "You're feeling overwhelmed—talk to someone!",
-      "Feeling scared is normal. Remember, you're not alone and help is always available!":
-        "It's okay to feel scared. You're not alone!",
-      'You are handling things positively! Stay strong.': "You're doing great—stay strong!",
-      "When you're unsure if a message is mean or just silly, it's always a good idea to ask a grown-up for guidance.":
-        'Not sure? Ask a grown-up!',
-      'Noticing that a message could hurt shows how much you care about kindness. Trust your feelings!':
-        'You care about kindness. Trust your feelings!',
-      "It's great that you can see the fun side of things—it keeps your day bright!":
-        'Seeing fun in things is awesome!',
-      'Ignoring a mean message sometimes protects your mood—like skipping over a puddle to keep your shoes dry.':
-        'Ignoring helps protect your feelings.',
-      'Talking to a trusted adult is like having a superhero by your side—it makes you stronger!':
-        'Telling an adult makes you stronger!',
-      'Even if anger tempts you to shout back, a calm reply can help clear the storm and bring back the sunshine.':
-        'Stay calm—it helps more than shouting.',
-      'Crying shows you have a caring heart. Sharing your feelings can help clear away the clouds.':
-        "Crying is okay. You're caring!",
-      'Seeing lots of hurtful messages can feel heavy—sharing your feelings can let the sunshine in.':
-        'Talk about hurtful messages—it helps!',
-      'Even a few mean messages help you learn how to protect your smile and grow stronger.':
-        'Mean messages help you grow stronger.',
-      'It looks like your online world is mostly kind—a wonderful space to be in!':
-        "You're in a kind online space—yay!",
-      'Although keeping your feelings inside might seem easier sometimes, sharing them can really help you feel lighter.':
-        "Don't bottle it up—sharing helps!",
-      'Blocking mean messages is a smart way to protect your space—like closing a door to keep the cold wind out.':
-        'Blocking bad messages protects you!',
-      'Telling your parents or teachers is a brave move—it invites caring support when you need it.':
-        'Telling adults is brave and smart!',
-      'Using humor to respond can sometimes turn a frown upside down and brighten the moment.':
-        'Humor can brighten things up!',
-    };
-
-    const shortenedFeedback = feedbackParts.map(sentence => feedbackShortMap[sentence] || sentence);
-
-    const [badge, levelMessage] = getBadge(points);
-    return `${shortenedFeedback.join(' ')} You earned ${points} points and the badge: "${badge}". ${levelMessage}`;
-  }
-
-  function getBadge(points: number): [string, string] {
-    if (points >= 14) {
-      return ['Kind Champion', "You're a true champion of kindness and bravery!"];
-    } else if (points >= 10) {
-      return ['Brave Explorer', 'You explore feelings with courage and care!'];
-    } else {
-      return ['Caring Star', 'You shine bright with care and positivity!'];
-    }
-  }
-
-  //tips
-  const allTips = [
-    'If you ever feel upset or confused, try taking three deep, slow breaths—it can help you calm down.',
-    "Remember, it's always a good idea to talk to someone you trust when something feels wrong.",
-    "If you see unkind messages, don't let them ruin your day. Focus on the things that make you happy!",
-    'Keep a fun journal where you draw or write about your favorite moments—it can brighten even a cloudy day.',
-    'Be kind to yourself. Everyone has tough days, but you have the strength to overcome them!',
-    'Sharing your feelings is brave. It helps you feel understood and supported.',
-    "Sometimes, a little humor can turn a bad day around. Don't be afraid to laugh!",
-    "Always remember that your feelings matter, and it's okay to ask for help when you need it.",
-  ];
-
-  function getRandomTips(count = 3): string[] {
-    const shuffled = [...allTips].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
-  }
-
   const progressPercent = ((currentStep + 1) / questions.length) * 100;
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        p: 3,
-      }}
-    >
+    <Box sx={{ minHeight: '100vh', p: 3 }}>
       <Box
         sx={{
           height: '100%',
@@ -436,12 +297,11 @@ export default function CyberSafetyQuiz() {
             </Box>
           ) : (
             <Box textAlign="center">
-              {/* Trophy Image */}
               <Box
                 sx={{
                   backgroundColor: '#FFF3E0',
-                  width: 120,
-                  height: 120,
+                  width: { xs: 140, sm: 200},
+                  height: { xs: 140, sm: 200 },
                   borderRadius: '50%',
                   mx: 'auto',
                   display: 'flex',
@@ -450,177 +310,136 @@ export default function CyberSafetyQuiz() {
                   mb: 3,
                 }}
               >
-                <Typography variant="h1" component="div">
-                  🏆
-                </Typography>
+                <Lottie animationData={trophy} loop style={{ width: '100%', height: '100%' }} />
               </Box>
 
-              {/* Title */}
               <Typography variant="h4" sx={{ mb: 2, color: '#7C4DFF', fontWeight: 'bold' }}>
                 Completed!
               </Typography>
 
-              {/* Final feedback in a soft box */}
-              <Box
-                sx={{
-                  backgroundColor: '#F8F0FF',
-                  px: 4,
-                  py: 3,
-                  borderRadius: '16px',
-                  maxWidth: 500,
-                  mx: 'auto',
-                  mb: 4,
-                  fontSize: '1.1rem',
-                  color: '#4A148C',
-                  textAlign: 'left',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                  border: '1px solid rgba(124, 77, 255, 0.1)',
-                }}
-              >
-                <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
-                  <ul style={{ paddingLeft: '1.2rem' }}>
-                    {(() => {
-                      const parts = finalFeedback.split(/(".*?"|\d+)/g).filter(p => p && p.trim());
-                      console.log('parts[0]: ', parts[0]);
-                      console.log('parts[1]: ', parts[1]);
-                      console.log('parts[2]: ', parts[2]);
-                      console.log('parts[3]: ', parts[3]);
-                      console.log('parts[4]: ', parts[4]);
-                      console.log('parts[5]: ', parts[5]);
-                      const cleaned = parts[0].split('You earned')[0].trim();
-                      const lines = cleaned
-                        .split('. ')
-                        .map(line => line.trim())
-                        .filter(line => line.length > 0);
-                      console.log('lines: ', lines);
-
-                      for (let i = lines.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [lines[i], lines[j]] = [lines[j], lines[i]];
-                      }
-
-                      console.log('shuffled & extended lines:', lines);
-
-                      const badge = parts[3]?.replace(/"/g, '');
-                      const finalLine = parts[4]?.replace(/^\s*\./, '').trim();
-
-                      return (
-                        <>
-                          {/* Points and Badge Box */}
+              {isLoading ? (
+                <Box>
+                  <CircularProgress />
+                </Box>
+              ) : (
+                <>
+                  <Lottie
+                    animationData={celebration}
+                    loop={false}
+                    style={{
+                      position: 'fixed',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      zIndex: 0,
+                      pointerEvents: 'none',
+                      opacity: 0.4,
+                    }}
+                  />
+                  <Box sx={{ backgroundColor: '#F8F0FF', borderRadius: '20px', p: 3 }}>
+                    <Box textAlign="left" sx={{ mt: 3 }}>
+                      <Typography
+                        variant="h6"
+                        sx={{ color: '#FF6B6B', display: 'flex', alignItems: 'center' }}
+                      >
+                        <span role="img" aria-label="star" style={{ marginRight: '8px' }}>
+                          ⭐
+                        </span>
+                        What You Can Do Right Now
+                      </Typography>
+                      <ul style={{ listStyleType: 'none', padding: 0 }}>
+                        {customActionResult['immediate-action'].map((item, index) => (
                           <li
-                            style={{
-                              marginBottom: '20px',
-                              lineHeight: '1.7',
-                              listStyle: 'none',
-                              textAlign: 'center',
-                              // mx: 'auto',
-                            }}
+                            key={index}
+                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
                           >
-                            <Box
-                              sx={{
-                                backgroundColor: '#F3E5F5',
-                                borderRadius: '12px',
-                                px: 2,
-                                py: 1.5,
-                                display: 'inline-block',
-                                fontSize: '1.3rem',
-                                mx: 'auto',
-                              }}
-                            >
-                              <Box
-                                component="div"
-                                sx={{
-                                  fontSize: '1.3rem',
-                                }}
-                              >
-                                <Box component="span" sx={{ fontWeight: 500, color: '#4A148C' }}>
-                                  🏅🛡️{' '}
-                                </Box>
-                                <Box component="span" sx={{ fontWeight: 'bold', color: '#7C4DFF' }}>
-                                  {badge?.toUpperCase()}
-                                </Box>
-                              </Box>
-                            </Box>
+                            <span role="img" aria-label="checkmark" style={{ marginRight: '8px' }}>
+                              ✅
+                            </span>
+                            {item}
                           </li>
+                        ))}
+                      </ul>
 
-                          {/* Feedback Messages */}
-                          {lines.map((line, idx) => (
-                            <li
-                              key={idx}
-                              style={{
-                                marginBottom: '10px',
-                                lineHeight: '1.7',
-                                listStyle: 'none',
-                                position: 'relative',
-                                paddingLeft: '25px',
-                                fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  position: 'absolute',
-                                  left: 0,
-                                  color: '#7C4DFF',
-                                }}
-                              >
-                                ✓
-                              </span>
-                              {line}
-                            </li>
-                          ))}
+                      <Typography
+                        variant="h6"
+                        sx={{ mt: 2, color: '#4CAF50', display: 'flex', alignItems: 'center' }}
+                      >
+                        <span role="img" aria-label="growing" style={{ marginRight: '8px' }}>
+                          🌱
+                        </span>
+                        Super Skills to Grow
+                      </Typography>
+                      <ul style={{ listStyleType: 'none', padding: 0 }}>
+                        {customActionResult['long-term-skills'].map((item, index) => (
+                          <li
+                            key={index}
+                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
+                          >
+                            <span role="img" aria-label="sparkle" style={{ marginRight: '8px' }}>
+                              ✨
+                            </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
 
-                          {finalLine && (
-                            <li
-                              style={{
-                                marginBottom: '10px',
-                                lineHeight: '1.7',
-                                listStyle: 'none',
-                                position: 'relative',
-                                paddingLeft: '25px',
-                                fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-                              }}
+                      <Typography
+                        variant="h6"
+                        sx={{ mt: 2, color: '#2196F3', display: 'flex', alignItems: 'center' }}
+                      >
+                        <span role="img" aria-label="heart" style={{ marginRight: '8px' }}>
+                          💙
+                        </span>
+                        Feeling Better Tips
+                      </Typography>
+                      <ul style={{ listStyleType: 'none', padding: 0 }}>
+                        {customActionResult['coping-advice'].map((item, index) => (
+                          <li
+                            key={index}
+                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
+                          >
+                            <span role="img" aria-label="butterfly" style={{ marginRight: '8px' }}>
+                              🦋
+                            </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <Typography
+                        variant="h6"
+                        sx={{ mt: 2, color: '#FFC107', display: 'flex', alignItems: 'center' }}
+                      >
+                        <span role="img" aria-label="rainbow" style={{ marginRight: '8px' }}>
+                          🌈
+                        </span>
+                        Happy Thoughts For You
+                      </Typography>
+                      <ul style={{ listStyleType: 'none', padding: 0 }}>
+                        {customActionResult['encouraging-words'].map((item, index) => (
+                          <li
+                            key={index}
+                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
+                          >
+                            <span
+                              role="img"
+                              aria-label="sparkle-heart"
+                              style={{ marginRight: '8px' }}
                             >
-                              <span
-                                style={{
-                                  position: 'absolute',
-                                  left: 0,
-                                  color: '#7C4DFF',
-                                }}
-                              >
-                                ✓
-                              </span>
-                              {finalLine}
-                            </li>
-                          )}
-                        </>
-                      );
-                    })()}
-                  </ul>
-                </Typography>
-                {quizFinished && (
-                  <Box sx={{ mt: 4 }}>
-                    <Typography variant="h6" fontWeight="bold" color="#4B4072" gutterBottom>
-                      🌟 Helpful Tips
-                    </Typography>
-                    <ul style={{ paddingLeft: '1.5rem' }}>
-                      {tips.map((tip, index) => (
-                        <li key={index} style={{ fontSize: '1rem',marginBottom: '10px', lineHeight: '1.6', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' }}>
-                          {tip}
-                        </li>
-                      ))}
-                    </ul>
+                              💖
+                            </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </Box>
                   </Box>
-                )}
-              </Box>
+                </>
+              )}
 
-              {/* Button */}
-              <Box
-                display="grid"
-                gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }}
-                gap={2}
-                maxWidth="500px"
-                mx="auto"
-              >
+              <Box mt={4} display="grid" gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }} gap={2}>
                 <StyledButton
                   onClick={() => navigate('/')}
                   bgColor="#7C4DFF"

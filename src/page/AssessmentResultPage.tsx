@@ -1,102 +1,197 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
-import QuizIcon from '@mui/icons-material/Quiz';
 import { MessageAnalysis } from '../component/assessment/MessageAnalysis';
 import { ActionPlan } from '../component/assessment/ActionPlan';
 import { useAssessment } from '../slice/assessmentSlice';
 import error_animation from '../animations/error_animation.json';
 import Lottie from 'lottie-react';
 import { isEmpty } from 'lodash';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ResultsPage() {
   const { userInput, analysisResult } = useAssessment();
   const navigate = useNavigate();
-  const isBullying = analysisResult.toxic_level > 0.1 || !isEmpty(analysisResult?.bias);
-  const handleStartQuiz = () => {
-    navigate('/cyber-safety-quiz');
-  };
+  const isBullying = analysisResult?.toxic_level > 0.1 || !isEmpty(analysisResult?.bias);
+  const [activeView, setActiveView] = useState<'analysis' | 'plan'>('analysis');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Track scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 80);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const resetAssessment = () => {
     navigate('/assessment');
   };
 
+  const handleViewChange = (view: 'analysis' | 'plan') => {
+    setActiveView(view);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return userInput ? (
-    <Box>
-      <Typography variant="h4" fontWeight="bold" color="#4B4072" mt={10} mb={4} textAlign="center">
-        Insights
-      </Typography>
+    <Box sx={{ minHeight: '100vh' }}>
+      {/* Floating swipe navigation */}
+      {isBullying && (
+        <>
+          {/* This empty box serves as a spacer to prevent page jumping when nav becomes fixed */}
+          {isScrolled && (
+            <Box
+              sx={{
+                height: { xs: '70px', md: '60px' },
+                mb: 5,
+                mt: 3,
+                visibility: 'hidden',
+              }}
+            />
+          )}
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: isScrolled ? 'flex-end' : 'center',
+              alignItems: 'center',
+              mb: isScrolled ? 0 : 5,
+              mt: isScrolled ? 0 : 3,
+              position: isScrolled ? 'fixed' : '',
+              top: isScrolled ? '50%' : 'auto',
+              right: isScrolled ? 0 : 'auto',
+              left: 0,
+              width: '100%',
+              transform: isScrolled ? 'translateY(-50%)' : 'none',
+              zIndex: 1000,
+              transition: 'all 0.3s ease',
+              pointerEvents: 'none',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: isScrolled ? 'column' : 'row',
+                backgroundColor: isScrolled ? 'rgba(244, 241, 250, 0.95)' : '#f4f1fa',
+                borderRadius: isScrolled ? '30px 0 0 30px' : '30px',
+                padding: isScrolled ? '12px 8px' : '4px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                border: '1px solid #e0e0e0',
+                maxWidth: isScrolled ? '80px' : '500px',
+                pointerEvents: 'auto', // This restores mouse events for the button container
+              }}
+            >
+              <Button
+                onClick={() => handleViewChange('analysis')}
+                sx={{
+                  padding: isScrolled ? '10px' : '10px 20px',
+                  minWidth: isScrolled ? '48px' : 'auto',
+                  borderRadius: isScrolled ? '50%' : '25px',
+                  backgroundColor: activeView === 'analysis' ? '#6A4CA7' : 'transparent',
+                  color: activeView === 'analysis' ? 'white' : '#6A4CA7',
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor:
+                      activeView === 'analysis' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
+                  },
+                  '& .MuiButton-startIcon': {
+                    margin: isScrolled ? 0 : '0 8px 0 0',
+                  },
+                }}
+              >
+                {isScrolled ? '1' : 'Step 1: Message Analysis'}
+              </Button>
+
+              <Button
+                onClick={() => handleViewChange('plan')}
+                sx={{
+                  padding: isScrolled ? '10px' : '10px 20px',
+                  minWidth: isScrolled ? '48px' : 'auto',
+                  borderRadius: isScrolled ? '50%' : '25px',
+                  backgroundColor: activeView === 'plan' ? '#6A4CA7' : 'transparent',
+                  color: activeView === 'plan' ? 'white' : '#6A4CA7',
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor: activeView === 'plan' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
+                  },
+                }}
+              >
+                {isScrolled ? '2' : 'Step 2: Support Plan'}
+              </Button>
+            </Box>
+          </Box>
+        </>
+      )}
 
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
+          position: 'relative',
           width: '100%',
-          minHeight: { xs: 'auto', md: '400px' },
-          gap: 3,
+          margin: '0 auto',
+          minHeight: { xs: 'auto', md: '450px' },
+          display: 'flex',
           justifyContent: 'center',
+          overflow: 'hidden',
+          transition: 'max-width 0.3s ease-in-out', // Smooth transition when switching views
         }}
       >
-        <Box
-          sx={{
-            width: { xs: '100%', md: '50%' },
-            mb: { xs: 3, md: 0 },
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+        {/* Swipeable container */}
+        <motion.div
+          style={{ width: '100%', touchAction: 'pan-y' }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.1}
+          onDragEnd={(e, { offset }) => {
+            const swipe = offset.x;
+
+            if (swipe < -100 && activeView === 'analysis' && isBullying) {
+              handleViewChange('plan');
+            } else if (swipe > 100 && activeView === 'plan') {
+              handleViewChange('analysis');
+            }
           }}
         >
-          <MessageAnalysis
-            resetAssessment={resetAssessment}
-            userInput={userInput}
-            analysisResult={analysisResult}
-            isBullying={isBullying}
-          />
-        </Box>
-        {isBullying && (
-          <Box
-            sx={{
-              width: { xs: '100%', md: '50%' },
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <ActionPlan />
-          </Box>
-        )}
-      </Box>
-
-      <Typography
-        variant="h6"
-        fontWeight="bold"
-        color="text.primary"
-        textAlign="center"
-        sx={{ mt: 4 }}
-      >
-        🎯 Ready to discover your emotional superpowers?
-      </Typography>
-
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-        <Button
-          variant="contained"
-          onClick={handleStartQuiz}
-          startIcon={<QuizIcon />}
-          sx={{
-            backgroundColor: '#6A4CA7',
-            color: 'white',
-            borderRadius: '25px',
-            minWidth: '200px',
-            px: 4,
-            textTransform: 'none',
-            '&:hover': {
-              backgroundColor: '#59359e',
-            },
-          }}
-        >
-          Start
-        </Button>
+          <AnimatePresence mode="wait">
+            {activeView === 'analysis' ? (
+              <motion.div
+                key="analysis"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.3 }}
+                style={{ width: '100%' }}
+              >
+                <MessageAnalysis
+                  resetAssessment={resetAssessment}
+                  userInput={userInput}
+                  analysisResult={analysisResult}
+                  isBullying={isBullying}
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="plan"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 100 }}
+                transition={{ duration: 0.3 }}
+                style={{ width: '100%' }}
+              >
+                <ActionPlan />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </Box>
     </Box>
   ) : (

@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ChatIcon from '@mui/icons-material/Chat';
 
 export default function DashBoardPage() {
   const headingRef = useRef(null);
@@ -68,13 +69,12 @@ export default function DashBoardPage() {
     backgroundColor: 'var(--card-background)',
     padding: '1.2rem',
     borderRadius: '8px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+    /* transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     '&:hover': {
       transform: 'translateY(-5px)',
       boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
-    },
+    }, */
   };
 
   const cardTextStyle = {
@@ -92,7 +92,7 @@ export default function DashBoardPage() {
 
   const navigate = useNavigate();
   return (
-    <>
+    <Box id="main-page">
       {/* Section 1 */}
       <Container maxWidth="lg" sx={{ padding: '2rem 0' }}>
         <Box
@@ -187,6 +187,26 @@ export default function DashBoardPage() {
               }}
             />
           </Box>
+          <Box
+            sx={{
+              width: {
+                xs: '90%',
+                sm: '70%',
+                md: '70%',
+              },
+              aspectRatio: '16/9',
+            }}
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/LWGrHqCZiOg"
+              title="YouTube video"
+              style={{ border: 'none' }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </Box>
         </Box>
       </Container>
 
@@ -225,7 +245,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.2, delay: 0.2 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -246,7 +266,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
+              transition={{ duration: 0.2, delay: 0.4 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -266,7 +286,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 2 }}
+              transition={{ duration: 0.2, delay: 1 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -373,52 +393,102 @@ export default function DashBoardPage() {
         </Box>
       </Container>
 
-      <Container maxWidth="lg" sx={{ padding: '3rem 0', backgroundColor: '#F4F1FA', mx: 'auto' }}>
+      {/* Section 4: Assessment Tool */}
+      <Box sx={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
+            position: 'absolute',
+            width: '100vw',
+            height: '100%',
+            backgroundImage: 'url(/bg.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: 0.9,
+            zIndex: 0,
+          }}
+        />
+        <Container
+          maxWidth="lg"
+          sx={{
+            position: 'relative',
+            padding: '4rem 0',
+            overflow: 'hidden',
+            mx: 'auto',
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mb: 2 }}>
-            Is Someone Being Unkind? Let's Check Together!
-          </Typography>
-
-          <Typography
-            ref={descriptionRef}
-            sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}
-          >
-            Our friendly Message Helper can spot when someone's not being nice in messages. It helps
-            you understand how it might make you feel and shows you what you can do about it!
-          </Typography>
-
-          <Button
-            ref={buttonRef}
-            variant="contained"
-            onClick={() => navigate('/assessment')}
-            endIcon={<ArrowForwardIcon />}
+          <Box
             sx={{
-              backgroundColor: '#f89b5e',
-              color: 'white',
-              borderRadius: '25px',
-              px: 4,
-              py: 1.5,
-              mt: 3,
-              fontSize: '1.1rem',
-              textTransform: 'none',
-              fontWeight: 600,
-              '&:hover': {
-                backgroundColor: 'var(--highlight)',
-                transform: 'scale(1.05)',
+              position: 'relative',
+              zIndex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              p: 4,
+              borderRadius: 4,
+              maxWidth: '800px',
+              mx: 'auto',
+              width: {
+                xs: '70%',
+                sm: '90%',
               },
             }}
           >
-            Let's Go!
-          </Button>
-        </Box>
-      </Container>
-    </>
+            <Box
+              sx={{
+                backgroundColor: '#f89b5e',
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                mx: 'auto',
+              }}
+            >
+              <ChatIcon sx={{ color: 'white' }} />
+            </Box>
+            <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mt: 2, mb: 2 }}>
+              Is Someone Being Unkind? Let's Check Together!
+            </Typography>
+
+            <Typography
+              ref={descriptionRef}
+              sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}
+            >
+              Our friendly Message Helper can spot when someone's not being nice in messages. It
+              helps you understand how it might make you feel and shows you what you can do about
+              it!
+            </Typography>
+
+            <Button
+              ref={buttonRef}
+              variant="contained"
+              onClick={() => navigate('/assessment')}
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                backgroundColor: '#f89b5e',
+                color: 'white',
+                borderRadius: '25px',
+                px: 4,
+                py: 1.5,
+                mt: 3,
+                fontSize: '1.1rem',
+                textTransform: 'none',
+                fontWeight: 600,
+                '&:hover': {
+                  backgroundColor: 'var(--highlight)',
+                  transform: 'scale(1.05)',
+                },
+              }}
+            >
+              Let's Go!
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+    </Box>
   );
 }
