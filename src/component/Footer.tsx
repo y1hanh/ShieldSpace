@@ -1,14 +1,6 @@
 import { Box, Typography, Link } from '@mui/material';
 
 export default function Footer() {
-  const footerLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Analyser', href: '/assessment' },
-    { label: 'Analytics', href: '/analytics' },
-    { label: 'Scenarios', href: '/resources' },
-    { label: 'Resources & Community', href: '/community' },
-  ];
-
   return (
     <Box
       component="footer"
@@ -16,7 +8,7 @@ export default function Footer() {
         backgroundColor: '#1B1B2F',
         color: 'white',
         px: { xs: 2, sm: 4 },
-        py: 4,
+        py: 2,
       }}
     >
       <Box
@@ -30,7 +22,7 @@ export default function Footer() {
       >
         {/* Company Info */}
         <Box sx={{ flex: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 2 }}>
             <Box
               sx={{
                 width: 12,
@@ -49,44 +41,36 @@ export default function Footer() {
             combat cyberbullying.
           </Typography>
         </Box>
-
-        {/* Links */}
         <Box
           sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 3,
+            mt: 3,
+            pt: 2,
+            textAlign: 'right',
           }}
         >
-          {footerLinks.map(({ label, href }) => (
-            <Link
-              key={label}
-              href={href}
-              underline="hover"
-              sx={{
-                color: '#aaa',
-                fontSize: '0.9rem',
-                '&:hover': {
-                  color: '#fff',
-                },
-              }}
-            >
-              {label}
-            </Link>
-          ))}
+          <Link
+            href="https://bit.ly/ShieldSpace_FIT5120"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ textDecoration: 'none', cursor: 'pointer' }}
+          >
+            <Typography variant="body2" sx={{ color: '#ccc', textDecoration: 'underline' }}>
+              About Us
+            </Typography>
+          </Link>
         </Box>
       </Box>
 
       <Box
         sx={{
-          borderTop: '1px solid #444',
+          //borderTop: '1px solid #444',
           mt: 3,
           pt: 2,
           textAlign: 'center',
         }}
       >
         <Typography variant="body2" sx={{ color: '#888' }}>
-          © {new Date().getFullYear()} Company Name. All rights reserved.
+          © {new Date().getFullYear()} No More Bully. All rights reserved.
         </Typography>
       </Box>
     </Box>

@@ -142,8 +142,8 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
         height: {
           xs: '100%',
           sm: '100%',
-          md: 430,
-          lg: 430,
+          md: 470,
+          lg: 470,
         },
         display: 'flex',
         flexDirection: 'column',
@@ -164,7 +164,7 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
       {/* Top Image */}
       <Box
         sx={{
-          flex: '0 0 35%',
+          flex: '0 0 45%',
           width: '100%',
           overflow: 'hidden',
           position: 'relative',
@@ -187,6 +187,7 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            objectPosition: 'center',
           }}
         />
       </Box>
@@ -195,8 +196,8 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
       <Box
         sx={{
           backgroundColor: '#FFFFFF',
-          flex: '1 0 65%',
-          padding: 3,
+          flex: '1 0 55%',
+          padding: 2,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between'
