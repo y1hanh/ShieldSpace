@@ -33,6 +33,10 @@ export default function ResultsPage() {
 
   const handleViewChange = (view: 'analysis' | 'plan') => {
     setActiveView(view);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return userInput ? (

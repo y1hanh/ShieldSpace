@@ -245,7 +245,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.2, delay: 0.2 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -266,7 +266,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
+              transition={{ duration: 0.2, delay: 0.4 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -286,7 +286,7 @@ export default function DashBoardPage() {
               component={motion.div}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 2 }}
+              transition={{ duration: 0.2, delay: 1 }}
               viewport={{ once: true }}
               sx={cardBoxStyle}
             >
@@ -305,21 +305,91 @@ export default function DashBoardPage() {
         </Box>
       </Container>
 
-      {/* Section 3: visualization */}
-      <Container maxWidth="lg" sx={{ padding: '3rem 0' }}>
-        <Box sx={{ mx: 'auto', mt: 2, p: 3 }}>
-          <Typography
-            variant="h4"
-            sx={{ fontWeight: 'bold', color: '#4B3F72', textAlign: 'center', mb: 2 }}
+      {/* Section 3: bullying impact */}
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: 'center',
+            gap: { xs: 3, md: 5 },
+            padding: { xs: '1.5rem', md: '2.5rem' },
+          }}
+        >
+          <Box
+            sx={{
+              flex: { md: 1 },
+              order: { xs: 2, md: 1 },
+              padding: { xs: '0.5rem', md: '1rem' },
+            }}
           >
-            It's common than you think...
-          </Typography>
-          <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
-            Insights from 100,000 Tweets
-          </Typography>
-          <BullyingKindsPieChart
-            colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
-          />
+            <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'var(--text-title)', mb: 3 }}>
+              Why This Matters
+            </Typography>
+
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: { xs: '1rem', md: '1.1rem' },
+                lineHeight: 1.6,
+                color: 'var(--text-secondary)',
+                mb: 2,
+              }}
+            >
+              Cyberbullying isn't just "mean words online"—it can deeply hurt the way we see
+              ourselves and the world around us.
+            </Typography>
+
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: { xs: '1rem', md: '1.1rem' },
+                lineHeight: 1.6,
+                color: 'var(--text-secondary)',
+                mb: 2,
+              }}
+            >
+              This chart shows the real emotional toll that online bullying takes on teens. Many
+              feel less confident, alone, or even hopeless after receiving harmful messages.
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              flex: { md: 1 },
+              order: { xs: 1, md: 2 },
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              sx={{
+                width: { xs: '100%', sm: '90%', md: '90%' },
+                overflow: 'hidden',
+              }}
+            >
+              <Box
+                component="img"
+                src="/impact_of_bullying.png"
+                sx={{
+                  width: '100%',
+                  maxHeight: { xs: '350px', sm: '450px', md: '550px' },
+                  objectFit: 'contain',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                  },
+                }}
+              />
+            </Box>
+          </Box>
         </Box>
       </Container>
 
