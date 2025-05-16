@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -8,6 +8,7 @@ import {
   Button,
   Paper,
   Dialog,
+  LinearProgress,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import ImageIcon from '@mui/icons-material/Image';
@@ -29,9 +30,37 @@ export default function AssessmentTool() {
   const [showTextConfirmation, setShowTextConfirmation] = useState<boolean>(false);
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [alertText, setAlertText] = useState<string>('');
+  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [analysisStep, setAnalysisStep] = useState<number>(0);
+
+  const analysisPhrases = [
+    'Analyzing message...',
+    'Detecting potential hurtful content...',
+    'Generating your support plan...',
+    'Preparing your results...',
+  ];
 
   const navigate = useNavigate();
   const { setUserInput, setAnalysisResult } = useAssessment();
+
+  // Function to handle the analysis progress
+  useEffect(() => {
+    if (isAnalyzing) {
+      const time = Math.floor(Math.random() * 1000) + 500; // Random time between 0.5 and 1.5 seconds
+
+      const timer = setTimeout(() => {
+        if (analysisStep < analysisPhrases.length - 1) {
+          setAnalysisStep(prev => prev + 1);
+        } else {
+          // setIsAnalyzing(false);
+          setAnalysisStep(0);
+          navigate('/assessment-result');
+        }
+      }, time); // Move to next step every 1.2 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAnalyzing, analysisStep, navigate]);
 
   const handleSubmit = debounce(async () => {
     const trimmed = input.trim();
@@ -42,15 +71,16 @@ export default function AssessmentTool() {
     }
 
     try {
+      setIsAnalyzing(true); // Start the analysis animation
       const { analysis } = await getEmotions({ user_input: trimmed });
       setUserInput(trimmed);
       setAnalysisResult(analysis);
       setInput('');
-      navigate('/assessment-result');
     } catch (err) {
       console.error('Failed to submit', err);
       setAlertText('Submission failed.');
       setAlertOpen(true);
+      setIsAnalyzing(false);
     }
   }, 500);
 
@@ -162,32 +192,7 @@ export default function AssessmentTool() {
           >
             <Lottie animationData={robot} loop />
           </Box>
-          {/* <Box
-            component="img"
-            src="/robot.png"
-            alt="robot"
-            sx={{
-              position: 'absolute',
-              left: {
-                xs: 'calc(100% - 65px)',
-                sm: 'calc(100% - 115px)',
-                md: 'calc(100% - 110px)',
-              },
-              top: {
-                xs: 'calc(100% - 120px)',
-                sm: 'calc(100% - 220px)',
-                md: 'calc(100% - 260px)',
-              },
-              width: {
-                xs: '130px',
-                sm: '250px',
-                md: '300px',
-              },
-              height: 'auto',
-              zIndex: 2,
-              pointerEvents: 'none',
-            }}
-          />
+
           {/* Image preview area */}
           <ImageCrop fileInputRef={fileInputRef} onTextExtracted={onTextExtracted} />
           <Box
@@ -348,6 +353,71 @@ export default function AssessmentTool() {
           </Box>
         </Paper>
       </Dialog>
+
+      {/* Full-page Progress Animation */}
+      {isAnalyzing && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            background: 'var(--background)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 3,
+          }}
+        >
+          <Lottie
+            animationData={robot}
+            loop
+            style={{
+              height: 200,
+              margin: '0 auto',
+            }}
+          />
+          <Typography
+            variant="h5"
+            sx={{
+              mt: 3,
+              mb: 3,
+              fontWeight: 'bold',
+              color: 'var(--text-title)',
+            }}
+          >
+            {analysisPhrases[analysisStep]}
+          </Typography>
+
+          <LinearProgress
+            variant="determinate"
+            value={(analysisStep + 1) * 25}
+            sx={{
+              height: 10,
+              borderRadius: 5,
+              backgroundColor: '#e0e0e0',
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: 'var(--highlight)',
+                borderRadius: 5,
+              },
+            }}
+          />
+
+          <Typography
+            variant="body2"
+            sx={{
+              mt: 3,
+              color: 'text.secondary',
+              fontStyle: 'italic',
+            }}
+          >
+            We're checking your message and creating helpful advice...
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 }

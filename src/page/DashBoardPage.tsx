@@ -297,14 +297,12 @@ export default function DashBoardPage() {
           <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
             Insights from 100,000 Tweets
           </Typography>
-          <LazyLoadComponent>
-            <BullyingKindsPieChart
-              colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
-            />
-          </LazyLoadComponent>
+          <BullyingKindsPieChart
+            colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
+          />
         </Box>
       </Container>
-      
+
       {/* Section 4: Assessment Tool */}
       <Container
         maxWidth="lg"
@@ -363,7 +361,7 @@ export default function DashBoardPage() {
               mx: 'auto',
             }}
           >
-            <ChatIcon sx={{ color: 'white'}} />
+            <ChatIcon sx={{ color: 'white' }} />
           </Box>
           <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mt: 2, mb: 2 }}>
             Is Someone Being Unkind? Let's Check Together!
