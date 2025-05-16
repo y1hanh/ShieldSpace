@@ -187,6 +187,26 @@ export default function DashBoardPage() {
               }}
             />
           </Box>
+          <Box
+            sx={{
+              width: {
+                xs: '90%',
+                sm: '70%',
+                md: '70%',
+              },
+              aspectRatio: '16/9',
+            }}
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/LWGrHqCZiOg"
+              title="YouTube video"
+              style={{ border: 'none' }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </Box>
         </Box>
       </Container>
 
@@ -304,102 +324,101 @@ export default function DashBoardPage() {
       </Container>
 
       {/* Section 4: Assessment Tool */}
-      <Container
-        maxWidth="lg"
-        sx={{
-          position: 'relative',
-          padding: '4rem 0',
-          backgroundColor: '#F4F1FA',
-          overflow: 'hidden',
-          mx: 'auto',
-        }}
-      >
+      <Box sx={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
         <Box
           sx={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
+            width: '100vw',
             height: '100%',
             backgroundImage: 'url(/bg.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            opacity: 0.4,
+            opacity: 0.9,
             zIndex: 0,
           }}
         />
-
-        <Box
+        <Container
+          maxWidth="lg"
           sx={{
             position: 'relative',
-            zIndex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            p: 4,
-            borderRadius: 4,
-            maxWidth: '800px',
+            padding: '4rem 0',
+            overflow: 'hidden',
             mx: 'auto',
-            width: {
-              xs: '70%',
-              sm: '90%',
-            },
           }}
         >
           <Box
             sx={{
-              backgroundColor: '#f89b5e',
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
+              position: 'relative',
+              zIndex: 1,
               display: 'flex',
-              justifyContent: 'center',
+              flexDirection: 'column',
               alignItems: 'center',
+              textAlign: 'center',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              p: 4,
+              borderRadius: 4,
+              maxWidth: '800px',
               mx: 'auto',
-            }}
-          >
-            <ChatIcon sx={{ color: 'white' }} />
-          </Box>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mt: 2, mb: 2 }}>
-            Is Someone Being Unkind? Let's Check Together!
-          </Typography>
-
-          <Typography
-            ref={descriptionRef}
-            sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}
-          >
-            Our friendly Message Helper can spot when someone's not being nice in messages. It helps
-            you understand how it might make you feel and shows you what you can do about it!
-          </Typography>
-
-          <Button
-            ref={buttonRef}
-            variant="contained"
-            onClick={() => navigate('/assessment')}
-            endIcon={<ArrowForwardIcon />}
-            sx={{
-              backgroundColor: '#f89b5e',
-              color: 'white',
-              borderRadius: '25px',
-              px: 4,
-              py: 1.5,
-              mt: 3,
-              fontSize: '1.1rem',
-              textTransform: 'none',
-              fontWeight: 600,
-              '&:hover': {
-                backgroundColor: 'var(--highlight)',
-                transform: 'scale(1.05)',
+              width: {
+                xs: '70%',
+                sm: '90%',
               },
             }}
           >
-            Let's Go!
-          </Button>
-        </Box>
-      </Container>
+            <Box
+              sx={{
+                backgroundColor: '#f89b5e',
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                mx: 'auto',
+              }}
+            >
+              <ChatIcon sx={{ color: 'white' }} />
+            </Box>
+            <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mt: 2, mb: 2 }}>
+              Is Someone Being Unkind? Let's Check Together!
+            </Typography>
+
+            <Typography
+              ref={descriptionRef}
+              sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}
+            >
+              Our friendly Message Helper can spot when someone's not being nice in messages. It
+              helps you understand how it might make you feel and shows you what you can do about
+              it!
+            </Typography>
+
+            <Button
+              ref={buttonRef}
+              variant="contained"
+              onClick={() => navigate('/assessment')}
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                backgroundColor: '#f89b5e',
+                color: 'white',
+                borderRadius: '25px',
+                px: 4,
+                py: 1.5,
+                mt: 3,
+                fontSize: '1.1rem',
+                textTransform: 'none',
+                fontWeight: 600,
+                '&:hover': {
+                  backgroundColor: 'var(--highlight)',
+                  transform: 'scale(1.05)',
+                },
+              }}
+            >
+              Let's Go!
+            </Button>
+          </Box>
+        </Container>
+      </Box>
     </>
   );
 }
