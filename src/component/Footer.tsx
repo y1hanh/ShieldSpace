@@ -22,7 +22,7 @@ export default function Footer() {
       >
         {/* Company Info */}
         <Box sx={{ flex: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 2}}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 2 }}>
             <Box
               sx={{
                 width: 12,
@@ -42,18 +42,23 @@ export default function Footer() {
           </Typography>
         </Box>
         <Box
-        sx={{
-          mt: 3,
-          pt: 2,
-          textAlign: 'right',
-        }}
-      >
-        <Link href="/" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
-          <Typography variant="body2" sx={{ color: '#ccc', textDecoration: 'underline' }}>
-            About Us
-          </Typography>
-        </Link>
-      </Box>
+          sx={{
+            mt: 3,
+            pt: 2,
+            textAlign: 'right',
+          }}
+        >
+          <Link
+            href="https://bit.ly/ShieldSpace_FIT5120"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ textDecoration: 'none', cursor: 'pointer' }}
+          >
+            <Typography variant="body2" sx={{ color: '#ccc', textDecoration: 'underline' }}>
+              About Us
+            </Typography>
+          </Link>
+        </Box>
       </Box>
 
       <Box
@@ -68,8 +73,6 @@ export default function Footer() {
           © {new Date().getFullYear()} No More Bully. All rights reserved.
         </Typography>
       </Box>
-
-      
     </Box>
   );
 }
