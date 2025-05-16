@@ -1,16 +1,24 @@
-import { Paper, Box, Typography, List, ListItem, ListItemText, Button, Fade } from '@mui/material';
+import {
+  Paper,
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Divider,
+} from '@mui/material';
 import Lottie from 'lottie-react';
 import animationData from '../../animations/loading_animation.json';
 import { useState, useEffect } from 'react';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAssessment } from '../../slice/assessmentSlice';
 import { icons } from './icons';
+import { useNavigate } from 'react-router';
 
 export function ActionPlan() {
   const [loading, setLoading] = useState<LoadingStateType>('loading');
   const { actionPlan } = useAssessment();
-  const [activeView, setActiveView] = useState<'immediate' | 'longTerm'>('immediate');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (actionPlan && actionPlan !== 'error') {
@@ -29,21 +37,12 @@ export function ActionPlan() {
     return { instruction, quote };
   };
 
-  const toggleView = () => {
-    setActiveView(activeView === 'immediate' ? 'longTerm' : 'immediate');
-  };
-
   return (
     <Paper
       elevation={2}
       sx={{
         backgroundColor: '#F7FAFD',
-        borderRadius: '1rem',
-        p: 4,
-        width: {
-          xs: '70%',
-          sm: '90%',
-        },
+        width: '100%',
         height: '100%',
         overflowY: 'auto',
       }}
@@ -52,190 +51,307 @@ export function ActionPlan() {
         <LoadingActionPlan loadingState={loading} />
       ) : (
         <Box>
-          <Typography
-            variant="h5"
+          <Box
             sx={{
-              color: 'var(--text-title)',
-              fontWeight: 'bold',
+              background: 'linear-gradient(to right, #F5F3FF, #EEF2FF)',
+              p: 2,
               mb: 2,
-              fontSize: '1.5rem',
             }}
           >
-            Your Awesome Action Plan!
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              color: 'var(--text-body)',
-              mb: 2,
-              fontSize: '1rem',
-            }}
-          >
-            These ideas can help you feel better now and grow stronger in the future!
-          </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                color: 'var(--text-title)',
+                fontWeight: 'bold',
+                mb: 2,
+                textAlign: 'center',
+                background: 'linear-gradient(90deg, #4B3F72 0%, #6A4CA7 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '0.5px',
+              }}
+            >
+              Your Support Plan
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                color: 'var(--text-body)',
 
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-            <Button
-              variant={activeView === 'immediate' ? 'contained' : 'outlined'}
-              sx={{
-                mr: 1,
-                borderRadius: '20px',
-                backgroundColor: activeView === 'immediate' ? '#FF9800' : 'transparent',
-                borderColor: '#FF9800',
-                color: activeView === 'immediate' ? 'white' : '#FF9800',
-                '&:hover': {
-                  backgroundColor:
-                    activeView === 'immediate' ? 'var(--highlight)' : 'rgba(255, 152, 0, 0.1)',
-                },
+                fontSize: { xs: '0.95rem', sm: '1rem' },
+                textAlign: 'center',
               }}
-              onClick={() => setActiveView('immediate')}
             >
-              Now Actions
-            </Button>
-            <Button
-              variant={activeView === 'longTerm' ? 'contained' : 'outlined'}
-              sx={{
-                borderRadius: '20px',
-                backgroundColor: activeView === 'longTerm' ? '#4CAF50' : 'transparent',
-                borderColor: '#4CAF50',
-                color: activeView === 'longTerm' ? 'white' : '#4CAF50',
-                '&:hover': {
-                  backgroundColor: activeView === 'longTerm' ? '#388E3C' : 'rgba(76, 175, 80, 0.1)',
-                },
-              }}
-              onClick={() => setActiveView('longTerm')}
-            >
-              Growth Skills
-            </Button>
+              These ideas can help you feel better now and grow stronger in the future.
+            </Typography>
           </Box>
 
-          <Fade in={activeView === 'immediate'} timeout={500}>
-            <Box sx={{ display: activeView === 'immediate' ? 'block' : 'none' }}>
-              <Typography
-                variant="h6"
-                sx={{
-                  backgroundColor: 'var(--highlight)',
-                  color: 'white',
-                  py: 1,
-                  px: 2,
-                  borderRadius: '0.5rem',
-                  fontWeight: 'bold',
-                  fontSize: '1.2rem',
-                }}
-              >
-                ⚡ Things You Can Do Right Now
-              </Typography>
-
-              <List sx={{ bgcolor: '#FFF9C4', borderRadius: '0.5rem', mt: 1 }}>
-                {actionPlan['immediate-action'].map((action, index) => {
-                  const { instruction, quote } = simplifyText(action);
-                  return (
-                    <ListItem key={index} alignItems="flex-start" sx={{ py: 1 }}>
-                      <ListItemText
-                        primary={
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 1.5,
-                            }}
-                          >
-                            {index <= 3
-                              ? icons['immediate-action'][index]
-                              : icons['immediate-action'][0]}
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                              {instruction}
-                            </Typography>
-                          </Box>
-                        }
-                        secondary={
-                          <Typography sx={{ fontSize: '0.9rem', ml: 4 }}>{quote}</Typography>
-                        }
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-                <Button
-                  variant="contained"
-                  endIcon={<ArrowForwardIcon />}
-                  onClick={toggleView}
+          <Box sx={{ p: { xs: 3, sm: 3, md: 4 }, mb: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: { xs: 4, md: 3 },
+              }}
+            >
+              {/* Now Actions Section */}
+              <Box sx={{ flex: 1 }}>
+                <Typography
+                  variant="h6"
                   sx={{
-                    backgroundColor: 'var(--highlight-secondary)',
-                    '&:hover': { backgroundColor: '#388E3C' },
-                    borderRadius: '20px',
+                    backgroundColor: '#FFA726',
+                    color: 'white',
+                    py: 1.5,
+                    px: 2,
+                    borderRadius: '0.5rem 0.5rem 0 0',
+                    fontWeight: 'bold',
+                    fontSize: { xs: '1.1rem', sm: '1.2rem' },
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
                   }}
                 >
-                  See Growth Skills
-                </Button>
-              </Box>
-            </Box>
-          </Fade>
+                  <span style={{ fontSize: '1.4rem' }}>⚡</span> Things You Can Do Right Now
+                </Typography>
 
-          <Fade in={activeView === 'longTerm'} timeout={500}>
-            <Box sx={{ display: activeView === 'longTerm' ? 'block' : 'none' }}>
-              <Typography
-                variant="h6"
-                sx={{
-                  backgroundColor: 'var(--highlight-secondary)',
-                  color: 'white',
-                  py: 1,
-                  px: 2,
-                  borderRadius: '0.5rem',
-                  fontWeight: 'bold',
-                  fontSize: '1.2rem',
-                }}
-              >
-                🌱 Super Skills to Grow
-              </Typography>
-
-              <List sx={{ bgcolor: '#E8F5E9', borderRadius: '0.5rem', mt: 1 }}>
-                {actionPlan['long-term-skills'].map((skill, index) => {
-                  const { instruction, quote } = simplifyText(skill);
-                  return (
-                    <ListItem key={index} alignItems="flex-start" sx={{ py: 1 }}>
-                      <ListItemText
-                        primary={
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 1.5,
-                            }}
-                          >
-                            {index <= 3
-                              ? icons['long-term-skills'][index]
-                              : icons['long-term-skills'][0]}
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                              {instruction}
-                            </Typography>
-                          </Box>
-                        }
-                        secondary={<Typography sx={{ fontSize: '0.9rem' }}>{quote}</Typography>}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-
-              <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 2 }}>
-                <Button
-                  variant="contained"
-                  startIcon={<ArrowBackIcon />}
-                  onClick={toggleView}
+                <List
                   sx={{
-                    backgroundColor: 'var(--highlight)',
-                    '&:hover': { backgroundColor: '#F57C00' },
-                    borderRadius: '20px',
+                    backgroundColor: '#FFF8E1',
+                    border: '1px solid #FFE0B2',
+                    borderTop: 'none',
+                    borderRadius: '0 0 0.5rem 0.5rem',
+                    mt: 0,
+                    p: { xs: 2, sm: 3 },
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                   }}
                 >
-                  Back to Now Actions
-                </Button>
+                  {actionPlan['immediate-action'].slice(0, 3).map((action, index) => {
+                    const { instruction, quote } = simplifyText(action);
+                    return (
+                      <ListItem
+                        key={index}
+                        alignItems="flex-start"
+                        sx={{
+                          py: 1.5,
+                          px: { xs: 1, sm: 2 },
+                          mb: 1.5,
+                          backgroundColor: 'white',
+                          borderRadius: '8px',
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                          '&:last-child': {
+                            mb: 0,
+                          },
+                        }}
+                      >
+                        <ListItemText
+                          primary={
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                              }}
+                            >
+                              {index <= 3
+                                ? icons['immediate-action'][index]
+                                : icons['immediate-action'][0]}
+                              <Typography
+                                sx={{
+                                  fontWeight: 'bold',
+                                  fontSize: { xs: '0.9rem', sm: '1rem' },
+                                  color: '#E65100',
+                                }}
+                              >
+                                {instruction}
+                              </Typography>
+                            </Box>
+                          }
+                          secondary={
+                            <Typography
+                              sx={{
+                                fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                                ml: { xs: 3, sm: 4 },
+                                mt: 0.5,
+                                color: '#616161',
+                              }}
+                            >
+                              {quote}
+                            </Typography>
+                          }
+                        />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              </Box>
+
+              {/* Growth Skills Section */}
+              <Box sx={{ flex: 1 }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    backgroundColor: '#66BB6A',
+                    color: 'white',
+                    py: 1.5,
+                    px: 2,
+                    borderRadius: '0.5rem 0.5rem 0 0',
+                    fontWeight: 'bold',
+                    fontSize: { xs: '1.1rem', sm: '1.2rem' },
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <span style={{ fontSize: '1.4rem' }}>🌱</span> Super Skills to Grow
+                </Typography>
+
+                <List
+                  sx={{
+                    backgroundColor: '#E8F5E9',
+                    border: '1px solid #C8E6C9',
+                    borderTop: 'none',
+                    borderRadius: '0 0 0.5rem 0.5rem',
+                    mt: 0,
+                    p: { xs: 2, sm: 3 },
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                  }}
+                >
+                  {/* Only show first 3 items initially */}
+                  {actionPlan['long-term-skills'].slice(0, 3).map((skill, index) => {
+                    const { instruction, quote } = simplifyText(skill);
+                    return (
+                      <ListItem
+                        key={index}
+                        alignItems="flex-start"
+                        sx={{
+                          py: 1.5,
+                          px: { xs: 1, sm: 2 },
+                          mb: 1.5,
+                          backgroundColor: 'white',
+                          borderRadius: '8px',
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                          '&:last-child': {
+                            mb: 0,
+                          },
+                        }}
+                      >
+                        <ListItemText
+                          primary={
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                              }}
+                            >
+                              {index <= 3
+                                ? icons['long-term-skills'][index]
+                                : icons['long-term-skills'][0]}
+                              <Typography
+                                sx={{
+                                  fontWeight: 'bold',
+                                  fontSize: { xs: '0.9rem', sm: '1rem' },
+                                  color: '#2E7D32',
+                                }}
+                              >
+                                {instruction}
+                              </Typography>
+                            </Box>
+                          }
+                          secondary={
+                            <Typography
+                              sx={{
+                                fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                                ml: { xs: 3, sm: 4 },
+                                mt: 0.5,
+                                color: '#616161',
+                              }}
+                            >
+                              {quote}
+                            </Typography>
+                          }
+                        />
+                      </ListItem>
+                    );
+                  })}
+                </List>
               </Box>
             </Box>
-          </Fade>
+          </Box>
+
+          <Divider />
+
+          <Box
+            sx={{
+              p: { xs: 3, sm: 4, md: 6 },
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              variant="h5"
+              sx={{
+                color: 'var(--text-title)',
+                fontWeight: 'bold',
+                mb: 2,
+                fontSize: { xs: '1.3rem', sm: '1.5rem' },
+              }}
+            >
+              Tell Us How You're Feeling
+            </Typography>
+
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{
+                mt: 2,
+                mb: 2,
+                fontSize: { xs: '0.95rem', sm: '1.05rem' },
+                lineHeight: 1.6,
+                maxWidth: '100%', // Full width on mobile
+              }}
+            >
+              We want to understand how this message made you feel so we can support you better.
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{
+                mb: 4,
+                fontSize: { xs: '0.95rem', sm: '1.05rem' },
+                lineHeight: 1.6,
+                maxWidth: '100%',
+              }}
+            >
+              Just answer a few simple questions, and we'll create a plan that helps you feel
+              stronger and more in control.
+            </Typography>
+
+            <Button
+              variant="contained"
+              onClick={() => navigate('/cyber-safety-quiz')}
+              sx={{
+                backgroundColor: '#6A4CA7',
+                color: 'white',
+                borderRadius: '30px',
+                px: 4,
+                py: 1.2,
+                textTransform: 'none',
+                fontSize: '1rem',
+                fontWeight: 500,
+                boxShadow: '0 4px 12px rgba(106, 76, 167, 0.3)',
+                '&:hover': {
+                  backgroundColor: '#59359e',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              Next: Personalise My Support Plan
+            </Button>
+          </Box>
         </Box>
       )}
     </Paper>
@@ -246,7 +362,7 @@ type LoadingStateType = 'loading' | 'loaded' | 'error';
 
 function LoadingActionPlan({ loadingState }: { loadingState: LoadingStateType }) {
   return loadingState == 'loading' ? (
-    <Box>
+    <Box sx={{ p: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Typography variant="h5" color="var(--text-title)" mb={0.5} textAlign="left">
         We are preparing your action plan...
       </Typography>

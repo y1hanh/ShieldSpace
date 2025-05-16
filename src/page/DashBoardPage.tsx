@@ -92,7 +92,7 @@ export default function DashBoardPage() {
 
   const navigate = useNavigate();
   return (
-    <>
+    <Box id="main-page">
       {/* Section 1 */}
       <Container maxWidth="lg" sx={{ padding: '2rem 0' }}>
         <Box
@@ -317,16 +317,14 @@ export default function DashBoardPage() {
           <Typography sx={{ color: '#333', textAlign: 'center', mb: 2 }}>
             Insights from 100,000 Tweets
           </Typography>
-          <LazyLoadComponent>
-            <BullyingKindsPieChart
-              colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
-            />
-          </LazyLoadComponent>
+          <BullyingKindsPieChart
+            colorScheme={['#E6E0F4', '#F8F8F8', '#F8F8F8', '#F8F8F8', '#F8F8F8']}
+          />
         </Box>
       </Container>
 
       {/* Section 4: Assessment Tool */}
-      <Box sx={{ position: 'relative', width: '100%', overflow: 'hidden'}}>
+      <Box sx={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
         <Box
           sx={{
             position: 'absolute',
@@ -421,6 +419,6 @@ export default function DashBoardPage() {
           </Box>
         </Container>
       </Box>
-    </>
+    </Box>
   );
 }
