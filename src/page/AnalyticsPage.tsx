@@ -58,7 +58,7 @@ export default function AnalyticsPage() {
         component="h1"
         align="center"
         sx={{
-          color: '#1A2C5B',
+          color: 'var(--text-title)',
           fontWeight: 700,
           mb: 4,
           fontSize: { xs: '2.5rem', md: '3.5rem' },
