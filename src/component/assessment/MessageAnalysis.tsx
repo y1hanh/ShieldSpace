@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, LinearProgress, Chip, Paper, Button, Divider } from '@mui/material';
+import {
+  Box,
+  Typography,
+  LinearProgress,
+  Chip,
+  Paper,
+  Button,
+  Divider,
+  Tooltip,
+} from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import { AnalysisResultType } from '../../slice/assessmentSlice';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useNavigate } from 'react-router';
+import { Word } from 'tesseract.js';
 const getEmotionLevel = (score: number) => {
   if (score >= 0.6) return 'high';
   if (score >= 0.3) return 'medium';
@@ -28,12 +38,17 @@ const getLabelColor = (level: string, isBullying: boolean) => {
   return '#6B7280'; // Gray
 };
 
-interface MessageAnalysisProps {
+type MessageAnalysisProps = {
   userInput: string;
   analysisResult: AnalysisResultType;
   resetAssessment: () => void;
   isBullying: boolean;
-}
+};
+
+type WordToxicity = {
+  word: string;
+  toxicity: number;
+};
 
 export const MessageAnalysis = ({
   resetAssessment,
@@ -42,18 +57,31 @@ export const MessageAnalysis = ({
   isBullying,
 }: MessageAnalysisProps) => {
   const [data, setData] = useState<AnalysisResultType | null>(null);
-  const [text, setText] = useState('');
+  // const [text, setText] = useState('');
+  const [textTriggers, setTextTriggers] = useState<WordToxicity[]>(null);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (userInput && analysisResult) {
       setData(analysisResult);
-      setText(userInput);
+      // setText(userInput);
+
+      const temp = [];
+      userInput.split(' ').forEach(word => {
+        const val = analysisResult.triggers?.toxic_triggers?.find(w => w[0].includes(word));
+        if (val) {
+          temp.push({ word, toxicity: val[1] });
+        } else {
+          temp.push({ word, toxicity: 0 });
+        }
+      });
+      setTextTriggers(temp);
     }
   }, [analysisResult, userInput]);
 
   if (!data) return null;
 
-  const { emotions, toxicity, trigger_emotion, bias } = data;
+  const { emotions, trigger_emotion, bias } = data;
 
   const emotionEntries = Object.entries(emotions || {}).filter(([key]) => key !== 'toxic_level');
 
@@ -167,7 +195,35 @@ export const MessageAnalysis = ({
             fontStyle: 'italic',
           }}
         >
-          "{text}"
+          "{' '}
+          {textTriggers &&
+            textTriggers.map(word => {
+              return word.toxicity > 0 ? (
+                <Tooltip
+                  key={word.word}
+                  title={`Toxicity: ${Math.round(word.toxicity * 100)}%`}
+                  arrow
+                  placement="top"
+                >
+                  <span
+                    style={{
+                      color: '#eb4034',
+                      fontWeight: 600,
+                      padding: '2px 4px',
+                      borderRadius: '4px',
+                      cursor: 'help',
+                    }}
+                  >
+                    {word.word}
+                  </span>
+                </Tooltip>
+              ) : (
+                <span key={word.word} style={{ color: '#000', marginRight: '4px' }}>
+                  {word.word}
+                </span>
+              );
+            })}
+          "
         </Typography>
 
         {/* Bullying Detection */}

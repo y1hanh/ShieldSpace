@@ -34,7 +34,7 @@ export const quizData: QuizCardProps[] = [
         feedback: "Ignoring may stop it for you, but it doesn't help your classmate.",
       },
       {
-        text: 'Report it and support your classmate',
+        text: 'Stop it and support your classmate',
         feedback: 'Best choice! You help stop the bullying and support your classmate.',
         right: true,
       },
@@ -43,7 +43,7 @@ export const quizData: QuizCardProps[] = [
         feedback: 'Sharing it makes the bullying spread and causes more harm.',
       },
     ],
-    answer: 'Report it and support your classmate',
+    answer: 'Stop it and support your classmate',
   },
   {
     image: '/quiz2.jpg',

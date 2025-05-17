@@ -16,6 +16,10 @@ export type AnalysisResultType = {
   emotions: Record<string, number>;
   trigger_emotion: string;
   bias?: Record<string, number>;
+  triggers?: {
+    emotion_triggers?: string[];
+    toxic_triggers?: string[];
+  };
 };
 
 type ActionPlanType =

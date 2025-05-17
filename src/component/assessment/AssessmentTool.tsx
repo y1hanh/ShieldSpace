@@ -136,7 +136,15 @@ export default function AssessmentTool() {
         },
       }}
     >
-      <Typography variant="h4" fontWeight="bold" color="var(--text-title)" mb={2}>
+      <Typography
+        fontWeight="bold"
+        color="var(--text-title)"
+        mb={2}
+        sx={{
+          textAlign: 'center',
+          fontSize: { xs: '24px', sm: '28px', md: '32px' },
+        }}
+      >
         Got a mean message?
       </Typography>
 

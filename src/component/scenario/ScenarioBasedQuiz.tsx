@@ -40,7 +40,6 @@ export default function ScenarioBasedQuiz() {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
       }}
@@ -48,6 +47,7 @@ export default function ScenarioBasedQuiz() {
       {rightOptions.every(option => option != null) ? (
         <Box
           sx={{
+            marginTop: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -66,6 +66,7 @@ export default function ScenarioBasedQuiz() {
               width: { xs: '120px', sm: '150px' },
               height: { xs: '120px', sm: '150px' },
               marginBottom: 2,
+
               animation: 'bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
               '@keyframes bounceIn': {
                 '0%': { transform: 'scale(0.3)', opacity: 0 },
@@ -274,68 +275,23 @@ function OptionSelector({
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', sm: 'row' },
-        alignItems: 'center',
-        gap: { xs: 2, sm: 4 },
         width: '100%',
-        maxWidth: '100%',
       }}
     >
-      <Button
-        onClick={() => switchQuiz(selectedQuiz, -1)}
-        variant="contained"
-        sx={{
-          minWidth: '120px',
-          order: { xs: 2, sm: 1 },
-          backgroundColor: '#4B3F72',
-          padding: { xs: '8px 16px', sm: '10px 20px' },
-          fontSize: { xs: '0.9rem', sm: '1rem' },
-          '&:hover': {
-            backgroundColor: '#3c325b',
-          },
+      <QuizOption
+        key={quizData[selectedQuiz].scenario[0]}
+        {...quizData[selectedQuiz]}
+        onClick={() => setSelectedQuiz(null)}
+        saveOptions={(right: number) => {
+          setRightOptions(prev => {
+            const newRightOptions = [...prev];
+            newRightOptions[selectedQuiz] = right;
+            return newRightOptions;
+          });
         }}
-      >
-        {'< Previous'}
-      </Button>
-
-      <Box
-        sx={{
-          flex: 1,
-          order: { xs: 1, sm: 2 },
-          width: '100%',
-        }}
-      >
-        <QuizOption
-          key={quizData[selectedQuiz].scenario[0]}
-          {...quizData[selectedQuiz]}
-          onClick={() => setSelectedQuiz(null)}
-          saveOptions={(right: number) => {
-            setRightOptions(prev => {
-              const newRightOptions = [...prev];
-              newRightOptions[selectedQuiz] = right;
-              return newRightOptions;
-            });
-          }}
-        />
-      </Box>
-
-      <Button
-        onClick={() => switchQuiz(selectedQuiz, 1)}
-        variant="contained"
-        sx={{
-          minWidth: '120px',
-          order: { xs: 3, sm: 3 },
-          backgroundColor: '#4B3F72',
-          padding: { xs: '8px 16px', sm: '10px 20px' },
-          fontSize: { xs: '0.9rem', sm: '1rem' },
-          '&:hover': {
-            backgroundColor: '#3c325b',
-          },
-        }}
-      >
-        {'Next >'}
-      </Button>
+        onPrevious={() => switchQuiz(selectedQuiz, -1)}
+        onNext={() => switchQuiz(selectedQuiz, 1)}
+      />
     </Box>
   );
 }
