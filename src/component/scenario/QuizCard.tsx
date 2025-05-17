@@ -74,7 +74,7 @@ export default function QuizCard({ image, alt, onClick }: QuizCardProps) {
             fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
           }}
         >
-          Click to Start Quiz
+          Click to Start
         </Typography>
       </Box>
     </Box>

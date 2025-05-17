@@ -15,11 +15,11 @@ export default function AssessmentPage() {
       <Box
         sx={{
           position: 'fixed',
-          top: '70px',
+          top: { xs: '50px', sm: '70px' },
           left: 0,
           zIndex: 1000,
           width: 'auto',
-          display: 'flex',
+          display: { xs: 'none', sm: 'flex' }, // Hide on extra small screens
           justifyContent: 'flex-start',
         }}
       >
@@ -27,9 +27,33 @@ export default function AssessmentPage() {
           animationData={animationData}
           loop={false}
           style={{
-            width: '40vw',
             maxWidth: '400px',
-            maxHeight: '300px',
+            maxHeight: '250px',
+          }}
+        />
+      </Box>
+
+      {/* Mobile-specific animation - shows only on small screens */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 1000,
+          width: '100%',
+          display: { xs: 'flex', sm: 'none' },
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          pointerEvents: 'none', // Allows interaction with elements below
+        }}
+      >
+        <Lottie
+          animationData={animationData}
+          loop={false}
+          style={{
+            width: '400px',
+            maxHeight: '180px',
           }}
         />
       </Box>
