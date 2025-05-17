@@ -153,7 +153,7 @@ export default function DashBoardPage() {
                 document.getElementById('section-2')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              <Typography sx={{ mb: 1, color: 'var(--text-title)' }}>
+              <Typography sx={{ mb: 1, color: 'var(--text-title)', cursor: 'pointer' }}>
                 See how cyberbullying affects us{' '}
               </Typography>
               <ArrowDownwardIcon sx={{ color: 'var(--text-title)' }} />
