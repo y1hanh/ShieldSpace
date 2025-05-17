@@ -32,9 +32,11 @@ export default function Footer() {
                 mr: 1,
               }}
             />
-            <Typography variant="h6" fontWeight="bold">
-              No More Bully
-            </Typography>
+            <Link href="/" sx={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+              <Typography variant="h6" fontWeight="bold">
+                No More Bully
+              </Typography>
+            </Link>
           </Box>
           <Typography variant="body2" sx={{ color: '#ccc', maxWidth: '90%' }}>
             We're dedicated to creating safer online spaces by providing tools and resources to
