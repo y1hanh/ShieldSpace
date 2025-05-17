@@ -70,16 +70,16 @@ export const routes: routesArray[] = [
     path: '/assessment',
     name: 'Analyser',
   },
-  {
+  /* {
     path: '/analytics',
     name: 'Analytics',
-  },
+  }, */
   {
     path: '/resources',
     name: 'Scenarios',
   },
   {
     path: '/community',
-    name: 'Resources & Community',
+    name: 'Fun Learning Zone',
   },
 ];

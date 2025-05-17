@@ -5,6 +5,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import PetsIcon from '@mui/icons-material/Pets';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
+import AnalyticsPage from './AnalyticsPage';
 
 const eduCategories = [
   { value: 'all', label: 'All Resources' },
@@ -209,7 +210,7 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
             sx={{ 
               fontWeight: 800, 
               color: '#FF6B6B',
-              fontFamily: '"Comic Sans MS", cursive',
+              //fontFamily: '"Comic Sans MS", cursive',
               fontSize: '1.3rem',
               mb: 1
             }}
@@ -222,7 +223,7 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
               color: buttonColor, 
               mb: 1, 
               fontWeight: 700,
-              fontFamily: '"Comic Sans MS", cursive',
+              //fontFamily: '"Comic Sans MS", cursive',
               fontSize: '1rem'
             }}
           >
@@ -249,7 +250,7 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
                       fontSize: '1rem',
                       color: '#666',
                       lineHeight: 1.5,
-                      fontFamily: '"Comic Sans MS", cursive',
+                      //fontFamily: '"Comic Sans MS", cursive',
                     }
                   }}
                 >
@@ -277,7 +278,7 @@ function ResourceCard({ card, buttonColor }: { card: Card; buttonColor: string }
               alignSelf: 'center',
               fontWeight: 700,
               fontSize: '1.1rem',
-              fontFamily: '"Comic Sans MS", cursive',
+              //fontFamily: '"Comic Sans MS", cursive',
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
               '&:hover': {
                 backgroundColor: buttonColor,
@@ -340,6 +341,7 @@ export default function CommunityPage() {
         </Box>
       }
     >
+      <AnalyticsPage />
       {/* Educational Resources Section */}
       <Box
         sx={{
@@ -446,7 +448,7 @@ export default function CommunityPage() {
                 }} 
                 fontWeight={600}
               >
-                Let's learn together about being kind and staying safe online! 🌈
+                Let's learn about being kind and staying safe online! 🌈
               </Typography>
 
               <Box
@@ -597,3 +599,5 @@ export default function CommunityPage() {
     </PageLayoutBox>
   );
 }
+
+
