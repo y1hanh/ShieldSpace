@@ -1,0 +1,24 @@
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: dist  # or build if using Create React App
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+  customHeaders:
+    - pattern: '**/*'
+      headers:
+        - key: Content-Security-Policy
+          value: default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:
+        - key: Referrer-Policy
+          value: no-referrer
+        - key: Permissions-Policy
+          value: camera=(), microphone=(), geolocation=()
