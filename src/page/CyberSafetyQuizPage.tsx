@@ -6,6 +6,8 @@ import Lottie from 'lottie-react';
 import trophy from '../animations/trophy.json';
 import celebration from '../animations/celebration.json';
 import { getSurvey } from '../api';
+import { motion } from 'framer-motion';
+import { useAssessment } from '../slice/assessmentSlice';
 
 interface QuestionOption {
   label: string;
@@ -60,20 +62,30 @@ function StyledButton({
   );
 }
 
+import { useMediaQuery, useTheme } from '@mui/material';
+
 export default function CyberSafetyQuiz() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [totalPoints, setTotalPoints] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { userInput } = useAssessment();
+  const navigate = useNavigate();
+
+  if (!userInput) {
+    navigate('/error');
+  }
+
   const [customActionResult, setCustomActionResult] = useState<null | {
     'immediate-action': string[];
     'long-term-skills': string[];
     'coping-advice': string[];
     'encouraging-words': string[];
   }>(null);
-  const navigate = useNavigate();
 
   const questions: Question[] = [
     {
@@ -152,7 +164,6 @@ export default function CyberSafetyQuiz() {
     setQuizFinished(true);
 
     const answerValues = Object.values(updatedAnswers);
-    const userInput = questions[0].text;
     setIsLoading(true);
 
     getSurvey({ userInput, userAnswers: answerValues })
@@ -187,16 +198,15 @@ export default function CyberSafetyQuiz() {
   const progressPercent = ((currentStep + 1) / questions.length) * 100;
 
   return (
-    <Box sx={{ minHeight: '100vh', p: 3 }}>
+    <Box sx={{ minHeight: '100vh', p: isMobile ? 1 : 3 }}>
       <Box
         sx={{
           height: '100%',
-          maxWidth: 600,
           marginLeft: 'auto',
           marginRight: 'auto',
           mt: 6,
           mb: 4,
-          p: 3,
+          p: isMobile ? 2 : 3,
           borderRadius: '20px',
           backgroundColor: '#ffffff',
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -214,9 +224,21 @@ export default function CyberSafetyQuiz() {
             textAlign: 'center',
           }}
         >
-          <Typography variant="h5" fontWeight="bold">
-            We would like to hear your feelings
-          </Typography>
+          {quizFinished ? (
+            isLoading ? (
+              <Typography variant="h5" fontWeight="bold">
+                Processing your plan...
+              </Typography>
+            ) : (
+              <Typography variant="h5" fontWeight="bold">
+                Your Plan is Ready!
+              </Typography>
+            )
+          ) : (
+            <Typography variant="h5" fontWeight="bold">
+              We would like to hear your feelings{' '}
+            </Typography>
+          )}
           <Box mt={1}>
             <LinearProgress
               variant="determinate"
@@ -235,9 +257,9 @@ export default function CyberSafetyQuiz() {
           </Box>
         </Box>
 
-        <Box p={3}>
+        <Box>
           {!quizFinished ? (
-            <Box>
+            <Box textAlign={'center'} sx={{ px: '8rem' }}>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold' }}>
                 {questions[currentStep].text}
               </Typography>
@@ -296,29 +318,46 @@ export default function CyberSafetyQuiz() {
               </Box>
             </Box>
           ) : (
-            <Box textAlign="center">
-              <Box
-                sx={{
-                  backgroundColor: '#FFF3E0',
-                  width: { xs: 140, sm: 200},
-                  height: { xs: 140, sm: 200 },
-                  borderRadius: '50%',
-                  mx: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  mb: 3,
-                }}
-              >
-                <Lottie animationData={trophy} loop style={{ width: '100%', height: '100%' }} />
-              </Box>
-
-              <Typography variant="h4" sx={{ mb: 2, color: '#7C4DFF', fontWeight: 'bold' }}>
-                Completed!
-              </Typography>
-
+            <Box>
               {isLoading ? (
-                <Box>
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    mt: 4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      mt: 2,
+                      backgroundColor: '#FFF3E0',
+                      width: { xs: 140, sm: 200 },
+                      height: { xs: 140, sm: 200 },
+                      borderRadius: '50%',
+                      mx: 'auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mb: 3,
+                    }}
+                  >
+                    <Lottie animationData={trophy} loop style={{ width: '100%', height: '100%' }} />
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{ color: '#FF6B6B', display: 'flex', alignItems: 'center' }}
+                  >
+                    Completed!
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{ color: '#FF6B6B', display: 'flex', alignItems: 'center' }}
+                  >
+                    We are processing your plan...
+                  </Typography>
                   <CircularProgress />
                 </Box>
               ) : (
@@ -337,122 +376,487 @@ export default function CyberSafetyQuiz() {
                       opacity: 0.4,
                     }}
                   />
-                  <Box sx={{ backgroundColor: '#F8F0FF', borderRadius: '20px', p: 3 }}>
-                    <Box textAlign="left" sx={{ mt: 3 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{ color: '#FF6B6B', display: 'flex', alignItems: 'center' }}
-                      >
-                        <span role="img" aria-label="star" style={{ marginRight: '8px' }}>
-                          ⭐
-                        </span>
-                        What You Can Do Right Now
-                      </Typography>
-                      <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {customActionResult['immediate-action'].map((item, index) => (
-                          <li
-                            key={index}
-                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
-                          >
-                            <span role="img" aria-label="checkmark" style={{ marginRight: '8px' }}>
-                              ✅
-                            </span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
+                  <Box
+                    sx={{
+                      backgroundColor: '#F8F0FF',
+                      borderRadius: '10px',
+                      p: { xs: 2, sm: 2, md: 4, lg: 5 },
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                    }}
+                  >
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        textAlign: 'center',
+                        fontWeight: 600,
+                        mb: 2,
+                        color: '#6A4CA7',
+                      }}
+                    >
+                      Swipe on each card to see all tips!
+                    </Typography>
 
-                      <Typography
-                        variant="h6"
-                        sx={{ mt: 2, color: '#4CAF50', display: 'flex', alignItems: 'center' }}
+                    <Box
+                      sx={{
+                        mt: 2,
+                        px: { xs: 0.5, sm: 2, md: '4rem' },
+                        pb: { xs: 1, sm: 0 },
+                        overflowX: { xs: 'auto', sm: 'visible' },
+                        overflowY: 'hidden',
+                        WebkitOverflowScrolling: 'touch',
+                        display: { xs: 'flex', sm: 'block' },
+                        flexDirection: { xs: 'row', sm: 'column' },
+                        gap: 2,
+                        '::-webkit-scrollbar': {
+                          display: { xs: 'none', sm: 'auto' },
+                        },
+                        scrollbarWidth: { xs: 'none', sm: 'auto' },
+                      }}
+                    >
+                      {/* Section 1: Immediate Actions - Appears First */}
+                      <Box
+                        component={motion.div}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.8 }}
+                        sx={{
+                          backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                          borderRadius: '16px',
+                          p: { xs: 1.5, sm: 2 },
+                          mb: { xs: 0, sm: 3 },
+                          border: '2px dashed #FF6B6B',
+                          minWidth: { xs: '85vw', sm: 'auto' },
+                          maxWidth: { xs: '85vw', sm: 'none' },
+                          height: 'auto', // Remove fixed height to show all content
+                          maxHeight: { sm: 'none' },
+                          flexShrink: 0,
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}
                       >
-                        <span role="img" aria-label="growing" style={{ marginRight: '8px' }}>
-                          🌱
-                        </span>
-                        Super Skills to Grow
-                      </Typography>
-                      <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {customActionResult['long-term-skills'].map((item, index) => (
-                          <li
-                            key={index}
-                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            color: '#FF6B6B',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: { xs: '1rem', sm: '1.25rem' },
+                            fontWeight: 'bold',
+                            mb: 1.5,
+                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            p: { xs: 1, sm: 0 },
+                            borderRadius: { xs: '8px', sm: 0 },
+                          }}
+                        >
+                          <span
+                            role="img"
+                            aria-label="star"
+                            style={{
+                              marginRight: '8px',
+                              fontSize: '1.4rem',
+                            }}
                           >
-                            <span role="img" aria-label="sparkle" style={{ marginRight: '8px' }}>
-                              ✨
-                            </span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
+                            ⭐
+                          </span>
+                          What You Can Do Right Now
+                        </Typography>
 
-                      <Typography
-                        variant="h6"
-                        sx={{ mt: 2, color: '#2196F3', display: 'flex', alignItems: 'center' }}
-                      >
-                        <span role="img" aria-label="heart" style={{ marginRight: '8px' }}>
-                          💙
-                        </span>
-                        Feeling Better Tips
-                      </Typography>
-                      <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {customActionResult['coping-advice'].map((item, index) => (
-                          <li
-                            key={index}
-                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
-                          >
-                            <span role="img" aria-label="butterfly" style={{ marginRight: '8px' }}>
-                              🦋
-                            </span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <Typography
-                        variant="h6"
-                        sx={{ mt: 2, color: '#FFC107', display: 'flex', alignItems: 'center' }}
-                      >
-                        <span role="img" aria-label="rainbow" style={{ marginRight: '8px' }}>
-                          🌈
-                        </span>
-                        Happy Thoughts For You
-                      </Typography>
-                      <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {customActionResult['encouraging-words'].map((item, index) => (
-                          <li
-                            key={index}
-                            style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}
-                          >
-                            <span
-                              role="img"
-                              aria-label="sparkle-heart"
-                              style={{ marginRight: '8px' }}
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 1.5,
+                            px: { xs: 1, sm: 0 },
+                          }}
+                        >
+                          {customActionResult['immediate-action'].map((item, index) => (
+                            <Box
+                              key={index}
+                              sx={{
+                                backgroundColor: 'white',
+                                borderRadius: '12px',
+                                p: 1.5,
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: 1.5,
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                transition: 'transform 0.2s',
+                                '&:hover': {
+                                  transform: 'translateY(-2px)',
+                                },
+                              }}
                             >
-                              💖
-                            </span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
+                              <Box
+                                sx={{
+                                  backgroundColor: '#FF6B6B',
+                                  color: 'white',
+                                  borderRadius: '50%',
+                                  width: 28,
+                                  height: 28,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  flexShrink: 0,
+                                }}
+                              >
+                                ✅
+                              </Box>
+                              <Typography
+                                sx={{
+                                  fontSize: { xs: '0.95rem', sm: '1rem' },
+                                  lineHeight: 1.3,
+                                }}
+                              >
+                                {item}
+                              </Typography>
+                            </Box>
+                          ))}
+                        </Box>
+                      </Box>
+
+                      {/* Section 2: Super Skills - Appears Second */}
+                      <Box
+                        component={motion.div}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 1 }}
+                        sx={{
+                          backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                          borderRadius: '16px',
+                          p: { xs: 1.5, sm: 2 },
+                          mb: { xs: 0, sm: 3 },
+                          border: '2px dashed #4CAF50',
+                          minWidth: { xs: '85vw', sm: 'auto' },
+                          maxWidth: { xs: '85vw', sm: 'none' },
+                          height: { xs: '320px', sm: 'auto' },
+                          overflow: { xs: 'auto', sm: 'visible' },
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            color: '#4CAF50',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: { xs: '1rem', sm: '1.25rem' },
+                            fontWeight: 'bold',
+                            mb: 1.5,
+                            position: 'sticky',
+                            top: 0,
+                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                            p: { xs: 1, sm: 0 },
+                            zIndex: 2,
+                          }}
+                        >
+                          <Typography
+                            component="span"
+                            variant="inherit"
+                            sx={{
+                              fontSize: '1.4rem',
+                              mr: 1,
+                              display: 'flex',
+                              alignItems: 'center',
+                            }}
+                            aria-label="growing"
+                          >
+                            🌱
+                          </Typography>
+                          Super Skills to Grow
+                        </Typography>
+
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 1.5,
+                            px: { xs: 1, sm: 0 },
+                          }}
+                        >
+                          {customActionResult['long-term-skills'].map((item, index) => (
+                            <Box
+                              key={index}
+                              sx={{
+                                backgroundColor: 'white',
+                                borderRadius: '12px',
+                                p: 1.5,
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: 1.5,
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                transition: 'transform 0.2s',
+                                '&:hover': {
+                                  transform: 'translateY(-2px)',
+                                },
+                              }}
+                            >
+                              <Typography
+                                component="span"
+                                sx={{
+                                  backgroundColor: '#4CAF50',
+                                  color: 'white',
+                                  borderRadius: '50%',
+                                  width: 28,
+                                  height: 28,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  flexShrink: 0,
+                                  fontSize: '1rem',
+                                  fontFamily: 'inherit',
+                                }}
+                              >
+                                ✨
+                              </Typography>
+                              <Typography
+                                variant="body1"
+                                sx={{
+                                  fontSize: { xs: '0.95rem', sm: '1rem' },
+                                  lineHeight: 1.3,
+                                }}
+                              >
+                                {item}
+                              </Typography>
+                            </Box>
+                          ))}
+                        </Box>
+                      </Box>
+
+                      {/* Section 3: Feeling Better Tips - Appears Third */}
+                      <Box
+                        component={motion.div}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 1.8 }}
+                        sx={{
+                          backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                          borderRadius: '16px',
+                          p: { xs: 1.5, sm: 2 },
+                          mb: { xs: 0, sm: 3 },
+                          border: '2px dashed #2196F3',
+                          minWidth: { xs: '85vw', sm: 'auto' },
+                          maxWidth: { xs: '85vw', sm: 'none' },
+                          height: { xs: '320px', sm: 'auto' },
+                          overflow: { xs: 'auto', sm: 'visible' },
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            color: '#2196F3',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: { xs: '1rem', sm: '1.25rem' },
+                            fontWeight: 'bold',
+                            mb: 1.5,
+                            position: 'sticky',
+                            top: 0,
+                            backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                            p: { xs: 1, sm: 0 },
+                            zIndex: 2,
+                          }}
+                        >
+                          <span
+                            role="img"
+                            aria-label="heart"
+                            style={{
+                              marginRight: '8px',
+                              fontSize: '1.4rem',
+                            }}
+                          >
+                            💙
+                          </span>
+                          Feeling Better Tips
+                        </Typography>
+
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 1.5,
+                            px: { xs: 1, sm: 0 },
+                          }}
+                        >
+                          {customActionResult['coping-advice'].map((item, index) => (
+                            <Box
+                              key={index}
+                              sx={{
+                                backgroundColor: 'white',
+                                borderRadius: '12px',
+                                p: 1.5,
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: 1.5,
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                transition: 'transform 0.2s',
+                                '&:hover': {
+                                  transform: 'translateY(-2px)',
+                                },
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  backgroundColor: '#2196F3',
+                                  color: 'white',
+                                  borderRadius: '50%',
+                                  width: 28,
+                                  height: 28,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  flexShrink: 0,
+                                }}
+                              >
+                                🦋
+                              </Box>
+                              <Typography
+                                sx={{
+                                  fontSize: { xs: '0.95rem', sm: '1rem' },
+                                  lineHeight: 1.3,
+                                }}
+                              >
+                                {item}
+                              </Typography>
+                            </Box>
+                          ))}
+                        </Box>
+                      </Box>
+
+                      {/* Section 4: Happy Thoughts - Appears Last */}
+                      <Box
+                        component={motion.div}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 2.1 }}
+                        sx={{
+                          backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                          borderRadius: '16px',
+                          p: { xs: 1.5, sm: 2 },
+                          mb: { xs: 0, sm: 2 },
+                          border: '2px dashed #FFC107',
+                          minWidth: { xs: '85vw', sm: 'auto' },
+                          maxWidth: { xs: '85vw', sm: 'none' },
+                          height: { xs: '320px', sm: 'auto' },
+                          overflow: { xs: 'auto', sm: 'visible' },
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            color: '#FFC107',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: { xs: '1rem', sm: '1.25rem' },
+                            fontWeight: 'bold',
+                            mb: 1.5,
+                            position: 'sticky',
+                            top: 0,
+                            backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                            p: { xs: 1, sm: 0 },
+                            zIndex: 2,
+                          }}
+                        >
+                          <span
+                            role="img"
+                            aria-label="rainbow"
+                            style={{
+                              marginRight: '8px',
+                              fontSize: '1.4rem',
+                            }}
+                          >
+                            🌈
+                          </span>
+                          Happy Thoughts For You
+                        </Typography>
+
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 1.5,
+                            px: { xs: 1, sm: 0 },
+                          }}
+                        >
+                          {customActionResult['encouraging-words'].map((item, index) => (
+                            <Box
+                              key={index}
+                              sx={{
+                                backgroundColor: 'white',
+                                borderRadius: '12px',
+                                p: 1.5,
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: 1.5,
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                transition: 'transform 0.2s',
+                                '&:hover': {
+                                  transform: 'translateY(-2px)',
+                                },
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  backgroundColor: '#FFC107',
+                                  color: 'white',
+                                  borderRadius: '50%',
+                                  width: 28,
+                                  height: 28,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  flexShrink: 0,
+                                }}
+                              >
+                                💖
+                              </Box>
+                              <Typography
+                                sx={{
+                                  fontSize: { xs: '0.95rem', sm: '1rem' },
+                                  lineHeight: 1.3,
+                                }}
+                              >
+                                {item}
+                              </Typography>
+                            </Box>
+                          ))}
+                        </Box>
+                      </Box>
+                    </Box>
+
+                    {/* Mobile scroll indicator */}
+                    <Box
+                      sx={{
+                        display: { xs: 'flex', sm: 'none' },
+                        justifyContent: 'center',
+                        mt: 1,
+                        gap: 0.8,
+                      }}
+                    >
+                      {[0, 1, 2, 3].map(i => (
+                        <Box
+                          key={i}
+                          sx={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: '50%',
+                            backgroundColor: '#6A4CA7',
+                            opacity: 0.3,
+                          }}
+                        />
+                      ))}
                     </Box>
                   </Box>
                 </>
               )}
 
               <Box mt={4} display="grid" gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }} gap={2}>
-                <StyledButton
-                  onClick={() => navigate('/')}
-                  bgColor="#7C4DFF"
-                  endIcon={<ArrowForwardIcon />}
-                >
-                  Home Page
-                </StyledButton>
                 <StyledButton onClick={() => navigate('/resources')} bgColor="#43A047">
                   🧾 Scenario Challenge
                 </StyledButton>
-                <StyledButton onClick={() => navigate('/analytics')} bgColor="#1E88E5">
-                  📈 Analytics
-                </StyledButton>
+
                 <StyledButton
                   onClick={() => navigate('/community')}
                   bgColor="#FBC02D"

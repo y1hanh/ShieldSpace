@@ -48,16 +48,27 @@ export default function Nav() {
         sx={{ flex: 3, display: 'flex', alignItems: 'center', cursor: 'pointer' }}
       >
         <Box
+          component="img"
+          src="/shield.png"
+          alt="No More Bully Logo"
           sx={{
-            backgroundColor: '#FF9966',
-            width: '1.2rem',
-            height: '1.2rem',
-            borderRadius: '50%',
-            marginLeft: isMobile ? '0.5rem' : '5rem',
-            marginRight: '0.5rem',
+            height: { xs: '32px', sm: '36px' },
+            width: 'auto',
+            marginLeft: isMobile ? '0.5rem' : '2rem',
+            marginRight: '0.75rem',
+            objectFit: 'contain',
+            verticalAlign: 'middle',
           }}
         />
-        <Typography sx={{ color: 'Black', fontWeight: '600' }} variant="h6">
+        <Typography
+          sx={{
+            color: 'Black',
+            fontWeight: '600',
+            fontSize: { xs: '1.1rem', sm: '1.25rem' },
+            letterSpacing: '0.5px',
+          }}
+          variant="h6"
+        >
           No More Bully
         </Typography>
       </Box>

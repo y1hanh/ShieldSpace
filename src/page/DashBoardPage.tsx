@@ -1,23 +1,22 @@
-import { Box, Button, Typography, Container } from '@mui/material';
-import BullyingKindsPieChart from '../component/visualizations/BullyingKindsPieChart';
+import { Box, Button, Typography, Container, useMediaQuery } from '@mui/material';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import PolicyIcon from '@mui/icons-material/Policy';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
-import LazyLoadComponent from '../component/LazyLoadComponent';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ChatIcon from '@mui/icons-material/Chat';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function DashBoardPage() {
   const headingRef = useRef(null);
   const descriptionRef = useRef(null);
   const buttonRef = useRef(null);
   const imageRef = useRef(null);
-
+  const isMobile = useMediaQuery('(max-width:768px)');
   useEffect(() => {
     const timeline = gsap.timeline();
-
     timeline
       .to(headingRef.current, {
         opacity: 1,
@@ -70,16 +69,15 @@ export default function DashBoardPage() {
     padding: '1.2rem',
     borderRadius: '8px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-    /* transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-    '&:hover': {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
-    }, */
+    ':hover': {
+      scale: 1.02,
+      transition: '0.3s ease',
+    },
   };
 
   const cardTextStyle = {
     color: '#555555',
-    mb: 3,
+    mb: 1,
     textAlign: 'center',
   };
 
@@ -94,24 +92,34 @@ export default function DashBoardPage() {
   return (
     <Box id="main-page">
       {/* Section 1 */}
-      <Container maxWidth="lg" sx={{ padding: '2rem 0' }}>
+      <Container maxWidth="lg">
+        <Typography
+          ref={headingRef}
+          variant="h4"
+          sx={{
+            padding: '2rem',
+            opacity: 0,
+            transform: 'translateY(20px)',
+            fontWeight: 'bold',
+            color: 'var(--text-title)',
+            transition: 'all 1s ease-out',
+          }}
+        >
+          We help you spot bullying in messages {isMobile ? '' : <br />} — and stand up to it.
+        </Typography>
+
+        {/* image Section */}
         <Box
           sx={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: 4,
+            flexDirection: { xs: 'column', md: 'row' },
+            padding: '2rem',
+            pt: 0,
+            pb: 0,
           }}
         >
-          {/* Text section */}
           <Box
             sx={{
-              padding: '2rem',
-              flex: {
-                xs: '100%',
-                md: '45%',
-              },
               textAlign: {
                 xs: 'center',
                 md: 'left',
@@ -119,56 +127,72 @@ export default function DashBoardPage() {
             }}
           >
             <Typography
-              ref={headingRef}
-              variant="h4"
               sx={{
-                opacity: 0,
-                transform: 'translateY(20px)',
-                fontWeight: 'bold',
                 color: 'var(--text-title)',
-                mb: 5,
-                transition: 'all 1s ease-out',
+                mb: 2,
               }}
             >
-              We help you spot bullying in messages <br /> — and stand up to it.
+              Upload a message to check if it contains bullying language.
             </Typography>
-
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                mt: 3,
-                animation: 'bounce 2s infinite',
-                '@keyframes bounce': {
-                  '0%, 100%': {
-                    transform: 'translateY(0)',
-                  },
-                  '50%': {
-                    transform: 'translateY(8px)',
+                alignItems: 'center',
+                gap: 1,
+                justifyContent: { xs: 'center', md: 'flex-start' },
+                bgcolor: 'rgba(255, 235, 235, 0.6)',
+                borderRadius: '30px',
+                padding: '8px 16px',
+                transition: 'all 0.2s ease',
+                maxWidth: 'fit-content',
+                mt: 2,
+                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                border: '1px solid rgba(255,0,0,0.1)',
+                '&:hover': {
+                  bgcolor: 'rgba(255, 235, 235, 0.9)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                  '& .heart-icon': {
+                    transform: 'scale(1.2)',
                   },
                 },
               }}
               className="cursor-pointer"
               onClick={() => {
-                document.getElementById('section-2')?.scrollIntoView({ behavior: 'smooth' });
+                document
+                  .getElementById('section-2')
+                  ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }}
             >
-              <Typography sx={{ mb: 1, color: 'var(--text-title)', cursor: 'pointer' }}>
-                See how cyberbullying affects us{' '}
+              <Typography
+                sx={{
+                  color: 'var(--text-title)',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  lineHeight: 1,
+                }}
+              >
+                Why This Is Important
               </Typography>
-              <ArrowDownwardIcon sx={{ color: 'var(--text-title)' }} />
+              <FavoriteIcon
+                className="heart-icon"
+                sx={{
+                  color: 'red',
+                  transition: 'transform 0.3s ease',
+                  fontSize: '1.2rem',
+                }}
+              />
             </Box>
           </Box>
 
-          {/* Image section */}
+          {/* Image  */}
           <Box
             sx={{
-              flex: {
-                xs: '100%',
-                md: '55%',
-              },
               display: 'flex',
               justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <Box
@@ -178,135 +202,16 @@ export default function DashBoardPage() {
               sx={{
                 opacity: 0,
                 transform: 'translateY(20px)',
-                maxWidth: {
-                  xs: '90%',
-                  sm: '70%',
-                  md: '70%',
-                },
+                maxWidth: '100%',
                 height: 'auto',
               }}
             />
-          </Box>
-          <Box
-            sx={{
-              width: {
-                xs: '90%',
-                sm: '70%',
-                md: '70%',
-              },
-              aspectRatio: '16/9',
-            }}
-          >
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/LWGrHqCZiOg"
-              title="YouTube video"
-              style={{ border: 'none' }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </Box>
-        </Box>
-      </Container>
-
-      {/* Section 2 */}
-      <Container
-        maxWidth="lg"
-        id="section-2"
-        sx={{ padding: '3rem 0', backgroundColor: 'var(--background-secondary)', mt: 2 }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'column',
-            gap: 5,
-          }}
-        >
-          <Typography
-            variant="h4"
-            sx={{ fontWeight: 'bold', color: 'var(--text-title)', textAlign: 'center', mt: 5 }}
-          >
-            How Cyberbullying Affects Us
-          </Typography>
-
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              padding: '3rem',
-              gap: 5,
-            }}
-          >
-            {/* Card 1 */}
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2, delay: 0.2 }}
-              viewport={{ once: true }}
-              sx={cardBoxStyle}
-            >
-              <Typography variant="h5" sx={contentBoxTitle}>
-                A regular Scroll
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <Box component="img" src="/l_image2.png" sx={{ maxWidth: '70%', height: 'auto' }} />
-              </Box>
-              <Typography sx={cardTextStyle}>
-                Emily was checking her messages like she always does - memes, class updates, group
-                chats.
-              </Typography>
-            </Box>
-
-            {/* Card 2 */}
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2, delay: 0.4 }}
-              viewport={{ once: true }}
-              sx={cardBoxStyle}
-            >
-              <Typography variant="h5" sx={contentBoxTitle}>
-                The shift
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <Box component="img" src="/l_image3.png" sx={{ maxWidth: '70%', height: 'auto' }} />
-              </Box>
-              <Typography sx={cardTextStyle}>
-                The words stayed with her. Emily began hesitating before she posted again.
-              </Typography>
-            </Box>
-
-            {/* Card 3 */}
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2, delay: 1 }}
-              viewport={{ once: true }}
-              sx={cardBoxStyle}
-            >
-              <Typography variant="h5" sx={contentBoxTitle}>
-                Taking Action
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <Box component="img" src="/l_image4.png" sx={{ maxWidth: '70%', height: 'auto' }} />
-              </Box>
-              <Typography sx={cardTextStyle}>
-                With our tool, Emily can identify hurtful messages, understand their impact, and
-                learn effective ways to respond.
-              </Typography>
-            </Box>
           </Box>
         </Box>
       </Container>
 
       {/* Section 3: bullying impact */}
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" id="section-2">
         <Box
           sx={{
             display: 'flex',
@@ -327,31 +232,72 @@ export default function DashBoardPage() {
               Why This Matters
             </Typography>
 
-            <Typography
-              variant="body1"
+            <Box
               sx={{
-                fontSize: { xs: '1rem', md: '1.1rem' },
-                lineHeight: 1.6,
-                color: 'var(--text-secondary)',
-                mb: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2.5,
+                bgcolor: 'rgba(255, 255, 255, 0.7)',
+                borderRadius: 2,
+                p: 2,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
               }}
             >
-              Cyberbullying isn't just "mean words online"—it can deeply hurt the way we see
-              ourselves and the world around us.
-            </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <SentimentVeryDissatisfiedIcon />
+                <Typography
+                  variant="body1"
+                  sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, fontWeight: 500 }}
+                >
+                  Many kids feel the same way after seeing unkind messages. They might start to
+                  doubt themselves, feel left out, or stop doing things they enjoy.
+                </Typography>
+              </Box>
 
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: { xs: '1rem', md: '1.1rem' },
-                lineHeight: 1.6,
-                color: 'var(--text-secondary)',
-                mb: 2,
-              }}
-            >
-              This chart shows the real emotional toll that online bullying takes on teens. Many
-              feel less confident, alone, or even hopeless after receiving harmful messages.
-            </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <PolicyIcon />
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: { xs: '1rem', md: '1.1rem' },
+                    fontWeight: 500,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      color: 'var(--text-title)',
+                    }}
+                  >
+                    No More Bully{' '}
+                  </span>
+                  helps you understand these feelings and shows you what to do.
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                  cursor: 'pointer',
+                  ':hover': { scale: 1.02, transition: '0.3s ease', color: 'var(--text-title)' },
+                }}
+                onClick={() => {
+                  document
+                    .getElementById('section-3')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+              >
+                <MenuBookIcon />
+                <Typography
+                  variant="body1"
+                  sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, fontWeight: 500 }}
+                >
+                  Let's see how Emily found help when she got a mean message!
+                </Typography>
+              </Box>
+            </Box>
           </Box>
 
           <Box
@@ -393,8 +339,306 @@ export default function DashBoardPage() {
         </Box>
       </Container>
 
-      {/* Section 4: Assessment Tool */}
-      <Box sx={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+      {/* Section 3 */}
+      <Container
+        id="section-3"
+        maxWidth="lg"
+        sx={{ backgroundColor: 'var(--background-secondary)' }}
+      >
+        <Box
+          sx={{
+            padding: '1rem',
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: 5,
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 'bold', color: 'var(--text-title)', textAlign: 'center', mt: 5 }}
+          >
+            How Cyberbullying Affects Us
+          </Typography>
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              padding: '1rem',
+              gap: 5,
+            }}
+          >
+            {/* Card 1 */}
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.2, delay: 0.2 }}
+              viewport={{ once: true }}
+              sx={cardBoxStyle}
+            >
+              <Typography variant="h5" sx={contentBoxTitle}>
+                A regular Scroll
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <Box component="img" src="/l_image2.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+              </Box>
+              <Typography sx={cardTextStyle}>
+                Emily was checking her messages, like always.
+              </Typography>
+              <Typography sx={cardTextStyle}>
+                Then she saw: “Why do you even post this?” “No one cares about your opinion.”
+              </Typography>
+              <Typography sx={cardTextStyle}>It caught her off guard.</Typography>
+            </Box>
+
+            {/* Card 2 */}
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.2, delay: 0.4 }}
+              viewport={{ once: true }}
+              sx={cardBoxStyle}
+            >
+              <Typography variant="h5" sx={contentBoxTitle}>
+                The shift
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <Box component="img" src="/l_image3.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+              </Box>
+              <Typography sx={cardTextStyle}>Emily kept thinking about it.</Typography>
+              <Typography sx={cardTextStyle}>Was it just a joke?</Typography>
+              <Typography sx={cardTextStyle}>
+                She started to feel nervous about posting again…
+              </Typography>
+            </Box>
+
+            {/* Card 3 */}
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.2, delay: 1 }}
+              viewport={{ once: true }}
+              sx={cardBoxStyle}
+            >
+              <Typography variant="h5" sx={contentBoxTitle}>
+                Taking Action
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <Box component="img" src="/l_image4.png" sx={{ maxWidth: '70%', height: 'auto' }} />
+              </Box>
+
+              <Typography sx={cardTextStyle}>
+                With No More Bully, Emily learned what those words really meant — and how to feel
+                better again.
+              </Typography>
+
+              <Typography
+                sx={{
+                  ...cardTextStyle,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 1,
+                  fontWeight: 600,
+                  color: '#4B3F72',
+                  padding: '8px 12px',
+                  borderRadius: '20px',
+                  background: 'rgba(255, 235, 235, 0.4)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    background: 'rgba(255, 235, 235, 0.8)',
+                  },
+                }}
+              >
+                She knows she's not alone
+                <FavoriteIcon
+                  className="heart-icon"
+                  sx={{
+                    color: 'red',
+                    fontSize: '1.3rem',
+                    animation: 'heartbeat 1.5s ease-in-out infinite',
+                    '@keyframes heartbeat': {
+                      '0%, 100%': { transform: 'scale(1)' },
+                      '50%': { transform: 'scale(1.3)' },
+                    },
+                    filter: 'drop-shadow(0 0 2px rgba(255, 0, 0, 0.3))',
+                  }}
+                />
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            padding: '2rem',
+            position: 'relative',
+            background: 'linear-gradient(180deg, #F8F9FA 0%, #E0F7FA 100%)',
+            borderRadius: '24px',
+            my: 4,
+            boxShadow: '0 8px 20px rgba(0,0,0,0.05)',
+            border: '3px dashed #6A4CA7',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Fun decorative elements */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 20,
+              left: 20,
+              width: 30,
+              height: 30,
+              borderRadius: '50%',
+              background: '#FF9800',
+              opacity: 0.7,
+            }}
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 30,
+              right: 30,
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              background: '#4CAF50',
+              opacity: 0.5,
+            }}
+          />
+
+          {/* Video intro text with emoji and friendly styling */}
+          <Box
+            sx={{
+              background: 'white',
+              padding: '12px 25px',
+              borderRadius: '30px',
+              mb: 3,
+              boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+              transform: 'rotate(-1deg)',
+              maxWidth: '85%',
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 600,
+                color: '#4B3F72',
+                textAlign: 'center',
+                fontSize: { xs: '1.1rem', sm: '1.3rem' },
+              }}
+            >
+              Now that we’ve seen how Emily was affected... Let’s find out how No More Bully can
+              help you, too.
+            </Typography>
+          </Box>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#4B3F72',
+              mb: 3,
+              textAlign: 'center',
+              fontSize: { xs: '1rem', sm: '1.15rem' },
+              maxWidth: '650px',
+              lineHeight: 1.5,
+            }}
+          >
+            Watch this short video to see how it works!
+          </Typography>
+
+          {/* Video container with decorative frame */}
+          <Box
+            sx={{
+              width: {
+                xs: '95%',
+                sm: '80%',
+                md: '70%',
+              },
+              aspectRatio: '16/9',
+              borderRadius: '12px',
+              padding: '8px',
+              background: 'white',
+              boxShadow: '0 8px 15px rgba(0,0,0,0.15)',
+              border: '5px solid #FFA726',
+              position: 'relative',
+              mb: 3,
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: -15,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '60%',
+                height: '25px',
+                backgroundColor: '#FFA726',
+                borderRadius: '25px 25px 0 0',
+                zIndex: -1,
+              },
+            }}
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/LWGrHqCZiOg"
+              title="YouTube video"
+              style={{ border: 'none', borderRadius: '8px' }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </Box>
+
+          {/* Skip video button */}
+          <Box
+            sx={{
+              mt: 2,
+              mb: 2,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Button
+              variant="text"
+              onClick={() => {
+                document
+                  .getElementById('assessment-section')
+                  ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              sx={{
+                color: '#6A4CA7',
+                fontWeight: 600,
+                fontSize: '1rem',
+                borderRadius: '20px',
+                padding: '6px 16px',
+                backgroundColor: 'rgba(106, 76, 167, 0.1)',
+                '&:hover': {
+                  backgroundColor: 'rgba(106, 76, 167, 0.2)',
+                  transform: 'scale(1.05)',
+                },
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+              }}
+            >
+              I’m Ready — Take Me to the Next Step
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+
+      {/* Section 4: Assessment Tool - add ID for skip navigation */}
+      <Box id="assessment-section" sx={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
         <Box
           sx={{
             position: 'absolute',
@@ -425,9 +669,9 @@ export default function DashBoardPage() {
               flexDirection: 'column',
               alignItems: 'center',
               textAlign: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backgroundColor: 'rgba(255, 255, 255, 0.65)',
               p: 4,
-              borderRadius: 4,
+              borderRadius: 1,
               maxWidth: '800px',
               mx: 'auto',
               width: {
@@ -436,20 +680,6 @@ export default function DashBoardPage() {
               },
             }}
           >
-            <Box
-              sx={{
-                backgroundColor: '#f89b5e',
-                width: 56,
-                height: 56,
-                borderRadius: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                mx: 'auto',
-              }}
-            >
-              <ChatIcon sx={{ color: 'white' }} />
-            </Box>
             <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#4B3F72', mt: 2, mb: 2 }}>
               Is Someone Being Unkind? Let's Check Together!
             </Typography>

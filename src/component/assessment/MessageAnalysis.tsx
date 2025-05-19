@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 import {
   Box,
   Typography,
@@ -14,7 +15,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { AnalysisResultType } from '../../slice/assessmentSlice';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useNavigate } from 'react-router';
-import { Word } from 'tesseract.js';
+
 const getEmotionLevel = (score: number) => {
   if (score >= 0.6) return 'high';
   if (score >= 0.3) return 'medium';
@@ -49,7 +50,6 @@ type WordToxicity = {
   word: string;
   toxicity: number;
 };
-
 export const MessageAnalysis = ({
   resetAssessment,
   analysisResult,
@@ -59,6 +59,9 @@ export const MessageAnalysis = ({
   const [data, setData] = useState<AnalysisResultType | null>(null);
   // const [text, setText] = useState('');
   const [textTriggers, setTextTriggers] = useState<WordToxicity[]>(null);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -172,7 +175,7 @@ export const MessageAnalysis = ({
 
       <Box
         sx={{
-          px: { xs: 5, md: 6, lg: 8 },
+          px: { xs: 5, md: 12, lg: 15 },
           display: 'flex',
           flexDirection: 'column',
           alignContent: 'center',
