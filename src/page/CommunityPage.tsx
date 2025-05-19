@@ -17,7 +17,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import PetsIcon from '@mui/icons-material/Pets';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
-import AnalyticsPage from './AnalyticsPage';
+import AnalyticsPage from './VisualizationPage';
 
 const eduCategories = [
   { value: 'all', label: 'All Resources' },
