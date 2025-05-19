@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Lottie from 'lottie-react';
 
-interface QuizOptionProps {
+type QuizOptionProps = {
   animation: string;
   scenario: string[];
   choices: {
@@ -15,7 +15,7 @@ interface QuizOptionProps {
   saveOptions: (right: number) => void;
   onPrevious: () => void;
   onNext: () => void;
-}
+};
 
 export default function QuizOption({
   scenario,
@@ -31,7 +31,6 @@ export default function QuizOption({
     feedback: string;
     right?: boolean;
   } | null>(null);
-
   const optionsContainerRef = useRef<HTMLDivElement>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
 

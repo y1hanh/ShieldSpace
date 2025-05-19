@@ -5,17 +5,22 @@ type Analytics = {
   action?: string;
   summary?: string;
   actionUrl?: string;
+  data?: string;
+  dataLink?: string;
 };
 export const analyticsData: Analytics[] = [
   {
-    summary: 'More kids are speaking up about bullying. 📈',
+    summary: 'More kids are speaking up about bullying.',
     title: 'Big Jump in Reports',
     image: 'timeline_bullying.png',
     description:
-      'Some kids feel really bad inside — like low self-esteem (38%), feeling lonely (33%), or helpless (20%). 😢',
+      'In 2019, only 500 kids reported online bullying. But in 2024, nearly 3,000 kids spoke up. That’s a BIG jump! ',
     actionUrl: '/assessment',
     action:
       'Try our assessment tool. It’s a great way to check in with yourself and see how you’re doing. 💪',
+    data: 'Source: eSafety Commissioner Media Release (February 2025)',
+    dataLink:
+      'https://www.esafety.gov.au/newsroom/media-releases/safer-internet-day-calls-for-kindness-as-cyberbullying-reports-surge-over-450-in-five-years',
   },
   {
     summary: 'Mean Stuff Speaks on Apps',
@@ -26,6 +31,8 @@ export const analyticsData: Analytics[] = [
     actionUrl: '/resources',
     action:
       'Go to our scenarios section  and learn how to block, report, or stay safe on these platforms. You’ve got backup here! 💪 ',
+    data: 'Source: Take a Tumble (2024)',
+    dataLink: 'https://takeatumble.com.au/insights/lifestyle/cyberbullying-statistics/',
   },
   {
     summary: "It's Mostly Girls -- and bad for all",
@@ -36,6 +43,9 @@ export const analyticsData: Analytics[] = [
     actionUrl: '/resources',
     action:
       'Go to our scenarios section  and learn how to block, report, or stay safe on these platforms. You’ve got backup here! 💪 ',
+    data: 'Source: eSafety Commissioner Media Release (February 2023)',
+    dataLink:
+      'https://www.esafety.gov.au/newsroom/media-releases/40-jump-in-child-bullying-reports-to-esafety',
   },
   {
     summary: 'Lots of kids keep quiet ',
@@ -55,6 +65,9 @@ export const analyticsData: Analytics[] = [
     actionUrl: '/assessment',
     action:
       'Try our assessment tool. It’s a great way to check in with yourself and see how you’re doing. 💪',
+    data: 'Source: Parliament of New South Wales Research Service (March 2016)',
+    dataLink:
+      'https://www.parliament.nsw.gov.au/researchpapers/Documents/cyberbullying-of-children/Cyberbullying%20of%20Children.pdf',
   },
   {
     summary: 'Some kids hurt deep inside',
@@ -65,5 +78,8 @@ export const analyticsData: Analytics[] = [
     actionUrl: '/assessment',
     action:
       'Try our assessment tool. It’s a great way to check in with yourself and see how you’re doing. 💪',
+    data: 'Source: eSafety Commissioner Research',
+    dataLink:
+      'https://www.esafety.gov.au/research/youth-digital-dangers/negative-online-experiences',
   },
 ];
