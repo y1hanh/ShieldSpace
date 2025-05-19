@@ -29,7 +29,7 @@ export default function DashBoardPage() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          duration: 0.9,
           ease: 'power2.out',
         },
         '-=0.5'
@@ -49,7 +49,7 @@ export default function DashBoardPage() {
         {
           opacity: 1,
           y: 0,
-          duration: 2,
+          duration: 1.3,
           ease: 'power2.out',
         },
         '-=0.5'
@@ -127,15 +127,22 @@ export default function DashBoardPage() {
             }}
           >
             <Typography
+              ref={descriptionRef}
               sx={{
+                opacity: 0,
+                transform: 'translateY(20px)',
                 color: 'var(--text-title)',
                 mb: 2,
               }}
             >
               Upload a message to check if it contains bullying language.
             </Typography>
+
             <Box
+              ref={buttonRef}
               sx={{
+                opacity: 0,
+                transform: 'translateY(20px)',
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -684,17 +691,13 @@ export default function DashBoardPage() {
               Is Someone Being Unkind? Let's Check Together!
             </Typography>
 
-            <Typography
-              ref={descriptionRef}
-              sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}
-            >
+            <Typography sx={{ padding: '1rem', borderRadius: '8px', fontSize: '1.1rem' }}>
               Our friendly Message Helper can spot when someone's not being nice in messages. It
               helps you understand how it might make you feel and shows you what you can do about
               it!
             </Typography>
 
             <Button
-              ref={buttonRef}
               variant="contained"
               onClick={() => navigate('/assessment')}
               endIcon={<ArrowForwardIcon />}

@@ -37,6 +37,18 @@ export function ActionPlan() {
     return { instruction, quote };
   };
 
+  // Add this function to clean instruction text reliably
+  const cleanInstruction = (text: string): string => {
+    let cleaned = text.trim();
+
+    const validFirstChar = /^[a-zA-Z0-9]/.test(cleaned);
+
+    if (!validFirstChar && cleaned.length > 1) {
+      cleaned = cleaned.slice(1).trim();
+    }
+    return cleaned;
+  };
+
   return (
     <Paper
       elevation={2}
@@ -153,9 +165,7 @@ export function ActionPlan() {
                                 gap: 1,
                               }}
                             >
-                              {index <= 3
-                                ? icons['immediate-action'][index]
-                                : icons['immediate-action'][0]}
+                              {icons['immediate-action'][index]}
                               <Typography
                                 sx={{
                                   fontWeight: 'bold',
@@ -176,7 +186,7 @@ export function ActionPlan() {
                                 color: '#616161',
                               }}
                             >
-                              {quote}
+                              {cleanInstruction(quote)}
                             </Typography>
                           }
                         />
