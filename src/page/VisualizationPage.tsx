@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router';
 
 export default function AnalyticsPage() {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('all');
   const navigate = useNavigate();
 
   const handleCardClick = (index: number) => {
@@ -204,10 +204,6 @@ export default function AnalyticsPage() {
                       textAlign: 'center',
                       color: '#1A2C5B',
                       fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.5rem' },
-                      minHeight: '4rem', 
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
                     }}
                   >
                     {filteredCards[0].title}
@@ -270,7 +266,6 @@ export default function AnalyticsPage() {
                           textAlign: 'center',
                           color: '#1A2C5B',
                           fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.5rem' },
-                          minHeight: '4rem', // Add fixed height for title
                         }}
                       >
                         {item.title}
@@ -290,6 +285,31 @@ export default function AnalyticsPage() {
                       >
                         {item.summary}
                       </Typography>
+
+                      <Button
+                        variant="contained"
+                        sx={{
+                          pt: 1,
+                          mt: 2,
+                          backgroundColor: 'rgba(106, 76, 167, 0.8)',
+                          color: 'white',
+                          borderRadius: '20px',
+                          textTransform: 'none',
+                          fontWeight: 600,
+                          fontSize: '0.9rem',
+                          boxShadow: '0 2px 0 rgba(0,0,0,0.1)',
+                          '&:hover': {
+                            backgroundColor: '#6A4CA7',
+                            transform: 'translateY(-2px)',
+                          },
+                        }}
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleCardClick(index);
+                        }}
+                      >
+                        Check it out! 👀
+                      </Button>
                     </Box>
                   ))}
                 </Box>
@@ -322,68 +342,226 @@ export default function AnalyticsPage() {
           >
             {selectedCard !== null && (
               <>
+                {/* Fun decorative elements for kids */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: -15,
+                    right: -15,
+                    width: 70,
+                    height: 70,
+                    borderRadius: '50%',
+                    backgroundColor: cardColors[selectedCard % cardColors.length],
+                    zIndex: -1,
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: -10,
+                    left: -10,
+                    width: 50,
+                    height: 50,
+                    borderRadius: '50%',
+                    backgroundColor: cardColors[(selectedCard + 2) % cardColors.length],
+                    zIndex: -1,
+                  }}
+                />
+
+                {/* Header with playful style */}
                 <Box
                   sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    mb: 2,
+                    mb: 3,
+                    backgroundColor: cardColors[selectedCard % cardColors.length],
+                    borderRadius: '16px',
+                    p: 2,
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.08)',
                   }}
                 >
-                  <Typography variant="h4" component="h2" fontWeight="bold" color="#1A2C5B">
-                    {analyticsData[selectedCard].title}
-                  </Typography>
-                  <IconButton onClick={handleCloseModal} aria-label="close">
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    {cardIcons[selectedCard % cardIcons.length]}
+                    <Typography
+                      variant="h4"
+                      component="h2"
+                      fontWeight="bold"
+                      color="#1A2C5B"
+                      sx={{
+                        fontSize: { xs: '1.4rem', sm: '1.8rem' },
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {analyticsData[selectedCard].title}
+                    </Typography>
+                  </Box>
+                  <IconButton
+                    onClick={handleCloseModal}
+                    aria-label="close"
+                    sx={{
+                      bgcolor: 'white',
+                      '&:hover': {
+                        bgcolor: 'white',
+                        transform: 'rotate(90deg)',
+                        transition: 'transform 0.3s ease',
+                      },
+                    }}
+                  >
                     <CloseIcon />
                   </IconButton>
                 </Box>
 
                 {analyticsData[selectedCard].image && (
-                  <Box sx={{ mb: 3, width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={analyticsData[selectedCard].image}
-                      alt={analyticsData[selectedCard].title}
-                      style={{
-                        maxWidth: '100%',
-                        maxHeight: '300px',
-                        borderRadius: '8px',
-                        objectFit: 'contain',
+                  <Box
+                    sx={{
+                      mb: 2,
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      position: 'relative',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        p: 1.5,
+                        borderRadius: '16px',
+                        border: `4px dashed ${cardColors[selectedCard % cardColors.length]}`,
+                        overflow: 'hidden',
+                        position: 'relative',
+                        width: '90%',
                       }}
-                    />
+                    >
+                      <img
+                        src={analyticsData[selectedCard].image}
+                        alt={analyticsData[selectedCard].title}
+                        style={{
+                          width: '100%',
+                          maxHeight: '350px',
+                          borderRadius: '8px',
+                          objectFit: 'contain',
+                        }}
+                      />
+                    </Box>
                   </Box>
                 )}
 
-                <Typography variant="h6" sx={{ mb: 1, color: '#333' }}>
-                  {analyticsData[selectedCard].summary}
-                </Typography>
+                {/* Condensed layout for text sections */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                  {/* Description and action in a compact layout */}
+                  <Box
+                    sx={{
+                      display: 'grid',
+                      gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                      gap: 1.5,
+                    }}
+                  >
+                    {/* Description with simplified layout */}
+                    <Box
+                      sx={{
+                        p: 1.5,
+                        borderRadius: '12px',
+                        backgroundColor: 'rgba(248, 249, 250, 0.7)',
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: { xs: '0.9rem', sm: '0.95rem' },
+                          lineHeight: 1.5,
+                          color: '#333',
+                        }}
+                      >
+                        {analyticsData[selectedCard].description}
+                      </Typography>
+                    </Box>
 
-                <Typography variant="body1" sx={{ mb: 3 }}>
-                  {analyticsData[selectedCard].description}
-                </Typography>
+                    {/* Action box */}
+                    <Box
+                      sx={{
+                        p: 1.5,
+                        borderRadius: '12px',
+                        backgroundColor: 'rgba(106, 76, 167, 0.1)',
+                        border: '1px solid rgba(106, 76, 167, 0.3)',
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontWeight: 600,
+                          fontSize: { xs: '0.9rem', sm: '0.95rem' },
+                          color: '#6A4CA7',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                        }}
+                      >
+                        {analyticsData[selectedCard].action}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
 
-                <Typography variant="body1" sx={{ mb: 3 }}>
-                  {analyticsData[selectedCard].action}
-                </Typography>
-
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                {/* Fun button - moved up for better layout */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mb: 1 }}>
                   <Button
                     variant="contained"
                     sx={{
                       bgcolor: '#6A4CA7',
                       color: 'white',
-                      borderRadius: '20px',
+                      borderRadius: '30px',
                       px: 4,
-                      py: 1,
-                      '&:hover': { bgcolor: '#59359e' },
+                      py: 1.5,
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      boxShadow: '0 4px 0 #4B3F72',
+                      '&:hover': {
+                        bgcolor: '#59359e',
+                        transform: 'translateY(2px)',
+                        boxShadow: '0 2px 0 #4B3F72',
+                      },
+                      transition: 'all 0.2s ease',
                     }}
                     onClick={() => {
                       handleCloseModal();
                       navigate(analyticsData[selectedCard].actionUrl);
                     }}
                   >
-                    Check it out!
+                    Let's Go Check It Out! ✨
                   </Button>
                 </Box>
+
+                {/* Data source link in a fun way */}
+                {analyticsData[selectedCard].dataLink && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      mt: 2,
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: '0.85rem',
+                        color: '#666',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <a
+                        href={analyticsData[selectedCard].dataLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: '#6A4CA7',
+                          textDecoration: 'underline',
+                          fontWeight: 600,
+                        }}
+                      >
+                        {analyticsData[selectedCard].data}
+                      </a>
+                    </Typography>
+                  </Box>
+                )}
               </>
             )}
           </Box>

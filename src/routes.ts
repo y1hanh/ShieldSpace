@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import DashBoardPage from './page/DashBoardPage';
-import AnalyticsPage from './page/AnalyticsPage';
+import AnalyticsPage from './page/VisualizationPage';
 import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
 import App from './App';
