@@ -1,10 +1,8 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { MessageAnalysis } from '../component/assessment/MessageAnalysis';
 import { ActionPlan } from '../component/assessment/ActionPlan';
 import { useAssessment } from '../slice/assessmentSlice';
-import error_animation from '../animations/error_animation.json';
-import Lottie from 'lottie-react';
 import { isEmpty } from 'lodash';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +10,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function ResultsPage() {
   const { userInput, analysisResult } = useAssessment();
   const navigate = useNavigate();
+  if (!userInput) {
+    navigate('/error');
+  }
   const isBullying = analysisResult?.toxic_level > 0.1 || !isEmpty(analysisResult?.bias);
   const [activeView, setActiveView] = useState<'analysis' | 'plan'>('analysis');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,7 +40,7 @@ export default function ResultsPage() {
     });
   };
 
-  return userInput ? (
+  return (
     <Box sx={{ minHeight: '100vh' }}>
       {/* Floating swipe navigation */}
       {isBullying && (
@@ -193,70 +194,6 @@ export default function ResultsPage() {
           </AnimatePresence>
         </motion.div>
       </Box>
-    </Box>
-  ) : (
-    <ErrorMessage></ErrorMessage>
-  );
-}
-
-function ErrorMessage() {
-  const navigate = useNavigate();
-
-  const handleGoToAssessment = () => {
-    navigate('/assessment');
-  };
-
-  return (
-    <Box
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: 4,
-        minHeight: '60vh',
-      }}
-    >
-      <Typography variant="h4" fontWeight="bold" color="#4B4072" mb={2}>
-        Oops! Something's Missing
-      </Typography>
-
-      <Typography variant="body1" mb={3} color="text.secondary">
-        It looks like you haven't completed an assessment yet. Let's go back and check out a message
-        first!
-      </Typography>
-
-      <Lottie
-        animationData={error_animation}
-        loop={true}
-        style={{
-          width: '100%',
-          maxWidth: '300px',
-          maxHeight: '250px',
-          margin: '16px 0',
-        }}
-      />
-
-      <Button
-        variant="contained"
-        onClick={handleGoToAssessment}
-        sx={{
-          backgroundColor: '#6A4CA7',
-          color: 'white',
-          borderRadius: '25px',
-          minWidth: '200px',
-          px: 4,
-          mt: 3,
-          textTransform: 'none',
-          '&:hover': {
-            backgroundColor: '#59359e',
-          },
-        }}
-      >
-        Go to Assessment
-      </Button>
     </Box>
   );
 }

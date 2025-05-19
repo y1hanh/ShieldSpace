@@ -1,6 +1,8 @@
-import { Box, Typography, Link } from '@mui/material';
+import { Box, Typography, Link, useMediaQuery, useTheme } from '@mui/material';
 
 export default function Footer() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
       component="footer"
@@ -22,14 +24,25 @@ export default function Footer() {
       >
         {/* Company Info */}
         <Box sx={{ flex: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              mb: 1,
+              mt: 2,
+            }}
+          >
             <Box
+              component="img"
+              src="/shield.png"
+              alt="No More Bully Logo"
               sx={{
-                width: 12,
-                height: 12,
-                borderRadius: '50%',
-                backgroundColor: '#f89b5e',
-                mr: 1,
+                height: { xs: '32px', sm: '36px' },
+                width: 'auto',
+
+                marginRight: '0.75rem',
+                objectFit: 'contain',
+                verticalAlign: 'middle',
               }}
             />
             <Link href="/" sx={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>

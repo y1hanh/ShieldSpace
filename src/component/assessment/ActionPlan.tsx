@@ -86,7 +86,7 @@ export function ActionPlan() {
             </Typography>
           </Box>
 
-          <Box sx={{ p: { xs: 3, sm: 3, md: 4 }, mb: 2 }}>
+          <Box sx={{ px: { xs: 5, md: 12, lg: 15 }, mb: 2 }}>
             <Box
               sx={{
                 display: 'flex',

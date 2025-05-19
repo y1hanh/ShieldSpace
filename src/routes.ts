@@ -8,7 +8,7 @@ import { SecurePage } from './page/SecurePage';
 import CyberSafetyQuiz from './page/CyberSafetyQuizPage';
 import AssessmentResult from './page/AssessmentResultPage';
 import AssessmentPage from './page/AssessmentPage';
-import ComingSoonPage from './page/ComingSoonPage';
+import { ErrorMessagePage } from './page/ErrorMessagePage';
 
 export const router = createBrowserRouter([
   {
@@ -40,8 +40,8 @@ export const router = createBrowserRouter([
         Component: CommunityPage,
       },
       {
-        path: 'coming-soon',
-        Component: ComingSoonPage,
+        path: 'error',
+        Component: ErrorMessagePage,
       },
       {
         path: 'cyber-safety-quiz',
@@ -70,16 +70,12 @@ export const routes: routesArray[] = [
     path: '/assessment',
     name: 'Analyser',
   },
-  /* {
-    path: '/analytics',
-    name: 'Analytics',
-  }, */
   {
     path: '/resources',
     name: 'Scenarios',
   },
   {
     path: '/community',
-    name: 'Fun Learning Zone',
+    name: 'Learning Zone',
   },
 ];
