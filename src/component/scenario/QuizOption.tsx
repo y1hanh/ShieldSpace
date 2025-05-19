@@ -15,7 +15,6 @@ type QuizOptionProps = {
   saveOptions: (right: number) => void;
   onPrevious: () => void;
   onNext: () => void;
-  finish: boolean;
 };
 
 export default function QuizOption({
@@ -26,7 +25,6 @@ export default function QuizOption({
   saveOptions,
   onPrevious,
   onNext,
-  finish,
 }: QuizOptionProps) {
   const [selectedOption, setSelectedOption] = useState<{
     text: string;
@@ -358,7 +356,7 @@ export default function QuizOption({
                     minWidth: { xs: '80px', sm: '100px' }, // Narrower buttons
                   }}
                 >
-                  {finish ? 'Finish →' : 'Next →'}
+                  Next →
                 </Button>
               </Box>
             </Box>
