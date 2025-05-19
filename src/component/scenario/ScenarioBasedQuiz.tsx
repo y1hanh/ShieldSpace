@@ -5,11 +5,15 @@ import QuizOption from './QuizOption';
 import QuizCard from './QuizCard';
 import { quizData } from './scenarioData';
 import ScenarioStoryTelling from './ScenarioStoryTelling';
+import { useNavigate } from 'react-router';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackwardIcon from '@mui/icons-material/ArrowBack';
 
 export default function ScenarioBasedQuiz() {
   const [selectedQuiz, setSelectedQuiz] = useState<number | null>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [rightOptions, setRightOptions] = useState<number[]>(new Array(quizData.length).fill(null));
+  const navigate = useNavigate();
 
   const handleCardClick = (index?: number) => {
     gsap.to(cardsRef.current[index], {
@@ -222,30 +226,56 @@ export default function ScenarioBasedQuiz() {
             }
           })()}
 
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: '#4B3F72',
-              color: 'white',
-              padding: { xs: '12px 24px', sm: '14px 28px' },
-              fontSize: { xs: '1rem', sm: '1.1rem' },
-              borderRadius: '30px',
-              textTransform: 'none',
-              animation: 'slideIn 0.5s ease-out 0.5s both',
-              '&:hover': {
-                backgroundColor: '#3c325b',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-              },
-              transition: 'all 0.3s ease',
-            }}
-            onClick={() => {
-              setSelectedQuiz(null);
-              setRightOptions(new Array(quizData.length).fill(null));
-            }}
-          >
-            Try Again
-          </Button>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#E91E63',
+                color: 'white',
+                padding: { xs: '12px 24px', sm: '14px 28px' },
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                borderRadius: '30px',
+                textTransform: 'none',
+                animation: 'slideIn 0.5s ease-out 0.5s both',
+                '&:hover': {
+                  backgroundColor: '#D81B60',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                },
+                transition: 'all 0.3s ease',
+              }}
+              onClick={() => {
+                setSelectedQuiz(null);
+                setRightOptions(new Array(quizData.length).fill(null));
+              }}
+              startIcon={<ArrowBackwardIcon />}
+            >
+              Try Again
+            </Button>
+
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                padding: { xs: '12px 24px', sm: '14px 28px' },
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                borderRadius: '30px',
+                textTransform: 'none',
+                animation: 'slideIn 0.5s ease-out 0.6s both',
+                '&:hover': {
+                  backgroundColor: '#388E3C',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                },
+                transition: 'all 0.3s ease',
+              }}
+              onClick={() => navigate('/community')}
+              endIcon={<ArrowForwardIcon />}
+            >
+              Learn More
+            </Button>
+          </Box>
         </Box>
       ) : selectedQuiz === null ? (
         <QuizSelector handleCardClick={handleCardClick} cardsRef={cardsRef} />
