@@ -10,7 +10,7 @@ type Analytics = {
 };
 export const analyticsData: Analytics[] = [
   {
-    summary: 'More kids are speaking up about bullying.',
+    summary: 'More kids are speaking up',
     title: 'Big Jump in Reports',
     image: 'timeline_bullying.png',
     description:
@@ -23,7 +23,7 @@ export const analyticsData: Analytics[] = [
       'https://www.esafety.gov.au/newsroom/media-releases/safer-internet-day-calls-for-kindness-as-cyberbullying-reports-surge-over-450-in-five-years',
   },
   {
-    summary: 'Mean Stuff Speaks on Apps',
+    summary: 'Mean stuff speaks on apps',
     title: 'Social Media Bullying',
     image: 'social_bullying.png',
     description:
@@ -35,7 +35,7 @@ export const analyticsData: Analytics[] = [
     dataLink: 'https://takeatumble.com.au/insights/lifestyle/cyberbullying-statistics/',
   },
   {
-    summary: "It's Mostly Girls -- and bad for all",
+    summary: "It's mostly girls -- and bad for all",
     title: 'Who Gets Bullied?',
     image: 'gender_bullying.png',
     description:
@@ -48,7 +48,7 @@ export const analyticsData: Analytics[] = [
       'https://www.esafety.gov.au/newsroom/media-releases/40-jump-in-child-bullying-reports-to-esafety',
   },
   {
-    summary: 'Lots of kids keep quiet ',
+    summary: 'Lots of kids keep quiet',
     title: 'Hiding The Hurt',
     image: 'reason_bullying.png',
     description:

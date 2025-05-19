@@ -132,6 +132,7 @@ export default function DashBoardPage() {
                 opacity: 0,
                 transform: 'translateY(20px)',
                 color: 'var(--text-title)',
+                transition: 'all 1s ease-out',
                 mb: 2,
               }}
             >
@@ -168,7 +169,7 @@ export default function DashBoardPage() {
               className="cursor-pointer"
               onClick={() => {
                 document
-                  .getElementById('section-2')
+                  .getElementById('section-5')
                   ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }}
             >
@@ -181,7 +182,7 @@ export default function DashBoardPage() {
                   lineHeight: 1,
                 }}
               >
-                Why This Is Important
+                Take me there!
               </Typography>
               <FavoriteIcon
                 className="heart-icon"
@@ -454,12 +455,6 @@ export default function DashBoardPage() {
                   fontWeight: 600,
                   color: '#4B3F72',
                   padding: '8px 12px',
-                  borderRadius: '20px',
-                  background: 'rgba(255, 235, 235, 0.4)',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    background: 'rgba(255, 235, 235, 0.8)',
-                  },
                 }}
               >
                 She knows she's not alone
@@ -660,6 +655,7 @@ export default function DashBoardPage() {
           }}
         />
         <Container
+          id="section-5"
           maxWidth="lg"
           sx={{
             position: 'relative',
