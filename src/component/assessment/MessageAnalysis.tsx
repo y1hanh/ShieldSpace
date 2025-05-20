@@ -12,8 +12,8 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
-import { AnalysisResultType } from '../../slice/assessmentSlice';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { AnalysisResultType } from '../../slice/assessmentSlice';
 import { useNavigate } from 'react-router';
 
 const getEmotionLevel = (score: number) => {
@@ -245,7 +245,7 @@ export const MessageAnalysis = ({
             <>
               <ErrorIcon sx={{ color: '#e53935' }} />
               <Typography variant="subtitle1" color="#e53935" fontWeight={600}>
-                😟 That wasn’t a kind message.
+                😟 That wasn't a kind message.
               </Typography>
             </>
           ) : (
@@ -598,22 +598,48 @@ export const MessageAnalysis = ({
           >
             Analyze Another Message
           </Button>
+          
           {/* redirect to the /resources page */}
-          {!isBullying && (
+          {isBullying ? (
+            <Button
+              variant="contained"
+              onClick={() => navigate('/action-plan')}
+              sx={{
+                backgroundColor: '#6A4CA7',
+                color: 'white',
+                borderRadius: '30px',
+                px: 4,
+                py: 1.2,
+                textTransform: 'none',
+                fontSize: '1rem',
+                fontWeight: 500,
+                boxShadow: '0 4px 12px rgba(106, 76, 167, 0.3)',
+                '&:hover': {
+                  backgroundColor: '#59359e',
+                  transform: 'translateY(-2px)',
+                },
+                gap: 1,
+              }}
+            >
+              Next: Support Plan
+            </Button>
+          ) : (
             <Button
               variant="contained"
               onClick={() => navigate('/resources')}
               sx={{
-                backgroundColor: 'var(--text-title)',
+                backgroundColor: '#6A4CA7',
                 color: 'white',
-                borderRadius: '25px',
+                borderRadius: '30px',
                 px: 4,
-                py: 1.5,
+                py: 1.2,
                 textTransform: 'none',
-                fontWeight: 500,
                 fontSize: '1rem',
+                fontWeight: 500,
+                boxShadow: '0 4px 12px rgba(106, 76, 167, 0.3)',
                 '&:hover': {
-                  backgroundColor: '#52447e',
+                  backgroundColor: '#59359e',
+                  transform: 'translateY(-2px)',
                 },
               }}
             >

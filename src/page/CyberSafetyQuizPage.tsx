@@ -1,6 +1,5 @@
 import { useState, ReactNode } from 'react';
 import { Box, Button, Typography, LinearProgress, CircularProgress } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router';
 import Lottie from 'lottie-react';
 import trophy from '../animations/trophy.json';
@@ -198,7 +197,12 @@ export default function CyberSafetyQuiz() {
   const progressPercent = ((currentStep + 1) / questions.length) * 100;
 
   return (
-    <Box sx={{ minHeight: '100vh', p: isMobile ? 1 : 3 }}>
+    <Box sx={{ 
+      minHeight: '100vh',
+      width: isMobile ? '90%' : '70%', 
+      mx: 'auto',
+      mt: 12, 
+    }}>
       <Box
         sx={{
           height: '100%',
@@ -259,7 +263,7 @@ export default function CyberSafetyQuiz() {
 
         <Box>
           {!quizFinished ? (
-            <Box textAlign={'center'} sx={{ px: '8rem' }}>
+            <Box textAlign={'center'} sx={{ px: { xs: 4, sm: 4, md: 8 } }}>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold' }}>
                 {questions[currentStep].text}
               </Typography>
@@ -853,19 +857,33 @@ export default function CyberSafetyQuiz() {
               )}
 
               <Box mt={4} display="grid" gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }} gap={2}>
-                <StyledButton onClick={() => navigate('/resources')} bgColor="#43A047">
-                  🧾 Scenario Challenge
+                <StyledButton 
+                  onClick={() => navigate('/community')} 
+                  bgColor="#43A047"
+                  sx={{
+                    '&:active': {
+                      bgcolor: 'rgba(67, 160, 71, 0.6)' // Darker green on click
+                    }
+                  }}
+                >
+                  📚 Explore Learning Zone
                 </StyledButton>
 
                 <StyledButton
-                  onClick={() => navigate('/community')}
-                  bgColor="#FBC02D"
+                  onClick={() => navigate('/resources')}
+                  bgColor="#FBC02D" 
                   textColor="#333"
+                  sx={{
+                    '&:hover': {
+                      bgcolor: 'rgba(251, 192, 45, 0.8)' 
+                    }
+                  }}
                 >
-                  📚 Learn More
+                  🧾 Scenario Challenge
                 </StyledButton>
               </Box>
-            </Box>
+              </Box>
+         
           )}
         </Box>
       </Box>
