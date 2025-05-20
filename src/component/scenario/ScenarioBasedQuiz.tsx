@@ -273,7 +273,7 @@ export default function ScenarioBasedQuiz() {
               onClick={() => navigate('/community')}
               endIcon={<ArrowForwardIcon />}
             >
-              Learn More
+              Explore Learning Zone
             </Button>
           </Box>
         </Box>

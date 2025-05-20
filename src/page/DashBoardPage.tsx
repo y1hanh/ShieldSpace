@@ -136,7 +136,7 @@ export default function DashBoardPage() {
                 mb: 2,
               }}
             >
-              Upload a message to check if it contains bullying language.
+              If someone sent you a message that felt off, check it here to see if it’s hurtful.
             </Typography>
 
             <Box
@@ -169,7 +169,7 @@ export default function DashBoardPage() {
               className="cursor-pointer"
               onClick={() => {
                 document
-                  .getElementById('section-5')
+                  .getElementById('section-2')
                   ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }}
             >
@@ -232,7 +232,44 @@ export default function DashBoardPage() {
           <Box
             sx={{
               flex: { md: 1 },
-              order: { xs: 2, md: 1 },
+              order: { xs: 1, md: 1 },
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              sx={{
+                width: { xs: '100%', sm: '90%', md: '90%' },
+                overflow: 'hidden',
+              }}
+            >
+              <Box
+                component="img"
+                src="/impact_of_bullying.png"
+                sx={{
+                  width: '100%',
+                  maxHeight: { xs: '350px', sm: '450px', md: '550px' },
+                  objectFit: 'contain',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                  },
+                }}
+              />
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              flex: { md: 1 },
+              order: { xs: 2, md: 2 },
               padding: { xs: '0.5rem', md: '1rem' },
             }}
           >
@@ -305,43 +342,6 @@ export default function DashBoardPage() {
                   Let's see how Emily found help when she got a mean message!
                 </Typography>
               </Box>
-            </Box>
-          </Box>
-
-          <Box
-            sx={{
-              flex: { md: 1 },
-              order: { xs: 1, md: 2 },
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              sx={{
-                width: { xs: '100%', sm: '90%', md: '90%' },
-                overflow: 'hidden',
-              }}
-            >
-              <Box
-                component="img"
-                src="/impact_of_bullying.png"
-                sx={{
-                  width: '100%',
-                  maxHeight: { xs: '350px', sm: '450px', md: '550px' },
-                  objectFit: 'contain',
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'scale(1.02)',
-                  },
-                }}
-              />
             </Box>
           </Box>
         </Box>
@@ -457,7 +457,7 @@ export default function DashBoardPage() {
                   padding: '8px 12px',
                 }}
               >
-                She knows she's not alone
+                Now she's stronger and supported
                 <FavoriteIcon
                   className="heart-icon"
                   sx={{
@@ -697,100 +697,7 @@ export default function DashBoardPage() {
               sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 2, mt: 3 }}
             >
               {/* first option: Learn more first */}
-              <Box
-                onClick={() => navigate('/community')}
-                sx={{
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  p: 3,
-                  borderRadius: '16px',
-                  backgroundColor: '#E0F7FA',
-                  border: '3px solid #4DD0E1',
-                  transition: 'all 0.2s ease',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  '&:hover': {
-                    transform: 'translateY(-3px)',
-                    boxShadow: '0 9px 0 #00ACC1',
-                    '& .arrow-icon': {
-                      transform: 'translateX(5px)',
-                    },
-                  },
-                  '&:active': {
-                    transform: 'translateY(3px)',
-                    boxShadow: '0 3px 0 #00ACC1',
-                  },
-                }}
-              >
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: -20,
-                    right: -20,
-                    width: 80,
-                    height: 80,
-                    borderRadius: '50%',
-                    backgroundColor: '#B2EBF2',
-                    zIndex: 0,
-                  }}
-                />
-
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: 'bold',
-                    color: '#0097A7',
-                    mb: 2,
-                    zIndex: 1,
-                    textShadow: '1px 1px 0 white',
-                  }}
-                >
-                  Learn About Bullying
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: '#5D4037',
-                    fontSize: '1rem',
-                    mb: 3,
-                    textAlign: 'center',
-                    zIndex: 1,
-                  }}
-                >
-                  Not ready yet? Learn how bullying works and how to deal with it
-                </Typography>
-
-                <Button
-                  variant="contained"
-                  endIcon={
-                    <ArrowForwardIcon
-                      className="arrow-icon"
-                      sx={{ transition: 'transform 0.2s' }}
-                    />
-                  }
-                  sx={{
-                    backgroundColor: '#00BCD4',
-                    color: 'white',
-                    borderRadius: '30px',
-                    py: 1,
-                    px: 3,
-                    textTransform: 'none',
-                    fontWeight: 600,
-                    fontSize: '1rem',
-                    zIndex: 1,
-                    '&:hover': {
-                      backgroundColor: '#00ACC1',
-                    },
-                  }}
-                >
-                  Let's Learn
-                </Button>
-              </Box>
-
-              <Box
+               <Box
                 onClick={() => navigate('/assessment')}
                 sx={{
                   flex: 1,
@@ -799,22 +706,22 @@ export default function DashBoardPage() {
                   alignItems: 'center',
                   p: 3,
                   borderRadius: '16px',
-                  backgroundColor: '#FCE4EC',
-                  border: '3px solid #F06292',
+                  backgroundColor: '#FFF3E0',
+                  border: '3px solid #FF9800',
                   transition: 'all 0.2s ease',
                   cursor: 'pointer',
                   position: 'relative',
                   overflow: 'hidden',
                   '&:hover': {
                     transform: 'translateY(-3px)',
-                    boxShadow: '0 9px 0 #D81B60',
+                    boxShadow: '0 9px 0 #F57C00',
                     '& .arrow-icon': {
                       transform: 'translateX(5px)',
                     },
                   },
                   '&:active': {
                     transform: 'translateY(3px)',
-                    boxShadow: '0 3px 0 #D81B60',
+                    boxShadow: '0 3px 0 #F57C00',
                   },
                 }}
               >
@@ -865,7 +772,7 @@ export default function DashBoardPage() {
                     />
                   }
                   sx={{
-                    backgroundColor: '#E91E63',
+                    backgroundColor: '#FF9800',
                     color: 'white',
                     borderRadius: '30px',
                     py: 1,
@@ -875,7 +782,7 @@ export default function DashBoardPage() {
                     fontSize: '1rem',
                     zIndex: 1,
                     '&:hover': {
-                      backgroundColor: '#D81B60',
+                      backgroundColor: '#F57C00',
                     },
                   }}
                 >

@@ -9,7 +9,7 @@ import CyberSafetyQuiz from './page/CyberSafetyQuizPage';
 import AssessmentResult from './page/AssessmentResultPage';
 import AssessmentPage from './page/AssessmentPage';
 import { ErrorMessagePage } from './page/ErrorMessagePage';
-
+import { ActionPlan } from './component/assessment/ActionPlan';
 export const router = createBrowserRouter([
   {
     path: '/secure',
@@ -51,6 +51,10 @@ export const router = createBrowserRouter([
         path: 'assessment-result',
         Component: AssessmentResult,
       },
+      {
+        path: 'action-plan',
+        Component: ActionPlan,
+      },
     ],
   },
 ]);
@@ -68,7 +72,7 @@ export const routes: routesArray[] = [
   },
   {
     path: '/assessment',
-    name: 'Analyser',
+    name: 'CyberBuddy',
   },
   {
     path: '/resources',

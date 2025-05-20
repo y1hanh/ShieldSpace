@@ -64,8 +64,8 @@ export default function AssessmentTool() {
 
   const handleSubmit = debounce(async () => {
     const trimmed = input.trim();
-    if (trimmed.length < 3) {
-      setAlertText('Please enter at least 3 letters.');
+    if (!trimmed) {
+      setAlertText("Please enter a message.");
       setAlertOpen(true);
       return;
     }
