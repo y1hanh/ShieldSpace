@@ -24,6 +24,7 @@ interface StyledButtonProps {
   endIcon?: ReactNode;
   bgColor?: string;
   textColor?: string;
+  sx?: any; // Add sx prop to interface
 }
 
 function StyledButton({
@@ -32,6 +33,7 @@ function StyledButton({
   endIcon,
   bgColor = '#7C4DFF',
   textColor = 'white',
+  sx, // Add sx prop to function params
 }: StyledButtonProps) {
   return (
     <Button
@@ -54,6 +56,7 @@ function StyledButton({
           backgroundColor: bgColor,
           opacity: 0.9,
         },
+        ...sx, // Spread additional sx props
       }}
     >
       {children}
