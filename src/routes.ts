@@ -72,7 +72,7 @@ export const routes: routesArray[] = [
   },
   {
     path: '/assessment',
-    name: 'CyberBuddy',
+    name: 'Cyber Buddy',
   },
   {
     path: '/resources',

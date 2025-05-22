@@ -44,6 +44,7 @@ type MessageAnalysisProps = {
   analysisResult: AnalysisResultType;
   resetAssessment: () => void;
   isBullying: boolean;
+  next: () => void;
 };
 
 type WordToxicity = {
@@ -55,25 +56,22 @@ export const MessageAnalysis = ({
   analysisResult,
   userInput,
   isBullying,
+  next,
 }: MessageAnalysisProps) => {
   const [data, setData] = useState<AnalysisResultType | null>(null);
-  // const [text, setText] = useState('');
   const [textTriggers, setTextTriggers] = useState<WordToxicity[]>(null);
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [isToxic, setIsToxic] = useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
     if (userInput && analysisResult) {
       setData(analysisResult);
-      // setText(userInput);
-
       const temp = [];
       userInput.split(' ').forEach(word => {
         const val = analysisResult.triggers?.toxic_triggers?.find(w => w[0].includes(word));
         if (val) {
           temp.push({ word, toxicity: val[1] });
+          setIsToxic(true);
         } else {
           temp.push({ word, toxicity: 0 });
         }
@@ -185,6 +183,32 @@ export const MessageAnalysis = ({
         <Typography variant="h6" color="primary" fontWeight="600" mb={2}>
           Message Analyzed:
         </Typography>
+
+        {isToxic && (
+          <Typography
+            variant="caption"
+            sx={{
+              display: 'block',
+              mb: 1,
+              color: 'text.secondary',
+              backgroundColor: 'rgba(255, 244, 229, 0.8)',
+              p: 1,
+              borderRadius: '4px',
+              border: '1px dashed #FFB74D',
+              fontWeight: 500,
+            }}
+          >
+            <span role="img" aria-label="info">
+              ℹ️
+            </span>{' '}
+            Hover over{' '}
+            <span style={{ color: '#eb4034', fontWeight: 600, textDecoration: 'underline dotted' }}>
+              highlighted words
+            </span>{' '}
+            to see their toxicity level
+          </Typography>
+        )}
+
         <Typography
           variant="body1"
           sx={{
@@ -215,6 +239,19 @@ export const MessageAnalysis = ({
                       padding: '2px 4px',
                       borderRadius: '4px',
                       cursor: 'help',
+                      backgroundColor: 'rgba(235, 64, 52, 0.1)',
+                      border: '1px dotted #eb4034',
+                      position: 'relative',
+                      textDecoration: 'underline dotted',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.backgroundColor = 'rgba(235, 64, 52, 0.2)';
+                      e.currentTarget.style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.backgroundColor = 'rgba(235, 64, 52, 0.1)';
+                      e.currentTarget.style.transform = 'scale(1)';
                     }}
                   >
                     {word.word}
@@ -270,9 +307,70 @@ export const MessageAnalysis = ({
           {/* Left Column - Emotion Analysis */}
           <Box
             sx={{
-              flex: { xs: '100%', md: '55%' },
+              flex: { xs: '100%', md: '50%' },
+              gap: 3,
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
+            {/* Bias/Prejudice Section - Full width below */}
+            {bias && Object.keys(bias).length > 0 && (
+              <Box
+                sx={{
+                  p: 3,
+                  backgroundColor: isBullying
+                    ? 'rgba(254, 226, 226, 0.5)'
+                    : 'rgba(209, 250, 229, 0.5)',
+                  borderRadius: '12px',
+                  border: `1px solid ${isBullying ? '#FECACA' : '#A7F3D0'}`,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  fontWeight={600}
+                  mb={2}
+                  color="#92400E"
+                  sx={{
+                    borderBottom: `2px solid ${isBullying ? '#FCA5A5' : '#6EE7B7'}`,
+                    pb: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <span role="img" aria-label="warning">
+                    ⚠️
+                  </span>{' '}
+                  Prejudice Detection
+                </Typography>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: 1,
+                    flexWrap: 'wrap',
+                    backgroundColor: 'white',
+                    p: 2,
+                    borderRadius: '8px',
+                  }}
+                >
+                  {Object.entries(bias).map(([key, value]) => (
+                    <Chip
+                      key={key}
+                      label={key.charAt(0).toUpperCase() + key.slice(1)}
+                      sx={{
+                        backgroundColor: '#ffcdd2',
+                        color: '#c62828',
+                        fontWeight: 600,
+                        textTransform: 'capitalize',
+                        borderRadius: '25px',
+                        padding: '10px',
+                      }}
+                    />
+                  ))}
+                </Box>
+              </Box>
+            )}
             <Box
               sx={{
                 p: 3,
@@ -364,60 +462,12 @@ export const MessageAnalysis = ({
                 })}
               </Box>
             </Box>
-            {/* Bias/Prejudice Section - Full width below */}
-            {bias && Object.keys(bias).length > 0 && (
-              <Box
-                sx={{
-                  mt: 2,
-                  p: 3,
-                  backgroundColor: 'rgba(254, 243, 199, 0.3)',
-                  borderRadius: '12px',
-                  border: '1px solid #FEF3C7',
-                }}
-              >
-                <Typography
-                  variant="h6"
-                  fontWeight={600}
-                  mb={2}
-                  color="#92400E"
-                  sx={{
-                    borderBottom: '2px solid #FDE68A',
-                    pb: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                  }}
-                >
-                  <span role="img" aria-label="warning">
-                    ⚠️
-                  </span>{' '}
-                  Prejudice Detection
-                </Typography>
-
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', p: 2 }}>
-                  {Object.entries(bias).map(([key, value]) => (
-                    <Chip
-                      key={key}
-                      label={key.charAt(0).toUpperCase() + key.slice(1)}
-                      sx={{
-                        backgroundColor: value > 0.5 ? '#FFBF00' : '#E0E0E0',
-                        color: value > 0.5 ? '#fff' : '#000',
-                        fontWeight: 600,
-                        textTransform: 'capitalize',
-                        borderRadius: '25px',
-                        padding: '20px 10px',
-                      }}
-                    />
-                  ))}
-                </Box>
-              </Box>
-            )}
           </Box>
 
           {/* Right Column - Primary Emotion, Toxicity, and Button */}
           <Box
             sx={{
-              flex: { xs: '100%', md: '45%' },
+              flex: { xs: '100%', md: '50%' },
               display: 'flex',
               flexDirection: 'column',
               gap: 3,
@@ -598,12 +648,12 @@ export const MessageAnalysis = ({
           >
             Analyze Another Message
           </Button>
-          
+
           {/* redirect to the /resources page */}
           {isBullying ? (
             <Button
               variant="contained"
-              onClick={() => navigate('/action-plan')}
+              onClick={next}
               sx={{
                 backgroundColor: '#6A4CA7',
                 color: 'white',
@@ -621,7 +671,7 @@ export const MessageAnalysis = ({
                 gap: 1,
               }}
             >
-              Next: Support Plan
+              Step 2: Support Plan
             </Button>
           ) : (
             <Button

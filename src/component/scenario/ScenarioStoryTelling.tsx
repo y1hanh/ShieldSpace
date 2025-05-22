@@ -6,56 +6,25 @@ export default function ScenarioStoryTelling() {
       title: 'Recognition',
       description: 'Learn to identify different forms of cyberbullying and understand their impact',
       icon: '🔍',
-      color: '#E0F4FF' // Soft blue background
+      color: '#E0F4FF', // Soft blue background
     },
     {
       title: 'Response',
       description:
         'Develop practical strategies to respond effectively when you encounter online bullying',
       icon: '💪',
-      color: '#E6FFE0' // Soft green background
+      color: '#E6FFE0', // Soft green background
     },
     {
-      title: 'Resources', 
+      title: 'Resources',
       description: 'Discover helpful resources and who to turn to when you need additional support',
       icon: '📚',
-      color: '#FFE0E6' // Soft pink background
+      color: '#FFE0E6', // Soft pink background
     },
   ];
 
   return (
     <>
-      <Typography
-        variant="h4"
-        sx={{
-          fontWeight: 'bold',
-          color: 'var(--text-title)',
-          textAlign: 'center', 
-          mt: { xs: 3, sm: 8 },
-          fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
-          padding: { xs: '0 10px', sm: '0 20px', md: '0' },
-          background: 'linear-gradient(90deg, #4B3F72 0%, #6A4CA7 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          letterSpacing: '0.5px',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
-          position: 'relative',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: '-10px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '60px',
-            height: '3px',
-            background: 'linear-gradient(90deg, #4B3F72 0%, #6A4CA7 100%)',
-            borderRadius: '2px',
-          },
-        }}
-      >
-        ✨ Scenario Storytelling ✨
-      </Typography>
-
       <Box
         sx={{
           maxWidth: '1000px',
@@ -69,7 +38,6 @@ export default function ScenarioStoryTelling() {
           backgroundColor: 'var(--background-secondary)',
           borderRadius: '12px',
           boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-          
         }}
       >
         <Typography
@@ -81,24 +49,20 @@ export default function ScenarioStoryTelling() {
             marginTop: { xs: 3, sm: 4 },
             fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
             padding: { xs: '0 10px', sm: '0 20px', md: '0' },
-            animation: 'slideIn 0.8s ease-out'
+            animation: 'slideIn 0.8s ease-out',
           }}
         >
-          🤔 What would you do? 
+          Scenarios: What Would You Do?
         </Typography>
-        <Typography 
-          fontWeight="bold" 
-          color="var(--text-title)" 
-          mb={3}
+        <Typography
+          color="var(--text-body)"
+          mb={2}
           sx={{
             fontSize: { xs: '1.1rem', sm: '1.2rem' },
-            background: 'linear-gradient(45deg, #4B3F72, #6A4CA7)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            animation: 'slideIn 0.8s ease-out'
+            animation: 'slideIn 0.8s ease-out',
           }}
         >
-          You'll Learn
+          Real stories. Real choices. Learn how to stay safe and support your friends online.
         </Typography>
 
         <Box
@@ -116,7 +80,7 @@ export default function ScenarioStoryTelling() {
               sx={{
                 flex: 1,
                 textAlign: 'center',
-                px: 2, 
+                px: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 backgroundColor: section.color,
@@ -133,13 +97,13 @@ export default function ScenarioStoryTelling() {
                 '@keyframes slideIn': {
                   '0%': {
                     opacity: 0,
-                    transform: 'translateY(30px) scale(0.9)'
+                    transform: 'translateY(30px) scale(0.9)',
                   },
                   '100%': {
                     opacity: 1,
-                    transform: 'translateY(0) scale(1)'
-                  }
-                }
+                    transform: 'translateY(0) scale(1)',
+                  },
+                },
               }}
             >
               <Typography
@@ -152,7 +116,7 @@ export default function ScenarioStoryTelling() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '12px',
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.08)'
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.08)',
                 }}
               >
                 <span style={{ fontSize: '1.8em' }}>{section.icon}</span>
@@ -164,7 +128,7 @@ export default function ScenarioStoryTelling() {
                   color: 'var(--text-body)',
                   fontWeight: '600',
                   lineHeight: '1.8',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
                 }}
               >
                 {section.description}

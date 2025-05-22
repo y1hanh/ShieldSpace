@@ -62,8 +62,8 @@ export default function ResultsPage() {
               display: 'flex',
               justifyContent: isScrolled ? 'flex-end' : 'center',
               alignItems: 'center',
-              mb: isScrolled ? 0 : 5,
-              mt: isScrolled ? 0 : 3,
+              mb: isScrolled ? 0 : 2,
+              mt: isScrolled ? 0 : 10,
               position: isScrolled ? 'fixed' : '',
               top: isScrolled ? '50%' : 'auto',
               right: isScrolled ? 0 : 'auto',
@@ -81,28 +81,56 @@ export default function ResultsPage() {
                 flexDirection: isScrolled ? 'column' : 'row',
                 backgroundColor: isScrolled ? 'rgba(244, 241, 250, 0.95)' : '#f4f1fa',
                 borderRadius: isScrolled ? '30px 0 0 30px' : '30px',
-                padding: isScrolled ? '12px 8px' : '4px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                padding: isScrolled ? '12px 12px 12px 8px' : '4px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                 border: '1px solid #e0e0e0',
-                maxWidth: isScrolled ? '80px' : '500px',
-                pointerEvents: 'auto', // This restores mouse events for the button container
+                maxWidth: isScrolled ? 'auto' : '800px',
+                pointerEvents: 'auto',
+                position: 'relative',
+                overflow: 'visible',
+                // Add a pulsing glow animation when scrolled
+                animation: isScrolled ? 'pulseGlow 2s infinite alternate' : 'none',
+                '@keyframes pulseGlow': {
+                  '0%': { boxShadow: '0 4px 12px rgba(106, 76, 167, 0.2)' },
+                  '100%': { boxShadow: '0 4px 16px rgba(106, 76, 167, 0.6)' },
+                },
               }}
             >
               <Button
                 onClick={() => handleViewChange('analysis')}
                 sx={{
-                  padding: isScrolled ? '10px' : '10px 20px',
-                  minWidth: isScrolled ? '48px' : 'auto',
+                  padding: isScrolled ? '12px' : '10px 20px',
+                  minWidth: isScrolled ? '50px' : 'auto',
                   borderRadius: isScrolled ? '50%' : '25px',
                   backgroundColor: activeView === 'analysis' ? '#6A4CA7' : 'transparent',
                   color: activeView === 'analysis' ? 'white' : '#6A4CA7',
                   fontWeight: 600,
+                  fontSize: isScrolled ? '1rem' : '1.5rem',
                   textTransform: 'none',
                   transition: 'all 0.3s ease',
+                  marginBottom: isScrolled ? 1 : 0,
+                  position: 'relative',
                   '&:hover': {
                     backgroundColor:
                       activeView === 'analysis' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
                   },
+                  '&:hover::after': isScrolled
+                    ? {
+                        content: '"Analysis"',
+                        position: 'absolute',
+                        right: '100%',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        backgroundColor: '#6A4CA7',
+                        color: 'white',
+                        padding: '4px 8px',
+                        borderRadius: '4px',
+                        marginRight: '8px',
+                        fontSize: '0.75rem',
+                        whiteSpace: 'nowrap',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                      }
+                    : {},
                   '& .MuiButton-startIcon': {
                     margin: isScrolled ? 0 : '0 8px 0 0',
                   },
@@ -114,17 +142,36 @@ export default function ResultsPage() {
               <Button
                 onClick={() => handleViewChange('plan')}
                 sx={{
-                  padding: isScrolled ? '10px' : '10px 20px',
-                  minWidth: isScrolled ? '48px' : 'auto',
+                  padding: isScrolled ? '12px' : '10px 20px',
+                  minWidth: isScrolled ? '50px' : 'auto',
                   borderRadius: isScrolled ? '50%' : '25px',
                   backgroundColor: activeView === 'plan' ? '#6A4CA7' : 'transparent',
                   color: activeView === 'plan' ? 'white' : '#6A4CA7',
                   fontWeight: 600,
+                  fontSize: isScrolled ? '1rem' : '1.5rem',
                   textTransform: 'none',
                   transition: 'all 0.3s ease',
+                  position: 'relative',
                   '&:hover': {
                     backgroundColor: activeView === 'plan' ? '#5d3e95' : 'rgba(106, 76, 167, 0.1)',
                   },
+                  '&:hover::after': isScrolled
+                    ? {
+                        content: '"Support Plan"',
+                        position: 'absolute',
+                        right: '100%',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        backgroundColor: '#6A4CA7',
+                        color: 'white',
+                        padding: '4px 8px',
+                        borderRadius: '4px',
+                        marginRight: '8px',
+                        fontSize: '0.75rem',
+                        whiteSpace: 'nowrap',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                      }
+                    : {},
                 }}
               >
                 {isScrolled ? '2' : 'Step 2: Support Plan'}
@@ -177,6 +224,7 @@ export default function ResultsPage() {
                   userInput={userInput}
                   analysisResult={analysisResult}
                   isBullying={isBullying}
+                  next={() => handleViewChange('plan')}
                 />
               </motion.div>
             ) : (

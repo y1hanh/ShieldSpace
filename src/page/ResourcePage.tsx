@@ -7,6 +7,7 @@ export default function ResourcePage() {
       sx={{
         minHeight: '100vh',
         width: '100%',
+        mb: 3,
       }}
     >
       <ScenarioBasedQuiz />
