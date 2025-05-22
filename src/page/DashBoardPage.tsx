@@ -182,7 +182,7 @@ export default function DashBoardPage() {
                   lineHeight: 1,
                 }}
               >
-                Take me there!
+                Why This Matters
               </Typography>
               <FavoriteIcon
                 className="heart-icon"
@@ -697,7 +697,7 @@ export default function DashBoardPage() {
               sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 2, mt: 3 }}
             >
               {/* first option: Learn more first */}
-               <Box
+              <Box
                 onClick={() => navigate('/assessment')}
                 sx={{
                   flex: 1,
@@ -706,22 +706,22 @@ export default function DashBoardPage() {
                   alignItems: 'center',
                   p: 3,
                   borderRadius: '16px',
-                  backgroundColor: '#FFF3E0',
-                  border: '3px solid #FF9800',
+                  background: 'var(--background)',
+                  border: '3px solid var(--text-title)',
                   transition: 'all 0.2s ease',
                   cursor: 'pointer',
                   position: 'relative',
                   overflow: 'hidden',
                   '&:hover': {
                     transform: 'translateY(-3px)',
-                    boxShadow: '0 9px 0 #F57C00',
+                    boxShadow: '0 9px 0 var(--text-title)',
                     '& .arrow-icon': {
                       transform: 'translateX(5px)',
                     },
                   },
                   '&:active': {
                     transform: 'translateY(3px)',
-                    boxShadow: '0 3px 0 #F57C00',
+                    boxShadow: '0 3px 0 var(--text-title)',
                   },
                 }}
               >
@@ -772,7 +772,7 @@ export default function DashBoardPage() {
                     />
                   }
                   sx={{
-                    backgroundColor: '#FF9800',
+                    backgroundColor: 'hsl(254, 33.30%, 49.40%) ',
                     color: 'white',
                     borderRadius: '30px',
                     py: 1,
@@ -782,11 +782,11 @@ export default function DashBoardPage() {
                     fontSize: '1rem',
                     zIndex: 1,
                     '&:hover': {
-                      backgroundColor: '#F57C00',
+                      backgroundColor: 'var(--text-title)',
                     },
                   }}
                 >
-                  Try it now
+                  Cyber Buddy
                 </Button>
               </Box>
             </Box>

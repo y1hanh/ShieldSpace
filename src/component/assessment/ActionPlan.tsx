@@ -310,7 +310,7 @@ export function ActionPlan() {
                 fontSize: { xs: '1.3rem', sm: '1.5rem' },
               }}
             >
-              Tell Us How You're Feeling
+              Step 3: Tell Us How You're Feeling
             </Typography>
 
             <Typography
@@ -321,7 +321,7 @@ export function ActionPlan() {
                 mb: 2,
                 fontSize: { xs: '0.95rem', sm: '1.05rem' },
                 lineHeight: 1.6,
-                maxWidth: '100%', // Full width on mobile
+                maxWidth: '100%',
               }}
             >
               We want to understand how this message made you feel so we can support you better.
@@ -344,7 +344,7 @@ export function ActionPlan() {
               variant="contained"
               onClick={() => navigate('/cyber-safety-quiz')}
               sx={{
-                backgroundColor: '#6A4CA7',
+                backgroundColor: 'var(--highlight)',
                 color: 'white',
                 borderRadius: '30px',
                 px: 4,
@@ -354,12 +354,12 @@ export function ActionPlan() {
                 fontWeight: 500,
                 boxShadow: '0 4px 12px rgba(106, 76, 167, 0.3)',
                 '&:hover': {
-                  backgroundColor: '#59359e',
+                  backgroundColor: '#ff8103',
                   transform: 'translateY(-2px)',
                 },
               }}
             >
-              Next: Personalise My Support Plan
+              Personalise My Support Plan
             </Button>
           </Box>
         </Box>

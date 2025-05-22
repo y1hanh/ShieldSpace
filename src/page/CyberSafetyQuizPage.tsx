@@ -200,12 +200,14 @@ export default function CyberSafetyQuiz() {
   const progressPercent = ((currentStep + 1) / questions.length) * 100;
 
   return (
-    <Box sx={{ 
-      minHeight: '100vh',
-      width: isMobile ? '90%' : '70%', 
-      mx: 'auto',
-      mt: 12, 
-    }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        width: isMobile ? '90%' : '70%',
+        mx: 'auto',
+        mt: 12,
+      }}
+    >
       <Box
         sx={{
           height: '100%',
@@ -223,7 +225,7 @@ export default function CyberSafetyQuiz() {
         {/* Header */}
         <Box
           sx={{
-            backgroundColor: '#7C4DFF',
+            backgroundColor: '#ff8103', // Change to specified orange
             p: 2,
             borderTopLeftRadius: '20px',
             borderTopRightRadius: '20px',
@@ -246,18 +248,32 @@ export default function CyberSafetyQuiz() {
               We would like to hear your feelings{' '}
             </Typography>
           )}
-          <Box mt={1}>
+          <Box mt={2} mb={1.5}>
+            {' '}
+            {/* Increased vertical spacing */}
             <LinearProgress
               variant="determinate"
               value={progressPercent}
               sx={{
-                height: 8,
-                borderRadius: 5,
-                backgroundColor: '#FFF9C4',
-                '& .MuiLinearProgress-bar': { backgroundColor: '#f2e767' },
+                height: 12, // Increased height from 8 to 12
+                borderRadius: 6, // Adjusted border radius to match
+                backgroundColor: '#ffe0b3', // Light orange background
+                '& .MuiLinearProgress-bar': {
+                  backgroundColor: '#e67300',
+                  borderRadius: 6, // Ensuring the progress bar has rounded corners too
+                },
+                mb: 1.5, // Added margin bottom for better spacing
               }}
             />
-            <Typography variant="caption">
+            <Typography
+              variant="body2" // Changed from caption to body2 for larger size
+              sx={{
+                fontWeight: 600, // Made text bolder
+                fontSize: '0.95rem', // Increased font size
+                color: 'white',
+                textShadow: '0 1px 1px rgba(0,0,0,0.2)', // Added subtle text shadow for readability
+              }}
+            >
               {`Steps ${currentStep + 1}/${questions.length}`} - {Math.round(progressPercent)}%
               Complete
             </Typography>
@@ -278,14 +294,14 @@ export default function CyberSafetyQuiz() {
                   sx={{
                     mb: 2,
                     width: '100%',
-                    borderColor: '#D1C4E9',
-                    color: '#4A148C',
-                    backgroundColor: selectedAnswer === option.value ? '#D1C4E9' : '#F3E5F5',
+                    borderColor: '#ffd9a3', // Light orange border
+                    color: '#cc6600', // Dark orange text
+                    backgroundColor: selectedAnswer === option.value ? '#ffd9a3' : '#fff7eb', // Orange when selected
                     textTransform: 'none',
                     borderRadius: '12px',
                     fontSize: '1rem',
                     fontWeight: 500,
-                    '&:hover': { backgroundColor: '#E1BEE7' },
+                    '&:hover': { backgroundColor: '#ffecd1' }, // Light orange hover
                   }}
                   onClick={() => handleSelect(option.value)}
                 >
@@ -316,7 +332,7 @@ export default function CyberSafetyQuiz() {
                 <Box>
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: '#7C4DFF', justifyContent: 'flex-end' }}
+                    sx={{ backgroundColor: '#ff8103', justifyContent: 'flex-end' }} // Main orange color
                     onClick={handleContinue}
                   >
                     Continue
@@ -355,13 +371,13 @@ export default function CyberSafetyQuiz() {
                   </Box>
                   <Typography
                     variant="h6"
-                    sx={{ color: '#FF6B6B', display: 'flex', alignItems: 'center' }}
+                    sx={{ color: '#ff8103', display: 'flex', alignItems: 'center' }} // Change to orange
                   >
                     Completed!
                   </Typography>
                   <Typography
                     variant="h6"
-                    sx={{ color: '#FF6B6B', display: 'flex', alignItems: 'center' }}
+                    sx={{ color: '#ff8103', display: 'flex', alignItems: 'center' }} // Change to orange
                   >
                     We are processing your plan...
                   </Typography>
@@ -428,11 +444,11 @@ export default function CyberSafetyQuiz() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.8 }}
                         sx={{
-                          backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                          backgroundColor: 'rgba(255, 129, 3, 0.1)', // Light orange background
                           borderRadius: '16px',
                           p: { xs: 1.5, sm: 2 },
                           mb: { xs: 0, sm: 3 },
-                          border: '2px dashed #FF6B6B',
+                          border: '2px dashed #ff8103', // Orange border
                           minWidth: { xs: '85vw', sm: 'auto' },
                           maxWidth: { xs: '85vw', sm: 'none' },
                           height: 'auto', // Remove fixed height to show all content
@@ -445,13 +461,13 @@ export default function CyberSafetyQuiz() {
                         <Typography
                           variant="h6"
                           sx={{
-                            color: '#FF6B6B',
+                            color: '#ff8103', // Orange text
                             display: 'flex',
                             alignItems: 'center',
                             fontSize: { xs: '1rem', sm: '1.25rem' },
                             fontWeight: 'bold',
                             mb: 1.5,
-                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            backgroundColor: 'rgba(255, 129, 3, 0.1)', // Light orange background
                             p: { xs: 1, sm: 0 },
                             borderRadius: { xs: '8px', sm: 0 },
                           }}
@@ -860,13 +876,13 @@ export default function CyberSafetyQuiz() {
               )}
 
               <Box mt={4} display="grid" gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }} gap={2}>
-                <StyledButton 
-                  onClick={() => navigate('/community')} 
+                <StyledButton
+                  onClick={() => navigate('/community')}
                   bgColor="#43A047"
                   sx={{
                     '&:active': {
-                      bgcolor: 'rgba(67, 160, 71, 0.6)' // Darker green on click
-                    }
+                      bgcolor: 'rgba(67, 160, 71, 0.6)', // Darker green on click
+                    },
                   }}
                 >
                   📚 Explore Learning Zone
@@ -874,19 +890,18 @@ export default function CyberSafetyQuiz() {
 
                 <StyledButton
                   onClick={() => navigate('/resources')}
-                  bgColor="#FBC02D" 
+                  bgColor="#FBC02D"
                   textColor="#333"
                   sx={{
                     '&:hover': {
-                      bgcolor: 'rgba(251, 192, 45, 0.8)' 
-                    }
+                      bgcolor: 'rgba(251, 192, 45, 0.8)',
+                    },
                   }}
                 >
                   🧾 Scenario Challenge
                 </StyledButton>
               </Box>
-              </Box>
-         
+            </Box>
           )}
         </Box>
       </Box>
