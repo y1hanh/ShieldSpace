@@ -56,24 +56,6 @@ export default function Footer() {
             combat cyberbullying.
           </Typography>
         </Box>
-        <Box
-          sx={{
-            mt: 3,
-            pt: 2,
-            textAlign: 'right',
-          }}
-        >
-          <Link
-            href="https://bit.ly/ShieldSpace_FIT5120"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ textDecoration: 'none', cursor: 'pointer' }}
-          >
-            <Typography variant="body2" sx={{ color: '#ccc', textDecoration: 'underline' }}>
-              About Us
-            </Typography>
-          </Link>
-        </Box>
       </Box>
 
       <Box
