@@ -15,7 +15,11 @@ import { useAssessment } from '../../slice/assessmentSlice';
 import { icons } from './icons';
 import { useNavigate } from 'react-router';
 
-export function ActionPlan() {
+type ActionPlanProps = {
+  next?: () => void;
+};
+
+export function ActionPlan({ next }: ActionPlanProps = {}) {
   const [loading, setLoading] = useState<LoadingStateType>('loading');
   const { actionPlan } = useAssessment();
   const navigate = useNavigate();
@@ -291,8 +295,6 @@ export function ActionPlan() {
             </Box>
           </Box>
 
-          <Divider />
-
           <Box
             sx={{
               p: { xs: 3, sm: 4, md: 6 },
@@ -301,31 +303,6 @@ export function ActionPlan() {
               alignItems: 'center',
             }}
           >
-            <Typography
-              variant="h5"
-              sx={{
-                color: 'var(--text-title)',
-                fontWeight: 'bold',
-                mb: 2,
-                fontSize: { xs: '1.3rem', sm: '1.5rem' },
-              }}
-            >
-              Step 3: Tell Us How You're Feeling
-            </Typography>
-
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                mt: 2,
-                mb: 2,
-                fontSize: { xs: '0.95rem', sm: '1.05rem' },
-                lineHeight: 1.6,
-                maxWidth: '100%',
-              }}
-            >
-              We want to understand how this message made you feel so we can support you better.
-            </Typography>
             <Typography
               variant="body1"
               color="text.secondary"
@@ -340,27 +317,31 @@ export function ActionPlan() {
               stronger and more in control.
             </Typography>
 
-            <Button
-              variant="contained"
-              onClick={() => navigate('/cyber-safety-quiz')}
-              sx={{
-                backgroundColor: 'var(--highlight)',
-                color: 'white',
-                borderRadius: '30px',
-                px: 4,
-                py: 1.2,
-                textTransform: 'none',
-                fontSize: '1rem',
-                fontWeight: 500,
-                boxShadow: '0 4px 12px rgba(106, 76, 167, 0.3)',
-                '&:hover': {
-                  backgroundColor: '#ff8103',
-                  transform: 'translateY(-2px)',
-                },
-              }}
-            >
-              Personalise My Support Plan
-            </Button>
+            {/* Add the next button here */}
+            {next && (
+              <Button
+                variant="contained"
+                onClick={next}
+                sx={{
+                  backgroundColor: '#6A4CA7',
+                  color: 'white',
+                  borderRadius: '30px',
+                  mt: 3,
+                  px: 4,
+                  py: 1.2,
+                  textTransform: 'none',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  boxShadow: '0 4px 12px rgba(106, 76, 167, 0.3)',
+                  '&:hover': {
+                    backgroundColor: '#59359e',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                Step 3: Get Personalized Plan
+              </Button>
+            )}
           </Box>
         </Box>
       )}

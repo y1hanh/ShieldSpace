@@ -294,8 +294,9 @@ export default function DashBoardPage() {
                   variant="body1"
                   sx={{ fontSize: { xs: '1rem', md: '1.1rem' }, fontWeight: 500 }}
                 >
-                  Many kids feel the same way after seeing unkind messages. They might start to
-                  doubt themselves, feel left out, or stop doing things they enjoy.
+                  Cyberbullying can deeply affect how teens feel: About 47% of teens experience
+                  lower self-esteem. Around 43% feel isolated and alone. Nearly 36% report a sense
+                  of helplessness.
                 </Typography>
               </Box>
 

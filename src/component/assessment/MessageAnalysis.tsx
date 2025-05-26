@@ -62,6 +62,9 @@ export const MessageAnalysis = ({
   const [textTriggers, setTextTriggers] = useState<WordToxicity[]>(null);
   const [isToxic, setIsToxic] = useState(false);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const navigate = useNavigate();
   useEffect(() => {
     if (userInput && analysisResult) {
@@ -627,7 +630,16 @@ export const MessageAnalysis = ({
         </Box>
 
         {/* Button to bottom of right column */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 'auto', pt: 2, gap: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            justifyContent: 'center',
+            mt: 'auto',
+            pt: 2,
+            gap: 2,
+          }}
+        >
           <Button
             variant="contained"
             onClick={resetAssessment}
