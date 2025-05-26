@@ -662,30 +662,7 @@ export const MessageAnalysis = ({
           </Button>
 
           {/* redirect to the /resources page */}
-          {isBullying ? (
-            <Button
-              variant="contained"
-              onClick={next}
-              sx={{
-                backgroundColor: '#6A4CA7',
-                color: 'white',
-                borderRadius: '30px',
-                px: 4,
-                py: 1.2,
-                textTransform: 'none',
-                fontSize: '1rem',
-                fontWeight: 500,
-                boxShadow: '0 4px 12px rgba(106, 76, 167, 0.3)',
-                '&:hover': {
-                  backgroundColor: '#59359e',
-                  transform: 'translateY(-2px)',
-                },
-                gap: 1,
-              }}
-            >
-              Step 2: Support Plan
-            </Button>
-          ) : (
+          {!isBullying &&
             <Button
               variant="contained"
               onClick={() => navigate('/resources')}
@@ -707,7 +684,7 @@ export const MessageAnalysis = ({
             >
               Explore Scenarios
             </Button>
-          )}
+          }
         </Box>
       </Box>
     </Paper>
