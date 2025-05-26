@@ -5,7 +5,6 @@ import ResourcePage from './page/ResourcePage';
 import CommunityPage from './page/CommunityPage';
 import App from './App';
 import { SecurePage } from './page/SecurePage';
-import CyberSafetyQuiz from './page/CyberSafetyQuizPage';
 import AssessmentResult from './page/AssessmentResultPage';
 import AssessmentPage from './page/AssessmentPage';
 import { ErrorMessagePage } from './page/ErrorMessagePage';
@@ -28,6 +27,10 @@ export const router = createBrowserRouter([
         Component: AssessmentPage,
       },
       {
+        path: 'assessment-result',
+        Component: AssessmentResult,
+      },
+      {
         path: 'analytics',
         Component: AnalyticsPage,
       },
@@ -42,14 +45,6 @@ export const router = createBrowserRouter([
       {
         path: 'error',
         Component: ErrorMessagePage,
-      },
-      {
-        path: 'cyber-safety-quiz',
-        Component: CyberSafetyQuiz,
-      },
-      {
-        path: 'assessment-result',
-        Component: AssessmentResult,
       },
       {
         path: 'action-plan',
