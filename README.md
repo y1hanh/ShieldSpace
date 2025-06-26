@@ -1,58 +1,63 @@
-# Shield Space
+# Shield Space – No More Bullying
 
-## Developer Guide
+Shield Space is an AI-powered web platform designed to help children and teens recognize and respond to cyberbullying. By analyzing messages or images users receive, the system identifies emotional tone, detects potential bullying, and offers a personalized action plan.
 
-### Setting Up the Project for the First Time
+🔗 **Live demo**: [shieldspace.games](https://shieldspace.games/)
 
-To install dependencies and start the development server, run:
+## Key Features
 
-```sh
-cd nobullying
-bun install
-bun run dev
-```
+- NLP-based bullying detection (custom BERT model)
+- Emotion classification for user support
+- OCR support for detecting bullying in images
+- Tailored coping strategies and support plans
+- Built with children’s safety and clarity in mind
 
-### Our Codebase Structure
+## Why it Matters
 
-We are using MUI as our UI library for consistency and convenience.  
-Please follow the structure below:
+Cyberbullying can be hard for young people to recognize or talk about. Many don’t know how to describe what they’re feeling or what to do next.
 
-```
-nobullying
-│── src
-│   ├── component
-│   ├── context
-│   ├── hooks
-│   ├── page
-│── App.tsx
-│── main.tsx
-│── routes.ts
-│── vite-env.d.ts
-```
+Shield Space addresses this by:
+- Using multiple annotated datasets to train a custom NLP model for detecting toxic, harmful, and bullying messages.
+- Supporting text and image inputs using OCR (Tesseract.js).
+- Providing tailored, AI-generated emotional support plans based on the user’s input and mental state.
 
-### Developing a New Feature
+The goal: make users feel **safe**, **understood**, and **empowered**.
 
-Before starting a new feature, ensure your branch is up to date:
+## How It Works
 
-```sh
-git checkout main
-git pull
-git checkout -b [your-feature-branch]
-```
+1. **Input a Message or Image**  
+   Paste a message you received — or upload a screenshot of it.
 
-### Completing Development
+2. **AI-Powered Assessment**  
+   The system analyzes:
+   - Toxicity
+   - Emotional tone
+   - Signs of cyberbullying
 
-Before submitting a pull request, merge the latest changes from the `main` branch:
+3. **Receive a 3-Step Plan**  
+   - **Analysis**: What the AI sees and why it matters  
+   - **Support Plan**: Actions you can take immediately  
+   - **Personal Development Plan**: Ongoing advice tailored to your situation
+  
 
-```sh
-git checkout [your-feature-branch]
-git pull
-git merge main
-```
+## Screenshots
 
-### Submitting Changes
+![Emotion Detection Tool](https://github.com/user-attachments/assets/2b7b715e-682b-4a16-a2c8-edf804cc9662)
+*Upload a message or screenshot*
 
-1. Open a pull request on GitHub.
-2. The branch will be automatically merged upon approval.
+![Step 1: Analysis](https://github.com/user-attachments/assets/6e764021-68f3-41bd-b0e2-cb903ac26bde)
+![Step 2: Support Plan](https://github.com/user-attachments/assets/4473e30a-a04e-4ed0-bcd5-ab4cc663e460)
+![Step 3: Personal Plan](https://github.com/user-attachments/assets/47fd301d-5527-4cc9-81bd-12f7f5a2427c)
 
-## Thank you for contribuding!
+
+## Tech Stack
+
+- Frontend: React.js
+- Backend: FastAPI (Python), NestJS(NodeJS)
+- AI: Custom-trained BERT model + Gemini LLM
+- OCR: Tesseract.js
+- Deployment: Docker, DigitalOcean, GitHub Actions
+
+
+
+
