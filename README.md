@@ -57,7 +57,7 @@ The goal: make users feel **safe**, **understood**, and **empowered**.
 - AI: Custom-trained BERT model + Gemini LLM
 - OCR: Tesseract.js
 - Deployment: Docker, DigitalOcean, GitHub Actions
-
-
+  
+![System Structure](https://images-portfolio-web.s3.ap-southeast-2.amazonaws.com/Screenshot+2025-06-26+at+13.24.39.png)
 
 
